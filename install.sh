@@ -1,7 +1,7 @@
 #configure vim
+echo "\033[0;33mInstalling vimrc..."
 if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]
 then
-  echo "\033[0;33mInstalling vimrc..."
   mv ~/.vimrc ~/.vimrc-old
   exit
 fi
@@ -9,9 +9,9 @@ fi
 ln -s ~/dotfiles/vimrc ~/.vimrc
 
 #configure gitignore
+echo "\033[0;33mInstalling gitignore..."
 if [ -f ~/.gitignore ] || [ -h ~/.gitignore ]
 then
-  echo "\033[0;33mInstalling gitignore..."
   mv ~/.gitignore ~/.gitignore-old
   exit
 fi
@@ -19,9 +19,9 @@ fi
 ln -s ~/dotfiles/gitignore ~/.gitignore
 
 #configure gitconfig
+echo "\033[0;33mInstalling gitconfig..."
 if [ -f ~/.gitconfig ] || [ -h ~/.gitconfig ]
 then
-  echo "\033[0;33mInstalling gitconfig..."
   mv ~/.gitconfig ~/.gitconfig-old
   exit
 fi
