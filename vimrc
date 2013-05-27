@@ -119,15 +119,15 @@ if !has("gui_running")
     set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
-    colorscheme chance-of-storm
+    colorscheme Monokai
 else
-    colorscheme solarized
+    colorscheme Monokai
 endif
 
 " Basic
 syntax enable
-" set number             " always show line numbers
-set rnu                  " show relative number instead
+set number               " always show line numbers
+" set rnu                " show relative number instead
 set hidden               " Allow un-saved buffers in background
 set clipboard=unnamed    " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
@@ -156,7 +156,7 @@ if has("gui_running")
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix') || has('gui_gtk')
-    set gfn=Inconsolata:h13
+    set gfn=Inconsolata:h12
   endif
 endif
 

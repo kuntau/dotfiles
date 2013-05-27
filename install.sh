@@ -3,7 +3,6 @@ echo "\033[0;33mInstalling vimrc..."
 if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]
 then
   mv ~/.vimrc ~/.vimrc-old
-  exit
 fi
 
 ln -s ~/dotfiles/vimrc ~/.vimrc
@@ -13,7 +12,6 @@ echo "\033[0;33mInstalling gitignore..."
 if [ -f ~/.gitignore ] || [ -h ~/.gitignore ]
 then
   mv ~/.gitignore ~/.gitignore-old
-  exit
 fi
 
 ln -s ~/dotfiles/gitignore ~/.gitignore
@@ -23,7 +21,6 @@ echo "\033[0;33mInstalling gitconfig..."
 if [ -f ~/.gitconfig ] || [ -h ~/.gitconfig ]
 then
   mv ~/.gitconfig ~/.gitconfig-old
-  exit
 fi
 
 ln -s ~/dotfiles/gitconfig ~/.gitconfig
@@ -52,7 +49,7 @@ echo "\033[0;34mUsing my zshrc and adding it to ~/.zshrc\033[0m"
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
 echo "\033[0;34mInstalling doubleend themes...\033[0m"
-ln -s ~/dotfiles/zsh/doubleend.zsh-theme ~/.oh-my-zsh/themes/doubleend.zsh.theme
+ln -s ~/dotfiles/zsh/doubleend.zsh-theme ~/.oh-my-zsh/themes/doubleend.zsh-theme
 
 echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
 echo "export PATH=\$PATH:$PATH" >> ~/.zshrc

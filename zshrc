@@ -40,14 +40,14 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git github node npm coffee vundle ruby rails brew)
+plugins=(git github node npm coffee vundle ruby rails brew bower composer sublime laravel osx)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
+# export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
 
 # My aliases
 
 alias 'reload=source ~/.zshrc'
-alias 'dus=du -sckx * | sort -nr'
+export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
