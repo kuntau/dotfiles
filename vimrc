@@ -57,7 +57,7 @@ Bundle 'wavded/vim-stylus'
 " Bundle 'nvie/vim-flake8'
 " Bundle 'fs111/pydoc.vim'
 " Bundle 'vim-scripts/python_match.vim'
-" Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'jmcantrell/vim-virtualenv'
 
 " Ruby specific
 " Bundle 'vim-ruby/vim-ruby'
