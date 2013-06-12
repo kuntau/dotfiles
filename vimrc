@@ -155,7 +155,7 @@ if has("gui_running")
   set guioptions=-t
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
-  elseif has('mac') || has('macunix') || has('gui_gtk')
+  elseif has('mac') || has('macunix') "|| has('gui_gtk')
     set gfn=Inconsolata:h12
   endif
 endif
