@@ -21,6 +21,7 @@ Bundle 'tpope/vim-fugitive'
 
 " System
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'vim-scripts/Gist.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
@@ -81,7 +82,7 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tpope/vim-commentary'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 " Bundle 'jaromero/vim-monokai-refined'
 Bundle 'sickill/vim-monokai'
 Bundle 'vim-scripts/CSApprox'
@@ -153,6 +154,7 @@ set noerrorbells         " don't beep
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
   set guioptions=-t
+  set lines=50 columns=100
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix') "|| has('gui_gtk')
@@ -371,6 +373,9 @@ let g:tagbar_autofocus = 1
 " crtl-p
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files --exclude-standard -co']
+
+" NERDTreeTabs
+let g:nerdtree_tabs_open_on_console_startup = 1
 
 " NERDTree
 nnoremap <Leader>f :NERDTreeToggle<CR>
