@@ -86,6 +86,7 @@ Bundle 'mattn/emmet-vim'
 " Bundle 'jaromero/vim-monokai-refined'
 Bundle 'sickill/vim-monokai'
 Bundle 'vim-scripts/CSApprox'
+Bundle 'terryma/vim-multiple-cursors'
 
 filetype plugin indent on     " required!
 
@@ -373,9 +374,11 @@ let g:tagbar_autofocus = 1
 " crtl-p
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files --exclude-standard -co']
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = 'node_modules'
 
 " NERDTreeTabs
-let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_console_startup = 0
 
 " NERDTree
 nnoremap <Leader>f :NERDTreeToggle<CR>
