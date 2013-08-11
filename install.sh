@@ -37,6 +37,7 @@ else
   }
 fi
 
+#install our zsh config and backup the old one if existed
 echo "\033[0;34mLooking for an existing zsh config...\033[0m"
 if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]
 then
@@ -47,9 +48,14 @@ fi
 echo "\033[0;34mUsing my zshrc and adding it to ~/.zshrc\033[0m"
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
+echo "\033[0;34mInstalling custom aliases\033[0m"
+ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
+
+#symlinking our theme
 echo "\033[0;34mInstalling doubleend themes...\033[0m"
 ln -s ~/dotfiles/zsh/doubleend.zsh-theme ~/.oh-my-zsh/themes/doubleend.zsh-theme
 
+#append path.. possible duplicate..
 echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
 echo "export PATH=\$PATH:$PATH" >> ~/.zshrc
 
