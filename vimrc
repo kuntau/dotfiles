@@ -34,6 +34,7 @@ Bundle 'kien/rainbow_parentheses.vim'
 " Bundle 'sophacles/vim-bundle-sparkup'
 Bundle 'Rykka/colorv.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'terryma/vim-multiple-cursors'
 
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
@@ -72,9 +73,10 @@ Bundle 'mgutz/vim-colors'
 " Bundle 'ehamberg/vim-cute-python'
 Bundle 'tpope/vim-speeddating'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Bundle 'bling/vim-airline'
 " Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'chriskempson/base16-vim'
-" Bundle 'chreekat/vim-paren-crosshairs'
+Bundle 'chreekat/vim-paren-crosshairs'
 
 " Kuntau added bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -83,10 +85,9 @@ Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tpope/vim-commentary'
 Bundle 'mattn/emmet-vim'
-" Bundle 'jaromero/vim-monokai-refined'
 Bundle 'sickill/vim-monokai'
+Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/CSApprox'
-Bundle 'terryma/vim-multiple-cursors'
 
 filetype plugin indent on     " required!
 
@@ -121,9 +122,17 @@ if !has("gui_running")
     set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
-    colorscheme Monokai
+    colorscheme Molokai
+
+    " fix terminal timeout when pressing escape
+    set ttimeoutlen=10
+    augroup FastEscape
+      autocmd!
+      au InsertEnter * set timeoutlen=0
+      au InsertLeave * set timeoutlen=1000
+    augroup END
 else
-    colorscheme Monokai
+    colorscheme Molokai
 endif
 
 " Basic
@@ -155,11 +164,12 @@ set noerrorbells         " don't beep
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
   set guioptions=-t
-  set lines=50 columns=100
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
-  elseif has('mac') || has('macunix') "|| has('gui_gtk')
-    set gfn=Inconsolata:h12
+  elseif has('mac') || has('macunix')
+    set gfn=Inconsolata\ for\ Powerline:h13
+  elseif has('gui_gtk')
+    set lines=50 columns=100
   endif
 endif
 
@@ -406,12 +416,14 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-set laststatus=2
+set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set laststatus=2    " Always dislay the statusline in all windows
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump = 0
 let g:syntastic_puppet_lint_disable = 0
 
 let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
 
 " CSApprox
 let g:CSApprox_loaded = 1
