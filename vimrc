@@ -71,7 +71,7 @@ Bundle 'skammer/vim-css-color'
 Bundle 'mgutz/vim-colors'
 " Bundle 'ehamberg/vim-cute-python'
 Bundle 'tpope/vim-speeddating'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'chriskempson/base16-vim'
 " Bundle 'chreekat/vim-paren-crosshairs'
