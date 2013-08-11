@@ -167,7 +167,7 @@ if has("gui_running")
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix')
-    set gfn=Inconsolata\ for\ Powerline:h13
+    set gfn=Consolas\ for\ Powerline:h12
   elseif has('gui_gtk')
     set lines=50 columns=100
   endif
