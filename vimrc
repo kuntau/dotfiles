@@ -33,10 +33,12 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 " Bundle 'sophacles/vim-bundle-sparkup'
 Bundle 'Rykka/colorv.vim'
+Bundle 'mattn/webapi-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 
 " Syntaxes and such.
+Bundle 'godlygeek/tabular'
 " Bundle 'tpope/vim-cucumber'
 Bundle 'leshill/vim-json'
 " Bundle 'tpope/vim-liquid'
@@ -112,7 +114,7 @@ set wildignore+=**.class                         " Cursed Java class files
 " Save when losing focus
 set autowriteall " Auto-save files when switching buffers or leaving vim.
 au FocusLost * silent! :wa
-au TabLeave * silent! :wa
+au TabLeave  * silent! :wa
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
@@ -125,12 +127,12 @@ if !has("gui_running")
     colorscheme Molokai
 
     " fix terminal timeout when pressing escape
-    set ttimeoutlen=10
-    augroup FastEscape
-      autocmd!
-      au InsertEnter * set timeoutlen=0
-      au InsertLeave * set timeoutlen=1000
-    augroup END
+    " set ttimeoutlen=10
+    " augroup FastEscape
+    "   autocmd!
+    "   au InsertEnter * set timeoutlen=0
+    "   au InsertLeave * set timeoutlen=1000
+    " augroup END
 else
     colorscheme Molokai
 endif
@@ -297,10 +299,12 @@ nnoremap <silent> <leader>/ :nohlsearch<CR>
 " Fix those pesky situations where you edit & need sudo to save
 cmap w!! w !sudo tee % >/dev/null
 
-" Kuntau edit
+" Core fix -Kuntau-
 nmap ; :
 noremap 0 ^
 noremap <leader>ei :e$MYVIMRC<CR>
+
+" use delete move without storing to register
 " noremap X "_X
 " noremap x "_x
 " noremap dw "_dw
@@ -309,12 +313,18 @@ noremap <leader>ei :e$MYVIMRC<CR>
 " noremap dE "_dE
 " noremap dd "_dd
 " noremap d "_d
+
+" Easier movement and copy paste combo
 noremap H ^
 noremap L $
 noremap yp yyp
 noremap yP yyP
 noremap yd yydd
-noremap <enter> i<enter><esc>
+
+" Line mod time saver
+nnoremap <enter> i<enter><esc>
+nnoremap <c-j> m`o<esc>``
+nnoremap <c-k> m`O<esc>``
 
 " Escape key mapping
 inoremap jj <Esc>
@@ -327,15 +337,13 @@ inoremap <c-j> <Esc>^o
 inoremap <c-k> <Esc>^O
 " inoremap <c-l> <esc>A;<esc>
 " inoremap kk <esc>A;<esc>^o
-" inoremap ff <end>
-" inoremap hh <home>
 
 " Match tag
 map <c-space> %
 
 " Smart way to move btw. windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
@@ -353,7 +361,7 @@ map <leader>ba :1,300 bd!<cr>
 
 " Use the arrows to something usefull
 map <right> :bn<cr>
-map <left> :bp<cr>
+map <left>  :bp<cr>
 
 " Tab configuration
 map <leader>tn :tabnew<cr>
@@ -402,10 +410,6 @@ let NERDChristmasTree=0
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
-
-" Sparkup
-let g:sparkupExecuteMapping = '<c-y>'
-let g:sparkupNextMapping = '<c-k>'
 
 " Jedi
 let g:jedi#goto_command = "<leader>g"
