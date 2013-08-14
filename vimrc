@@ -20,6 +20,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 
 " System
+" Bundle 'sophacles/vim-bundle-sparkup'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'vim-scripts/Gist.vim'
@@ -31,36 +32,40 @@ Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
-" Bundle 'sophacles/vim-bundle-sparkup'
 Bundle 'Rykka/colorv.vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 
 " Syntaxes and such.
-Bundle 'godlygeek/tabular'
 " Bundle 'tpope/vim-cucumber'
-Bundle 'leshill/vim-json'
 " Bundle 'tpope/vim-liquid'
-Bundle 'puppetlabs/puppet-syntax-vim'
 " Bundle 'tpope/vim-haml'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'plasticboy/vim-markdown'
 " Bundle 'groenewege/vim-less'
 " Bundle 'jcf/vim-latex'
-Bundle 'othree/html5.vim'
 " Bundle 'mutewinter/nginx.vim'
 " Bundle 'msanders/cocoa.vim'
 " Bundle 'empanda/vim-varnish'
-Bundle 'itspriddle/vim-jquery'
 " Bundle 'atourino/jinja.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'leshill/vim-json'
+Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'tpope/vim-commentary'
+
+" html & css bundles
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'othree/html5.vim'
+Bundle 'itspriddle/vim-jquery'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'wavded/vim-stylus'
+Bundle 'mattn/emmet-vim'
 
 " Python bundles
 " Bundle 'nvie/vim-flake8'
 " Bundle 'fs111/pydoc.vim'
 " Bundle 'vim-scripts/python_match.vim'
+" Bundle 'ehamberg/vim-cute-python'
 Bundle 'jmcantrell/vim-virtualenv'
 
 " Ruby specific
@@ -69,27 +74,23 @@ Bundle 'jmcantrell/vim-virtualenv'
 
 " Fun, but not useful
 " Bundle 'davidoc/taskpaper.vim'
+" Bundle 'bling/vim-airline'  "alternative to powerline
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'skammer/vim-css-color'
 Bundle 'mgutz/vim-colors'
-" Bundle 'ehamberg/vim-cute-python'
 Bundle 'tpope/vim-speeddating'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-" Bundle 'bling/vim-airline'
-" Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'chriskempson/base16-vim'
 Bundle 'chreekat/vim-paren-crosshairs'
+Bundle 'sickill/vim-monokai'
+Bundle 'tomasr/molokai'
+Bundle 'vim-scripts/CSApprox'
 
 " Kuntau added bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
-Bundle 'tpope/vim-commentary'
-Bundle 'mattn/emmet-vim'
-Bundle 'sickill/vim-monokai'
-Bundle 'tomasr/molokai'
-Bundle 'vim-scripts/CSApprox'
 
 filetype plugin indent on     " required!
 
@@ -124,7 +125,7 @@ if !has("gui_running")
     set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
-    colorscheme Molokai
+    colorscheme molokai
 
     " fix terminal timeout when pressing escape
     " set ttimeoutlen=10
@@ -134,7 +135,7 @@ if !has("gui_running")
     "   au InsertLeave * set timeoutlen=1000
     " augroup END
 else
-    colorscheme Molokai
+    colorscheme molokai
 endif
 
 " Basic
@@ -170,7 +171,8 @@ if has("gui_running")
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix')
     set gfn=Consolas\ for\ Powerline:h12
-  elseif has('gui_gtk')
+  elseif has('gui_gtk2')
+    set gfn=PragmataPro\ 10
     set lines=50 columns=100
   endif
 endif
