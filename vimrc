@@ -90,6 +90,8 @@ Bundle 'mattn/emmet-vim'
 Bundle 'sickill/vim-monokai'
 Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/CSApprox'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'mklabs/grunt.vim'
 
 filetype plugin indent on     " required!
 
@@ -250,7 +252,8 @@ autocmd FileType php setlocal colorcolumn=100
 
 " HTML configurations
 """""""""""""""""""""
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+" autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " Python configurations
 """""""""""""""""""""""
