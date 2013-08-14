@@ -52,7 +52,7 @@ Bundle 'leshill/vim-json'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tpope/vim-commentary'
 
-" html & css bundles
+" html, Javascript & css bundles
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'othree/html5.vim'
@@ -60,6 +60,8 @@ Bundle 'itspriddle/vim-jquery'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'wavded/vim-stylus'
 Bundle 'mattn/emmet-vim'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'mklabs/grunt.vim'
 
 " Python bundles
 " Bundle 'nvie/vim-flake8'
@@ -91,6 +93,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
+Bundle 'tpope/vim-commentary'
 
 filetype plugin indent on     " required!
 
@@ -252,7 +255,8 @@ autocmd FileType php setlocal colorcolumn=100
 
 " HTML configurations
 """""""""""""""""""""
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+" autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 " Python configurations
 """""""""""""""""""""""
