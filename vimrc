@@ -348,10 +348,10 @@ inoremap <c-k> <Esc>^O
 map <c-space> %
 
 " Smart way to move btw. windows
-" map <C-j> <C-W>j
-" map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <down> <C-W>j
+map <up> <C-W>k
+map <left> <C-W>h
+map <right> <C-W>l
 
 " faster way to terminate the line
 inoremap <c-e> <esc>A;<esc>
@@ -366,8 +366,8 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,300 bd!<cr>
 
 " Use the arrows to something usefull
-map <right> :bn<cr>
-map <left>  :bp<cr>
+" map <right> :bn<cr>
+" map <left>  :bp<cr>
 
 " Tab configuration
 map <leader>tn :tabnew<cr>
