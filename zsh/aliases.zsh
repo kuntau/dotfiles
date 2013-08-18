@@ -6,6 +6,7 @@ alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
 
 multi='/media/kuntau/Multi/'
 osx='/Volumes/OS X Storage'
+www='/var/zpanel/hostdata/zadmin/public_html/'
 
 mkd() {
   mkdir -p "$@" && cd "$@"
