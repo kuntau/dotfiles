@@ -1,5 +1,6 @@
 alias 'dus=du -sckx * | sort -nr'
- alias 'l=ls -l'
+alias 'l=ls -l'
+alias 'zshrc=vim ~/dotfiles/zshrc'
 alias 'ssh1=ssh kuntau@root.kuntau.org'
 alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
 
@@ -15,7 +16,7 @@ mkd() {
 #
 
 # programs
-alias st='open -a "Sublime Text 2"'
+alias st='open -a "Sublime Text"'
 # also/or do this:
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 alias preview="open -a '$PREVIEW'"
