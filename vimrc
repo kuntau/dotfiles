@@ -329,8 +329,8 @@ noremap yd yydd
 
 " Line mod time saver
 nnoremap <enter> i<enter><esc>
-nnoremap <c-j> m`o<esc>``
-nnoremap <c-k> m`O<esc>``
+nnoremap <down> m`o<esc>``
+nnoremap <up> m`O<esc>``
 
 " Escape key mapping
 inoremap jj <Esc>
@@ -341,17 +341,16 @@ vnoremap <F1> <Esc>
 " insert mode movement mapping
 inoremap <c-j> <Esc>^o
 inoremap <c-k> <Esc>^O
-" inoremap <c-l> <esc>A;<esc>
-" inoremap kk <esc>A;<esc>^o
 
 " Match tag
 map <c-space> %
 
 " Smart way to move btw. windows
-map <down> <C-W>j
-map <up> <C-W>k
-map <left> <C-W>h
-map <right> <C-W>l
+map <c-tab> <c-w>w
+map <c-j> <C-W>j
+map <c-k> <C-W>k
+map <c-h> <C-W>h
+map <c-l> <C-W>l
 
 " faster way to terminate the line
 inoremap <c-e> <esc>A;<esc>
@@ -370,6 +369,8 @@ map <leader>ba :1,300 bd!<cr>
 " map <left>  :bp<cr>
 
 " Tab configuration
+map <Tab> :tabnext<cr>
+map <s-Tab> :tabprev<cr>
 map <leader>tn :tabnew<cr>
 map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
@@ -402,7 +403,9 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = 'node_modules'
 
 " NERDTreeTabs
+let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_open_on_new_tab = 0
 
 " NERDTree
 nnoremap <Leader>f :NERDTreeToggle<CR>
