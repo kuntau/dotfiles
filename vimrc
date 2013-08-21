@@ -149,8 +149,8 @@ set hidden               " Allow un-saved buffers in background
 set clipboard=unnamed    " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
 set noswapfile           " no swap files
-set nobackup             " no swap files
-set nowritebackup        " no swap files
+set nobackup             " no backup files
+set nowritebackup        " no undo files
 set directory=/tmp//     " swap files
 set backupskip=/tmp/*,/private/tmp/*
 set ffs=unix,dos,mac     "Default file types
@@ -310,6 +310,10 @@ nmap ; :
 noremap 0 ^
 noremap <leader>ei :e$MYVIMRC<CR>
 
+" give me normal jk!!
+map j gj
+map k gk
+
 " use delete move without storing to register
 " noremap X "_X
 " noremap x "_x
@@ -376,8 +380,27 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <d-j> <m-j>
+  nmap <d-k> <m-k>
+  vmap <d-j> <m-j>
+  vmap <d-k> <m-k>
+endif
+
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 
 " Plugin configurations
 """""""""""""""""""""""
@@ -429,14 +452,52 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
+" Syntastic settings
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set laststatus=2    " Always dislay the statusline in all windows
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump = 0
 let g:syntastic_puppet_lint_disable = 0
 
+" Powerline & airline
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
 " CSApprox
 let g:CSApprox_loaded = 1
+
+" Useful functions
+""""""""""""""""""
+
+" Delete trailing white space on save, useful for Python, CoffeeScript & Jade
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z`"
+endfunc
+
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.jade :call DeleteTrailingWS()
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
