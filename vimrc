@@ -47,9 +47,9 @@ Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'msanders/cocoa.vim'
 " Bundle 'empanda/vim-varnish'
 " Bundle 'atourino/jinja.vim'
-Bundle 'godlygeek/tabular'
+" Bundle 'godlygeek/tabular'
+" Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'leshill/vim-json'
-Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tpope/vim-commentary'
 
 " html, Javascript & css bundles
@@ -84,11 +84,10 @@ Bundle 'tpope/vim-speeddating'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'chriskempson/base16-vim'
 Bundle 'chreekat/vim-paren-crosshairs'
-Bundle 'sickill/vim-monokai'
 Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/CSApprox'
 
-" Kuntau added bundle
+" Misc bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
@@ -173,7 +172,8 @@ if has("gui_running")
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix')
-    set gfn=Consolas\ for\ Powerline:h12
+    " set gfn=Consolas\ for\ Powerline:h12
+    set gfn=PragmataPro\ for\ Powerline:h12
   elseif has('gui_gtk2')
     set gfn=PragmataPro\ 10
     set lines=50 columns=100
@@ -453,13 +453,16 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic settings
-set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set laststatus=2    " Always dislay the statusline in all windows
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump = 0
 let g:syntastic_puppet_lint_disable = 0
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_css_checkers = ['csslint']
 
 " Powerline & airline
+set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set laststatus=2    " Always dislay the statusline in all windows
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 

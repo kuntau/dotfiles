@@ -13,7 +13,7 @@ mkd() {
 }
 
 #
-# borrow from https://github.com/addyosmani/dotfiles/blob/master/.aliases
+# borrowed from https://github.com/addyosmani/dotfiles/blob/master/.aliases
 #
 
 # programs
@@ -80,7 +80,6 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
-
 
 # git root
 alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup || pwd`'
