@@ -28,6 +28,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
@@ -93,7 +95,6 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
-Bundle 'tpope/vim-commentary'
 
 filetype plugin indent on     " required!
 
@@ -341,6 +342,11 @@ vnoremap <F1> <Esc>
 " insert mode movement mapping
 inoremap <c-j> <Esc>^o
 inoremap <c-k> <Esc>^O
+inoremap <c-e> <esc>A
+inoremap <c-a> <esc>I
+
+" faster way to terminate the line
+" inoremap <c-e> <esc>A;<esc>
 
 " Match tag
 map <c-space> %
@@ -351,9 +357,6 @@ map <c-j> <C-W>j
 map <c-k> <C-W>k
 map <c-h> <C-W>h
 map <c-l> <C-W>l
-
-" faster way to terminate the line
-inoremap <c-e> <esc>A;<esc>
 
 " Working with split windows
 nnoremap <leader>vs <C-w>v<C-w>l
@@ -368,6 +371,19 @@ map <leader>ba :1,300 bd!<cr>
 " map <right> :bn<cr>
 " map <left>  :bp<cr>
 
+" Retain selection after indent or formating
+map > >gv
+map < <gv
+map = =gv
+
+" Mapping to move lines around
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
 " Tab configuration
 map <Tab> :tabnext<cr>
 map <s-Tab> :tabprev<cr>
@@ -377,7 +393,7 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
 " When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>
+" map <leader>cd :cd %:p:h<cr>
 
 " Plugin configurations
 """""""""""""""""""""""
@@ -400,7 +416,13 @@ let g:tagbar_autofocus = 1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files --exclude-standard -co']
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = 'node_modules'
+let g:ctrlp_by_filename  = 1
+let g:ctrlp_custom_ignore = '\v(node_modules|bower_components)$'
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir': '\v[\/](node\_modules|bower\_components)$',
+"   \ 'file': '',
+"   \ 'link': '',
+"   \ }
 
 " NERDTreeTabs
 let g:nerdtree_tabs_open_on_gui_startup = 0
