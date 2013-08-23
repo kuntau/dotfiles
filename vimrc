@@ -306,9 +306,10 @@ nnoremap <silent> <leader>/ :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
-nmap ; :
-noremap 0 ^
+nnoremap ; :
+nnoremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
+noremap <leader>s :so %<CR>
 
 " give me normal jk!!
 map j gj
@@ -325,6 +326,7 @@ map k gk
 " noremap d "_d
 
 " Easier movement and copy paste combo
+noremap 0 ^
 noremap H ^
 noremap L $
 noremap yp yyp

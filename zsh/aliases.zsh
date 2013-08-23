@@ -1,6 +1,12 @@
 alias 'dus=du -sckx * | sort -nr'
 alias 'l=ls -l'
+
+# config file shortcut
 alias 'zshrc=vim ~/dotfiles/zshrc'
+alias 'vimrc=vim ~/dotfiles/vimrc'
+alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
+
+# ssh shortcut
 alias 'ssh1=ssh kuntau@root.kuntau.org'
 alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
 
@@ -8,13 +14,18 @@ multi='/media/kuntau/Multi/'
 osx='/Volumes/OS X Storage'
 www='/var/zpanel/hostdata/zadmin/public_html/'
 
+# alias 'zsh-plugin=cat ~/.oh-my-zsh/plugins/$@/$@.plugin.zsh'
+zsh-plugin() {
+  cat ~\/\.oh-my-zsh\/plugins\/"$@"\/"$@"\.plugin\.zsh
+}
+# create directory and immedietly cd into it
 mkd() {
   mkdir -p "$@" && cd "$@"
 }
 
-#
+###################################################
 # borrowed from https://github.com/addyosmani/dotfiles/blob/master/.aliases
-#
+###################################################
 
 # programs
 alias st='open -a "Sublime Text"'
