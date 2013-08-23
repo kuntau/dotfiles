@@ -49,10 +49,9 @@ Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'msanders/cocoa.vim'
 " Bundle 'empanda/vim-varnish'
 " Bundle 'atourino/jinja.vim'
-Bundle 'godlygeek/tabular'
+" Bundle 'godlygeek/tabular'
+" Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'leshill/vim-json'
-Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'tpope/vim-commentary'
 
 " html, Javascript & css bundles
 Bundle 'kchmck/vim-coffee-script'
@@ -86,11 +85,10 @@ Bundle 'tpope/vim-speeddating'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'chriskempson/base16-vim'
 Bundle 'chreekat/vim-paren-crosshairs'
-Bundle 'sickill/vim-monokai'
 Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/CSApprox'
 
-" Kuntau added bundle
+" Misc bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
@@ -150,8 +148,8 @@ set hidden               " Allow un-saved buffers in background
 set clipboard=unnamed    " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
 set noswapfile           " no swap files
-set nobackup             " no swap files
-set nowritebackup        " no swap files
+set nobackup             " no backup files
+set nowritebackup        " no undo files
 set directory=/tmp//     " swap files
 set backupskip=/tmp/*,/private/tmp/*
 set ffs=unix,dos,mac     "Default file types
@@ -174,7 +172,8 @@ if has("gui_running")
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix')
-    set gfn=Consolas\ for\ Powerline:h12
+    " set gfn=Consolas\ for\ Powerline:h12
+    set gfn=PragmataPro\ for\ Powerline:h12
   elseif has('gui_gtk2')
     set gfn=PragmataPro\ 10
     set lines=50 columns=100
@@ -311,6 +310,10 @@ nmap ; :
 noremap 0 ^
 noremap <leader>ei :e$MYVIMRC<CR>
 
+" give me normal jk!!
+map j gj
+map k gk
+
 " use delete move without storing to register
 " noremap X "_X
 " noremap x "_x
@@ -376,14 +379,6 @@ map > >gv
 map < <gv
 map = =gv
 
-" Mapping to move lines around
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
 " Tab configuration
 map <Tab> :tabnext<cr>
 map <s-Tab> :tabprev<cr>
@@ -392,8 +387,37 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+" nmap <M-j> mz:m+<cr>`z
+" nmap <M-k> mz:m-2<cr>`z
+" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" imap <M-j> <Esc>:m .+1<CR>==gi
+" imap <M-k> <Esc>:m .-2<CR>==gi
+
+" Alternate version which use Ex command only
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+
+if has("mac") || has("macunix")
+  nmap <d-j> <m-j>
+  nmap <d-k> <m-k>
+  vmap <d-j> <m-j>
+  vmap <d-k> <m-k>
+endif
+
 " When pressing <leader>cd switch to the directory of the open buffer
 " map <leader>cd :cd %:p:h<cr>
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 
 " Plugin configurations
 """""""""""""""""""""""
@@ -418,11 +442,6 @@ let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files --exclude-standard -
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_by_filename  = 1
 let g:ctrlp_custom_ignore = '\v(node_modules|bower_components)$'
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir': '\v[\/](node\_modules|bower\_components)$',
-"   \ 'file': '',
-"   \ 'link': '',
-"   \ }
 
 " NERDTreeTabs
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -451,14 +470,75 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set laststatus=2    " Always dislay the statusline in all windows
+" Syntastic settings
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump = 0
 let g:syntastic_puppet_lint_disable = 0
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_css_checkers = ['csslint']
 
+" Powerline & airline
+set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set laststatus=2    " Always dislay the statusline in all windows
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
 " CSApprox
 let g:CSApprox_loaded = 1
+
+" Useful functions
+""""""""""""""""""
+
+" Delete trailing white space on save, useful for Python, CoffeeScript & Jade
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z`"
+endfunc
+
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.jade :call DeleteTrailingWS()
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+" Highlight repeat!
+function! HighlightRepeats() range
+  let lineCounts = {}
+  let lineNum = a:firstline
+  while lineNum <= a:lastline
+    let lineText = getline(lineNum)
+    if lineText != ""
+      let lineCounts[lineText] = (has_key(lineCounts, lineText) ? lineCounts[lineText] : 0) + 1
+    endif
+    let lineNum = lineNum + 1
+  endwhile
+  exe 'syn clear Repeat'
+  for lineText in keys(lineCounts)
+    if lineCounts[lineText] >= 2
+      exe 'syn match Repeat "^' . escape(lineText, '".\^$*[]') . '$"'
+    endif
+  endfor
+endfunction
+
+command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
