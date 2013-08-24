@@ -10,7 +10,17 @@ alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 alias 'ssh1=ssh kuntau@root.kuntau.org'
 alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
 
-multi='/media/kuntau/Multi/'
+# youtube-dl
+alias 'yt=youtube-dl'
+alias 'yt3=youtube-dl -f 43'
+alias 'yt4=youtube-dl -f 44'
+alias 'yt7=youtube-dl -f 45'
+alias 'yt1=youtube-dl -f 46'
+alias 'yta=youtube-dl -f 45 --extract-audio'
+alias 'ytav=youtube-dl -f 45 --extract-audio --keep-video'
+
+# mounted volumes shortcut
+multi='/mnt/D88E7E508E7E2762'
 osx='/Volumes/OS X Storage'
 www='/var/zpanel/hostdata/zadmin/public_html/'
 
