@@ -309,7 +309,7 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap ; :
 nnoremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
-noremap <leader>s :so %<CR>
+noremap <leader>so :so %<CR>
 
 " give me normal jk!!
 map j gj
@@ -419,7 +419,10 @@ endif
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+noremap <leader>sp :setlocal paste!<cr>
+noremap <F4> :set paste!<cr>
+map <leader>p "+p
+map <leader>P "+P
 
 " Plugin configurations
 """""""""""""""""""""""
