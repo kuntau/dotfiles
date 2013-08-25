@@ -63,6 +63,7 @@ Bundle 'wavded/vim-stylus'
 Bundle 'mattn/emmet-vim'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'mklabs/grunt.vim'
+Bundle 'ap/vim-css-color'
 
 " Python bundles
 " Bundle 'nvie/vim-flake8'
@@ -79,7 +80,6 @@ Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'davidoc/taskpaper.vim'
 " Bundle 'bling/vim-airline'  "alternative to powerline
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'skammer/vim-css-color'
 Bundle 'mgutz/vim-colors'
 Bundle 'tpope/vim-speeddating'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
@@ -309,7 +309,7 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap ; :
 nnoremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
-noremap <leader>so :so %<CR>
+noremap <leader>so :w!<cr> :so %<CR>
 
 " give me normal jk!!
 map j gj
@@ -347,8 +347,8 @@ vnoremap <F1> <Esc>
 " insert mode movement mapping
 inoremap <c-j> <Esc>^o
 inoremap <c-k> <Esc>^O
-inoremap <c-e> <esc>A
-inoremap <c-a> <esc>I
+inoremap <c-e> <end>
+inoremap <c-a> <home>
 
 " faster way to terminate the line
 " inoremap <c-e> <esc>A;<esc>
@@ -356,15 +356,17 @@ inoremap <c-a> <esc>I
 " Match tag
 map <c-space> %
 
-" Smart way to move btw. windows
-map <c-tab> <c-w>w
+" Working with split windows
+nnoremap <leader>vs <C-w>v<C-w>l
+map <tab> <c-w>w
 map <c-j> <C-W>j
 map <c-k> <C-W>k
 map <c-h> <C-W>h
 map <c-l> <C-W>l
-
-" Working with split windows
-nnoremap <leader>vs <C-w>v<C-w>l
+noremap <a-left> <C-W>10<
+noremap <a-right> <C-W>10>
+noremap <a-up> <C-W>10+
+noremap <a-down> <C-W>10-
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -373,16 +375,16 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,300 bd!<cr>
 
 " Use the arrows to something usefull
-" map <right> :bn<cr>
-" map <left>  :bp<cr>
+map <right> :bn<cr>
+map <left>  :bp<cr>
 
 " Retain selection after indent or formating
-map > >gv
-map < <gv
-map = =gv
+vmap > >gv
+vmap < <gv
+vmap = =gv
 
 " Tab configuration
-map <Tab> :tabnext<cr>
+map <c-Tab> :tabnext<cr>
 map <s-Tab> :tabprev<cr>
 map <leader>tn :tabnew<cr>
 map <leader>te :tabedit
@@ -405,11 +407,16 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 
+" make it cross platform
 if has("mac") || has("macunix")
   nmap <d-j> <m-j>
   nmap <d-k> <m-k>
   vmap <d-j> <m-j>
   vmap <d-k> <m-k>
+  map <d-right> <m-right>
+  map <d-left> <m-left>
+  map <d-up> <m-up>
+  map <d-down> <m-down>
 endif
 
 " When pressing <leader>cd switch to the directory of the open buffer
