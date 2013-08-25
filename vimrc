@@ -363,10 +363,10 @@ map <c-j> <C-W>j
 map <c-k> <C-W>k
 map <c-h> <C-W>h
 map <c-l> <C-W>l
-map <a-left> <C-W>10<
-map <a-right> <C-W>10>
-map <a-up> <C-W>10+
-map <a-down> <C-W>10-
+noremap <a-left> <C-W>10<
+noremap <a-right> <C-W>10>
+noremap <a-up> <C-W>10+
+noremap <a-down> <C-W>10-
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
