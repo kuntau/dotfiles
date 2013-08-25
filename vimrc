@@ -36,8 +36,11 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Rykka/colorv.vim'
 Bundle 'mattn/webapi-vim'
+Bundle 'mattn/livestyle-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'joequery/Stupid-EasyMotion'
+Bundle 'nathanaelkane/vim-indent-guides'
 
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
@@ -49,8 +52,8 @@ Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'msanders/cocoa.vim'
 " Bundle 'empanda/vim-varnish'
 " Bundle 'atourino/jinja.vim'
-" Bundle 'godlygeek/tabular'
 " Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'godlygeek/tabular'
 Bundle 'leshill/vim-json'
 
 " html, Javascript & css bundles
@@ -300,7 +303,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Get rid of search hilighting with ,/
-nnoremap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader><space> :nohlsearch<CR>
 
 " Fix those pesky situations where you edit & need sudo to save
 cmap w!! w !sudo tee % >/dev/null
@@ -340,9 +343,6 @@ nnoremap <up> m`O<esc>``
 
 " Escape key mapping
 inoremap jj <Esc>
-inoremap <F1> <Esc>
-nnoremap <F1> <Esc>
-vnoremap <F1> <Esc>
 
 " insert mode movement mapping
 inoremap <c-j> <Esc>^o
@@ -363,10 +363,10 @@ map <c-j> <C-W>j
 map <c-k> <C-W>k
 map <c-h> <C-W>h
 map <c-l> <C-W>l
-noremap <a-left> <C-W>10<
-noremap <a-right> <C-W>10>
-noremap <a-up> <C-W>10+
-noremap <a-down> <C-W>10-
+nnoremap <m-left>  <C-W>10<
+nnoremap <m-right> <C-W>10>
+nnoremap <m-up>    <C-W>10+
+nnoremap <m-down>  <C-W>10-
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -375,8 +375,8 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,300 bd!<cr>
 
 " Use the arrows to something usefull
-map <right> :bn<cr>
-map <left>  :bp<cr>
+nmap <right> :bn<cr>
+nmap <left>  :bp<cr>
 
 " Retain selection after indent or formating
 vmap > >gv
@@ -399,13 +399,13 @@ map <leader>tm :tabmove
 " imap <M-j> <Esc>:m .+1<CR>==gi
 " imap <M-k> <Esc>:m .-2<CR>==gi
 
-" Alternate version which use Ex command only
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
+" Alternate version which don't use bookmark
+nnoremap <m-j> :m .+1<CR>==
+nnoremap <m-k> :m .-2<CR>==
+vnoremap <m-j> :m '>+1<CR>gv=gv
+vnoremap <m-k> :m '<-2<CR>gv=gv
+inoremap <m-j> <Esc>:m .+1<CR>==gi
+inoremap <m-k> <Esc>:m .-2<CR>==gi
 
 " make it cross platform
 if has("mac") || has("macunix")
@@ -413,10 +413,10 @@ if has("mac") || has("macunix")
   nmap <d-k> <m-k>
   vmap <d-j> <m-j>
   vmap <d-k> <m-k>
-  map <d-right> <m-right>
-  map <d-left> <m-left>
-  map <d-up> <m-up>
-  map <d-down> <m-down>
+  nmap <d-right> <m-right>
+  nmap <d-left> <m-left>
+  nmap <d-up> <m-up>
+  nmap <d-down> <m-down>
 endif
 
 " When pressing <leader>cd switch to the directory of the open buffer
@@ -427,9 +427,9 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 noremap <leader>sp :setlocal paste!<cr>
-noremap <F4> :set paste!<cr>
-map <leader>p "+p
-map <leader>P "+P
+noremap <F1> :set paste!<cr>
+noremap <leader>p "+p
+noremap <leader>P "+P
 
 " Plugin configurations
 """""""""""""""""""""""
@@ -452,8 +452,9 @@ let g:tagbar_autofocus = 1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files --exclude-standard -co']
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_by_filename  = 1
-let g:ctrlp_custom_ignore = '\v(node_modules|bower_components)$'
+let g:ctrlp_by_filename  = 0
+let g:ctrlp_switch_buffer  = 'Et'
+let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
 
 " NERDTreeTabs
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -498,6 +499,12 @@ let g:airline_powerline_fonts = 1
 
 " CSApprox
 let g:CSApprox_loaded = 1
+
+" Indent Guides
+let g:indent_guides_guide_size = 1
+let g:indent_guides_indent_levels = 3
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+
 
 " Useful functions
 """"""""""""""""""

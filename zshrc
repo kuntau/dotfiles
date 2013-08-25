@@ -50,6 +50,8 @@ source $ZSH/oh-my-zsh.sh
 # My aliases
 
 export EDITOR=vim
+export GOROOT='/usr/local/Cellar/go/1.1.2'
+export RUBYROOT='usr/local/Cellar/ruby/2.0.0-p247'
 alias 'reload=source ~/.zshrc'
 # export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/Users/kuntau/.rvm/bin:/usr/local/heroku/bin:/usr/lib/lightdm/lightdm:/usr/local/Cellar/ruby/2.0.0-p247/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/opt/X11/bin:/Users/kuntau/.rvm/bin:/usr/local/heroku/bin:/usr/lib/lightdm/lightdm:$RUBYROOT/bin:$GOROOT/bin
