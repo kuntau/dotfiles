@@ -392,12 +392,12 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" nmap <M-j> mz:m+<cr>`z
-" nmap <M-k> mz:m-2<cr>`z
-" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-" vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-" imap <M-j> <Esc>:m .+1<CR>==gi
-" imap <M-k> <Esc>:m .-2<CR>==gi
+" nmap <a-j> mz:m+<cr>`z
+" nmap <a-k> mz:m-2<cr>`z
+" vmap <a-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <a-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" imap <a-j> <Esc>:m .+1<CR>==gi
+" imap <a-k> <Esc>:m .-2<CR>==gi
 
 " Alternate version which don't use bookmark
 nnoremap <m-j> :m .+1<CR>==
