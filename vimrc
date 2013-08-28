@@ -36,7 +36,8 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Rykka/colorv.vim'
 Bundle 'mattn/webapi-vim'
-Bundle 'mattn/livestyle-vim'
+" Bundle 'mattn/livestyle-vim'
+" Bundle 'flomotlik/vim-livereload'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'joequery/Stupid-EasyMotion'
@@ -179,7 +180,8 @@ if has("gui_running")
     set gfn=PragmataPro\ for\ Powerline:h12
   elseif has('gui_gtk2')
     set gfn=PragmataPro\ 10
-    set lines=50 columns=100
+    " set lines=50 columns=100
+    " set lines=999 columns=999
   endif
 endif
 
@@ -363,10 +365,10 @@ map <c-j> <C-W>j
 map <c-k> <C-W>k
 map <c-h> <C-W>h
 map <c-l> <C-W>l
-nnoremap <m-left>  <C-W>10<
-nnoremap <m-right> <C-W>10>
-nnoremap <m-up>    <C-W>10+
-nnoremap <m-down>  <C-W>10-
+nnoremap <c-left>  <C-W>10<
+nnoremap <c-right> <C-W>10>
+nnoremap <c-up>    <C-W>10+
+nnoremap <c-down>  <C-W>10-
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
