@@ -363,10 +363,16 @@ map <c-j> <C-W>j
 map <c-k> <C-W>k
 map <c-h> <C-W>h
 map <c-l> <C-W>l
-nnoremap <m-left>  <C-W>10<
-nnoremap <m-right> <C-W>10>
-nnoremap <m-up>    <C-W>10+
-nnoremap <m-down>  <C-W>10-
+" noremap <c-w>< <c-w>10<
+" noremap <c-w>> <c-w>10>
+noremap <c-<> <c-w>10<
+noremap <c->> <c-w>10>
+noremap <c-w>+ <c-w>10+
+noremap <c-w>- <c-w>10-
+" noremap <c-left>  <c-w>10<
+" noremap <c-right> <c-w>10>
+" noremap <c-up>    <c-w>10+
+" noremap <c-down>  <c-w>10-
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -375,8 +381,8 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,300 bd!<cr>
 
 " Use the arrows to something usefull
-nmap <right> :bn<cr>
-nmap <left>  :bp<cr>
+noremap <right> :bn<cr>
+noremap <left>  :bp<cr>
 
 " Retain selection after indent or formating
 vmap > >gv
@@ -413,10 +419,10 @@ if has("mac") || has("macunix")
   nmap <d-k> <m-k>
   vmap <d-j> <m-j>
   vmap <d-k> <m-k>
-  nmap <d-right> <m-right>
-  nmap <d-left> <m-left>
-  nmap <d-up> <m-up>
-  nmap <d-down> <m-down>
+  " noremap <d-right> <m-right>
+  " noremap <d-left> <m-left>
+  " noremap <d-up> <m-up>
+  " noremap <d-down> <m-down>
 endif
 
 " When pressing <leader>cd switch to the directory of the open buffer
@@ -427,7 +433,7 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 noremap <leader>sp :setlocal paste!<cr>
-noremap <F1> :set paste!<cr>
+noremap <F2> :set paste!<cr>
 noremap <leader>p "+p
 noremap <leader>P "+P
 
@@ -443,7 +449,7 @@ let g:gist_show_privates = 1
 map <leader>l <Plug>TaskList
 
 " TagBar
-nnoremap <silent> <F2> :TagbarToggle<CR>
+nnoremap <silent> <F3> :TagbarToggle<CR>
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_autoshowtag = 1
 let g:tagbar_autofocus = 1
