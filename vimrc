@@ -21,6 +21,9 @@ Bundle 'tpope/vim-fugitive'
 
 " System
 " Bundle 'sophacles/vim-bundle-sparkup'
+" Bundle 'mattn/livestyle-vim'
+" Bundle 'flomotlik/vim-livereload'
+" Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'vim-scripts/Gist.vim'
@@ -36,12 +39,10 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Rykka/colorv.vim'
 Bundle 'mattn/webapi-vim'
-" Bundle 'mattn/livestyle-vim'
-" Bundle 'flomotlik/vim-livereload'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'joequery/Stupid-EasyMotion'
-Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'Yggdroot/indentLine'
 
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
@@ -507,10 +508,16 @@ let g:airline_powerline_fonts = 1
 let g:CSApprox_loaded = 1
 
 " Indent Guides
-let g:indent_guides_guide_size = 1
-let g:indent_guides_indent_levels = 3
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+" let g:indent_guides_guide_size = 1
+" let g:indent_guides_indent_levels = 3
+" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
+" IndentLine
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#A4E57E'
+" let g:indentLine_char = '.'
+" let g:indentLine_char = '┊'
+" http://unicode-table.com/en/search/?q=dash
 
 " Useful functions
 """"""""""""""""""
