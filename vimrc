@@ -513,10 +513,12 @@ let g:CSApprox_loaded = 1
 " let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " IndentLine
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#A4E57E'
-" let g:indentLine_char = '.'
+" let g:indentLine_color_term = 245
+" let g:indentLine_color_gui = '#A4E57E'
 " let g:indentLine_char = '┊'
+" let g:indentLine_char = '┆'
+" let g:indentLine_char = '⁞'
+let g:indentLine_char = '⋮'
 " http://unicode-table.com/en/search/?q=dash
 
 " Useful functions
