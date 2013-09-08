@@ -29,10 +29,6 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'vim-scripts/Gist.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
-" Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
@@ -42,6 +38,7 @@ Bundle 'mattn/webapi-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'joequery/Stupid-EasyMotion'
+Bundle 'danro/rename.vim'
 " Bundle 'Yggdroot/indentLine'
 
 " Syntaxes and such.
@@ -55,10 +52,15 @@ Bundle 'joequery/Stupid-EasyMotion'
 " Bundle 'empanda/vim-varnish'
 " Bundle 'atourino/jinja.vim'
 " Bundle 'puppetlabs/puppet-syntax-vim'
+" Bundle 'scrooloose/nerdcommenter'
+" Bundle 'tpope/vim-commentary'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 Bundle 'godlygeek/tabular'
-Bundle 'leshill/vim-json'
 
 " html, Javascript & css bundles
+Bundle 'leshill/vim-json'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'othree/html5.vim'
@@ -85,9 +87,9 @@ Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'davidoc/taskpaper.vim'
 " Bundle 'bling/vim-airline'  "alternative to powerline
 " Bundle 'altercation/vim-colors-solarized'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'mgutz/vim-colors'
 Bundle 'tpope/vim-speeddating'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'chriskempson/base16-vim'
 Bundle 'chreekat/vim-paren-crosshairs'
 Bundle 'tomasr/molokai'
@@ -283,6 +285,9 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " Custom mappings
 """"""""""""""""""
 
+" Toggle comment shorthand
+noremap <leader>cc :TComment<CR>
+
 " Genral
 noremap <silent> <F4> :QFix<CR>
 
@@ -415,13 +420,13 @@ endif
 " map <leader>cd :cd %:p:h<cr>
 
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 noremap <leader>sp :setlocal paste!<cr>
 noremap <F2> :set paste!<cr>
-noremap <leader>p "+p
-noremap <leader>P "+P
+noremap <leader>pp "+p
+noremap <leader>pP "+P
 
 " Plugin configurations
 """""""""""""""""""""""
@@ -432,7 +437,7 @@ let g:gist_detect_filetype = 2
 let g:gist_show_privates = 1
 
 " TaskList
-map <leader>l <Plug>TaskList
+" map <leader>l <Plug>TaskList
 
 " TagBar
 nnoremap <silent> <F3> :TagbarToggle<CR>
