@@ -29,7 +29,7 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'vim-scripts/Gist.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/nerdcommenter'
+" Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
@@ -42,7 +42,7 @@ Bundle 'mattn/webapi-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'joequery/Stupid-EasyMotion'
-Bundle 'Yggdroot/indentLine'
+" Bundle 'Yggdroot/indentLine'
 
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
@@ -84,7 +84,7 @@ Bundle 'jmcantrell/vim-virtualenv'
 " Fun, but not useful
 " Bundle 'davidoc/taskpaper.vim'
 " Bundle 'bling/vim-airline'  "alternative to powerline
-Bundle 'altercation/vim-colors-solarized'
+" Bundle 'altercation/vim-colors-solarized'
 Bundle 'mgutz/vim-colors'
 Bundle 'tpope/vim-speeddating'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
@@ -241,7 +241,22 @@ autocmd FileType php setlocal colorcolumn=100
 " HTML configurations
 """""""""""""""""""""
 " autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+au BufNewFile,BufReadPost *.html setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
+" CSS configurations
+"""""""""""""""""""""""""""
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
+" Javascript configurations
+"""""""""""""""""""""""""""
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
+
+" Coffeescript configurations
+"""""""""""""""""""""""""""""
+au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
 
 " Python configurations
 """""""""""""""""""""""
@@ -250,15 +265,6 @@ autocmd FileType python setlocal colorcolumn=80
 autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-
-" Coffeescript configurations
-"""""""""""""""""""""""""""""
-au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent
-au BufNewFile,BufReadPost *.coffee setlocal shiftwidth=2 expandtab
-
-" Javascript configurations
-"""""""""""""""""""""""""""
-au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 
 " Puppet configurations
 """""""""""""""""""""""
@@ -461,7 +467,7 @@ let NERDChristmasTree=0
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
 " Jedi
-let g:jedi#goto_command = "<leader>g"
+" let g:jedi#goto_command = "<leader>g"
 
 " Double rainbow - What does it mean!?
 au VimEnter * RainbowParenthesesToggle
@@ -485,6 +491,9 @@ let g:airline_powerline_fonts = 1
 
 " CSApprox
 let g:CSApprox_loaded = 1
+
+" Javascript-libraries-syntax
+let g:used_javascript_libs = 'jquery, underscore, angularjs'
 
 " Indent Guides
 " let g:indent_guides_guide_size = 1
