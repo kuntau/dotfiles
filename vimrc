@@ -179,12 +179,10 @@ if has("gui_running")
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix')
-    " set gfn=Consolas\ for\ Powerline:h12
     set gfn=PragmataPro\ for\ Powerline:h12
   elseif has('gui_gtk2')
     set gfn=PragmataPro\ 10
     " set lines=50 columns=100
-    " set lines=999 columns=999
   endif
 endif
 
@@ -259,6 +257,7 @@ au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 " Coffeescript configurations
 """""""""""""""""""""""""""""
 au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
+autocmd FileType coffeescript setlocal colorcolumn=80
 
 " Python configurations
 """""""""""""""""""""""
