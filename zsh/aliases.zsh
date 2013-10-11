@@ -24,6 +24,9 @@ multi='/mnt/multi'
 osx='/Volumes/OS X Storage'
 www='/var/zpanel/hostdata/zadmin/public_html/'
 
+# prettify json on command line
+alias 'json=python -mjson.tool'
+
 # alias 'zsh-plugin=cat ~/.oh-my-zsh/plugins/$@/$@.plugin.zsh'
 zsh-plugin() {
   cat ~\/\.oh-my-zsh\/plugins\/"$@"\/"$@"\.plugin\.zsh
@@ -34,7 +37,9 @@ mkd() {
 }
 
 ###################################################
-# borrowed from https://github.com/addyosmani/dotfiles/blob/master/.aliases
+# borrowed from :
+# https://github.com/addyosmani/dotfiles/blob/master/.aliases
+# https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
 ###################################################
 
 # programs
@@ -55,6 +60,9 @@ alias fireworks="open -a '/Applications/Adobe Fireworks CS6/Adobe Fireworks CS6.
 alias photoshop="open -a '/Applications/Adobe Photoshop CS6/Adobe Photoshop.app'"
 alias gpr="~/code/gpr $1"
 
+# navigation
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
 # general shortcuts
 alias pro="cd ~/Coding"
@@ -63,6 +71,15 @@ alias bl="open -a google\ chrome 'http://browserling.com'"
 
 # be nice
 alias please=sudo
+
+# Gzip-enabled 'curl'
+alias gurl='curl --compressed'
+
+#get week number
+alias week='data +%V'
+
+#stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && data'
 
 # handy things
 alias bunyip='node ~/code/bunyip/cli.js'
@@ -152,11 +169,40 @@ alias fs="stat -f \"%z bytes\""
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # Empty the Trash on all mounted volumes and the main HDD
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash"
+# Also, clear Apple's System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# ROT13-encode text. Works for decoding, too! ;)
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+# Merge PDF files
+# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
+alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+
+# Disable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+# Enable Spotlight
+alias spoton="sudo mdutil -a -i on"
+
+# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
+# (useful when executing time-consuming commands)
+alias badge="tput bel"
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
 
 # Run DropboxUploader if you have it installed
 # alias dropbox="~/code/Dropbox-Uploader/dropbox_uploader.sh $1"
@@ -174,3 +220,7 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 10'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
