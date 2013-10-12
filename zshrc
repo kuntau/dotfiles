@@ -40,7 +40,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git node npm coffee vundle brew bower composer sublime laravel repo zsh-syntax-highlighting yeoman)
+plugins=(git node npm coffee vundle brew bower sublime extract zsh-syntax-highlighting yeoman)
 
 source $ZSH/oh-my-zsh.sh
 
