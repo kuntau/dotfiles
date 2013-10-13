@@ -301,8 +301,8 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
-nnoremap ; :
-nnoremap : ;
+noremap ; :
+noremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
 noremap <leader>so :w!<cr> :so %<CR>
 
