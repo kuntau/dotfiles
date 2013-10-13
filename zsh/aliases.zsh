@@ -21,7 +21,7 @@ alias 'ytav=youtube-dl -f 45 --extract-audio --keep-video'
 
 # mounted volumes shortcut
 multi='/mnt/multi'
-osx='/Volumes/OS X Storage'
+osx='/Volumes/Home'
 www='/var/zpanel/hostdata/zadmin/public_html/'
 
 # prettify json on command line
