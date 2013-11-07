@@ -49,14 +49,16 @@ source $ZSH/oh-my-zsh.sh
 
 # My aliases
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
+# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
 
 osname=$(uname)
 
 if [[ osname == Linux ]]; then
   GOROOT='/usr/lib/go'
-  echo $uname
+  export PATH=$PATH
+  # echo $uname
 elif [[ osname == darwin ]]; then
+  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
   export GOROOT='/usr/local/Cellar/go/1.1.2'
   RUBYROOT='usr/local/Cellar/ruby/2.0.0-p247'
   export PATH=$PATH:$RUBYROOT/bin:$GOROOT/bin
