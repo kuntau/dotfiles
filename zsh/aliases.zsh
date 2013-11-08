@@ -94,10 +94,10 @@ else # OS X `ls`
 fi
 
 # List all files colorized in long format
-alias l="ls --group-directories-first ${colorflag}"
+alias l="ls ${colorflag}"
 
 # List all files colorized in long format, including dot files
-alias la="ls -laG --group-directories-first --si ${colorflag}"
+alias la="ls -laGh ${colorflag}"
 
 # List only directories
 alias lsd='ls -l | grep "^d"'
