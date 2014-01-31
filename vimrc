@@ -26,9 +26,10 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'vim-scripts/Gist.vim'
+" Bundle 'vim-scripts/Gist.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
+" Bundle 'rking/ag.vim'  " uncomment this if want to use ag instead of ack
 Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
@@ -430,6 +431,9 @@ noremap <leader>pP "+P
 " Plugin configurations
 """""""""""""""""""""""
 
+" Let ack.vim use ag instead of ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 " Gist
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 2
@@ -446,11 +450,22 @@ let g:tagbar_autofocus = 1
 
 " crtl-p
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files --exclude-standard -co']
+" use ag with ctrlp
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
+    \ },
+  \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
+  \ }
+let g:ctrlp_use_caching = 0
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_by_filename  = 0
 let g:ctrlp_switch_buffer  = 'Et'
-let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
+" let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 
 " NERDTreeTabs
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -589,3 +604,11 @@ endfunction
 " Toggle spellcheck in normal mode
 " :map <F5> :setlocal spell! spelllang=en_us<CR>
 
+" Ag: The Silver Searcher
+if executable('ag')
+  "use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+
+  "ag is fast enough to let ctrlp not use cache
+  " let g:ctrlp_use_caching = 0
+endif
