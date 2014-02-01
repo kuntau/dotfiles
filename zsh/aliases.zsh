@@ -19,6 +19,9 @@ alias 'yt1=youtube-dl -f 46'
 alias 'yta=youtube-dl --extract-audio'
 alias 'ytav=youtube-dl --extract-audio --keep-video'
 
+# aria2c -x = number of concurrent connections
+alias 'a2=aria2c -x8'
+
 # mounted volumes shortcut
 multi='/mnt/multi'
 osx='/Volumes/Home'

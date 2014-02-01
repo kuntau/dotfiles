@@ -49,7 +49,7 @@ source $ZSH/oh-my-zsh.sh
 
 # My aliases
 
-# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
 
 osname=$(uname)
 
