@@ -138,12 +138,13 @@ if !has("gui_running")
     colorscheme molokai
 
     " fix terminal timeout when pressing escape
-    " set ttimeoutlen=10
-    " augroup FastEscape
-    "   autocmd!
-    "   au InsertEnter * set timeoutlen=0
-    "   au InsertLeave * set timeoutlen=1000
-    " augroup END
+    set ttimeout
+    set ttimeoutlen=10
+    augroup FastEscape
+      autocmd!
+      au InsertEnter * set timeoutlen=0
+      au InsertLeave * set timeoutlen=1000
+    augroup END
 else
     colorscheme molokai
 endif
