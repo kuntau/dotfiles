@@ -40,7 +40,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'joequery/Stupid-EasyMotion'
 Bundle 'danro/rename.vim'
-" Bundle 'Yggdroot/indentLine'
+Bundle 'Yggdroot/indentLine'
 
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
@@ -87,7 +87,7 @@ Bundle 'jmcantrell/vim-virtualenv'
 " Fun, but not useful
 " Bundle 'davidoc/taskpaper.vim'
 " Bundle 'bling/vim-airline'  "alternative to powerline
-" Bundle 'altercation/vim-colors-solarized'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'mgutz/vim-colors'
 Bundle 'tpope/vim-speeddating'
@@ -101,12 +101,32 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
+Bundle 'christoomey/vim-tmux-navigator'
 
 filetype plugin indent on     " required!
 
 " Configurations
 """"""""""""""""
-set background=dark
+if !has("gui_running")
+    " set term=xterm-256color
+    set term=xterm
+    set t_Co=256
+    " let &t_AB="\e[48;5;%dm"
+    " let &t_AF="\e[38;5;%dm"
+    colorscheme molokai
+    set background=light
+
+    " fix terminal timeout when pressing escape
+    set ttimeout
+    set ttimeoutlen=10
+    augroup FastEscape
+      autocmd!
+      au InsertEnter * set timeoutlen=0
+      au InsertLeave * set timeoutlen=1000
+    augroup END
+else
+    colorscheme molokai
+endif
 
 " Wildmenu completion
 """""""""""""""""""""
@@ -129,25 +149,6 @@ au TabLeave  * silent! :wa
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
-
-if !has("gui_running")
-    set term=xterm
-    set t_Co=256
-    " let &t_AB="\e[48;5;%dm"
-    " let &t_AF="\e[38;5;%dm"
-    colorscheme molokai
-
-    " fix terminal timeout when pressing escape
-    set ttimeout
-    set ttimeoutlen=10
-    augroup FastEscape
-      autocmd!
-      au InsertEnter * set timeoutlen=0
-      au InsertLeave * set timeoutlen=1000
-    augroup END
-else
-    colorscheme molokai
-endif
 
 " Basic
 syntax enable
@@ -521,8 +522,8 @@ let g:used_javascript_libs = 'jquery, underscore, angularjs'
 " let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " IndentLine
-" let g:indentLine_color_term = 245
-" let g:indentLine_color_gui = '#A4E57E'
+let g:indentLine_color_term = 245
+let g:indentLine_color_gui = '#A4E57E'
 " let g:indentLine_char = '┊'
 " let g:indentLine_char = '┆'
 " let g:indentLine_char = '⁞'
