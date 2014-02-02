@@ -109,12 +109,13 @@ filetype plugin indent on     " required!
 """"""""""""""""
 if !has("gui_running")
     " set term=xterm-256color
-    set term=xterm
-    set t_Co=256
+    " set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
+    let g:molokai_original=1
+    let g:rehash256=1
+    set background=dark
     colorscheme molokai
-    set background=light
 
     " fix terminal timeout when pressing escape
     set ttimeout
