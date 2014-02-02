@@ -56,6 +56,7 @@ osname=$(uname)
 if [[ osname == Linux ]]; then
   GOROOT='/usr/lib/go'
   export PATH=$PATH
+  export TERM="xterm-256color"
   # echo $uname
 elif [[ osname == darwin ]]; then
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
@@ -67,4 +68,4 @@ fi
 export EDITOR=vim
 alias 'rld=source ~/.zshrc'
 export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+# export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
