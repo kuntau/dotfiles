@@ -34,6 +34,7 @@ alias 'json=python -mjson.tool'
 zsh-plugin() {
   cat ~\/\.oh-my-zsh\/plugins\/"$@"\/"$@"\.plugin\.zsh
 }
+
 # create directory and immedietly cd into it
 mkd() {
   mkdir -p "$@" && cd "$@"
@@ -45,7 +46,7 @@ mkd() {
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
 ###################################################
 
-# programs
+# osx programs
 alias st='open -a "Sublime Text"'
 # also/or do this:
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
