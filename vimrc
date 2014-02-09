@@ -63,7 +63,8 @@ Bundle 'godlygeek/tabular'
 " html, Javascript & css bundles
 Bundle 'leshill/vim-json'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'plasticboy/vim-markdown'
+" Bundle 'plasticboy/vim-markdown'
+Bundle 'tpope/vim-markdown'
 Bundle 'othree/html5.vim'
 Bundle 'itspriddle/vim-jquery'
 Bundle 'digitaltoad/vim-jade'
@@ -528,6 +529,9 @@ let g:indentLine_color_gui = '#A4E57E'
 " let g:indentLine_char = '⁞'
 let g:indentLine_char = '⋮'
 " http://unicode-table.com/en/search/?q=dash
+
+" Plasticboy Markdown
+let g:vim_markdown_folding_disabled = 1
 
 " Useful functions
 """"""""""""""""""
