@@ -353,11 +353,11 @@ map <c-space> %
 
 " Working with split windows
 nnoremap <leader>vs <C-w>v<C-w>l
-map <tab> <c-w>w
-map <c-j> <C-W>j
-map <c-k> <C-W>k
-map <c-h> <C-W>h
-map <c-l> <C-W>l
+nnoremap <tab> <c-w>w
+" noremap <c-j> <C-w>j
+" noremap <c-k> <C-w>k
+" noremap <c-h> <C-w>h
+" noremap <c-l> <C-w>l
 noremap <c-w>< <c-w>10<
 noremap <c-w>> <c-w>10>
 noremap <c-w>+ <c-w>10+
@@ -532,6 +532,13 @@ let g:indentLine_char = '⋮'
 
 " Plasticboy Markdown
 let g:vim_markdown_folding_disabled = 1
+
+" Vim Tmux Navigator
+let g:tmux_navigator_no_mappings = 1
+noremap <silent> <c-j> :TmuxNavigateDown<cr>
+noremap <silent> <c-k> :TmuxNavigateUp<cr>
+noremap <silent> <c-h> :TmuxNavigateLeft<cr>
+noremap <silent> <c-l> :TmuxNavigateRight<cr>
 
 " Useful functions
 """"""""""""""""""
