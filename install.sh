@@ -2,7 +2,7 @@
 echo "\033[0;33mInstalling & backup existing vimrc..."
 if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]
 then
-  mv ~/.vimrc ~/.vimrc-old
+  mv ~/.vimrc ~/.vimrc-prekuntau
 fi
 
 ln -s ~/dotfiles/vimrc ~/.vimrc
@@ -11,7 +11,7 @@ ln -s ~/dotfiles/vimrc ~/.vimrc
 echo "\033[0;33mInstalling gitignore..."
 if [ -f ~/.gitignore ] || [ -h ~/.gitignore ]
 then
-  mv ~/.gitignore ~/.gitignore-old
+  mv ~/.gitignore ~/.gitignore-prekuntau
 fi
 
 ln -s ~/dotfiles/gitignore ~/.gitignore
@@ -20,7 +20,7 @@ ln -s ~/dotfiles/gitignore ~/.gitignore
 echo "\033[0;33mInstalling gitconfig..."
 if [ -f ~/.gitconfig ] || [ -h ~/.gitconfig ]
 then
-  mv ~/.gitconfig ~/.gitconfig-old
+  mv ~/.gitconfig ~/.gitconfig-prekuntau
 fi
 
 ln -s ~/dotfiles/gitconfig ~/.gitconfig
