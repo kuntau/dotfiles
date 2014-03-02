@@ -216,8 +216,8 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " I CAN HAZ NORMAL REGEXES?
 """""""""""""""""""""""""""
-nnoremap <space> /\v
-vnoremap <space> /\v
+nnoremap / /\v
+vnoremap / /\v
 
 " General auto-commands
 """""""""""""""""""""""
@@ -304,8 +304,10 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
-noremap ; :
-noremap : ;
+" use space instead of ';'
+noremap <space> :
+" noremap ; :
+" noremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
 noremap <leader>so :w!<cr> :so %<CR>
 
@@ -539,6 +541,10 @@ noremap <silent> <c-j> :TmuxNavigateDown<cr>
 noremap <silent> <c-k> :TmuxNavigateUp<cr>
 noremap <silent> <c-h> :TmuxNavigateLeft<cr>
 noremap <silent> <c-l> :TmuxNavigateRight<cr>
+
+" Emmet Vim
+let g:user_emmet_mode='a'
+let g:user_emmet_leader_key= '<c-y>'
 
 " Useful functions
 """"""""""""""""""
