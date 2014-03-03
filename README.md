@@ -4,13 +4,13 @@ dotfiles
 my personal dotfiles
 
 Installation:
-=============
+-------------
 
 `git clone git://github.com/kuntau/dotfiles.git ~/dotfiles`
 
-## Make the install script executable
+### Make the install script executable
 
-```
+```bash
 cd ~/dotfiles
 chmox +x install.sh
 ./install.sh
@@ -18,7 +18,7 @@ chmox +x install.sh
 
 Switch to the __~/dotfiles__ directory, and fetch submodules:
 
-```
+```bash
 cd ~/dotfiles
 git submodule update --init --recursive
 
@@ -26,3 +26,14 @@ git submodule update --init --recursive
 git submodule foreach git pull
 ```
 
+Todo
+----
+
+### Symlinks on install
+- [x] Symlink zsh theme
+- [x] Symlink zshrc
+- [x] Symlink vimrc
+- [x] Symlink .gitignore
+- [ ] Symlink .vintageousrc file
+- [ ] Symlink Sublime Text 3 preferences
+- [ ] Symlink Sublime Text 3 Shortcut
