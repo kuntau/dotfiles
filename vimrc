@@ -186,7 +186,7 @@ if has("gui_running")
   elseif has('mac') || has('macunix')
     set gfn=PragmataPro\ for\ Powerline:h12
   elseif has('gui_gtk2')
-    set gfn=PragmataPro\ 10
+    set gfn=PragmataPro\ 9
     " set lines=50 columns=100
   endif
 endif
