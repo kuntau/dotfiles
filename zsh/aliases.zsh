@@ -53,16 +53,6 @@ alias st='open -a "Sublime Text"'
 alias preview="open -a '$PREVIEW'"
 alias xcode="open -a '/Developer/Applications/Xcode.app'"
 alias filemerge="open -a '/Developer/Applications/Utilities/FileMerge.app'"
-alias safari="open -a safari"
-alias firefox="open -a firefox"
-alias opera="open -a opera"
-alias chrome="open -a google\ chrome"
-alias chromium="open -a chromium"
-alias dashcode="open -a dashcode"
-alias f='open -a Finder'
-alias fireworks="open -a '/Applications/Adobe Fireworks CS6/Adobe Fireworks CS6.app'"
-alias photoshop="open -a '/Applications/Adobe Photoshop CS6/Adobe Photoshop.app'"
-alias gpr="~/code/gpr $1"
 
 # navigation
 alias ....="cd ../../.."
