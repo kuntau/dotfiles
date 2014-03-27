@@ -103,6 +103,7 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'wesQ3/vim-windowswap'
 
 filetype plugin indent on     " required!
 
@@ -558,6 +559,7 @@ endfunc
 
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.styl :call DeleteTrailingWS()
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
