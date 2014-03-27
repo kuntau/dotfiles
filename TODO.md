@@ -9,3 +9,7 @@ Todo
 - [ ] Symlink .vintageousrc file
 - [ ] Symlink Sublime Text 3 preferences
 - [ ] Symlink Sublime Text 3 Shortcut
+
+### Custom plugins
+- Change symlink *zsh-syntax-highlighting*
+- Change symlink **yeoman**
