@@ -53,3 +53,6 @@
 	history-view-vpane-position = 675
 	file-view-vpane-position = 654
 	main-window-view = FileView
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
