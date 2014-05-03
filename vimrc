@@ -381,9 +381,10 @@ noremap <right> :bn<cr>
 noremap <left>  :bp<cr>
 
 " Retain selection after indent or formating
-vmap > >gv
-vmap < <gv
-vmap = =gv
+" Use `gv` if we want to reselect
+" vmap > >gv
+" vmap < <gv
+" vmap = =gv
 
 " Tab configuration
 map <c-Tab> :tabnext<cr>
@@ -430,8 +431,8 @@ noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 " Toggle paste mode on and off
 noremap <leader>sp :setlocal paste!<cr>
 noremap <F2> :set paste!<cr>
-noremap <leader>pp "+p
-noremap <leader>pP "+P
+" noremap <leader>pp "+p
+" noremap <leader>pP "+P
 
 " Plugin configurations
 """""""""""""""""""""""
