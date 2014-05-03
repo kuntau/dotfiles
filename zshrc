@@ -61,9 +61,11 @@ if [[ $osname == Linux ]]; then
   TERM="xterm-256color"
 elif [[ $osname == Darwin ]]; then
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
-  export GOROOT='/usr/local/Cellar/go/1.1.2'
-  RUBYROOT='usr/local/Cellar/ruby/2.0.0-p247'
-  export PATH=$PATH:$RUBYROOT/bin:$GOROOT/bin
+  # export GOROOT='/usr/local/Cellar/go/1.1.2'
+  RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
+  GEMPATH='~/.gem/ruby/2.1.0'
+  export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
+  source $(brew --prefix nvm)/nvm.sh
 fi
 
 export EDITOR=vim
