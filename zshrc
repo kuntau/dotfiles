@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="doubleend"
+ZSH_THEME="kuntau"
 
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
@@ -40,7 +40,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git node npm coffee vundle brew bower sublime extract zsh-syntax-highlighting colorize tmux grunt sudo nvm supervisor)
+plugins=(git node npm coffee brew bower zsh-syntax-highlighting colorize tmux grunt sudo nvm supervisor)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -61,13 +61,23 @@ if [[ $osname == Linux ]]; then
   TERM="xterm-256color"
 elif [[ $osname == Darwin ]]; then
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
-  export GOROOT='/usr/local/Cellar/go/1.1.2'
-  RUBYROOT='usr/local/Cellar/ruby/2.0.0-p247'
-  export PATH=$PATH:$RUBYROOT/bin:$GOROOT/bin
+  # export GOROOT='/usr/local/Cellar/go/1.1.2'
+  RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
+  GEMPATH='~/.gem/ruby/2.1.0'
+  export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
+  source $(brew --prefix nvm)/nvm.sh
+elif [[ $osname == CYGWIN_NT-6.1 ]]; then
+  export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/Program Files/Intel/DMIX
 fi
 
+# make vim the default editor!
 export EDITOR=vim
-alias 'rld=source ~/.zshrc'
-# export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-# export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/Program Files/Intel/DMIX
+# alias 'rld=source ~/.zshrc'
+
+# make our custom scripts work!
+export PATH=$PATH:~/dotfiles/bin
+
+# fix locale
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+

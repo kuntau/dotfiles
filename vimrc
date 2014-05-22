@@ -327,7 +327,7 @@ map k gk
 " noremap d "_d
 
 " Easier movement and copy paste combo
-noremap 0 ^
+noremap 0 0
 noremap H ^
 noremap L $
 noremap yp yyp
@@ -340,13 +340,13 @@ nnoremap <down> m`o<esc>``
 nnoremap <up> m`O<esc>``
 
 " Escape key mapping
-inoremap jj <Esc>
+inoremap jj <esc>
 
 " insert mode movement mapping
-inoremap <c-j> <Esc>^o
-inoremap <c-k> <Esc>^O
-inoremap <c-e> <end>
-inoremap <c-a> <home>
+inoremap <c-j> <esc>^o
+inoremap <c-k> <esc>^O
+inoremap <c-e> <esc>A
+inoremap <c-a> <esc>I
 
 " faster way to terminate the line
 " inoremap <c-e> <esc>A;<esc>
