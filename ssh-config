@@ -1,0 +1,15 @@
+Host *
+ControlMaster auto
+ControlPath /tmp/%r@%h:%p
+
+Host hq
+  User     kuntau
+  HostName kuntau.dlinkddns.com
+
+Host vps
+  User     kuntau
+  HostName root.kuntau.org
+
+Host dh
+  User     nizsul1
+  HostName nizamdesign.com
