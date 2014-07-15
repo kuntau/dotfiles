@@ -104,6 +104,7 @@ Bundle 'honza/vim-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'wesQ3/vim-windowswap'
+Bundle 'Valloric/YouCompleteMe'
 
 filetype plugin indent on     " required!
 
@@ -114,8 +115,8 @@ if !has("gui_running")
     " set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
-    let g:molokai_original=1
-    let g:rehash256=1
+    " let g:molokai_original=1
+    " let g:rehash256=1
     set background=dark
     colorscheme molokai
 
@@ -194,6 +195,9 @@ endif
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
+
+" Change vertical character so we don't get that ugly pane separator
+set fillchars+=vert:\ 
 
 " Default Tabs & spaces
 set tabstop=2     " a tab is four spaces

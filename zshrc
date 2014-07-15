@@ -40,7 +40,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git node npm coffee brew bower zsh-syntax-highlighting colorize tmux grunt sudo nvm supervisor)
+plugins=(git node npm coffee brew bower zsh-syntax-highlighting colorize tmux grunt sudo nvm supervisor vundle vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -62,10 +62,10 @@ if [[ $osname == Linux ]]; then
 elif [[ $osname == Darwin ]]; then
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
-  RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
-  GEMPATH='~/.gem/ruby/2.1.0'
-  export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
-  source $(brew --prefix nvm)/nvm.sh
+  # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
+  # GEMPATH='~/.gem/ruby/2.1.0'
+  # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
+  # source $(brew --prefix nvm)/nvm.sh
 elif [[ $osname == CYGWIN_NT-6.1 ]]; then
   export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX"
 fi
@@ -81,3 +81,4 @@ export PATH=$PATH:~/dotfiles/bin
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
