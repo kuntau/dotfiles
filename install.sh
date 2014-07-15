@@ -1,5 +1,15 @@
-#configure vim
-echo "\033[0;33mInstalling & backup existing vimrc..."
+# install dotfiles script
+
+# an array of files to symlinks
+dotfiles=( vimrc gitignore gitconfig zshrc ideavimrc )
+
+for i in "${dotfiles[@]}"
+do
+  echo $1
+done
+
+# configure vim
+echo "Installing & backup existing vimrc..."
 if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]
 then
   mv ~/.vimrc ~/.vimrc-prekuntau
