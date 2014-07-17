@@ -9,6 +9,7 @@ alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 # ssh shortcut
 alias 'ssh1=ssh kuntau@root.kuntau.org'
 alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
+alias 'ssh3=ssh nizsul1@nizamdesign.com'
 
 # youtube-dl
 alias 'yt=youtube-dl'
