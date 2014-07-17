@@ -196,6 +196,9 @@ endif
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
 
+" Change vertical character so we don't get that ugly pane separator
+set fillchars+=vert:\ 
+
 " Default Tabs & spaces
 set tabstop=2     " a tab is four spaces
 set shiftwidth=2  " number of spaces to use for autoindenting
