@@ -60,7 +60,7 @@ if [[ $osname == Linux ]]; then
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   TERM="xterm-256color"
 elif [[ $osname == Darwin ]]; then
-  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
+  export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # GEMPATH='~/.gem/ruby/2.1.0'
