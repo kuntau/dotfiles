@@ -156,8 +156,8 @@ au VimResized * exe "normal! \<c-w>="
 
 " Basic
 syntax enable
+set rnu                " show relative number instead
 set number               " always show line numbers
-" set rnu                " show relative number instead
 set hidden               " Allow un-saved buffers in background
 set clipboard=unnamed    " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
@@ -549,8 +549,8 @@ noremap <silent> <c-h> :TmuxNavigateLeft<cr>
 noremap <silent> <c-l> :TmuxNavigateRight<cr>
 
 " Emmet Vim
-let g:user_emmet_mode='a'
-let g:user_emmet_leader_key= '<c-y>'
+" let g:user_emmet_mode='a'
+" let g:user_emmet_leader_key= '<c-y>'
 
 " Useful functions
 """"""""""""""""""
