@@ -73,6 +73,7 @@ Bundle 'mattn/emmet-vim'
 Bundle 'othree/javascript-libraries-syntax.vim'
 Bundle 'mklabs/grunt.vim'
 Bundle 'ap/vim-css-color'
+Bundle 'Valloric/MatchTagAlways'
 
 " Python bundles
 " Bundle 'nvie/vim-flake8'
@@ -105,6 +106,7 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'wesQ3/vim-windowswap'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'rizzatti/dash.vim'
 
 filetype plugin indent on     " required!
 
@@ -293,7 +295,7 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 """"""""""""""""""
 
 " Toggle comment shorthand
-noremap <leader>cc :TComment<CR>
+" noremap <leader>cc :TComment<CR>
 
 " Genral
 noremap <silent> <F4> :QFix<CR>
@@ -390,13 +392,13 @@ noremap <left>  :bp<cr>
 " vmap < <gv
 " vmap = =gv
 
-" Tab configuration
-map <c-Tab> :tabnext<cr>
-map <s-Tab> :tabprev<cr>
-map <leader>tn :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+" Tab configuration; not using tab currently
+" map <c-Tab> :tabnext<cr>
+" map <s-Tab> :tabprev<cr>
+" map <leader>tn :tabnew<cr>
+" map <leader>te :tabedit
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 " nmap <a-j> mz:m+<cr>`z
@@ -551,6 +553,9 @@ noremap <silent> <c-l> :TmuxNavigateRight<cr>
 " Emmet Vim
 let g:user_emmet_mode='a'
 let g:user_emmet_leader_key= '<c-y>'
+
+" Dash plugin
+nmap <silent> <leader>d <plug>DashSearch
 
 " Useful functions
 """"""""""""""""""
