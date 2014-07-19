@@ -1,4 +1,5 @@
-alias 'dus=du -sckx * | sort -nr'
+# alias 'dus=du -sckx * | sort -nr'
+alias 'dus=du -hd 1'
 alias 'l=ls -l'
 
 # config file shortcut
@@ -22,6 +23,9 @@ alias 'ytav=youtube-dl --extract-audio --keep-video'
 
 # aria2c -x = number of concurrent connections
 alias 'a2=aria2c -x8'
+
+# node workflow
+alias 'npml=npm list --depth=0'
 
 # mounted volumes shortcut
 multi='/mnt/multi'
