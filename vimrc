@@ -228,7 +228,7 @@ vnoremap / /\v
 
 " General auto-commands
 """""""""""""""""""""""
-autocmd FileType * setlocal colorcolumn=0
+autocmd FileType * setlocal colorcolumn=100
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Get rid of trailing whitespace highlighting in mutt.
@@ -264,12 +264,13 @@ au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 ex
 " Javascript configurations
 """""""""""""""""""""""""""
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setlocal colorcolumn=100
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 
 " Coffeescript configurations
 """""""""""""""""""""""""""""
 au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
-autocmd FileType coffeescript setlocal colorcolumn=80
+autocmd FileType coffeescript setlocal colorcolumn=100
 
 " Python configurations
 """""""""""""""""""""""
