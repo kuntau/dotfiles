@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-echo "Your keyword is" $1"!"
-aria2c -x10 "http://s.imgur.com/a/"$1"/zip"
+if [ -z "$1" ]; then
+  echo "No argument supplied"
+else
+  echo "Your keyword is" $1"!"
+  aria2c -x10 "http://s.imgur.com/a/"$1"/zip"
+fi
