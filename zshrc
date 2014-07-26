@@ -62,7 +62,9 @@ if [[ $osname == Linux ]]; then
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   TERM="xterm-256color"
 elif [[ $osname == Darwin ]]; then
+  export POWERLINE_CONFIG_COMMAND=/Volumes/Home/Users/kuntau/.vim/bundle/powerline/scripts/powerline-config
   export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
+  # . /Volumes/Home/Users/kuntau/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # GEMPATH='~/.gem/ruby/2.1.0'
