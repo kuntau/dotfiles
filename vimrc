@@ -158,7 +158,7 @@ au VimResized * exe "normal! \<c-w>="
 
 " Basic
 syntax enable
-set rnu                " show relative number instead
+set rnu                  " show relative number instead
 set number               " always show line numbers
 set hidden               " Allow un-saved buffers in background
 set clipboard=unnamed    " Share system clipboard.
@@ -168,12 +168,12 @@ set nobackup             " no backup files
 set nowritebackup        " no undo files
 set directory=/tmp//     " swap files
 set backupskip=/tmp/*,/private/tmp/*
-set ffs=unix,dos,mac     "Default file types
+set ffs=unix,dos,mac     " Default file types
 set nowrap               " don't wrap lines
 set showmatch            " set show matching parenthesis
 set ignorecase           " ignore case when searching
 set smartcase            " ignore case if search pattern is all lowercase,
-                         "  case-sensitive otherwise
+                         " case-sensitive otherwise
 set hlsearch             " highlight search terms
 set incsearch            " show search matches as you type
 set history=1000         " remember more commands and search history
@@ -181,6 +181,17 @@ set undolevels=1000      " use many muchos levels of undo
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
+
+" More settings borrowed from gh.com/tarruda/dot-files/
+set showcmd              " display incomplete command
+set completeopt=menu,menuone,longest
+set complete=.,w,b,u,t   " h: 'complete'
+set pumheight=15         " limit completion menu height
+set splitbelow           " put horizontal split below
+set splitright           " put vertical split below
+set modelines=0          " running code in comments is not cool
+set matchtime=2          " time in decisecons to jump back from matching brackets
+set synmaxcol=500        " maximum length to apply syntax highlight
 
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
@@ -202,7 +213,7 @@ set list listchars=tab:»\ ,trail:·
 set fillchars+=vert:\ 
 
 " Default Tabs & spaces
-set tabstop=2     " a tab is four spaces
+set tabstop=2     " a tab is two spaces
 set shiftwidth=2  " number of spaces to use for autoindenting
 set softtabstop=2
 set expandtab
@@ -215,7 +226,9 @@ set copyindent    " copy the previous indentation on autoindenting
 " General Code Folding
 """"""""""""""""""""""
 set foldmethod=indent
+set nofoldenable          " don't fold by default
 set foldlevel=99
+set foldnestmax=10        " max fold nest
 
 " Highlight VCS conflict markers
 """"""""""""""""""""""""""""""""
