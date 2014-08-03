@@ -375,7 +375,9 @@ inoremap <c-a> <esc>I
 map <c-space> %
 
 " Working with split windows
-nnoremap <leader>vs <C-w>v<C-w>l
+" nnoremap <leader>vs <C-w>v<C-w>l
+nnoremap <leader>ss <C-w>s
+nnoremap <leader>vv <C-w>v
 nnoremap <tab> <c-w>w
 " noremap <c-j> <C-w>j
 " noremap <c-k> <C-w>k
