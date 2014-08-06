@@ -17,6 +17,7 @@ do
   echo "Installing $i config files"
   if [ -f ~/$i ] || [ -h ~/$i ]; then
     echo "File exists.. The file $i will be backup to $i.bak"
+    ln -s ~/dotfiles/$1 ~/.$1
     echo ""
   fi
 done
@@ -30,19 +31,19 @@ else
 fi
 
 echo "Installing custom aliases"
-# ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
+ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
 
 # symlinking the theme
 echo "Installing kuntau themes..."
-# ln -s ~/dotfiles/zsh/doubleend.zsh-theme ~/.oh-my-zsh/themes/doubleend.zsh-theme
+ln -s ~/dotfiles/zsh/kuntau.zsh-theme ~/.oh-my-zsh/themes/kuntau.zsh-theme
 
 # append path.. possible duplicate..
 # echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
-# echo "export PATH=\$PATH:$PATH" >> ~/.zshrc
-#
+export PATH=\$PATH:$PATH >> ~/.zshrc
+
 # echo "\033[0;34mTime to change your default shell to zsh!\033[0m"
 # sudo chsh -s `which zsh`
-#
-# echo "\n\n \033[0;32mkuntau dotfiles is now installed.\033[0m"
+
+echo "\n\nkuntau dotfiles is now installed."
 # /usr/bin/env zsh
-# source ~/.zshrc
+source ~/.zshrc
