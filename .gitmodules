@@ -7,9 +7,6 @@
 [submodule "fonts/powerlist-fonts"]
 	path = fonts/powerlist-fonts
 	url = https://github.com/Lokaltog/powerline-fonts.git
-[submodule "zsh/plugins/yeoman"]
-	path = zsh/plugins/yeoman
-	url = https://github.com/edouard-lopez/yeoman-zsh-plugin.git
 [submodule "code/Dropbox-Uploader"]
 	path = code/Dropbox-Uploader
 	url = https://github.com/andreafabrizi/Dropbox-Uploader.git

@@ -42,7 +42,7 @@ ZSH_TMUX_AUTOQUIT="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras node npm coffee bower grunt brew brew-cask zsh-syntax-highlighting colorize tmux vundle)
+plugins=(git git-extras git-flow node npm coffee bower grunt brew brew-cask zsh-syntax-highlighting colorize tmux vundle)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -50,8 +50,6 @@ source $ZSH/oh-my-zsh.sh
 # export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
 
 # My aliases
-
-# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
 
 osname=$(uname)
 
