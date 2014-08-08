@@ -20,6 +20,8 @@ do
     echo ""
     ln -s ~/dotfiles/$i ~/.$i
   fi
+  ln -s ~/dotfiles/$i ~/.$i
+  echo ""
 done
 
 # configure oh-my-zsh
@@ -31,23 +33,27 @@ else
 fi
 
 echo "Installing custom aliases"
-# ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
+ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
 
 # symlinking the theme
 echo "Installing kuntau themes..."
+<<<<<<< HEAD
 if [ -f ~/.oh-my-zsh/themes/kuntau.zsh-theme ] || [ -h ~/.oh-my-zsh/themes/kuntau.zsh-theme ]; then
   echo "Theme existed. Skipping..."
 else
   ln -s ~/dotfiles/zsh/kuntau.zsh-theme ~/.oh-my-zsh/themes/kuntau.zsh-theme
 fi
+=======
+ln -s ~/dotfiles/zsh/kuntau.zsh-theme ~/.oh-my-zsh/themes/kuntau.zsh-theme
+>>>>>>> 85c5795d05ae36b46c349e893d3123de24a4bc07
 
 # append path.. possible duplicate..
 # echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
-# echo "export PATH=\$PATH:$PATH" >> ~/.zshrc
-#
+# export PATH=\$PATH:$PATH >> ~/.zshrc
+
 # echo "\033[0;34mTime to change your default shell to zsh!\033[0m"
 # sudo chsh -s `which zsh`
-#
-# echo "\n\n \033[0;32mkuntau dotfiles is now installed.\033[0m"
+
+echo "\n\nkuntau dotfiles is now installed."
 # /usr/bin/env zsh
-# source ~/.zshrc
+source ~/.zshrc
