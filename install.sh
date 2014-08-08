@@ -4,7 +4,6 @@
 
 # an array of files to symlinks
 dotfiles=( vimrc gitignore gitconfig zshrc ideavimrc )
-# dotfiles=( 'vimrc' 'gitignore' 'gitconfig' 'zshrc' 'ideavimrc' )
 
 echo "Checking requirements..."
 command -v zsh >/dev/null 2>&1 || { echo >&2 "I require zsh but it's not installed.  Aborting."; exit 1; }
@@ -14,11 +13,10 @@ echo ""
 
 for i in "${dotfiles[@]}"
 do
-  echo "Installing .$i config files"
+  echo "Installing $i config files"
   if [ -f ~/.$i ] || [ -h ~/.$i ]; then
     echo "File exists.. The file .$i will be backup to .$i.bak"
-    echo ""
-    ln -s ~/dotfiles/$i ~/.$i
+    mv ~/.$i ~/.$i.bak
   fi
   ln -s ~/dotfiles/$i ~/.$i
   echo ""
@@ -29,31 +27,34 @@ if [ -d ~/.oh-my-zsh ]; then
   echo "You already have Oh My Zsh installed."
 else
   echo "Cloning Oh My Zsh..."
-  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+  $(which git) clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
+echo ""
 
 echo "Installing custom aliases"
-ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
+if [ -f ~/.oh-my-zsh/custom/aliases.zsh ] || [ -h ~/.oh-my-zsh/custom/aliases.zsh ]; then
+  echo "File exists.. Skip installing"
+else
+  ln -s ~/dotfiles/zsh/aliases.zsh ~/.oh-my-zsh/custom/aliases.zsh
+fi
+echo ""
 
 # symlinking the theme
 echo "Installing kuntau themes..."
-<<<<<<< HEAD
 if [ -f ~/.oh-my-zsh/themes/kuntau.zsh-theme ] || [ -h ~/.oh-my-zsh/themes/kuntau.zsh-theme ]; then
-  echo "Theme existed. Skipping..."
+  echo "File exists.. Skip installing"
 else
   ln -s ~/dotfiles/zsh/kuntau.zsh-theme ~/.oh-my-zsh/themes/kuntau.zsh-theme
 fi
-=======
-ln -s ~/dotfiles/zsh/kuntau.zsh-theme ~/.oh-my-zsh/themes/kuntau.zsh-theme
->>>>>>> 85c5795d05ae36b46c349e893d3123de24a4bc07
+echo ""
 
 # append path.. possible duplicate..
-# echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
+# echo "Copying your current PATH and adding it to the end of ~/.zshrc for you."
 # export PATH=\$PATH:$PATH >> ~/.zshrc
 
-# echo "\033[0;34mTime to change your default shell to zsh!\033[0m"
-# sudo chsh -s `which zsh`
+# echo "Time to change your default shell to zsh!"
+# sudo chsh -s $(which zsh)
 
-echo "\n\nkuntau dotfiles is now installed."
+echo "kuntau dotfiles is now installed."
 # /usr/bin/env zsh
-source ~/.zshrc
+# source ~/.zshrc
