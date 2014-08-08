@@ -3,7 +3,7 @@
 # install dotfiles script
 
 # an array of files to symlinks
-dotfiles=( .vimrc .gitignore .gitconfig .zshrc .ideavimrc )
+dotfiles=( vimrc gitignore gitconfig zshrc ideavimrc )
 # dotfiles=( 'vimrc' 'gitignore' 'gitconfig' 'zshrc' 'ideavimrc' )
 
 echo "Checking requirements..."
@@ -14,10 +14,11 @@ echo ""
 
 for i in "${dotfiles[@]}"
 do
-  echo "Installing $i config files"
-  if [ -f ~/$i ] || [ -h ~/$i ]; then
-    echo "File exists.. The file $i will be backup to $i.bak"
+  echo "Installing .$i config files"
+  if [ -f ~/.$i ] || [ -h ~/.$i ]; then
+    echo "File exists.. The file .$i will be backup to .$i.bak"
     echo ""
+    ln -s ~/dotfiles/$i ~/.$i
   fi
 done
 
@@ -34,7 +35,11 @@ echo "Installing custom aliases"
 
 # symlinking the theme
 echo "Installing kuntau themes..."
-# ln -s ~/dotfiles/zsh/doubleend.zsh-theme ~/.oh-my-zsh/themes/doubleend.zsh-theme
+if [ -f ~/.oh-my-zsh/themes/kuntau.zsh-theme ] || [ -h ~/.oh-my-zsh/themes/kuntau.zsh-theme ]; then
+  echo "Theme existed. Skipping..."
+else
+  ln -s ~/dotfiles/zsh/kuntau.zsh-theme ~/.oh-my-zsh/themes/kuntau.zsh-theme
+fi
 
 # append path.. possible duplicate..
 # echo "\033[0;34mCopying your current PATH and adding it to the end of ~/.zshrc for you.\033[0m"
