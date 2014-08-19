@@ -31,7 +31,7 @@ Bundle 'majutsushi/tagbar'
 " Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'ervandew/supertab'
+" Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Rykka/colorv.vim'
@@ -45,10 +45,10 @@ Bundle 'danro/rename.vim'
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
 " Bundle 'tpope/vim-liquid'
-" Bundle 'tpope/vim-haml'
-" Bundle 'groenewege/vim-less'
+Bundle 'tpope/vim-haml'
+Bundle 'groenewege/vim-less'
 " Bundle 'jcf/vim-latex'
-" Bundle 'mutewinter/nginx.vim'
+Bundle 'mutewinter/nginx.vim'
 " Bundle 'msanders/cocoa.vim'
 " Bundle 'empanda/vim-varnish'
 " Bundle 'atourino/jinja.vim'
@@ -71,9 +71,10 @@ Bundle 'digitaltoad/vim-jade'
 Bundle 'wavded/vim-stylus'
 Bundle 'mattn/emmet-vim'
 Bundle 'othree/javascript-libraries-syntax.vim'
-Bundle 'mklabs/grunt.vim'
+" Bundle 'mklabs/grunt.vim'
 Bundle 'ap/vim-css-color'
 Bundle 'Valloric/MatchTagAlways'
+Bundle 'marijnh/tern_for_vim'
 
 " Python bundles
 " Bundle 'nvie/vim-flake8'
@@ -101,8 +102,9 @@ Bundle 'vim-scripts/CSApprox'
 " Misc bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
+" Bundle 'garbas/vim-snipmate'
+Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
-Bundle 'garbas/vim-snipmate'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'wesQ3/vim-windowswap'
 Bundle 'Valloric/YouCompleteMe'
@@ -123,13 +125,13 @@ if !has("gui_running")
     colorscheme molokai
 
     " fix terminal timeout when pressing escape
-    set ttimeout
-    set ttimeoutlen=10
-    augroup FastEscape
-      autocmd!
-      au InsertEnter * set timeoutlen=0
-      au InsertLeave * set timeoutlen=1000
-    augroup END
+    " set ttimeout
+    " set ttimeoutlen=10
+    " augroup FastEscape
+    "   autocmd!
+    "   au InsertEnter * set timeoutlen=0
+    "   au InsertLeave * set timeoutlen=1000
+    " augroup END
 else
     colorscheme molokai
 endif
@@ -513,6 +515,13 @@ let NERDChristmasTree=0
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
+" UltiSnips
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
+
 " Jedi
 " let g:jedi#goto_command = "<leader>g"
 
@@ -525,7 +534,7 @@ au Syntax * RainbowParenthesesLoadBraces
 " Syntastic settings
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump = 0
-let g:syntastic_puppet_lint_disable = 0
+let g:syntastic_puppet_lint_disable = 1
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_css_checkers = ['csslint']
@@ -557,7 +566,7 @@ let g:indentLine_char = '⋮'
 " http://unicode-table.com/en/search/?q=dash
 
 " Plasticboy Markdown
-let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
@@ -567,8 +576,8 @@ noremap <silent> <c-h> :TmuxNavigateLeft<cr>
 noremap <silent> <c-l> :TmuxNavigateRight<cr>
 
 " Emmet Vim
-" let g:user_emmet_mode='a'
-" let g:user_emmet_leader_key= '<c-y>'
+let g:user_emmet_mode='inv'
+" let g:user_emmet_leader_key='<c-y>'
 
 " Dash plugin
 nmap <silent> <leader>d <plug>DashSearch
@@ -658,3 +667,27 @@ if executable('ag')
   "ag is fast enough to let ctrlp not use cache
   " let g:ctrlp_use_caching = 0
 endif
+
+" YCM+UltiSnips: The best combo
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-e>"
+" this mapping Enter key to <C-y> to chose the current highlight item
+" and close the selection list, same as other IDEs.
+" CONFLICT with some plugins like tpope/Endwise
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
