@@ -4,7 +4,7 @@ ControlPath /tmp/%r@%h:%p
 
 Host hq
   User     kuntau
-  HostName kuntau.dlinkddns.com
+  HostName kosx.duckdns.org
 
 Host vps
   User     kuntau
