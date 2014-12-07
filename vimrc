@@ -89,15 +89,16 @@ Bundle 'jmcantrell/vim-virtualenv'
 
 " Fun, but not useful
 " Bundle 'davidoc/taskpaper.vim'
-" Bundle 'bling/vim-airline'  "alternative to powerline
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'bling/vim-airline'
+" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'mgutz/vim-colors'
 Bundle 'tpope/vim-speeddating'
 Bundle 'chriskempson/base16-vim'
 Bundle 'chreekat/vim-paren-crosshairs'
 Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/CSApprox'
+Bundle 'yearofmoo/Vim-Darkmate'
 
 " Misc bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
