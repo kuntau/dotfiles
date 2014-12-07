@@ -211,9 +211,7 @@ endif
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
-
-" Change vertical character so we don't get that ugly pane separator
-set fillchars+=vert:\ 
+set fillchars+=vert:\     " fix ugly vertical pane separator
 
 " Default Tabs & spaces
 set tabstop=2     " a tab is two spaces
@@ -328,12 +326,9 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
-" use space instead of ';'
 noremap <space> :
-" noremap ; :
-" noremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
-noremap <leader>so :w!<cr> :so %<CR>
+noremap <leader>so :w!<cr> :source %<CR>
 
 " give me normal jk!!
 map j gj
@@ -522,12 +517,12 @@ let g:ycm_key_list_previous_completion = ['<C-p>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
-" let g:UltiSnipsListSnippets="<c-e>"
+let g:UltiSnipsListSnippets="<c-tab>"
 
 " Jedi
 " let g:jedi#goto_command = "<leader>g"
@@ -692,7 +687,7 @@ function! g:UltiSnips_Complete()
     return ""
 endfunction
 
-" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 " this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
