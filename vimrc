@@ -540,6 +540,12 @@ let g:syntastic_puppet_lint_disable = 1
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_html_checkers = ['tidy']
+let g:syntastic_html_tidy_ignore_errors = [
+  \" proprietary attribute \"ng-",
+  \" proprietary attribute \"ui-",
+  \" discarding unexpected </base>"
+  \]
 
 " Powerline & airline
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
