@@ -31,7 +31,7 @@ Bundle 'majutsushi/tagbar'
 " Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
 Bundle 'scrooloose/syntastic'
-" Bundle 'ervandew/supertab'
+Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Rykka/colorv.vim'
@@ -102,12 +102,12 @@ Bundle 'vim-scripts/CSApprox'
 " Misc bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
+Bundle 'Valloric/YouCompleteMe'
 " Bundle 'garbas/vim-snipmate'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'wesQ3/vim-windowswap'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'rizzatti/dash.vim'
 
 filetype plugin indent on     " required!
@@ -357,12 +357,12 @@ noremap yP yyP
 noremap yd yydd
 
 " Line mod time saver
-nnoremap <enter> i<enter><esc>
+" nnoremap <enter> i<enter><esc>
 nnoremap <down> m`o<esc>``
 nnoremap <up> m`O<esc>``
 
 " Escape key mapping
-inoremap jj <esc>
+" inoremap jj <esc>
 
 " insert mode movement mapping
 inoremap <c-j> <esc>^o
@@ -380,7 +380,7 @@ map <c-space> %
 " nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>ss <C-w>s
 nnoremap <leader>vv <C-w>v
-nnoremap <tab> <c-w>w
+" nnoremap <tab> <c-w>w
 " noremap <c-j> <C-w>j
 " noremap <c-k> <C-w>k
 " noremap <c-h> <C-w>h
@@ -513,14 +513,20 @@ let NERDTreeShowBookmarks=1
 let NERDChristmasTree=0
 
 " SnipMate
-let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
+" let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " UltiSnips
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
+" let g:UltiSnipsListSnippets="<c-e>"
 
 " Jedi
 " let g:jedi#goto_command = "<leader>g"
@@ -669,6 +675,7 @@ if executable('ag')
 endif
 
 " YCM+UltiSnips: The best combo
+" See: https://github.com/Valloric/YouCompleteMe/issues/36
 function! g:UltiSnips_Complete()
     call UltiSnips#ExpandSnippet()
     if g:ulti_expand_res == 0
@@ -684,10 +691,8 @@ function! g:UltiSnips_Complete()
     return ""
 endfunction
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-e>"
+" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 " this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
