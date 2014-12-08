@@ -13,6 +13,7 @@ alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
 alias 'ssh3=ssh nizsul1@nizamdesign.com'
 
 # youtube-dl
+alias 'ytx=proxychains4 youtube-dl'
 alias 'yt=youtube-dl'
 alias 'yt3=youtube-dl -f 43'
 alias 'yt4=youtube-dl -f 44'

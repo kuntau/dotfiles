@@ -31,7 +31,7 @@ Bundle 'majutsushi/tagbar'
 " Bundle 'mileszs/ack.vim'
 Bundle 'rking/ag.vim'
 Bundle 'scrooloose/syntastic'
-" Bundle 'ervandew/supertab'
+Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Rykka/colorv.vim'
@@ -89,25 +89,26 @@ Bundle 'jmcantrell/vim-virtualenv'
 
 " Fun, but not useful
 " Bundle 'davidoc/taskpaper.vim'
-" Bundle 'bling/vim-airline'  "alternative to powerline
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'bling/vim-airline'
+" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'mgutz/vim-colors'
 Bundle 'tpope/vim-speeddating'
 Bundle 'chriskempson/base16-vim'
 Bundle 'chreekat/vim-paren-crosshairs'
 Bundle 'tomasr/molokai'
 Bundle 'vim-scripts/CSApprox'
+Bundle 'yearofmoo/Vim-Darkmate'
 
 " Misc bundle
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
+Bundle 'Valloric/YouCompleteMe'
 " Bundle 'garbas/vim-snipmate'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'wesQ3/vim-windowswap'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'rizzatti/dash.vim'
 
 filetype plugin indent on     " required!
@@ -210,9 +211,7 @@ endif
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
-
-" Change vertical character so we don't get that ugly pane separator
-set fillchars+=vert:\ 
+set fillchars+=vert:\     " fix ugly vertical pane separator
 
 " Default Tabs & spaces
 set tabstop=2     " a tab is two spaces
@@ -327,12 +326,9 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
-" use space instead of ';'
 noremap <space> :
-" noremap ; :
-" noremap : ;
 noremap <leader>ei :e$MYVIMRC<CR>
-noremap <leader>so :w!<cr> :so %<CR>
+noremap <leader>so :w!<cr> :source %<CR>
 
 " give me normal jk!!
 map j gj
@@ -357,12 +353,12 @@ noremap yP yyP
 noremap yd yydd
 
 " Line mod time saver
-nnoremap <enter> i<enter><esc>
+" nnoremap <enter> i<enter><esc>
 nnoremap <down> m`o<esc>``
 nnoremap <up> m`O<esc>``
 
 " Escape key mapping
-inoremap jj <esc>
+" inoremap jj <esc>
 
 " insert mode movement mapping
 inoremap <c-j> <esc>^o
@@ -380,7 +376,7 @@ map <c-space> %
 " nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>ss <C-w>s
 nnoremap <leader>vv <C-w>v
-nnoremap <tab> <c-w>w
+" nnoremap <tab> <c-w>w
 " noremap <c-j> <C-w>j
 " noremap <c-k> <C-w>k
 " noremap <c-h> <C-w>h
@@ -513,14 +509,20 @@ let NERDTreeShowBookmarks=1
 let NERDChristmasTree=0
 
 " SnipMate
-let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
+" let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " UltiSnips
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
+let g:UltiSnipsListSnippets="<c-tab>"
 
 " Jedi
 " let g:jedi#goto_command = "<leader>g"
@@ -538,6 +540,12 @@ let g:syntastic_puppet_lint_disable = 1
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_html_checkers = ['tidy']
+let g:syntastic_html_tidy_ignore_errors = [
+  \" proprietary attribute \"ng-",
+  \" proprietary attribute \"ui-",
+  \" discarding unexpected </base>"
+  \]
 
 " Powerline & airline
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
@@ -669,6 +677,7 @@ if executable('ag')
 endif
 
 " YCM+UltiSnips: The best combo
+" See: https://github.com/Valloric/YouCompleteMe/issues/36
 function! g:UltiSnips_Complete()
     call UltiSnips#ExpandSnippet()
     if g:ulti_expand_res == 0
@@ -685,9 +694,7 @@ function! g:UltiSnips_Complete()
 endfunction
 
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-e>"
 " this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
