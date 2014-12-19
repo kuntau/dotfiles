@@ -120,10 +120,11 @@ if !has("gui_running")
     " set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
-    " let g:molokai_original=1
+    let g:molokai_original=1
+    " let g:solarized_termcolors=256
     " let g:rehash256=1
-    set background=dark
     colorscheme molokai
+    set background=dark
 
     " fix terminal timeout when pressing escape
     " set ttimeout
@@ -450,7 +451,8 @@ noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 noremap <leader>sp :setlocal paste!<cr>
-noremap <F2> :set paste!<cr>
+" noremap <F2> :set paste!<cr>
+set pastetoggle=<F2>
 " noremap <leader>pp "+p
 " noremap <leader>pP "+P
 
@@ -458,7 +460,9 @@ noremap <F2> :set paste!<cr>
 """""""""""""""""""""""
 
 " Let ack.vim use ag instead of ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
+if exists(":Ack")
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
 
 " Gist
 let g:gist_clip_command = 'pbcopy'
@@ -469,60 +473,80 @@ let g:gist_show_privates = 1
 " map <leader>l <Plug>TaskList
 
 " TagBar
-nnoremap <silent> <F3> :TagbarToggle<CR>
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-let g:tagbar_autoshowtag = 1
-let g:tagbar_autofocus = 1
+if exists(":TagBar")
+  nnoremap <silent> <F3> :TagbarToggle<CR>
+  let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+  let g:tagbar_autoshowtag = 1
+  let g:tagbar_autofocus = 1
+endif
+
+" Tabularize
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 
 " crtl-p
-let g:ctrlp_map = '<c-p>'
-" use ag with ctrlp
-let g:ctrlp_user_command = {
-  \ 'types': {
+if exists(":CtrlP")
+  let g:ctrlp_map = '<c-p>'
+  " use ag with ctrlp
+  let g:ctrlp_user_command = {
+    \ 'types': {
     \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
     \ },
-  \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
-  \ }
-let g:ctrlp_use_caching = 0
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_by_filename  = 0
-let g:ctrlp_switch_buffer  = 'Et'
-" let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
+    \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
+    \ }
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_by_filename  = 0
+  let g:ctrlp_switch_buffer  = 'Et'
+  " let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
+  let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ }
+endif
 
 " NERDTreeTabs
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:nerdtree_tabs_open_on_new_tab = 0
+if exists(":NERDTree")
+  let g:nerdtree_tabs_open_on_gui_startup = 0
+  let g:nerdtree_tabs_open_on_console_startup = 0
+  let g:nerdtree_tabs_open_on_new_tab = 0
+endif
 
 " NERDTree
-nnoremap <Leader>f :NERDTreeToggle<CR>
-nnoremap <leader>cd :NERDTreeCWD<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
-let NERDTreeBookmarksFile=$HOME.'/.vim/.NERDTreeBookmarks'
-let NERDTreeDirArrows=1
-let NERDTreeMinimalUI=1
-let NERDTreeShowBookmarks=1
-let NERDChristmasTree=0
+if exists(":NERDTreeTabsToggle")
+  nnoremap <Leader>f :NERDTreeToggle<CR>
+  nnoremap <leader>cd :NERDTreeCWD<CR>
+  nnoremap <leader>nf :NERDTreeFind<CR>
+  let NERDTreeBookmarksFile=$HOME.'/.vim/.NERDTreeBookmarks'
+  let NERDTreeDirArrows=1
+  let NERDTreeMinimalUI=1
+  let NERDTreeShowBookmarks=1
+  let NERDChristmasTree=0
+endif
 
 " SnipMate
 " let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+if exists(":YcmDiags")
+  let g:ycm_key_list_select_completion = ['<C-n>']
+  let g:ycm_key_list_previous_completion = ['<C-p>']
+  let g:SuperTabDefaultCompletionType = '<C-n>'
+endif
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
-let g:UltiSnipsListSnippets="<c-tab>"
+if exists(":UltiSnipsEdit")
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
+  let g:UltiSnipsListSnippets="<c-tab>"
+endif
 
 " Jedi
 " let g:jedi#goto_command = "<leader>g"
@@ -534,24 +558,29 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic settings
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_jump = 0
-let g:syntastic_puppet_lint_disable = 1
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_coffee_checkers = ['coffeelint']
-let g:syntastic_css_checkers = ['csslint']
-let g:syntastic_html_checkers = ['tidy']
-let g:syntastic_html_tidy_ignore_errors = [
-  \" proprietary attribute \"ng-",
-  \" proprietary attribute \"ui-",
-  \" discarding unexpected </base>"
-  \]
+if exists(":SyntasticInfo")
+  let g:syntastic_enable_signs = 1
+  let g:syntastic_auto_jump = 0
+  let g:syntastic_puppet_lint_disable = 1
+  let g:syntastic_javascript_checkers = ['jshint']
+  let g:syntastic_coffee_checkers = ['coffeelint']
+  let g:syntastic_css_checkers = ['csslint']
+  let g:syntastic_html_checkers = ['tidy']
+  let g:syntastic_html_tidy_ignore_errors = [
+    \" proprietary attribute \"ng-",
+    \" proprietary attribute \"ui-",
+    \" discarding unexpected </base>"
+    \]
+endif
 
 " Powerline & airline
-set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set laststatus=2    " Always dislay the statusline in all windows
-let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 1
+if exists(":AirlineToggle") || exists(":PowerlineToggle")
+  set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+  set laststatus=2    " Always dislay the statusline in all windows
+  let g:Powerline_symbols = 'fancy'
+  let g:airline_powerline_fonts = 1
+  " let g:airline_theme = 'molokai'
+endif
 
 " CSApprox
 let g:CSApprox_loaded = 1
@@ -577,18 +606,24 @@ let g:indentLine_char = '⋮'
 " let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
-let g:tmux_navigator_no_mappings = 1
-noremap <silent> <c-j> :TmuxNavigateDown<cr>
-noremap <silent> <c-k> :TmuxNavigateUp<cr>
-noremap <silent> <c-h> :TmuxNavigateLeft<cr>
-noremap <silent> <c-l> :TmuxNavigateRight<cr>
+if exists(":TmuxNavigateUp")
+  let g:tmux_navigator_no_mappings = 1
+  noremap <silent> <c-j> :TmuxNavigateDown<cr>
+  noremap <silent> <c-k> :TmuxNavigateUp<cr>
+  noremap <silent> <c-h> :TmuxNavigateLeft<cr>
+  noremap <silent> <c-l> :TmuxNavigateRight<cr>
+endif
 
 " Emmet Vim
-let g:user_emmet_mode='inv'
-" let g:user_emmet_leader_key='<c-y>'
+if exists(":Emmet")
+  let g:user_emmet_mode='inv'
+  " let g:user_emmet_leader_key='<c-y>'
+endif
 
 " Dash plugin
-nmap <silent> <leader>d <plug>DashSearch
+if exists(":Dash")
+  nmap <silent> <leader>d <plug>DashSearch
+endif
 
 " Useful functions
 """"""""""""""""""
@@ -697,4 +732,3 @@ au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:U
 " this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
