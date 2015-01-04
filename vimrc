@@ -128,7 +128,7 @@ if !has("gui_running")
 
     " fix terminal timeout when pressing escape
     " set ttimeout
-    " set ttimeoutlen=10
+    set ttimeoutlen=50
     " augroup FastEscape
     "   autocmd!
     "   au InsertEnter * set timeoutlen=0
@@ -209,6 +209,7 @@ if has("gui_running")
     " set lines=50 columns=100
   endif
 endif
+" set gfn=PragmataPro\ for\ Powerline:h12
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
@@ -574,13 +575,18 @@ if exists(":SyntasticInfo")
 endif
 
 " Powerline & airline
-if exists(":AirlineToggle") || exists(":PowerlineToggle")
-  set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-  set laststatus=2    " Always dislay the statusline in all windows
+set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set laststatus=2    " Always dislay the statusline in all windows
+" if exists("g:airline_powerline_fonts")
+" if exists(":AirlineToggle") || exists(":PowerlineToggle")
   let g:Powerline_symbols = 'fancy'
   let g:airline_powerline_fonts = 1
-  " let g:airline_theme = 'molokai'
-endif
+" endif
+
+" if exists("g:airline_symbols")
+"   let g:airline_symbols = {}
+" endif
+" let g:airline_symbols = "\ua0"
 
 " CSApprox
 let g:CSApprox_loaded = 1
