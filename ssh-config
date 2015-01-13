@@ -12,8 +12,12 @@ Host vps
 
 Host hqlocal
   User     kuntau
-  HostName 192.168.0.100
+  HostName 192.168.1.100
 
 Host dh
   User     nizsul1
+  HostName nizamdesign.com
+
+Host pap
+  User     papadmin
   HostName nizamdesign.com
