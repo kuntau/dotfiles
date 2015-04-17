@@ -24,6 +24,7 @@ alias 'ytav=youtube-dl --extract-audio --keep-video'
 
 # aria2c -x = number of concurrent connections
 alias 'a2=aria2c -x8'
+alias comic='open -a "Simple Comic" $@'
 
 # node workflow
 alias 'npml=npm list --depth=0'
