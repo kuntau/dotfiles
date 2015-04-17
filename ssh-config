@@ -21,3 +21,13 @@ Host dh
 Host pap
   User     papadmin
   HostName nizamdesign.com
+
+Host pi
+  User     kuntau
+  Port     24
+  HostName pai.duckdns.org
+
+Host ocean
+  User     kuntau
+  Port     22
+  HostName do.kuntau.org
