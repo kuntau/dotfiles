@@ -355,7 +355,7 @@ noremap yP yyP
 noremap yd yydd
 
 " Line mod time saver
-" nnoremap <enter> i<enter><esc>
+nnoremap <enter> i<enter><esc>
 nnoremap <down> m`o<esc>``
 nnoremap <up> m`O<esc>``
 
