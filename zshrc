@@ -81,4 +81,7 @@ export PATH=$PATH:~/dotfiles/bin
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Timing.app Terminal Support
+PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
+export PROMPT_COMMAND="${PROMPT_COMMAND} ${PROMPT_TITLE}; "
 # export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
