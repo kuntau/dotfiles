@@ -378,7 +378,7 @@ map <c-space> %
 " nnoremap <leader>vs <C-w>v<C-w>l
 nnoremap <leader>ss <C-w>s
 nnoremap <leader>vv <C-w>v
-" nnoremap <tab> <c-w>w
+nnoremap <tab> <c-w>w
 " noremap <c-j> <C-w>j
 " noremap <c-k> <C-w>k
 " noremap <c-h> <C-w>h
@@ -461,9 +461,9 @@ set pastetoggle=<F2>
 """""""""""""""""""""""
 
 " Let ack.vim use ag instead of ack
-if exists(":Ack")
+" if exists(":Ack")
   let g:ackprg = 'ag --nogroup --nocolor --column'
-endif
+" endif
 
 " Gist
 let g:gist_clip_command = 'pbcopy'
@@ -474,23 +474,23 @@ let g:gist_show_privates = 1
 " map <leader>l <Plug>TaskList
 
 " TagBar
-if exists(":TagBar")
+" if exists(":TagBar")
   nnoremap <silent> <F3> :TagbarToggle<CR>
   let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 1
-endif
+" endif
 
 " Tabularize
-if exists(":Tabularize")
+" if exists(":Tabularize")
   nmap <Leader>a= :Tabularize /=<CR>
   vmap <Leader>a= :Tabularize /=<CR>
   nmap <Leader>a: :Tabularize /:\zs<CR>
   vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
+" endif
 
 " crtl-p
-if exists(":CtrlP")
+" if exists(":CtrlP")
   let g:ctrlp_map = '<c-p>'
   " use ag with ctrlp
   let g:ctrlp_user_command = {
@@ -508,17 +508,17 @@ if exists(":CtrlP")
     \ 'dir': '\v[\/]\.(git|hg|svn)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ }
-endif
+" endif
 
 " NERDTreeTabs
-if exists(":NERDTree")
+" if exists(":NERDTree")
   let g:nerdtree_tabs_open_on_gui_startup = 0
   let g:nerdtree_tabs_open_on_console_startup = 0
   let g:nerdtree_tabs_open_on_new_tab = 0
-endif
+" endif
 
 " NERDTree
-if exists(":NERDTreeTabsToggle")
+" if exists(":NERDTreeTabsToggle")
   nnoremap <Leader>f :NERDTreeToggle<CR>
   nnoremap <leader>cd :NERDTreeCWD<CR>
   nnoremap <leader>nf :NERDTreeFind<CR>
@@ -527,28 +527,28 @@ if exists(":NERDTreeTabsToggle")
   let NERDTreeMinimalUI=1
   let NERDTreeShowBookmarks=1
   let NERDChristmasTree=0
-endif
+" endif
 
 " SnipMate
 " let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
 " make YCM compatible with UltiSnips (using supertab)
-if exists(":YcmDiags")
+" if exists(":YcmDiags")
   let g:ycm_key_list_select_completion = ['<C-n>']
   let g:ycm_key_list_previous_completion = ['<C-p>']
   let g:SuperTabDefaultCompletionType = '<C-n>'
-endif
+" endif
 
 " UltiSnips
-if exists(":UltiSnipsEdit")
+" if exists(":UltiSnipsEdit")
   " let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsExpandTrigger="<c-s>"
+  let g:UltiSnipsExpandTrigger="<tab>"
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
   let g:UltiSnipsEditSplit="vertical"
   let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
   let g:UltiSnipsListSnippets="<c-tab>"
-endif
+" endif
 
 " Jedi
 " let g:jedi#goto_command = "<leader>g"
@@ -560,7 +560,7 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic settings
-if exists(":SyntasticInfo")
+" if exists(":SyntasticInfo")
   let g:syntastic_enable_signs = 1
   let g:syntastic_auto_jump = 0
   let g:syntastic_puppet_lint_disable = 1
@@ -573,7 +573,7 @@ if exists(":SyntasticInfo")
     \" proprietary attribute \"ui-",
     \" discarding unexpected </base>"
     \]
-endif
+" endif
 
 " Powerline & airline
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
@@ -613,24 +613,29 @@ let g:indentLine_char = '⋮'
 " let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
-if exists(":TmuxNavigateUp")
+" if exists(":TmuxNavigateUp")
   let g:tmux_navigator_no_mappings = 1
   noremap <silent> <c-j> :TmuxNavigateDown<cr>
   noremap <silent> <c-k> :TmuxNavigateUp<cr>
   noremap <silent> <c-h> :TmuxNavigateLeft<cr>
   noremap <silent> <c-l> :TmuxNavigateRight<cr>
-endif
+" else
+"   noremap <c-j> <c-w>j
+"   noremap <c-k> <c-w>k
+"   noremap <c-h> <c-w>h
+"   noremap <c-l> <c-w>l
+" endif
 
 " Emmet Vim
-if exists(":Emmet")
+" if exists(":Emmet")
   let g:user_emmet_mode='inv'
   " let g:user_emmet_leader_key='<c-y>'
-endif
+" endif
 
 " Dash plugin
-if exists(":Dash")
+" if exists(":Dash")
   nmap <silent> <leader>d <plug>DashSearch
-endif
+" endif
 
 " Useful functions
 """"""""""""""""""
