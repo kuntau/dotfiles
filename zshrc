@@ -59,6 +59,7 @@ if [[ $osname == Linux ]]; then
   PATH=$PATH:~/npm/bin:/usr/local/go/bin
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   TERM="xterm-256color"
+  source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
   export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
