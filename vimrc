@@ -614,11 +614,15 @@ let g:indentLine_char = '⋮'
 
 " Vim Tmux Navigator
 " if exists(":TmuxNavigateUp")
-  let g:tmux_navigator_no_mappings = 1
-  noremap <silent> <c-j> :TmuxNavigateDown<cr>
-  noremap <silent> <c-k> :TmuxNavigateUp<cr>
-  noremap <silent> <c-h> :TmuxNavigateLeft<cr>
-  noremap <silent> <c-l> :TmuxNavigateRight<cr>
+  " let g:tmux_navigator_no_mappings = 1
+  " nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+  " nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+  " nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+  " nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+  if has('nvim')
+    nmap <BS> <C-W>h
+    " nmap <BS> :TmuxNavigateLeft<cr>
+  endif
 " else
 "   noremap <c-j> <c-w>j
 "   noremap <c-k> <c-w>k
