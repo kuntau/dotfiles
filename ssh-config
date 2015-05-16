@@ -4,7 +4,7 @@ ControlPath /tmp/%r@%h:%p
 
 Host hq
   User     kuntau
-  HostName kuntau.dlinkddns.com
+  HostName kosx.duckdns.org
 
 Host vps
   User     kuntau
@@ -12,8 +12,22 @@ Host vps
 
 Host hqlocal
   User     kuntau
-  HostName 192.168.0.100
+  HostName 192.168.1.100
 
 Host dh
   User     nizsul1
   HostName nizamdesign.com
+
+Host pap
+  User     papadmin
+  HostName nizamdesign.com
+
+Host pi
+  User     kuntau
+  Port     24
+  HostName pai.duckdns.org
+
+Host ocean
+  User     kuntau
+  Port     22
+  HostName do.kuntau.org

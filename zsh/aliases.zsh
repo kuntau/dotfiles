@@ -13,6 +13,7 @@ alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
 alias 'ssh3=ssh nizsul1@nizamdesign.com'
 
 # youtube-dl
+alias 'ytx=proxychains4 youtube-dl'
 alias 'yt=youtube-dl'
 alias 'yt3=youtube-dl -f 43'
 alias 'yt4=youtube-dl -f 44'
@@ -23,6 +24,7 @@ alias 'ytav=youtube-dl --extract-audio --keep-video'
 
 # aria2c -x = number of concurrent connections
 alias 'a2=aria2c -x8'
+alias comic='open -a "Simple Comic" $@'
 
 # node workflow
 alias 'npml=npm list --depth=0'
