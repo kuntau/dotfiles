@@ -7,6 +7,10 @@ alias 'zshrc=vim ~/dotfiles/zshrc'
 alias 'vimrc=vim ~/dotfiles/vimrc'
 alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 
+# nvim 24 bit color
+alias 'vi=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
+alias 'nvim=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
+
 # ssh shortcut
 alias 'ssh1=ssh kuntau@root.kuntau.org'
 alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
