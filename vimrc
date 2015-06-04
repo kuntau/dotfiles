@@ -34,7 +34,6 @@ Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
 Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'Rykka/colorv.vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
@@ -45,7 +44,7 @@ Bundle 'danro/rename.vim'
 " Syntaxes and such.
 " Bundle 'tpope/vim-cucumber'
 " Bundle 'tpope/vim-liquid'
-Bundle 'tpope/vim-haml'
+" Bundle 'tpope/vim-haml'
 Bundle 'groenewege/vim-less'
 " Bundle 'jcf/vim-latex'
 Bundle 'mutewinter/nginx.vim'
@@ -58,6 +57,7 @@ Bundle 'mutewinter/nginx.vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-unimpaired'
 Bundle 'godlygeek/tabular'
 
 " html, Javascript & css bundles
@@ -89,6 +89,7 @@ Bundle 'jmcantrell/vim-virtualenv'
 " Bundle 'tpope/vim-endwise'
 
 " Fun, but not useful
+" Bundle 'Rykka/colorv.vim' " add 180ms startup time
 " Bundle 'davidoc/taskpaper.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -280,7 +281,7 @@ au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 ex
 " Javascript configurations
 """""""""""""""""""""""""""
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript setlocal colorcolumn=100
+autocmd FileType javascript setlocal colorcolumn=80
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 
 " Coffeescript configurations
@@ -376,8 +377,10 @@ map <c-space> %
 
 " Working with split windows
 " nnoremap <leader>vs <C-w>v<C-w>l
-nnoremap <leader>ss <C-w>s
-nnoremap <leader>vv <C-w>v
+" nnoremap <leader>ss <C-w>s
+" nnoremap <leader>vv <C-w>v
+nnoremap <c-w>\| <c-w>v
+nnoremap <c-w>\- <c-w>s
 nnoremap <tab> <c-w>w
 " noremap <c-j> <C-w>j
 " noremap <c-k> <C-w>k
@@ -385,8 +388,8 @@ nnoremap <tab> <c-w>w
 " noremap <c-l> <C-w>l
 noremap <c-w>< <c-w>10<
 noremap <c-w>> <c-w>10>
-noremap <c-w>+ <c-w>10+
-noremap <c-w>- <c-w>10-
+" noremap <c-w>+ <c-w>10+
+" noremap <c-w>- <c-w>10-
 " noremap <c-left>  <c-w>10<
 " noremap <c-right> <c-w>10>
 " noremap <c-up>    <c-w>10+
@@ -561,17 +564,28 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
+  nmap <leader>sy :SyntasticToggleMode<cr>
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 0
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
   let g:syntastic_enable_signs = 1
   let g:syntastic_auto_jump = 0
-  let g:syntastic_puppet_lint_disable = 1
-  let g:syntastic_javascript_checkers = ['jshint']
+  let g:syntastic_error_symbol = "✗"
+  let g:syntastic_warning_symbol = "⚠"
+  let g:syntastic_style_error_symbol = '✠'
+  let g:syntastic_style_warning_symbol = '≈'
+  " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+  let g:syntastic_javascript_checkers = []
   let g:syntastic_coffee_checkers = ['coffeelint']
   let g:syntastic_css_checkers = ['csslint']
-  let g:syntastic_html_checkers = ['tidy']
+  let g:syntastic_html_tidy_exec = 'tidy5'
+  " let g:syntastic_html_checkers = ['tidy']
   let g:syntastic_html_tidy_ignore_errors = [
-    \" proprietary attribute \"ng-",
-    \" proprietary attribute \"ui-",
-    \" discarding unexpected </base>"
+    \' proprietary attribute "ng-',
+    \'proprietary attribute "ui-',
+    \'<ng-',
+    \'</ng-'
     \]
 " endif
 
