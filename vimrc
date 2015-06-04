@@ -53,7 +53,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
+" Plug 'godlygeek/tabular'
 
 " html, Javascript & css bundles
 Plug 'pangloss/vim-javascript'
@@ -101,10 +102,10 @@ Plug 'tomasr/molokai'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'Valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesQ3/vim-windowswap'
-Plug 'rizzatti/dash.vim'
+Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
 
 call plug#end()
 
@@ -472,7 +473,6 @@ let g:gist_show_privates = 1
 " TaskList
 " map <leader>l <Plug>TaskList
 
-" TagBar
 " if exists(":TagBar")
   nnoremap <silent> <F3> :TagbarToggle<CR>
   let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
@@ -480,12 +480,16 @@ let g:gist_show_privates = 1
   let g:tagbar_autofocus = 1
 " endif
 
-" Tabularize
 " if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
+  " nmap <Leader>a= :Tabularize /=<CR>
+  " vmap <Leader>a= :Tabularize /=<CR>
+  " nmap <Leader>a: :Tabularize /:\zs<CR>
+  " vmap <Leader>a: :Tabularize /:\zs<CR>
+" endif
+
+" if exists(":vim-easy-align")
+  vmap <Enter> <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
 " endif
 
 " crtl-p
@@ -540,13 +544,20 @@ let g:gist_show_privates = 1
 
 " UltiSnips
 " if exists(":UltiSnipsEdit")
-  " let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-  let g:UltiSnipsEditSplit="vertical"
-  let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
-  let g:UltiSnipsListSnippets="<c-tab>"
+  let g:UltiSnipsExpandTrigger='<tab>'
+  let g:UltiSnipsJumpForwardTrigger='<tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+  let g:UltiSnipsEditSplit='vertical'
+  let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
+  let g:UltiSnipsListSnippets='<c-tab>'
+" endif
+
+" UltiSnipsLazyLoad
+  augroup LazyLoadUltiSnips
+    autocmd!
+    autocmd InsertEnter * call plug#load('ultisnips')
+      \| autocmd! LazyLoadUltiSnips
+  augroup END
 " endif
 
 " Jedi
