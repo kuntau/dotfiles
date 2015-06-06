@@ -64,32 +64,32 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'godlygeek/tabular'
 
 " html, Javascript & css bundles
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'leshill/vim-json', { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
-Plug 'tpope/vim-markdown'
-Plug 'othree/html5.vim'
+Plug 'tpope/vim-markdown', { 'for': 'md' }
+Plug 'othree/html5.vim', { 'for': 'html' }
 " Plug 'itspriddle/vim-jquery'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'wavded/vim-stylus', { 'for': 'styl' }
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'js' }
 " Plug 'mklabs/grunt.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
-Plug 'marijnh/tern_for_vim', { 'on': [] }
+Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'js' }
 
 " Python bundles
-" Plug 'nvie/vim-flake8'
-" Plug 'fs111/pydoc.vim'
-" Plug 'vim-scripts/python_match.vim'
-" Plug 'ehamberg/vim-cute-python'
-" Plug 'jmcantrell/vim-virtualenv'
+Plug 'nvie/vim-flake8', { 'for': 'py' }
+Plug 'fs111/pydoc.vim', { 'for': 'py' }
+Plug 'vim-scripts/python_match.vim', { 'for': 'py' }
+Plug 'ehamberg/vim-cute-python', { 'for': 'py' }
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'py' }
 
 " Ruby specific
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'tpope/vim-endwise'
+Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
+Plug 'tpope/vim-endwise', { 'for': 'rb' }
 
 " Fun, but not useful
 " Plug 'Rykka/colorv.vim' " add 180ms startup time
@@ -99,7 +99,7 @@ Plug 'bling/vim-airline'
 " Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Plug 'mgutz/vim-colors'
 " Plug 'tpope/vim-speeddating'
-" Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'chreekat/vim-paren-crosshairs'
 Plug 'tomasr/molokai'
 " Plug 'vim-scripts/CSApprox'
