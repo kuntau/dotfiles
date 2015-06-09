@@ -73,7 +73,7 @@ fi
 
 # make vim the default editor!
 export EDITOR=vim
-# alias 'rld=source ~/.zshrc'
+alias 'rld=source ~/.zshrc'
 
 # make our custom scripts work!
 export PATH=$PATH:~/dotfiles/bin
@@ -89,3 +89,4 @@ export PROMPT_COMMAND="${PROMPT_COMMAND} ${PROMPT_TITLE}; "
 
 # Remove duplicate in PATH
 typeset -U PATH
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
