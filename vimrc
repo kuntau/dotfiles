@@ -9,6 +9,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
+set rtp+=~/.fzf
 call plug#begin('~/.vim/bundle')
 
 " Plug help
@@ -23,10 +24,9 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-fugitive'
 
 " System
-" Plug 'sophacles/vim-bundle-sparkup'
-" Plug 'mattn/livestyle-vim'
-" Plug 'flomotlik/vim-livereload'
-" Plug 'nathanaelkane/vim-indent-guides'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'JazzCore/ctrlp-cmatcher'
+" Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'nixprime/cpsm'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
 " Plug 'vim-scripts/Gist.vim'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
@@ -35,12 +35,14 @@ Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
 " Plug 'ervandew/supertab'
 Plug 'Raimondi/delimitMate'
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'mattn/webapi-vim'
-Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
+" Plug 'sophacles/vim-bundle-sparkup'
+" Plug 'mattn/livestyle-vim'
+" Plug 'flomotlik/vim-livereload'
+" Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'Yggdroot/indentLine'
 
 " Syntaxes and such.
@@ -64,21 +66,22 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'godlygeek/tabular'
 
 " html, Javascript & css bundles
+Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'js' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'js' }
 Plug 'leshill/vim-json', { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
-Plug 'tpope/vim-markdown', { 'for': 'md' }
+" Plug 'tpope/vim-markdown', { 'for': 'md' }
+Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
 " Plug 'itspriddle/vim-jquery'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'wavded/vim-stylus', { 'for': 'styl' }
-Plug 'mattn/emmet-vim', { 'for': 'html' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'js' }
 " Plug 'mklabs/grunt.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
-Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
-Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'js' }
 
 " Python bundles
 Plug 'nvie/vim-flake8', { 'for': 'py' }
@@ -94,18 +97,21 @@ Plug 'tpope/vim-endwise', { 'for': 'rb' }
 " Fun, but not useful
 " Plug 'Rykka/colorv.vim' " add 180ms startup time
 " Plug 'davidoc/taskpaper.vim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bling/vim-airline'
 " Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Plug 'mgutz/vim-colors'
 " Plug 'tpope/vim-speeddating'
-Plug 'chriskempson/base16-vim'
 Plug 'chreekat/vim-paren-crosshairs'
+Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
+Plug 'chriskempson/base16-vim'
+" Plug 'goatslacker/mango.vim'
 " Plug 'vim-scripts/CSApprox'
-" Plug 'yearofmoo/Vim-Darkmate'
+Plug 'yearofmoo/Vim-Darkmate'
 
 " Misc bundle
+Plug 'junegunn/vim-peekaboo'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
@@ -125,7 +131,7 @@ if !has("gui_running")
     " set t_Co=256
     " let &t_AB="\e[48;5;%dm"
     " let &t_AF="\e[38;5;%dm"
-    let g:molokai_original=1
+    " let g:molokai_original=1
     " let g:solarized_termcolors=256
     " let g:rehash256=1
     colorscheme molokai
@@ -384,7 +390,7 @@ inoremap <c-a> <esc>I
 " nnoremap <leader>ss <C-w>s
 " nnoremap <leader>vv <C-w>v
 nnoremap <c-w>\| <c-w>v
-nnoremap <c-w>\- <c-w>s
+nnoremap <c-w>- <c-w>s
 nnoremap <tab> <c-w>w
 " noremap <c-j> <C-w>j
 " noremap <c-k> <C-w>k
@@ -501,21 +507,28 @@ let g:gist_show_privates = 1
 
 " crtl-p
 " if exists(":CtrlP")
-  let g:ctrlp_map = '<c-p>'
+  nnoremap <c-p> :FZF<CR>
+  " let g:ctrlp_map = '<c-p>'
   " use ag with ctrlp
-  let g:ctrlp_user_command = {
-    \ 'types': {
-    \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
-    \ },
-    \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
-    \ }
+  " let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
+  let g:ctrlp_match_func = { 'match' : 'cpsm#CtrlPMatch' }
+  " let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
+  " let g:ctrlp_user_command = {
+  "   \ 'types': {
+  "   \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
+  "   \ },
+  "   \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
+  "   \ }
   let g:ctrlp_use_caching = 0
   let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_by_filename  = 0
-  let g:ctrlp_switch_buffer  = 'Et'
+  let g:ctrlp_lazy_update = 350
+  " let g:ctrlp_clear_cache_on_exit = 0
+  let g:ctrlp_max_files = 1000
+  " let g:ctrlp_by_filename  = 0
+  " let g:ctrlp_switch_buffer  = 'Et'
   " let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
   let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/]\.(git|hg|svn)$',
+    \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ }
 " endif
@@ -587,10 +600,11 @@ let g:gist_show_privates = 1
 " let g:jedi#goto_command = "<leader>g"
 
 " Double rainbow - What does it mean!?
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+au VimEnter * RainbowParentheses
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
@@ -626,6 +640,7 @@ set laststatus=2    " Always dislay the statusline in all windows
 " if exists(":AirlineToggle") || exists(":PowerlineToggle")
   let g:Powerline_symbols = 'fancy'
   let g:airline_powerline_fonts = 1
+  " let g:airline_theme = 'base16'
 " endif
 
 " if exists("g:airline_symbols")
