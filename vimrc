@@ -2,115 +2,119 @@ set encoding=utf-8
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" Plug automatic installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/bundle')
 
-" Vundle help
+" Plug help
 """"""""""""""
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :PlugStatus          - list configured bundles
+" :PlugInstall(!)    - install(update) bundles
+" :PlugUpdate - search(or refresh cache first) for foo
+" :PlugClean(!)      - confirm(or auto-approve) removal of unused bundles
 
 
 " VCS
-Bundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " System
-" Bundle 'sophacles/vim-bundle-sparkup'
-" Bundle 'mattn/livestyle-vim'
-" Bundle 'flomotlik/vim-livereload'
-" Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-" Bundle 'vim-scripts/Gist.vim'
-Bundle 'majutsushi/tagbar'
-" Bundle 'mileszs/ack.vim'
-Bundle 'rking/ag.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'ervandew/supertab'
-Bundle 'Raimondi/delimitMate'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'joequery/Stupid-EasyMotion'
-Bundle 'danro/rename.vim'
-" Bundle 'Yggdroot/indentLine'
+" Plug 'sophacles/vim-bundle-sparkup'
+" Plug 'mattn/livestyle-vim'
+" Plug 'flomotlik/vim-livereload'
+" Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'vim-scripts/Gist.vim'
+Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
+" Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/syntastic'
+" Plug 'ervandew/supertab'
+Plug 'Raimondi/delimitMate'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'mattn/webapi-vim'
+Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'terryma/vim-multiple-cursors'
+Plug 'joequery/Stupid-EasyMotion'
+Plug 'danro/rename.vim'
+" Plug 'Yggdroot/indentLine'
 
 " Syntaxes and such.
-" Bundle 'tpope/vim-cucumber'
-" Bundle 'tpope/vim-liquid'
-" Bundle 'tpope/vim-haml'
-Bundle 'groenewege/vim-less'
-" Bundle 'jcf/vim-latex'
-Bundle 'mutewinter/nginx.vim'
-" Bundle 'msanders/cocoa.vim'
-" Bundle 'empanda/vim-varnish'
-" Bundle 'atourino/jinja.vim'
-" Bundle 'puppetlabs/puppet-syntax-vim'
-" Bundle 'scrooloose/nerdcommenter'
-" Bundle 'tpope/vim-commentary'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'godlygeek/tabular'
+" Plug 'tpope/vim-cucumber'
+" Plug 'tpope/vim-liquid'
+" Plug 'tpope/vim-haml'
+Plug 'groenewege/vim-less', { 'for': [ 'less' ] }
+" Plug 'jcf/vim-latex'
+Plug 'mutewinter/nginx.vim', { 'for': 'conf' }
+" Plug 'msanders/cocoa.vim'
+" Plug 'empanda/vim-varnish'
+" Plug 'atourino/jinja.vim'
+" Plug 'puppetlabs/puppet-syntax-vim'
+" Plug 'scrooloose/nerdcommenter'
+" Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-easy-align'
+" Plug 'godlygeek/tabular'
 
 " html, Javascript & css bundles
-Bundle 'pangloss/vim-javascript'
-Bundle 'leshill/vim-json'
-Bundle 'kchmck/vim-coffee-script'
-" Bundle 'plasticboy/vim-markdown'
-Bundle 'tpope/vim-markdown'
-Bundle 'othree/html5.vim'
-" Bundle 'itspriddle/vim-jquery'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'wavded/vim-stylus'
-Bundle 'mattn/emmet-vim'
-Bundle 'othree/javascript-libraries-syntax.vim'
-" Bundle 'mklabs/grunt.vim'
-Bundle 'ap/vim-css-color'
-Bundle 'Valloric/MatchTagAlways'
-Bundle 'marijnh/tern_for_vim'
+Plug 'pangloss/vim-javascript', { 'for': 'js' }
+Plug 'leshill/vim-json', { 'for': 'json' }
+Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
+Plug 'plasticboy/vim-markdown', { 'for': 'md' }
+Plug 'tpope/vim-markdown', { 'for': 'md' }
+Plug 'othree/html5.vim', { 'for': 'html' }
+" Plug 'itspriddle/vim-jquery'
+Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'wavded/vim-stylus', { 'for': 'styl' }
+Plug 'mattn/emmet-vim', { 'for': 'html' }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'js' }
+" Plug 'mklabs/grunt.vim'
+Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
+Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'js' }
 
 " Python bundles
-" Bundle 'nvie/vim-flake8'
-" Bundle 'fs111/pydoc.vim'
-" Bundle 'vim-scripts/python_match.vim'
-" Bundle 'ehamberg/vim-cute-python'
-Bundle 'jmcantrell/vim-virtualenv'
+Plug 'nvie/vim-flake8', { 'for': 'py' }
+Plug 'fs111/pydoc.vim', { 'for': 'py' }
+Plug 'vim-scripts/python_match.vim', { 'for': 'py' }
+Plug 'ehamberg/vim-cute-python', { 'for': 'py' }
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'py' }
 
 " Ruby specific
-" Bundle 'vim-ruby/vim-ruby'
-" Bundle 'tpope/vim-endwise'
+Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
+Plug 'tpope/vim-endwise', { 'for': 'rb' }
 
 " Fun, but not useful
-" Bundle 'Rykka/colorv.vim' " add 180ms startup time
-" Bundle 'davidoc/taskpaper.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-" Bundle 'mgutz/vim-colors'
-" Bundle 'tpope/vim-speeddating'
-" Bundle 'chriskempson/base16-vim'
-Bundle 'chreekat/vim-paren-crosshairs'
-Bundle 'tomasr/molokai'
-" Bundle 'vim-scripts/CSApprox'
-" Bundle 'yearofmoo/Vim-Darkmate'
+" Plug 'Rykka/colorv.vim' " add 180ms startup time
+" Plug 'davidoc/taskpaper.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+" Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plug 'mgutz/vim-colors'
+" Plug 'tpope/vim-speeddating'
+Plug 'chriskempson/base16-vim'
+Plug 'chreekat/vim-paren-crosshairs'
+Plug 'tomasr/molokai'
+" Plug 'vim-scripts/CSApprox'
+" Plug 'yearofmoo/Vim-Darkmate'
 
 " Misc bundle
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'wesQ3/vim-windowswap'
-Bundle 'rizzatti/dash.vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'wesQ3/vim-windowswap'
+Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
+
+call plug#end()
 
 filetype plugin indent on     " required!
 
@@ -373,7 +377,7 @@ inoremap <c-a> <esc>I
 " inoremap <c-e> <esc>A;<esc>
 
 " Match tag
-map <c-space> %
+" map <c-space> %
 
 " Working with split windows
 " nnoremap <leader>vs <C-w>v<C-w>l
@@ -476,7 +480,6 @@ let g:gist_show_privates = 1
 " TaskList
 " map <leader>l <Plug>TaskList
 
-" TagBar
 " if exists(":TagBar")
   nnoremap <silent> <F3> :TagbarToggle<CR>
   let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
@@ -484,12 +487,16 @@ let g:gist_show_privates = 1
   let g:tagbar_autofocus = 1
 " endif
 
-" Tabularize
 " if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
+  " nmap <Leader>a= :Tabularize /=<CR>
+  " vmap <Leader>a= :Tabularize /=<CR>
+  " nmap <Leader>a: :Tabularize /:\zs<CR>
+  " vmap <Leader>a: :Tabularize /:\zs<CR>
+" endif
+
+" if exists(":vim-easy-align")
+  vmap <Enter> <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
 " endif
 
 " crtl-p
@@ -539,18 +546,41 @@ let g:gist_show_privates = 1
 " if exists(":YcmDiags")
   let g:ycm_key_list_select_completion = ['<C-n>']
   let g:ycm_key_list_previous_completion = ['<C-p>']
-  let g:SuperTabDefaultCompletionType = '<C-n>'
+  " let g:SuperTabDefaultCompletionType = '<C-n>'
 " endif
 
 " UltiSnips
 " if exists(":UltiSnipsEdit")
-  " let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-  let g:UltiSnipsEditSplit="vertical"
-  let g:UltiSnipsSnippetDirectory=["bundle/vim-snippets/UltiSnips"]
-  let g:UltiSnipsListSnippets="<c-tab>"
+  " let g:UltiSnipsExpandTrigger='<tab>'
+  " let g:UltiSnipsJumpForwardTrigger='<tab>'
+  " let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+  let g:UltiSnipsEditSplit='vertical'
+  let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
+  " let g:UltiSnipsListSnippets='<NUL>'
+" endif
+
+" UltiSnipsLazyLoad
+  " augroup LazyLoadUltiSnips
+  "   autocmd!
+  "   autocmd InsertEnter * call plug#load('ultisnips') |
+  "         \ call UltiSnips#ExpandSnippet() |
+  "         \ autocmd! LazyLoadUltiSnips
+  " augroup END
+
+  augroup load_us_ycm
+    autocmd!
+    autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
+                      \| call youcompleteme#Enable() | autocmd! load_us_ycm
+  augroup END
+
+  " inoremap <silent> <NUL> <c-r>=LoadUltiSnips()<cr>
+  " function! LoadUltiSnips()
+  "   let l:curpos = getcurpos()
+  "   execute plug#load('ultisnips')
+  "   call cursor(l:curpos[1], l:curpos[2])
+  "   call UltiSnips#ExpandSnippet()
+  "   return ""
+  " endfunction
 " endif
 
 " Jedi
@@ -743,22 +773,22 @@ endif
 
 " YCM+UltiSnips: The best combo
 " See: https://github.com/Valloric/YouCompleteMe/issues/36
-function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
+" function! g:UltiSnips_Complete()
+"     call UltiSnips#ExpandSnippet()
+"     if g:ulti_expand_res == 0
+"         if pumvisible()
+"             return "\<C-n>"
+"         else
+"             call UltiSnips#JumpForwards()
+"             if g:ulti_jump_forwards_res == 0
+"                return "\<TAB>"
+"             endif
+"         endif
+"     endif
+"     return ""
+" endfunction
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 " this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
