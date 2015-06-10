@@ -22,13 +22,14 @@ call plug#begin('~/.vim/bundle')
 
 " VCS
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'mattn/gist-vim'
 
 " System
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'JazzCore/ctrlp-cmatcher'
 " Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'nixprime/cpsm'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'vim-scripts/Gist.vim'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 " Plug 'mileszs/ack.vim'
 Plug 'rking/ag.vim'
@@ -99,18 +100,21 @@ Plug 'tpope/vim-endwise', { 'for': 'rb' }
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bling/vim-airline'
 Plug 'chreekat/vim-paren-crosshairs'
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'chriskempson/base16-vim'
-Plug 'yearofmoo/Vim-Darkmate'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Plug 'mgutz/vim-colors'
 " Plug 'tpope/vim-speeddating'
-" Plug 'goatslacker/mango.vim'
 " Plug 'vim-scripts/CSApprox'
 " Plug 'Rykka/colorv.vim' " add 180ms startup time
 " Plug 'davidoc/taskpaper.vim'
+
+" Colorschemes
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+Plug 'chriskempson/base16-vim'
+Plug 'yearofmoo/Vim-Darkmate'
+Plug 'junegunn/seoul256.vim'
+" Plug 'goatslacker/mango.vim'
 
 " Misc bundle
 Plug 'junegunn/vim-peekaboo'
