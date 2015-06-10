@@ -479,11 +479,6 @@ set pastetoggle=<F2>
 " Plugin configurations
 """""""""""""""""""""""
 
-" Let ack.vim use ag instead of ack
-" if exists(":Ack")
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-" endif
-
 " Gist
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 2
@@ -516,9 +511,9 @@ let g:gist_show_privates = 1
 " ----------------------------------------------------------------------------
 
 if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  let $FZF_DEFAULT_OPTS .= ' --inline-info -x'
 endif
-nnoremap <silent> <c-p> :FZF -m<CR>
+nnoremap <silent> <c-p> :FZF %:p:h<CR>
 
 " Choose color scheme
 " ----------------------------------------------------------------------------
