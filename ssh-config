@@ -18,10 +18,6 @@ Host dh
   User     nizsul1
   HostName nizamdesign.com
 
-Host pap
-  User     papadmin
-  HostName nizamdesign.com
-
 Host pi
   User     kuntau
   Port     24
@@ -31,3 +27,16 @@ Host ocean
   User     kuntau
   Port     22
   HostName do.kuntau.org
+
+Host pappc
+  User     Nizam
+  HostName pap.duckdns.org
+
+Host papweb
+  User     papadmin
+  HostName nizamdesign.com
+
+Host paplocal
+  User     Nizam
+  HostName 192.168.1.109
+
