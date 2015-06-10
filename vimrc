@@ -9,7 +9,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
-set rtp+=~/.fzf
+" set rtp+=~/.fzf
 call plug#begin('~/.vim/bundle')
 
 " Plug help
@@ -46,23 +46,23 @@ Plug 'danro/rename.vim'
 " Plug 'Yggdroot/indentLine'
 
 " Syntaxes and such.
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-easy-align'
+Plug 'groenewege/vim-less', { 'for': [ 'less' ] }
+Plug 'mutewinter/nginx.vim', { 'for': 'conf' }
 " Plug 'tpope/vim-cucumber'
 " Plug 'tpope/vim-liquid'
 " Plug 'tpope/vim-haml'
-Plug 'groenewege/vim-less', { 'for': [ 'less' ] }
 " Plug 'jcf/vim-latex'
-Plug 'mutewinter/nginx.vim', { 'for': 'conf' }
 " Plug 'msanders/cocoa.vim'
 " Plug 'empanda/vim-varnish'
 " Plug 'atourino/jinja.vim'
 " Plug 'puppetlabs/puppet-syntax-vim'
 " Plug 'scrooloose/nerdcommenter'
 " Plug 'tpope/vim-commentary'
-Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/vim-easy-align'
 " Plug 'godlygeek/tabular'
 
 " html, Javascript & css bundles
@@ -70,17 +70,18 @@ Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'js' }
 Plug 'pangloss/vim-javascript', { 'for': 'js' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'js' }
-Plug 'leshill/vim-json', { 'for': 'json' }
+" Plug 'itspriddle/vim-jquery'
+" Plug 'mklabs/grunt.vim'
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
 Plug 'plasticboy/vim-markdown', { 'for': 'md' }
 " Plug 'tpope/vim-markdown', { 'for': 'md' }
 Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
-" Plug 'itspriddle/vim-jquery'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'wavded/vim-stylus', { 'for': 'styl' }
-" Plug 'mklabs/grunt.vim'
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'ap/vim-css-color', { 'for': 'css' }
 
 " Python bundles
@@ -95,20 +96,21 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
 Plug 'tpope/vim-endwise', { 'for': 'rb' }
 
 " Fun, but not useful
-" Plug 'Rykka/colorv.vim' " add 180ms startup time
-" Plug 'davidoc/taskpaper.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bling/vim-airline'
-" Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-" Plug 'mgutz/vim-colors'
-" Plug 'tpope/vim-speeddating'
 Plug 'chreekat/vim-paren-crosshairs'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/base16-vim'
+Plug 'yearofmoo/Vim-Darkmate'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
+" Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plug 'mgutz/vim-colors'
+" Plug 'tpope/vim-speeddating'
 " Plug 'goatslacker/mango.vim'
 " Plug 'vim-scripts/CSApprox'
-Plug 'yearofmoo/Vim-Darkmate'
+" Plug 'Rykka/colorv.vim' " add 180ms startup time
+" Plug 'davidoc/taskpaper.vim'
 
 " Misc bundle
 Plug 'junegunn/vim-peekaboo'
@@ -464,7 +466,7 @@ endif
 noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
-noremap <leader>sp :setlocal paste!<cr>
+" noremap <leader>sp :setlocal paste!<cr>
 " noremap <F2> :set paste!<cr>
 set pastetoggle=<F2>
 " noremap <leader>pp "+p
@@ -505,13 +507,76 @@ let g:gist_show_privates = 1
   nmap ga <Plug>(EasyAlign)
 " endif
 
+" ----------------------------------------------------------------------------
+" {{{ FZF
+" ----------------------------------------------------------------------------
+
+if has('nvim')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+endif
+nnoremap <silent> <c-p> :FZF -m<CR>
+
+" Choose color scheme
+" ----------------------------------------------------------------------------
+nnoremap <silent> <Leader>cc :call fzf#run({
+\   'source':
+\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+\   'sink':     'colo',
+\   'options':  '+m',
+\   'left':     30,
+\   'launcher': 'iterm2-launcher 20 30 %s'
+\ })<CR>
+
+" Select buffer
+" ----------------------------------------------------------------------------
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m --prompt="Buf> "',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+" Ag
+" ----------------------------------------------------------------------------
+function! s:ag_handler(lines)
+  if len(a:lines) < 2 | return | endif
+
+  let [key, line] = a:lines[0:1]
+  let [file, line, col] = split(line, ':')[0:2]
+  let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
+  execute cmd escape(file, ' %#\')
+  execute line
+  execute 'normal!' col.'|zz'
+endfunction
+
+command! -nargs=1 Ag call fzf#run({
+\ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
+\ 'sink*':    function('<sid>ag_handler'),
+\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
+\ 'down':    '50%'
+\ })
+
+" ----------------------------------------------------------------------------
+" }}}
+
 " crtl-p
 " if exists(":CtrlP")
-  nnoremap <c-p> :FZF<CR>
   " let g:ctrlp_map = '<c-p>'
   " use ag with ctrlp
   " let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
-  let g:ctrlp_match_func = { 'match' : 'cpsm#CtrlPMatch' }
+  " let g:ctrlp_match_func = { 'match' : 'cpsm#CtrlPMatch' }
   " let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
   " let g:ctrlp_user_command = {
   "   \ 'types': {
@@ -519,18 +584,18 @@ let g:gist_show_privates = 1
   "   \ },
   "   \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
   "   \ }
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_lazy_update = 350
+  " let g:ctrlp_use_caching = 0
+  " let g:ctrlp_working_path_mode = 'ra'
+  " let g:ctrlp_lazy_update = 350
   " let g:ctrlp_clear_cache_on_exit = 0
-  let g:ctrlp_max_files = 1000
+  " let g:ctrlp_max_files = 1000
   " let g:ctrlp_by_filename  = 0
   " let g:ctrlp_switch_buffer  = 'Et'
   " let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
-  let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ }
+  " let g:ctrlp_custom_ignore = {
+  "   \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
+  "   \ 'file': '\v\.(exe|so|dll)$',
+  "   \ }
 " endif
 
 " NERDTreeTabs
@@ -543,8 +608,8 @@ let g:gist_show_privates = 1
 " NERDTree
 " if exists(":NERDTreeTabsToggle")
   nnoremap <Leader>f :NERDTreeToggle<CR>
-  nnoremap <leader>cd :NERDTreeCWD<CR>
-  nnoremap <leader>nf :NERDTreeFind<CR>
+  " nnoremap <leader>cd :NERDTreeCWD<CR>
+  " nnoremap <leader>nf :NERDTreeFind<CR>
   let NERDTreeBookmarksFile=$HOME.'/.vim/.NERDTreeBookmarks'
   let NERDTreeDirArrows=1
   let NERDTreeMinimalUI=1
@@ -771,19 +836,38 @@ function! DistractionFreeWriting()
     set fullscreen                     " go to fullscreen editing mode
     set linebreak                      " break the lines on words
 endfunction
-
 " :map <F8> :call DistractionFreeWriting()<CR>
+
+" Goyo & Limelight
+function! s:goyo_enter()
+  silent !tmux set status off
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Toggle spellcheck in normal mode
 " :map <F5> :setlocal spell! spelllang=en_us<CR>
 
 " Ag: The Silver Searcher
 if executable('ag')
-  "use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor\ --column
-
-  "ag is fast enough to let ctrlp not use cache
-  " let g:ctrlp_use_caching = 0
+else
+  set grepprg=grep\ -rn\ $*\ *
 endif
 
 " YCM+UltiSnips: The best combo
