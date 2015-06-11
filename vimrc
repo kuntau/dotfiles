@@ -511,7 +511,7 @@ let g:gist_show_privates = 1
 " ----------------------------------------------------------------------------
 
 if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info -x'
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
 nnoremap <silent> <c-p> :FZF %:p:h<CR>
 

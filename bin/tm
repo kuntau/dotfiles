@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/bin
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
@@ -18,7 +18,8 @@ do
     "New Session")
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
-      break;;
+      break
+      ;;
     "zsh")
       zsh --login
       break;;
