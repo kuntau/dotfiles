@@ -27,6 +27,8 @@ Plug 'mattn/gist-vim'
 
 " System
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'rking/ag.vim'
 " Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'JazzCore/ctrlp-cmatcher'
 " Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'nixprime/cpsm'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
@@ -67,34 +69,34 @@ Plug 'mutewinter/nginx.vim', { 'for': 'conf' }
 " Plug 'godlygeek/tabular'
 
 " html, Javascript & css bundles
-Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'js' }
-Plug 'pangloss/vim-javascript', { 'for': 'js' }
-Plug 'jelera/vim-javascript-syntax', { 'for': 'js' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'js' }
+Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
 " Plug 'itspriddle/vim-jquery'
 " Plug 'mklabs/grunt.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffee' ] }
-Plug 'plasticboy/vim-markdown', { 'for': 'md' }
+Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffeescript' ] }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Plug 'tpope/vim-markdown', { 'for': 'md' }
 Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'wavded/vim-stylus', { 'for': 'styl' }
+Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'ap/vim-css-color', { 'for': 'css' }
 
 " Python bundles
-Plug 'nvie/vim-flake8', { 'for': 'py' }
-Plug 'fs111/pydoc.vim', { 'for': 'py' }
-Plug 'vim-scripts/python_match.vim', { 'for': 'py' }
-Plug 'ehamberg/vim-cute-python', { 'for': 'py' }
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'py' }
+Plug 'nvie/vim-flake8', { 'for': 'python' }
+Plug 'fs111/pydoc.vim', { 'for': 'python' }
+Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
+Plug 'ehamberg/vim-cute-python', { 'for': 'python' }
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 
 " Ruby specific
-Plug 'vim-ruby/vim-ruby', { 'for': 'rb' }
-Plug 'tpope/vim-endwise', { 'for': 'rb' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 " Fun, but not useful
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -145,7 +147,7 @@ if !has("gui_running")
 
     " fix terminal timeout when pressing escape
     " set ttimeout
-    set ttimeoutlen=50
+    " set ttimeoutlen=50
     " augroup FastEscape
     "   autocmd!
     "   au InsertEnter * set timeoutlen=0
@@ -159,7 +161,7 @@ endif
 """""""""""""""""""""
 set wildmenu
 set wildmode=list:longest
-set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=.hg,.git,.svn,.idea              " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
@@ -346,12 +348,12 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
 noremap <space> :
-noremap <leader>ei :e$MYVIMRC<CR>
+noremap <leader>ei :vsplit ~/dotfiles/vimrc<CR>
 noremap <leader>so :w!<cr> :source %<CR>
 
-" give me normal jk!!
-map j gj
-map k gk
+" give me normal jk!! ** should enable with softwrap only **
+" map j gj
+" map k gk
 
 " use delete move without storing to register
 " noremap X "_X
@@ -513,7 +515,8 @@ let g:gist_show_privates = 1
 if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
-nnoremap <silent> <c-p> :FZF %:p:h<CR>
+nnoremap <silent> <c-p> :FZF<CR>
+" nnoremap <silent> <c-p> :FZF %:p:h<CR>
 
 " Choose color scheme
 " ----------------------------------------------------------------------------
@@ -628,9 +631,9 @@ command! -nargs=1 Ag call fzf#run({
 
 " UltiSnips
 " if exists(":UltiSnipsEdit")
-  " let g:UltiSnipsExpandTrigger='<tab>'
-  " let g:UltiSnipsJumpForwardTrigger='<tab>'
-  " let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+  let g:UltiSnipsExpandTrigger='<tab>'
+  let g:UltiSnipsJumpForwardTrigger='<tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
   let g:UltiSnipsEditSplit='vertical'
   let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
   " let g:UltiSnipsListSnippets='<NUL>'
@@ -661,14 +664,11 @@ command! -nargs=1 Ag call fzf#run({
 " endif
 
 " Jedi
-" let g:jedi#goto_command = "<leader>g"
+" let g:jedi#goto_command = "<leader>g
 
 " Double rainbow - What does it mean!?
 au VimEnter * RainbowParentheses
-" au VimEnter * RainbowParenthesesToggle
 " au Syntax * RainbowParenthesesLoadRound
-" au Syntax * RainbowParenthesesLoadSquare
-" au Syntax * RainbowParenthesesLoadBraces
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
@@ -688,7 +688,7 @@ au VimEnter * RainbowParentheses
   let g:syntastic_coffee_checkers = ['coffeelint']
   let g:syntastic_css_checkers = ['csslint']
   let g:syntastic_html_tidy_exec = 'tidy5'
-  " let g:syntastic_html_checkers = ['tidy']
+  let g:syntastic_html_checkers = []
   let g:syntastic_html_tidy_ignore_errors = [
     \' proprietary attribute "ng-',
     \'proprietary attribute "ui-',
@@ -840,6 +840,7 @@ endfunction
 " Goyo & Limelight
 function! s:goyo_enter()
   silent !tmux set status off
+  silent !tmux resize-pane -Z
   set noshowmode
   set noshowcmd
   set scrolloff=999
@@ -849,6 +850,7 @@ endfunction
 
 function! s:goyo_leave()
   silent !tmux set status on
+  silent !tmux resize-pane -Z
   set showmode
   set showcmd
   set scrolloff=5

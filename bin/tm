@@ -8,7 +8,11 @@ tmux has-session -t default || tmux new-session -s default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
-options=($(tmux list-sessions -F "#S" 2> /dev/null) "New Session" "zsh" "Exit")
+options=($(tmux list-sessions -F "#S" 2> /dev/null) \
+  "New Session" \
+  "Workspace - PAPSB-SYSTEM" \
+  "ZSH" \
+  "Cancel")
 echo "Available sessions"
 echo "------------------"
 echo " "
@@ -18,12 +22,14 @@ do
     "New Session")
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
-      break
-      ;;
-    "zsh")
+      break;;
+    "Workspace - PAPSB-SYSTEM")
+      tmux source-file ~/dotfiles/tmux/papsb.tmuxrc
+      break;;
+    "ZSH")
       zsh --login
       break;;
-    "Exit")
+    "Cancel")
       exit;;
     *)
       tmux attach-session -t $opt
