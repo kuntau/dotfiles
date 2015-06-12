@@ -233,6 +233,31 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 #             FZF helper
 # ======================================
 
+# Key bindings
+# ------------
+# CTRL-T - Paste the selected file path(s) into the command line
+__floc() {
+  locate / | $(__fzfcmd) -m | while read item; do
+    printf '%q ' "$item"
+  done
+  echo
+}
+
+__fzfcmd() {
+  [ ${FZF_TMUX:-1} -eq 1 ] && echo "fzf-tmux -d${FZF_TMUX_HEIGHT:-40%}" || echo "fzf"
+}
+
+if [[ $- =~ i ]]; then
+
+fzf-locate-widget() {
+  LBUFFER="${LBUFFER}$(__floc)"
+  zle redisplay
+}
+zle     -N   fzf-locate-widget
+bindkey '^y' fzf-locate-widget
+
+fi
+
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggle sort)
 fshow() {
   local out shas sha q k
