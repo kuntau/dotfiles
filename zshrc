@@ -76,6 +76,7 @@ fi
 # make vim the default editor!
 export EDITOR=vi
 alias 'rld=source ~/.zshrc'
+alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
 # make our custom scripts work!
 export PATH=$PATH:~/dotfiles/bin
