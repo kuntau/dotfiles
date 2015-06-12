@@ -1,5 +1,6 @@
 set encoding=utf-8
 set nocompatible               " be iMproved
+
 filetype off                   " required!
 
 " Plug automatic installation
@@ -382,10 +383,10 @@ nnoremap <up> m`O<esc>``
 " inoremap jj <esc>
 
 " insert mode movement mapping
-inoremap <c-j> <esc>^o
-inoremap <c-k> <esc>^O
-inoremap <c-e> <esc>A
-inoremap <c-a> <esc>I
+inoremap <c-j> <C-o>o
+inoremap <c-k> <C-o>O
+inoremap <c-e> <C-o>A
+inoremap <c-a> <C-o>I
 
 " faster way to terminate the line
 " inoremap <c-e> <esc>A;<esc>
@@ -399,19 +400,20 @@ inoremap <c-a> <esc>I
 " nnoremap <leader>vv <C-w>v
 nnoremap <c-w>\| <c-w>v
 nnoremap <c-w>- <c-w>s
-nnoremap <tab> <c-w>w
-" noremap <c-j> <C-w>j
-" noremap <c-k> <C-w>k
-" noremap <c-h> <C-w>h
-" noremap <c-l> <C-w>l
+map <c-tab> <c-w>w
+map <c-s-tab> <c-w>W
 noremap <c-w>< <c-w>10<
 noremap <c-w>> <c-w>10>
 " noremap <c-w>+ <c-w>10+
 " noremap <c-w>- <c-w>10-
-" noremap <c-left>  <c-w>10<
-" noremap <c-right> <c-w>10>
-" noremap <c-up>    <c-w>10+
-" noremap <c-down>  <c-w>10-
+noremap <m-left>  <c-w>10<
+noremap <m-right> <c-w>10>
+noremap <m-up>    <c-w>10+
+noremap <m-down>  <c-w>10-
+noremap <d-left>  <m-left>
+noremap <d-right> <m-right>
+noremap <d-up>    <m-up>
+noremap <d-down>  <m-down>
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -563,12 +565,39 @@ function! s:ag_handler(lines)
   execute 'normal!' col.'|zz'
 endfunction
 
-command! -nargs=1 Ag call fzf#run({
+command! -nargs=1 Agg call fzf#run({
 \ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
 \ 'sink*':    function('<sid>ag_handler'),
 \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
 \ 'down':    '50%'
 \ })
+
+" Buffer search
+" ----------------------------------------------------------------------------
+function! s:line_handler(l)
+  let keys = split(a:l, ':\t')
+  exec 'buf' keys[0]
+  exec keys[1]
+  normal! ^zz
+endfunction
+
+function! s:buffer_lines()
+  let res = []
+  for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
+    call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
+  endfor
+  return res
+endfunction
+
+command! FZFLines call fzf#run({
+\   'source':  <sid>buffer_lines(),
+\   'sink':    function('<sid>line_handler'),
+\   'options': '--extended --nth=3..',
+\   'down':    '60%'
+\})
+
+command! -nargs=1 Locate call fzf#run(
+      \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
 
 " ----------------------------------------------------------------------------
 " }}}
@@ -733,25 +762,13 @@ let g:indentLine_char = '⋮'
 " http://unicode-table.com/en/search/?q=dash
 
 " Plasticboy Markdown
-" let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
-" if exists(":TmuxNavigateUp")
-  " let g:tmux_navigator_no_mappings = 1
-  " nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-  " nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-  " nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-  " nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-  if has('nvim')
-    nmap <BS> <C-W>h
-    " nmap <BS> :TmuxNavigateLeft<cr>
-  endif
-" else
-"   noremap <c-j> <c-w>j
-"   noremap <c-k> <c-w>k
-"   noremap <c-h> <c-w>h
-"   noremap <c-l> <c-w>l
-" endif
+" if exists(":TmuxNavigator")
+if has('nvim')
+  nmap <BS> <C-w>h
+endif
 
 " Emmet Vim
 " if exists(":Emmet")
