@@ -19,10 +19,10 @@ alias 'ssh3=ssh nizsul1@nizamdesign.com'
 # youtube-dl
 alias 'ytx=proxychains4 youtube-dl'
 alias 'yt=youtube-dl'
-alias 'yt3=youtube-dl -f 43'
-alias 'yt4=youtube-dl -f 44'
-alias 'yt7=youtube-dl -f 45'
-alias 'yt1=youtube-dl -f 46'
+alias 'yt3=youtube-dl -f 43' # 320p
+alias 'yt4=youtube-dl -f 44' # 480p
+alias 'yt7=youtube-dl -f 45' # 720p hd
+alias 'yt1=youtube-dl -f 46' # 1080p full hd
 alias 'yta=youtube-dl --extract-audio'
 alias 'ytav=youtube-dl --extract-audio --keep-video'
 
@@ -51,11 +51,10 @@ mkd() {
   mkdir -p "$@" && cd "$@"
 }
 
-###################################################
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
-###################################################
+#===============================================================
 
 # osx programs
 alias st='open -a "Sublime Text"'
@@ -70,7 +69,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 # general shortcuts
-alias pro="cd ~/Coding"
+alias pro="cd ~/coding"
 alias gh="open -a google\ chrome 'http://github.com/kuntau'"
 alias bl="open -a google\ chrome 'http://browserling.com'"
 
@@ -139,13 +138,13 @@ alias whois="whois -h whois-servers.net"
 alias flush="dscacheutil -flushcache"
 
 # npm
-alias npmp="sudo npm publish"
-alias npma="sudo npm adduser"
-alias npmi="sudo npm install"
-alias npmg="sudo npm install -g"
-alias npmu="sudo npm update"
-alias npmr="sudo npm uninstall"
-alias npmrg="sudo npm uninstall -g"
+alias npmp="npm publish"
+alias npma="npm adduser"
+alias npmi="npm install"
+alias npmg="npm install -g"
+alias npmu="npm update"
+alias npmr="npm uninstall"
+alias npmrg="npm uninstall -g"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
