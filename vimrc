@@ -29,25 +29,19 @@ Plug 'mattn/gist-vim'
 " System
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-Plug 'rking/ag.vim'
-" Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'JazzCore/ctrlp-cmatcher'
-" Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' } | Plug 'nixprime/cpsm'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
-" Plug 'mileszs/ack.vim'
-Plug 'rking/ag.vim'
 Plug 'scrooloose/syntastic'
-" Plug 'ervandew/supertab'
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/webapi-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
-" Plug 'sophacles/vim-bundle-sparkup'
-" Plug 'mattn/livestyle-vim'
-" Plug 'flomotlik/vim-livereload'
-" Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'Yggdroot/indentLine'
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
+Plug 'tpope/vim-rsi'
+" Plug 'rking/ag.vim'
+" Plug 'ervandew/supertab'
 
 " Syntaxes and such.
 Plug 'tomtom/tcomment_vim'
@@ -55,31 +49,26 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
-Plug 'groenewege/vim-less', { 'for': [ 'less' ] }
-Plug 'mutewinter/nginx.vim', { 'for': 'conf' }
-" Plug 'tpope/vim-cucumber'
-" Plug 'tpope/vim-liquid'
-" Plug 'tpope/vim-haml'
-" Plug 'jcf/vim-latex'
-" Plug 'msanders/cocoa.vim'
-" Plug 'empanda/vim-varnish'
-" Plug 'atourino/jinja.vim'
-" Plug 'puppetlabs/puppet-syntax-vim'
-" Plug 'scrooloose/nerdcommenter'
-" Plug 'tpope/vim-commentary'
-" Plug 'godlygeek/tabular'
+Plug 'groenewege/vim-less'
+Plug 'mutewinter/nginx.vim'
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-liquid'
+Plug 'tpope/vim-haml'
+Plug 'jcf/vim-latex'
+Plug 'msanders/cocoa.vim'
+Plug 'empanda/vim-varnish'
+Plug 'atourino/jinja.vim'
+Plug 'puppetlabs/puppet-syntax-vim'
 
 " html, Javascript & css bundles
 Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-" Plug 'itspriddle/vim-jquery'
-" Plug 'mklabs/grunt.vim'
+Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffeescript' ] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-" Plug 'tpope/vim-markdown', { 'for': 'md' }
 Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
@@ -87,6 +76,7 @@ Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'mklabs/grunt.vim'
 
 " Python bundles
 Plug 'nvie/vim-flake8', { 'for': 'python' }
@@ -100,11 +90,10 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 " Fun, but not useful
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'bling/vim-airline'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'chreekat/vim-paren-crosshairs'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
-" Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Plug 'mgutz/vim-colors'
 " Plug 'tpope/vim-speeddating'
 " Plug 'vim-scripts/CSApprox'
@@ -123,11 +112,13 @@ Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-Plug 'Valloric/YouCompleteMe', { 'on': [] }
-Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesQ3/vim-windowswap'
 Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
+" Plug 'mattn/livestyle-vim'
+" Plug 'flomotlik/vim-livereload'
+" Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -335,14 +326,15 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " noremap <leader>cc :TComment<CR>
 
 " Genral
-noremap <silent> <F4> :QFix<CR>
+" noremap <silent> <F4> :QFix<CR>
 
 " Change leader
+let localleader = ","
 let mapleader = ","
 let g:mapleader = ","
 
 " Get rid of search hilighting with ,/
-nnoremap <silent> <leader><space> :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
 
 " Fix those pesky situations where you edit & need sudo to save
 cmap w!! w !sudo tee % >/dev/null
@@ -383,25 +375,18 @@ nnoremap <up> m`O<esc>``
 " inoremap jj <esc>
 
 " insert mode movement mapping
+" NOTE: Most of this was replaced by vim-rsi
 inoremap <c-j> <C-o>o
 inoremap <c-k> <C-o>O
-inoremap <c-e> <C-o>A
-inoremap <c-a> <C-o>I
-
-" faster way to terminate the line
-" inoremap <c-e> <esc>A;<esc>
 
 " Match tag
-" map <c-space> %
+map <c-space> %
 
 " Working with split windows
-" nnoremap <leader>vs <C-w>v<C-w>l
-" nnoremap <leader>ss <C-w>s
-" nnoremap <leader>vv <C-w>v
-nnoremap <c-w>\| <c-w>v
-nnoremap <c-w>- <c-w>s
 map <c-tab> <c-w>w
 map <c-s-tab> <c-w>W
+nnoremap <c-w>\| <c-w>v
+nnoremap <c-w>- <c-w>s
 noremap <c-w>< <c-w>10<
 noremap <c-w>> <c-w>10>
 " noremap <c-w>+ <c-w>10+
@@ -440,12 +425,12 @@ noremap <left>  :bp<cr>
 " map <leader>tm :tabmove
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" nmap <a-j> mz:m+<cr>`z
-" nmap <a-k> mz:m-2<cr>`z
-" vmap <a-j> :m'>+<cr>`<my`>mzgv`yo`z
-" vmap <a-k> :m'<-2<cr>`>my`<mzgv`yo`z
-" imap <a-j> <Esc>:m .+1<CR>==gi
-" imap <a-k> <Esc>:m .-2<CR>==gi
+" nmap <m-j> mz:m+<cr>`z
+" nmap <m-k> mz:m-2<cr>`z
+" vmap <m-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <m-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" imap <m-j> <Esc>:m .+1<CR>==gi
+" imap <m-k> <Esc>:m .-2<CR>==gi
 
 " Alternate version which don't use bookmark
 nnoremap <m-j> :m .+1<CR>==
@@ -475,8 +460,8 @@ noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 " noremap <leader>sp :setlocal paste!<cr>
-" noremap <F2> :set paste!<cr>
-set pastetoggle=<F2>
+noremap <F2> :set paste!<cr>
+" set pastetoggle=<F2>
 " noremap <leader>pp "+p
 " noremap <leader>pP "+P
 
@@ -522,14 +507,13 @@ nnoremap <silent> <c-p> :FZF<CR>
 
 " Choose color scheme
 " ----------------------------------------------------------------------------
-nnoremap <silent> <Leader>cc :call fzf#run({
+nnoremap <silent> <Leader>fc :call fzf#run({
 \   'source':
 \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
 \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
 \   'sink':     'colo',
 \   'options':  '+m',
 \   'left':     30,
-\   'launcher': 'iterm2-launcher 20 30 %s'
 \ })<CR>
 
 " Select buffer
@@ -545,34 +529,14 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Leader><Enter> :call fzf#run({
+nnoremap <silent> <Leader>fb :call fzf#run({
 \   'source':  reverse(<sid>buflist()),
 \   'sink':    function('<sid>bufopen'),
 \   'options': '+m --prompt="Buf> "',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
 
-" Ag
-" ----------------------------------------------------------------------------
-function! s:ag_handler(lines)
-  if len(a:lines) < 2 | return | endif
-
-  let [key, line] = a:lines[0:1]
-  let [file, line, col] = split(line, ':')[0:2]
-  let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
-  execute cmd escape(file, ' %#\')
-  execute line
-  execute 'normal!' col.'|zz'
-endfunction
-
-command! -nargs=1 Agg call fzf#run({
-\ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
-\ 'sink*':    function('<sid>ag_handler'),
-\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
-\ 'down':    '50%'
-\ })
-
-" Buffer search
+" Search in buffer
 " ----------------------------------------------------------------------------
 function! s:line_handler(l)
   let keys = split(a:l, ':\t')
@@ -589,6 +553,7 @@ function! s:buffer_lines()
   return res
 endfunction
 
+noremap <silent> <Leader>fs :FZFLines<CR>
 command! FZFLines call fzf#run({
 \   'source':  <sid>buffer_lines(),
 \   'sink':    function('<sid>line_handler'),
@@ -598,6 +563,35 @@ command! FZFLines call fzf#run({
 
 command! -nargs=1 Locate call fzf#run(
       \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
+
+" Ag
+" ----------------------------------------------------------------------------
+function! s:ag_handler(lines)
+  if len(a:lines) < 2 | return | endif
+
+  let [key, line] = a:lines[0:1]
+  let [file, line, col] = split(line, ':')[0:2]
+  let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
+  execute cmd escape(file, ' %#\')
+  execute line
+  execute 'normal!' col.'|zz'
+endfunction
+
+command! -nargs=1 Ag call fzf#run({
+\ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
+\ 'sink*':    function('<sid>ag_handler'),
+\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
+\ 'down':    '50%'
+\ })
+
+" MRU search
+" ----------------------------------------------------------------------------
+noremap <silent> <Leader>fm :FZFMru<CR>
+command! FZFMru call fzf#run({
+            \'source': v:oldfiles,
+            \'sink' : 'e ',
+            \'options' : '-m',
+            \})
 
 " ----------------------------------------------------------------------------
 " }}}
@@ -638,7 +632,7 @@ command! -nargs=1 Locate call fzf#run(
 
 " NERDTree
 " if exists(":NERDTreeTabsToggle")
-  nnoremap <Leader>f :NERDTreeToggle<CR>
+  nnoremap <Leader>ft :NERDTreeToggle<CR>
   " nnoremap <leader>cd :NERDTreeCWD<CR>
   " nnoremap <leader>nf :NERDTreeFind<CR>
   let NERDTreeBookmarksFile=$HOME.'/.vim/.NERDTreeBookmarks'
