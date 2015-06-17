@@ -603,7 +603,7 @@ else
   let g:ctrlp_map = '<c-p>'
   " use ag with ctrlp
   let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
-  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
+  " let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
   let g:ctrlp_user_command = {
     \ 'types': {
     \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
@@ -617,7 +617,6 @@ else
   let g:ctrlp_max_files = 1000
   let g:ctrlp_by_filename  = 0
   let g:ctrlp_switch_buffer  = 'Et'
-  let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
   let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
     \ 'file': '\v\.(exe|so|dll)$',
