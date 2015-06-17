@@ -1,14 +1,18 @@
-#!/bin/sh
-# export PATH=$PATH:/usr/local/bin
+#!/usr/bin/env bash
+export PATH=$PATH:/usr/local/bin
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
 # startup a "default" session if non currently exists
-# tmux has-session -t _default || tmux new-session -s _default -d
+tmux has-session -t default || tmux new-session -s default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
-options=($(tmux list-sessions -F "#S" 2> /dev/null) "New Session" "zsh" "Exit")
+options=($(tmux list-sessions -F "#S" 2> /dev/null) \
+  "New Session" \
+  "Workspace - PAPSB-SYSTEM" \
+  "ZSH" \
+  "Cancel")
 echo "Available sessions"
 echo "------------------"
 echo " "
@@ -19,10 +23,13 @@ do
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
       break;;
-    "zsh")
+    "Workspace - PAPSB-SYSTEM")
+      tmux source-file ~/dotfiles/tmux/papsb.tmuxrc
+      break;;
+    "ZSH")
       zsh --login
       break;;
-    "Exit")
+    "Cancel")
       exit;;
     *)
       tmux attach-session -t $opt

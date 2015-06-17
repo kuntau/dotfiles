@@ -10,6 +10,3 @@
 [submodule "code/Dropbox-Uploader"]
 	path = code/Dropbox-Uploader
 	url = https://github.com/andreafabrizi/Dropbox-Uploader.git
-[submodule "zsh/plugins/grunt-zsh-completion"]
-	path = zsh/plugins/grunt-zsh-completion
-	url = https://github.com/yonchu/grunt-zsh-completion
