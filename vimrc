@@ -27,7 +27,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 
 " System
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+if executable('fzf')
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+else
+  Plug 'ctrlpvim/ctrlp.vim'
+endif
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
@@ -104,8 +108,8 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/base16-vim'
-Plug 'yearofmoo/Vim-Darkmate'
 Plug 'junegunn/seoul256.vim'
+Plug 'flazz/vim-Colorschemes'
 " Plug 'goatslacker/mango.vim'
 
 " Misc bundle
@@ -498,130 +502,130 @@ let g:gist_show_privates = 1
 " ----------------------------------------------------------------------------
 " {{{ FZF
 " ----------------------------------------------------------------------------
+if executable('fzf')
 
-if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
-endif
-nnoremap <silent> <c-p> :FZF<CR>
-" nnoremap <silent> <c-p> :FZF %:p:h<CR>
+  if has('nvim')
+    let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  endif
+  nnoremap <silent> <c-p> :FZF<CR>
+  " nnoremap <silent> <c-p> :FZF %:p:h<CR>
 
-" Choose color scheme
-" ----------------------------------------------------------------------------
-nnoremap <silent> <Leader>fc :call fzf#run({
-\   'source':
-\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-\   'sink':     'colo',
-\   'options':  '+m',
-\   'left':     30,
-\ })<CR>
+  " Choose color scheme
+  " ----------------------------------------------------------------------------
+  nnoremap <silent> <Leader>fc :call fzf#run({
+  \   'source':
+  \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+  \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+  \   'sink':     'colo',
+  \   'options':  '+m',
+  \   'left':     30,
+  \ })<CR>
 
-" Select buffer
-" ----------------------------------------------------------------------------
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
+  " Select buffer
+  " ----------------------------------------------------------------------------
+  function! s:buflist()
+    redir => ls
+    silent ls
+    redir END
+    return split(ls, '\n')
+  endfunction
 
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
+  function! s:bufopen(e)
+    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+  endfunction
 
-nnoremap <silent> <Leader>fb :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m --prompt="Buf> "',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+  nnoremap <silent> <Leader>fb :call fzf#run({
+  \   'source':  reverse(<sid>buflist()),
+  \   'sink':    function('<sid>bufopen'),
+  \   'options': '+m --prompt="Buf> "',
+  \   'down':    len(<sid>buflist()) + 2
+  \ })<CR>
 
-" Search in buffer
-" ----------------------------------------------------------------------------
-function! s:line_handler(l)
-  let keys = split(a:l, ':\t')
-  exec 'buf' keys[0]
-  exec keys[1]
-  normal! ^zz
-endfunction
+  " Search in buffer
+  " ----------------------------------------------------------------------------
+  function! s:line_handler(l)
+    let keys = split(a:l, ':\t')
+    exec 'buf' keys[0]
+    exec keys[1]
+    normal! ^zz
+  endfunction
 
-function! s:buffer_lines()
-  let res = []
-  for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
-    call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
-  endfor
-  return res
-endfunction
+  function! s:buffer_lines()
+    let res = []
+    for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
+      call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
+    endfor
+    return res
+  endfunction
 
-noremap <silent> <Leader>fs :FZFLines<CR>
-command! FZFLines call fzf#run({
-\   'source':  <sid>buffer_lines(),
-\   'sink':    function('<sid>line_handler'),
-\   'options': '--extended --nth=3..',
-\   'down':    '60%'
-\})
+  noremap <silent> <Leader>fs :FZFLines<CR>
+  command! FZFLines call fzf#run({
+  \   'source':  <sid>buffer_lines(),
+  \   'sink':    function('<sid>line_handler'),
+  \   'options': '--extended --nth=3..',
+  \   'down':    '60%'
+  \})
 
-command! -nargs=1 Locate call fzf#run(
-      \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
+  command! -nargs=1 Locate call fzf#run(
+        \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
 
-" Ag
-" ----------------------------------------------------------------------------
-function! s:ag_handler(lines)
-  if len(a:lines) < 2 | return | endif
+  " Ag
+  " ----------------------------------------------------------------------------
+  function! s:ag_handler(lines)
+    if len(a:lines) < 2 | return | endif
 
-  let [key, line] = a:lines[0:1]
-  let [file, line, col] = split(line, ':')[0:2]
-  let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
-  execute cmd escape(file, ' %#\')
-  execute line
-  execute 'normal!' col.'|zz'
-endfunction
+    let [key, line] = a:lines[0:1]
+    let [file, line, col] = split(line, ':')[0:2]
+    let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
+    execute cmd escape(file, ' %#\')
+    execute line
+    execute 'normal!' col.'|zz'
+  endfunction
 
-command! -nargs=1 Ag call fzf#run({
-\ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
-\ 'sink*':    function('<sid>ag_handler'),
-\ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
-\ 'down':    '50%'
-\ })
+  command! -nargs=1 Ag call fzf#run({
+  \ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
+  \ 'sink*':    function('<sid>ag_handler'),
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
+  \ 'down':    '50%'
+  \ })
 
-" MRU search
-" ----------------------------------------------------------------------------
-noremap <silent> <Leader>fm :FZFMru<CR>
-command! FZFMru call fzf#run({
-            \'source': v:oldfiles,
-            \'sink' : 'e ',
-            \'options' : '-m',
-            \})
+  " MRU search
+  " ----------------------------------------------------------------------------
+  noremap <silent> <Leader>fm :FZFMru<CR>
+  command! FZFMru call fzf#run({
+              \'source': v:oldfiles,
+              \'sink' : 'e ',
+              \'options' : '-m',
+              \})
 
-" ----------------------------------------------------------------------------
-" }}}
-
-" crtl-p
-" if exists(":CtrlP")
-  " let g:ctrlp_map = '<c-p>'
+else
+  " fallback to CTRLP if FZF not found in system
+  let g:ctrlp_map = '<c-p>'
   " use ag with ctrlp
-  " let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
-  " let g:ctrlp_match_func = { 'match' : 'cpsm#CtrlPMatch' }
-  " let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
-  " let g:ctrlp_user_command = {
-  "   \ 'types': {
-  "   \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
-  "   \ },
-  "   \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
-  "   \ }
-  " let g:ctrlp_use_caching = 0
-  " let g:ctrlp_working_path_mode = 'ra'
-  " let g:ctrlp_lazy_update = 350
-  " let g:ctrlp_clear_cache_on_exit = 0
-  " let g:ctrlp_max_files = 1000
-  " let g:ctrlp_by_filename  = 0
-  " let g:ctrlp_switch_buffer  = 'Et'
-  " let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
-  " let g:ctrlp_custom_ignore = {
-  "   \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
-  "   \ 'file': '\v\.(exe|so|dll)$',
-  "   \ }
-" endif
+  let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
+  let g:ctrlp_user_command = {
+    \ 'types': {
+    \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
+    \ },
+    \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
+    \ }
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_lazy_update = 350
+  let g:ctrlp_clear_cache_on_exit = 0
+  let g:ctrlp_max_files = 1000
+  let g:ctrlp_by_filename  = 0
+  let g:ctrlp_switch_buffer  = 'Et'
+  let g:ctrlp_custom_ignore = '\v(node_modules|bower_components|components)$'
+  let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ }
+endif
+" ----------------------------------------------------------------------------
+" FZF }}}
+
 
 " NERDTreeTabs
 " if exists(":NERDTree")
@@ -881,25 +885,3 @@ if executable('ag')
 else
   set grepprg=grep\ -rn\ $*\ *
 endif
-
-" YCM+UltiSnips: The best combo
-" See: https://github.com/Valloric/YouCompleteMe/issues/36
-" function! g:UltiSnips_Complete()
-"     call UltiSnips#ExpandSnippet()
-"     if g:ulti_expand_res == 0
-"         if pumvisible()
-"             return "\<C-n>"
-"         else
-"             call UltiSnips#JumpForwards()
-"             if g:ulti_jump_forwards_res == 0
-"                return "\<TAB>"
-"             endif
-"         endif
-"     endif
-"     return ""
-" endfunction
-
-" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-" this mapping Enter key to <C-y> to chose the current highlight item
-" and close the selection list, same as other IDEs.
-" CONFLICT with some plugins like tpope/Endwise
