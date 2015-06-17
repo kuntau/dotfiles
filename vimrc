@@ -761,7 +761,7 @@ let g:vim_markdown_folding_disabled = 1
 " Vim Tmux Navigator
 " if exists(":TmuxNavigator")
 if has('nvim')
-  nmap <BS> <C-w>h
+  nmap <BS> :TmuxNavigateLeft<CR>
 endif
 
 " Emmet Vim
