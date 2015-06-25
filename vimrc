@@ -27,7 +27,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 
 " System
-if executable('fzf')
+if executable('fzf') && !has('gui_running')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 else
   Plug 'ctrlpvim/ctrlp.vim'
@@ -502,8 +502,7 @@ let g:gist_show_privates = 1
 " ----------------------------------------------------------------------------
 " {{{ FZF
 " ----------------------------------------------------------------------------
-if executable('fzf')
-
+if executable('fzf') && !has('gui_running')
   if has('nvim')
     let $FZF_DEFAULT_OPTS .= ' --inline-info'
   endif
@@ -599,10 +598,10 @@ if executable('fzf')
               \})
 
 else
-  " fallback to CTRLP if FZF not found in system
+  " fallback to CTRLP if FZF not found in system or we are running on GUI
   let g:ctrlp_map = '<c-p>'
   " use ag with ctrlp
-  let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
+  " let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
   " let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
   let g:ctrlp_user_command = {
     \ 'types': {
@@ -764,7 +763,7 @@ let g:vim_markdown_folding_disabled = 1
 " Vim Tmux Navigator
 " if exists(":TmuxNavigator")
 if has('nvim')
-  nmap <BS> :TmuxNavigateLeft<CR>
+  nmap <silent> <BS> :TmuxNavigateLeft<CR>
 endif
 
 " Emmet Vim
