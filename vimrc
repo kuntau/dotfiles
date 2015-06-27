@@ -725,11 +725,9 @@ au VimEnter * RainbowParentheses
 " Powerline & airline
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set laststatus=2    " Always dislay the statusline in all windows
-" if exists("g:airline_powerline_fonts")
 " if exists(":AirlineToggle") || exists(":PowerlineToggle")
   let g:Powerline_symbols = 'fancy'
   let g:airline_powerline_fonts = 1
-  " let g:airline_theme = 'base16'
 " endif
 
 " if exists("g:airline_symbols")
