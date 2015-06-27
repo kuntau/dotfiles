@@ -10,3 +10,6 @@
 [submodule "code/Dropbox-Uploader"]
 	path = code/Dropbox-Uploader
 	url = https://github.com/andreafabrizi/Dropbox-Uploader.git
+[submodule "fonts/codeface"]
+	path = fonts/codeface
+	url = https://github.com/chrissimpkins/codeface.git
