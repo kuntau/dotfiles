@@ -25,6 +25,7 @@ alias 'yt7=youtube-dl -f 45' # 720p hd
 alias 'yt1=youtube-dl -f 46' # 1080p full hd
 alias 'yta=youtube-dl --extract-audio'
 alias 'ytav=youtube-dl --extract-audio --keep-video'
+alias 'ytmp3=youtube-dl --extract-audio --audio-format mp3'
 
 # aria2c -x = number of concurrent connections
 alias 'a2=aria2c -x8'
