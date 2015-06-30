@@ -42,7 +42,7 @@ ZSH_TMUX_AUTOQUIT="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras git-flow node npm coffee bower grunt brew brew-cask zsh-syntax-highlighting colorize tmux vundle)
+plugins=(git git-extras git-flow node npm coffee bower brew brew-cask zsh-syntax-highlighting colorize tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -59,10 +59,11 @@ if [[ $osname == Linux ]]; then
   PATH=$PATH:~/npm/bin:/usr/local/go/bin
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   TERM="xterm-256color"
+  [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
-  export POWERLINE_CONFIG_COMMAND=/Volumes/Home/Users/kuntau/.vim/bundle/powerline/scripts/powerline-config
   export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
-  # . /Volumes/Home/Users/kuntau/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
+  export FZF_DEFAULT_OPTS="-x"
+  # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # GEMPATH='~/.gem/ruby/2.1.0'
@@ -73,8 +74,9 @@ elif [[ $osname == CYGWIN_NT-6.1 ]]; then
 fi
 
 # make vim the default editor!
-export EDITOR=vim
-# alias 'rld=source ~/.zshrc'
+export EDITOR=vi
+alias 'rld=source ~/.zshrc'
+alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
 # make our custom scripts work!
 export PATH=$PATH:~/dotfiles/bin
@@ -87,3 +89,9 @@ export LC_ALL=en_US.UTF-8
 PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
 export PROMPT_COMMAND="${PROMPT_COMMAND} ${PROMPT_TITLE}; "
 # export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+
+# Remove duplicate in PATH
+typeset -U PATH
+
+# FZF -- https://github.com/junegunn/fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
