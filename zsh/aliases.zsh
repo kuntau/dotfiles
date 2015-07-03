@@ -3,12 +3,17 @@ alias 'dus=du -hd 1'
 alias 'l=ls -l'
 
 # config file shortcut
-alias 'zshrc=vi ~/dotfiles/zshrc'
-alias 'vimrc=vi ~/dotfiles/vimrc'
+alias "zshrc=$EDITOR ~/dotfiles/zshrc"
+alias "vimrc=$EDITOR ~/dotfiles/vimrc"
 alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 
 # nvim 24 bit color
-alias 'vi=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
+if command -v nvim 2>/dev/null; then
+  # NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim $@
+  alias 'vi=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
+else
+  alias 'vi=vim'
+fi
 # alias 'nvim=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
 
 # ssh shortcut

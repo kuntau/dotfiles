@@ -74,7 +74,12 @@ elif [[ $osname == CYGWIN_NT-6.1 ]]; then
 fi
 
 # make vim the default editor!
-export EDITOR=vi
+if command -v nvim 2>/dev/null; then
+  export EDITOR=vi
+else
+  export EDITOR=vim
+fi
+
 alias 'rld=source ~/.zshrc'
 alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
