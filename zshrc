@@ -74,7 +74,7 @@ elif [[ $osname == CYGWIN_NT-6.1 ]]; then
 fi
 
 # make vim the default editor!
-if command -v nvim 2>/dev/null; then
+if command -v nvim &>/dev/null; then
   export EDITOR=vi
 else
   export EDITOR=vim

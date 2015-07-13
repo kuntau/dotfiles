@@ -8,7 +8,7 @@ alias "vimrc=$EDITOR ~/dotfiles/vimrc"
 alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 
 # nvim 24 bit color
-if command -v nvim 2>/dev/null; then
+if command -v nvim &>/dev/null; then
   # NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim $@
   alias 'vi=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
 else
