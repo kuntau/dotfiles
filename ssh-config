@@ -11,13 +11,13 @@ Host hq
   User     kuntau
   HostName kosx.duckdns.org
 
-Host vps
-  User     kuntau
-  HostName root.kuntau.org
-
 Host hqlocal
   User     kuntau
   HostName 192.168.1.100
+
+Host vps
+  User     kuntau
+  HostName root.kuntau.org
 
 Host dh
   User     nizsul1
@@ -28,19 +28,24 @@ Host pi
   Port     24
   HostName pai.duckdns.org
 
+Host pilocal
+  User     kuntau
+  Port     22
+  HostName 192.168.1.112
+
 Host ocean
   User     kuntau
   Port     22
   HostName do.kuntau.org
 
-Host pappc
-  User     Nizam
-  HostName pap.duckdns.org
-
 Host papweb
   User     papadmin
   HostName nizamdesign.com
 
-Host paplocal
+Host papcc
+  User     Nizam
+  HostName pap.duckdns.org
+
+Host papcclocal
   User     Nizam
   HostName 192.168.1.109
