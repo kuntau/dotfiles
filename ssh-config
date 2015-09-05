@@ -25,7 +25,7 @@ Host dh
 
 Host pi
   User     kuntau
-  Port     24
+  Port     22
   HostName pai.duckdns.org
 
 Host pilocal
@@ -44,6 +44,7 @@ Host papweb
 
 Host papcc
   User     Nizam
+  port     24
   HostName pap.duckdns.org
 
 Host papcclocal
