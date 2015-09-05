@@ -30,6 +30,23 @@ do
   echo ""
 done
 
+echo "Continue installation? "
+select yn in "Yes" "No"; do
+  case $yn in
+    Yes ) echo "Ok.";
+      echo "Symlinking neovim to vim"
+      if [ -f ~/.nvimrc ] || [ -h ~/.nvimrc ]; then
+        echo "File exists.. Skip installing"
+      else
+        ln -s ~/.vimrc ~/.nvimrc
+        ln -s ~/.vim ~/.nvim
+      fi
+      echo ""
+      break;;
+    No ) exit;;
+  esac
+done
+
 # configure oh-my-zsh
 if [ -d ~/.oh-my-zsh ]; then
   echo "You already have Oh My Zsh installed."
