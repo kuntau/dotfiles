@@ -61,7 +61,7 @@ if [[ $osname == Linux ]]; then
   TERM="xterm-256color"
   [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
-  export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
+  export PATH=$PATH:~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/2.7/bin
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
   # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
