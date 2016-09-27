@@ -78,6 +78,7 @@ Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffeescript' ] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
@@ -85,7 +86,8 @@ Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'ap/vim-css-color', { 'for': 'css' }
-Plug 'mklabs/grunt.vim'
+Plug 'kabbamine/gulp-vim'
+" Plug 'mklabs/grunt.vim'
 
 " Python bundles
 Plug 'nvie/vim-flake8', { 'for': 'python' }
