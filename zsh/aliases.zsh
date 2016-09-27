@@ -34,6 +34,8 @@ alias 'ytmp3=noglob youtube-dl --extract-audio --audio-format mp3'
 
 # aria2c -x = number of concurrent connections
 alias 'a2=noglob aria2c -x8 --file-allocation=none'
+
+alias 'sub=subliminal download -l en -l ms'
 alias comic='open -a "Simple Comic" $@'
 
 # node workflow
