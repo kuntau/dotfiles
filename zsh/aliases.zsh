@@ -3,9 +3,18 @@ alias 'dus=du -hd 1'
 alias 'l=ls -l'
 
 # config file shortcut
-alias 'zshrc=vim ~/dotfiles/zshrc'
-alias 'vimrc=vim ~/dotfiles/vimrc'
+alias "zshrc=$EDITOR ~/dotfiles/zshrc"
+alias "vimrc=$EDITOR ~/dotfiles/vimrc"
 alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
+
+# nvim 24 bit color
+if command -v nvim &>/dev/null; then
+  # NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim $@
+  alias 'vi=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
+else
+  alias 'vi=vim'
+fi
+# alias 'nvim=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
 
 # ssh shortcut
 alias 'ssh1=ssh kuntau@root.kuntau.org'
@@ -15,15 +24,17 @@ alias 'ssh3=ssh nizsul1@nizamdesign.com'
 # youtube-dl
 alias 'ytx=proxychains4 youtube-dl'
 alias 'yt=youtube-dl'
-alias 'yt3=youtube-dl -f 43'
-alias 'yt4=youtube-dl -f 44'
-alias 'yt7=youtube-dl -f 45'
-alias 'yt1=youtube-dl -f 46'
+alias 'yt3=youtube-dl -f 43' # 320p
+alias 'yt4=youtube-dl -f 44' # 480p
+alias 'yt7=youtube-dl -f 45' # 720p hd
+alias 'yt1=youtube-dl -f 46' # 1080p full hd
 alias 'yta=youtube-dl --extract-audio'
 alias 'ytav=youtube-dl --extract-audio --keep-video'
+alias 'ytmp3=youtube-dl --extract-audio --audio-format mp3'
 
 # aria2c -x = number of concurrent connections
 alias 'a2=aria2c -x8'
+alias comic='open -a "Simple Comic" $@'
 
 # node workflow
 alias 'npml=npm list --depth=0'
@@ -46,11 +57,10 @@ mkd() {
   mkdir -p "$@" && cd "$@"
 }
 
-###################################################
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
-###################################################
+#===============================================================
 
 # osx programs
 alias st='open -a "Sublime Text"'
@@ -65,7 +75,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 # general shortcuts
-alias pro="cd ~/Coding"
+alias pro="cd ~/coding"
 alias gh="open -a google\ chrome 'http://github.com/kuntau'"
 alias bl="open -a google\ chrome 'http://browserling.com'"
 
@@ -134,13 +144,13 @@ alias whois="whois -h whois-servers.net"
 alias flush="dscacheutil -flushcache"
 
 # npm
-alias npmp="sudo npm publish"
-alias npma="sudo npm adduser"
-alias npmi="sudo npm install"
-alias npmg="sudo npm install -g"
-alias npmu="sudo npm update"
-alias npmr="sudo npm uninstall"
-alias npmrg="sudo npm uninstall -g"
+alias npmp="npm publish"
+alias npma="npm adduser"
+alias npmi="npm install"
+alias npmg="npm install -g"
+alias npmu="npm update"
+alias npmr="npm uninstall"
+alias npmrg="npm uninstall -g"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
@@ -224,3 +234,53 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+#             FZF helper
+# ======================================
+
+# Key bindings
+# ------------
+# CTRL-T - Paste the selected file path(s) into the command line
+__floc() {
+  locate / | $(__fzfcmd) -m | while read item; do
+    printf '%q ' "$item"
+  done
+  echo
+}
+
+__fzfcmd() {
+  [ ${FZF_TMUX:-1} -eq 1 ] && echo "fzf-tmux -d${FZF_TMUX_HEIGHT:-40%}" || echo "fzf"
+}
+
+if [[ $- =~ i ]]; then
+
+fzf-locate-widget() {
+  LBUFFER="${LBUFFER}$(__floc)"
+  zle redisplay
+}
+zle     -N   fzf-locate-widget
+bindkey '^y' fzf-locate-widget
+
+fi
+
+# fshow - git commit browser (enter for show, ctrl-d for diff, ` toggle sort)
+fshow() {
+  local out shas sha q k
+  while out=$(
+      git log --graph --color=always \
+          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+      fzf --ansi --multi --no-sort --reverse --query="$q" \
+          --print-query --expect=ctrl-d --toggle-sort=\`); do
+    q=$(head -1 <<< "$out")
+    k=$(head -2 <<< "$out" | tail -1)
+    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+    [ -z "$shas" ] && continue
+    if [ "$k" = ctrl-d ]; then
+      git diff --color=always $shas | less -R
+    else
+      for sha in $shas; do
+        git show --color=always $sha | less -R
+      done
+    fi
+  done
+}
