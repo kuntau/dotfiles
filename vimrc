@@ -143,8 +143,8 @@ if !has("gui_running")
     " let g:molokai_original=1
     " let g:solarized_termcolors=256
     " let g:rehash256=1
-    colorscheme molokai
-    set background=dark
+    colorscheme solarized
+    set background=light
 
     " fix terminal timeout when pressing escape
     " set ttimeout
