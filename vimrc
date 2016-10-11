@@ -38,18 +38,19 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtre
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 if has('nvim')
   Plug 'benekastah/neomake'
+  Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 else
   Plug 'scrooloose/syntastic'
+  Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/webapi-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
-Plug 'Valloric/YouCompleteMe', { 'on': [] }
 Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-rsi'
-" Plug 'rking/ag.vim'
+Plug 'rking/ag.vim'
 " Plug 'ervandew/supertab'
 
 " Syntaxes and such.
@@ -70,18 +71,20 @@ Plug 'atourino/jinja.vim'
 Plug 'puppetlabs/puppet-syntax-vim'
 
 " html, Javascript & css bundles
-Plug 'marijnh/tern_for_vim', { 'on': [], 'for': 'javascript' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-Plug 'itspriddle/vim-jquery', { 'for': 'javascript' }
+Plug 'marijnh/tern_for_vim', { 'on': [], 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'pangloss/vim-javascript', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'jelera/vim-javascript-syntax', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'itspriddle/vim-jquery', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffeescript' ] }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'mattn/emmet-vim', { 'for': 'html' }
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+" Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'ap/vim-css-color', { 'for': 'css' }
@@ -289,18 +292,19 @@ autocmd FileType php setlocal colorcolumn=100
 " HTML configurations
 """""""""""""""""""""
 " autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
 au BufNewFile,BufReadPost *.html setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " CSS configurations
 """""""""""""""""""""""""""
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " Javascript configurations
 """""""""""""""""""""""""""
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript setlocal colorcolumn=80
+" autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 
 " Coffeescript configurations
@@ -383,10 +387,13 @@ nnoremap <up> m`O<esc>``
 " Escape key mapping
 " inoremap jj <esc>
 
+" supertab for everything
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " insert mode movement mapping
 " NOTE: Most of this was replaced by vim-rsi
-inoremap <c-j> <C-o>o
-inoremap <c-k> <C-o>O
+" inoremap <c-j> <C-o>o
+" inoremap <c-k> <C-o>O
 
 " Match tag
 map <c-space> %
@@ -650,37 +657,51 @@ endif
 " endif
 
 " SnipMate
-" let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
+let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
+" Deoplete settings
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#omni#functions = {}
+  let g:deoplete#omni#functions.javascript = [
+    \ 'tern#Complete',
+    \ 'jspc#omni'
+  \]
+  set completeopt=longest,menuone,preview
+  let g:deoplete#sources = {}
+  let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+  " let g:SuperTabClosePreviewOnPopupClose = 1
+  " let g:tern#command = ['tern']
+  " let g:tern#arguments = ['--persistent']
+else
 " make YCM compatible with UltiSnips (using supertab)
-" if exists(":YcmDiags")
   let g:ycm_key_list_select_completion = ['<C-n>']
   let g:ycm_key_list_previous_completion = ['<C-p>']
   " let g:SuperTabDefaultCompletionType = '<C-n>'
-" endif
-
-" UltiSnips
-" if exists(":UltiSnipsEdit")
-  let g:UltiSnipsExpandTrigger='<tab>'
-  let g:UltiSnipsJumpForwardTrigger='<tab>'
-  let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-  let g:UltiSnipsEditSplit='vertical'
-  let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
-  " let g:UltiSnipsListSnippets='<NUL>'
-" endif
-
-" UltiSnipsLazyLoad
-  " augroup LazyLoadUltiSnips
-  "   autocmd!
-  "   autocmd InsertEnter * call plug#load('ultisnips') |
-  "         \ call UltiSnips#ExpandSnippet() |
-  "         \ autocmd! LazyLoadUltiSnips
-  " augroup END
-
   augroup load_us_ycm
     autocmd!
     autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
                       \| call youcompleteme#Enable() | autocmd! load_us_ycm
+  augroup END
+endif
+
+" UltiSnips
+" if exists(":UltiSnipsEdit")
+  let g:UltiSnipsExpandTrigger='<tab>'
+  " let g:UltiSnipsExpandTrigger='<C-j>'
+  let g:UltiSnipsJumpForwardTrigger='<tab>'
+  let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+  let g:UltiSnipsEditSplit='vertical'
+  " let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
+  " let g:UltiSnipsListSnippets='<NUL>'
+" endif
+
+" UltiSnipsLazyLoad
+  augroup LazyLoadUltiSnips
+    autocmd!
+    autocmd InsertEnter * call plug#load('ultisnips') |
+          \ call UltiSnips#ExpandSnippet() |
+          \ autocmd! LazyLoadUltiSnips
   augroup END
 
   " inoremap <silent> <NUL> <c-r>=LoadUltiSnips()<cr>
