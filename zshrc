@@ -62,7 +62,7 @@ if [[ $osname == Linux ]]; then
   [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
   export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
-  export FZF_DEFAULT_OPTS="-x"
+  # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
   # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
@@ -74,7 +74,12 @@ elif [[ $osname == CYGWIN_NT-6.1 ]]; then
 fi
 
 # make vim the default editor!
-export EDITOR=vi
+if command -v nvim &>/dev/null; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
 alias 'rld=source ~/.zshrc'
 alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
@@ -94,4 +99,9 @@ export PROMPT_COMMAND="${PROMPT_COMMAND} ${PROMPT_TITLE}; "
 typeset -U PATH
 
 # FZF -- https://github.com/junegunn/fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f ~/.fzf.zsh ]; then
+  export FZF_DEFAULT_OPTS="-x"
+  export FZF_DEFAULT_COMMAND="ag -l -g ''"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi

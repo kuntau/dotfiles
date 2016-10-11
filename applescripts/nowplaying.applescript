@@ -21,9 +21,9 @@ if player is "iTunes" or player is "Spotify" then
         return
       end if
 
-      set trackname to name of current track
-      set artistname to artist of current track
-      set albumname to album of current track
+      set trackname to name of current track as string
+      set artistname to artist of current track as string
+      set albumname to album of current track as string
 
       if player state is playing then
         set state to 1
@@ -36,9 +36,9 @@ if player is "iTunes" or player is "Spotify" then
   end
 else if player is "Vox" then
   tell application "Vox"
-    set trackname to track
-    set artistname to artist
-    set albumname to album
+    set trackname to track as string
+    set artistname to artist as string
+    set albumname to album as string
 
     set state to player state
   end tell

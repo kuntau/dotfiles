@@ -1,3 +1,4 @@
+
 set encoding=utf-8
 set nocompatible               " be iMproved
 
@@ -35,7 +36,11 @@ endif
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
-Plug 'scrooloose/syntastic'
+if has('nvim')
+  Plug 'benekastah/neomake'
+else
+  Plug 'scrooloose/syntastic'
+endif
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/webapi-vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -138,8 +143,8 @@ if !has("gui_running")
     " let g:molokai_original=1
     " let g:solarized_termcolors=256
     " let g:rehash256=1
-    colorscheme molokai
-    set background=dark
+    colorscheme solarized
+    set background=light
 
     " fix terminal timeout when pressing escape
     " set ttimeout
