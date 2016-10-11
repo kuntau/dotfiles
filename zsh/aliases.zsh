@@ -3,23 +3,16 @@ alias 'dus=du -hd 1'
 alias 'l=ls -l'
 
 # config file shortcut
-alias "zshrc=$EDITOR ~/dotfiles/zshrc"
-alias "vimrc=$EDITOR ~/dotfiles/vimrc"
+alias 'zshrc=$EDITOR ~/.zshrc'
+alias 'vimrc=$EDITOR ~/.vimrc'
 alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 
-# nvim 24 bit color
+# nvim 24 bit color; TUI ENABLE not needed anymore
 if command -v nvim &>/dev/null; then
-  # NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim $@
-  alias 'vi=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
+  alias 'vi=nvim'
 else
   alias 'vi=vim'
 fi
-# alias 'nvim=NVIM_TUI_ENABLE_TRUE_COLOR=TRUE nvim'
-
-# ssh shortcut
-alias 'ssh1=ssh kuntau@root.kuntau.org'
-alias 'ssh2=ssh kuntau@kuntau.dlinkddns.com'
-alias 'ssh3=ssh nizsul1@nizamdesign.com'
 
 # youtube-dl
 alias 'ytx=proxychains4 youtube-dl'
@@ -45,7 +38,11 @@ osx='/Volumes/Home'
 www='/var/zpanel/hostdata/zadmin/public_html/'
 
 # prettify json on command line
-alias 'json=python -mjson.tool'
+if command -v jq &> /dev/null; then
+  alias 'json=jq'
+else
+  alias 'json=python -mjson.tool'
+fi
 
 # alias 'zsh-plugin=cat ~/.oh-my-zsh/plugins/$@/$@.plugin.zsh'
 zsh-plugin() {
@@ -63,6 +60,7 @@ mkd() {
 #===============================================================
 
 # osx programs
+alias vlc='open -a "VLC"'
 alias st='open -a "Sublime Text"'
 # also/or do this:
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
@@ -234,53 +232,3 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
-
-#             FZF helper
-# ======================================
-
-# Key bindings
-# ------------
-# CTRL-T - Paste the selected file path(s) into the command line
-__floc() {
-  locate / | $(__fzfcmd) -m | while read item; do
-    printf '%q ' "$item"
-  done
-  echo
-}
-
-__fzfcmd() {
-  [ ${FZF_TMUX:-1} -eq 1 ] && echo "fzf-tmux -d${FZF_TMUX_HEIGHT:-40%}" || echo "fzf"
-}
-
-if [[ $- =~ i ]]; then
-
-fzf-locate-widget() {
-  LBUFFER="${LBUFFER}$(__floc)"
-  zle redisplay
-}
-zle     -N   fzf-locate-widget
-bindkey '^y' fzf-locate-widget
-
-fi
-
-# fshow - git commit browser (enter for show, ctrl-d for diff, ` toggle sort)
-fshow() {
-  local out shas sha q k
-  while out=$(
-      git log --graph --color=always \
-          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-      fzf --ansi --multi --no-sort --reverse --query="$q" \
-          --print-query --expect=ctrl-d --toggle-sort=\`); do
-    q=$(head -1 <<< "$out")
-    k=$(head -2 <<< "$out" | tail -1)
-    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
-    [ -z "$shas" ] && continue
-    if [ "$k" = ctrl-d ]; then
-      git diff --color=always $shas | less -R
-    else
-      for sha in $shas; do
-        git show --color=always $sha | less -R
-      done
-    fi
-  done
-}
