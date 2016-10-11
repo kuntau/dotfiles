@@ -75,7 +75,7 @@ fi
 
 # make vim the default editor!
 if command -v nvim &>/dev/null; then
-  export EDITOR=vi
+  export EDITOR=nvim
 else
   export EDITOR=vim
 fi
