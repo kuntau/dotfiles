@@ -36,12 +36,20 @@ else
 endif
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
+if has('nvim')
+  Plug 'benekastah/neomake'
+  Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
+else
+  Plug 'scrooloose/syntastic'
+  Plug 'Valloric/YouCompleteMe', { 'on': [] }
+endif
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/webapi-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
+Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
 Plug 'tpope/vim-rsi'
 Plug 'rking/ag.vim'
 " Plug 'ervandew/supertab'
@@ -54,8 +62,6 @@ else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
-Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'honza/vim-snippets'
 Plug 'jamescarr/snipmate-nodejs'
 Plug 'wellle/tmux-complete.vim'
 
@@ -397,6 +403,9 @@ inoremap jj <esc>
 
 " supertab for everything
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" supertab for everything
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " insert mode movement mapping
 " NOTE: Most of this was replaced by vim-rsi
