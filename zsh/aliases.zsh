@@ -16,17 +16,19 @@ fi
 
 # youtube-dl
 alias 'ytx=proxychains4 youtube-dl'
-alias 'yt=youtube-dl'
-alias 'yt3=youtube-dl -f 43' # 320p
-alias 'yt4=youtube-dl -f 44' # 480p
-alias 'yt7=youtube-dl -f 45' # 720p hd
-alias 'yt1=youtube-dl -f 46' # 1080p full hd
-alias 'yta=youtube-dl --extract-audio'
-alias 'ytav=youtube-dl --extract-audio --keep-video'
-alias 'ytmp3=youtube-dl --extract-audio --audio-format mp3'
+alias 'yt=noglob youtube-dl'
+alias 'yt3=noglob youtube-dl -f 43' # 320p
+alias 'yt4=noglob youtube-dl -f 44' # 480p
+alias 'yt7=noglob youtube-dl -f 45' # 720p hd
+alias 'yt1=noglob youtube-dl -f 46' # 1080p full hd
+alias 'yta=noglob youtube-dl --extract-audio'
+alias 'ytav=noglob youtube-dl --extract-audio --keep-video'
+alias 'ytmp3=noglob youtube-dl --extract-audio --audio-format mp3'
 
 # aria2c -x = number of concurrent connections
-alias 'a2=aria2c -x8'
+alias 'a2=noglob aria2c -x8 --file-allocation=none'
+
+alias 'sub=subliminal download -l en -l ms'
 alias comic='open -a "Simple Comic" $@'
 
 # node workflow

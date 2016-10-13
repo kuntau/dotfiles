@@ -61,7 +61,7 @@ if [[ $osname == Linux ]]; then
   TERM="xterm-256color"
   [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
-  export PATH=~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$PATH
+  export PATH=$PATH:~/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/2.7/bin
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
   # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
@@ -71,6 +71,7 @@ elif [[ $osname == Darwin ]]; then
   # source $(brew --prefix nvm)/nvm.sh
 elif [[ $osname == CYGWIN_NT-6.1 ]]; then
   export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX"
+  source ~/dotfiles/mintty/sol.dark
 fi
 
 # make vim the default editor!

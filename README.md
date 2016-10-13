@@ -10,15 +10,15 @@ Installation:
 
 ### Make the install script executable
 
-```bash
+```zsh
 cd ~/dotfiles
-chmox +x install.sh
+chmox a+x install.sh
 ./install.sh
 ```
 
 Switch to the __~/dotfiles__ directory, and fetch submodules:
 
-```bash
+```zsh
 cd ~/dotfiles
 git submodule update --init --recursive
 
@@ -27,7 +27,8 @@ git submodule foreach git pull
 ```
 ### Install `vim`/`neovim` package manager
 
-```
+```zsh
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+### P/S. It is hard & PITA to maintain the same dotfiles accross `OS X`, `Linux` & `Windows (Cygwin)`
