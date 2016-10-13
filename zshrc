@@ -71,11 +71,12 @@ elif [[ $osname == Darwin ]]; then
   # source $(brew --prefix nvm)/nvm.sh
 elif [[ $osname == CYGWIN_NT-6.1 ]]; then
   export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX"
+  source ~/dotfiles/mintty/sol.dark
 fi
 
 # make vim the default editor!
 if command -v nvim &>/dev/null; then
-  export EDITOR=vi
+  export EDITOR=nvim
 else
   export EDITOR=vim
 fi

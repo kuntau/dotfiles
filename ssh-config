@@ -45,8 +45,17 @@ Host papweb
 Host papcc
   User     Nizam
   port     24
-  HostName pap.duckdns.org
+  HostName paptt.asuscomm.com
 
 Host papcclocal
   User     Nizam
   HostName 192.168.1.109
+
+Host paprouter
+  User     admin
+  port     2211
+  HostName paptt.asuscomm.com
+
+Host paprouterlocal
+  User     admin
+  HostName 192.168.1.2
