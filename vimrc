@@ -33,9 +33,9 @@ if executable('fzf') && !has('gui_running')
 else
   Plug 'ctrlpvim/ctrlp.vim'
 endif
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
-Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
+Plug 'majutsushi/tagbar'
 if has('nvim')
   Plug 'benekastah/neomake'
   Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
@@ -59,45 +59,41 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
-Plug 'groenewege/vim-less'
 Plug 'mutewinter/nginx.vim'
-Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-liquid'
-Plug 'tpope/vim-haml'
-Plug 'jcf/vim-latex'
-Plug 'msanders/cocoa.vim'
-Plug 'empanda/vim-varnish'
-Plug 'atourino/jinja.vim'
-Plug 'puppetlabs/puppet-syntax-vim'
+" Plug 'groenewege/vim-less'
+" Plug 'tpope/vim-cucumber'
+" Plug 'tpope/vim-liquid'
+" Plug 'tpope/vim-haml'
+" Plug 'jcf/vim-latex'
+" Plug 'msanders/cocoa.vim'
+" Plug 'empanda/vim-varnish'
+" Plug 'atourino/jinja.vim'
+" Plug 'puppetlabs/puppet-syntax-vim'
 
 " html, Javascript & css bundles
-Plug 'marijnh/tern_for_vim', { 'on': [], 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'carlitux/deoplete-ternjs', { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'pangloss/vim-javascript', { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'jelera/vim-javascript-syntax', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'marijnh/tern_for_vim',                   { 'on': [], 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'carlitux/deoplete-ternjs',               { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'othree/jspc.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'itspriddle/vim-jquery', { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'kchmck/vim-coffee-script', { 'for': [ 'coffeescript' ] }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'mattn/emmet-vim', { 'for': 'html' }
-Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'Valloric/MatchTagAlways', { 'for': [ 'html', 'xml' ] }
+Plug 'elzr/vim-json',                          { 'for': 'json' }
+Plug 'kchmck/vim-coffee-script',               { 'for': [ 'coffeescript' ] }
+Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
+Plug 'mattn/emmet-vim',                        { 'for': 'html' }
+Plug 'othree/html5.vim',                       { 'for': 'html' }
+Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
+Plug 'wavded/vim-stylus',                      { 'for': 'stylus' }
+Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
+Plug 'ap/vim-css-color',                       { 'for': 'css' }
 " Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'wavded/vim-stylus', { 'for': 'stylus' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'ap/vim-css-color', { 'for': 'css' }
-Plug 'kabbamine/gulp-vim'
 " Plug 'mklabs/grunt.vim'
 
 " Python bundles
-Plug 'nvie/vim-flake8', { 'for': 'python' }
-Plug 'fs111/pydoc.vim', { 'for': 'python' }
+Plug 'nvie/vim-flake8',              { 'for': 'python' }
+Plug 'fs111/pydoc.vim',              { 'for': 'python' }
 Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-Plug 'ehamberg/vim-cute-python', { 'for': 'python' }
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+Plug 'ehamberg/vim-cute-python',     { 'for': 'python' }
+Plug 'jmcantrell/vim-virtualenv',    { 'for': 'python' }
 
 " Ruby specific
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
@@ -349,7 +345,7 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
 " Change leader
 let localleader = ","
-let mapleader = ","
+let mapleader   = ","
 let g:mapleader = ","
 
 " Get rid of search hilighting with ,/
@@ -370,20 +366,20 @@ noremap <leader>so :w!<cr> :source %<CR>
 " use delete move without storing to register
 " noremap X "_X
 " noremap x "_x
-" noremap dw "_dw
-" noremap dW "_dW
-" noremap de "_de
-" noremap dE "_dE
-" noremap dd "_dd
-" noremap d "_d
+noremap dw "_dw
+noremap dW "_dW
+noremap de "_de
+noremap dE "_dE
+noremap dd "_dd
+noremap d "_d
 
 " Easier movement and copy paste combo
-noremap 0 0
-noremap H ^
-noremap L $
-noremap yp yyp
-noremap yP yyP
-noremap yd yydd
+" noremap 0 0
+" noremap H ^
+" noremap L $
+" noremap yp yyp
+" noremap yP yyP
+" noremap yd yydd
 
 " Line mod time saver
 nnoremap <enter> i<enter><esc>
@@ -391,10 +387,10 @@ nnoremap <down> m`o<esc>``
 nnoremap <up> m`O<esc>``
 
 " Escape key mapping
-" inoremap jj <esc>
+inoremap jj <esc>
 
 " supertab for everything
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " insert mode movement mapping
 " NOTE: Most of this was replaced by vim-rsi
@@ -900,12 +896,13 @@ function! s:goyo_leave()
   Limelight!
   " ...
 endfunction
+:map <F8> :Goyo<CR>
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Toggle spellcheck in normal mode
-" :map <F5> :setlocal spell! spelllang=en_us<CR>
+:map <F5> :setlocal spell! spelllang=en_us<CR>
 
 " Ag: The Silver Searcher
 if executable('ag')
