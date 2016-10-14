@@ -146,7 +146,11 @@ if !has("gui_running")
     " let g:solarized_termcolors=256
     " let g:rehash256=1
     colorscheme solarized
-    set background=light
+    if strftime("%H") < 12
+      set background=dark
+    else
+      set background=light
+    endif
 
     " fix terminal timeout when pressing escape
     " set ttimeout
