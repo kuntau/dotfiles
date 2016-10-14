@@ -31,6 +31,7 @@ Plug 'mattn/gist-vim'
 " System
 if executable('fzf') && !has('gui_running')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+  Plug 'junegunn/fzf.vim'
 else
   Plug 'ctrlpvim/ctrlp.vim'
 endif
@@ -525,127 +526,11 @@ let g:gist_show_privates = 1
 " {{{ FZF
 " ----------------------------------------------------------------------------
 if executable('fzf') && !has('gui_running')
-  if has('nvim')
-    let $FZF_DEFAULT_OPTS .= ' --inline-info'
-  endif
+  " if has('nvim')
+  "   let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  " endif
   nnoremap <silent> <c-p> :FZF<CR>
-  " nnoremap <silent> <c-p> :FZF %:p:h<CR>
-
-  " Choose color scheme
-  " ----------------------------------------------------------------------------
-  nnoremap <silent> <Leader>fc :call fzf#run({
-  \   'source':
-  \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-  \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-  \   'sink':     'colo',
-  \   'options':  '+m',
-  \   'left':     30,
-  \ })<CR>
-
-  " Select buffer
-  " ----------------------------------------------------------------------------
-  function! s:buflist()
-    redir => ls
-    silent ls
-    redir END
-    return split(ls, '\n')
-  endfunction
-
-  function! s:bufopen(e)
-    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-  endfunction
-
-  nnoremap <silent> <Leader>fb :call fzf#run({
-  \   'source':  reverse(<sid>buflist()),
-  \   'sink':    function('<sid>bufopen'),
-  \   'options': '+m --prompt="Buf> "',
-  \   'down':    len(<sid>buflist()) + 2
-  \ })<CR>
-
-  " Search in buffer
-  " ----------------------------------------------------------------------------
-  function! s:line_handler(l)
-    let keys = split(a:l, ':\t')
-    exec 'buf' keys[0]
-    exec keys[1]
-    normal! ^zz
-  endfunction
-
-  function! s:buffer_lines()
-    let res = []
-    for b in filter(range(1, bufnr('$')), 'buflisted(v:val)')
-      call extend(res, map(getbufline(b,0,"$"), 'b . ":\t" . (v:key + 1) . ":\t" . v:val '))
-    endfor
-    return res
-  endfunction
-
-  noremap <silent> <Leader>fs :FZFLines<CR>
-  command! FZFLines call fzf#run({
-  \   'source':  <sid>buffer_lines(),
-  \   'sink':    function('<sid>line_handler'),
-  \   'options': '--extended --nth=3..',
-  \   'down':    '60%'
-  \})
-
-  command! -nargs=1 Locate call fzf#run(
-        \ {'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
-
-  " Ag
-  " ----------------------------------------------------------------------------
-  function! s:ag_handler(lines)
-    if len(a:lines) < 2 | return | endif
-
-    let [key, line] = a:lines[0:1]
-    let [file, line, col] = split(line, ':')[0:2]
-    let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
-    execute cmd escape(file, ' %#\')
-    execute line
-    execute 'normal!' col.'|zz'
-  endfunction
-
-  command! -nargs=1 Ag call fzf#run({
-  \ 'source':  'ag --nogroup --column --color "'.escape(<q-args>, '"\').'"',
-  \ 'sink*':    function('<sid>ag_handler'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
-  \ 'down':    '50%'
-  \ })
-
-  " MRU search
-  " ----------------------------------------------------------------------------
-  noremap <silent> <Leader>fm :FZFMru<CR>
-  command! FZFMru call fzf#run({
-              \'source': v:oldfiles,
-              \'sink' : 'e ',
-              \'options' : '-m',
-              \})
-
-else
-  " fallback to CTRLP if FZF not found in system or we are running on GUI
-  let g:ctrlp_map = '<c-p>'
-  " use ag with ctrlp
-  " let g:ctrlp_match_func = { 'match' : 'matcher#cmatch' }
-  " let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
-  let g:ctrlp_user_command = {
-    \ 'types': {
-    \ 1: ['.git/', 'cd %s && git ls-files --exclude-standard -co'],
-    \ },
-    \ 'fallback': 'ag %s -l --nocolor --hidden -g ""'
-    \ }
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_lazy_update = 350
-  let g:ctrlp_clear_cache_on_exit = 0
-  let g:ctrlp_max_files = 1000
-  let g:ctrlp_by_filename  = 0
-  let g:ctrlp_switch_buffer  = 'Et'
-  let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/]\.(git|hg|svn|idea)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ }
 endif
-" ----------------------------------------------------------------------------
-" FZF }}}
-
 
 " NERDTreeTabs
 " if exists(":NERDTree")
@@ -730,6 +615,29 @@ endif
 " Double rainbow - What does it mean!?
 au VimEnter * RainbowParentheses
 " au Syntax * RainbowParenthesesLoadRound
+
+" neomake settings
+
+" This setting will open the |loclist| or |quickfix| list (depending on whether
+" it is operating on a file) when adding entries. A value of 2 will preserve the
+" cursor position when the |loclist| or |quickfix| window is opened. Defaults to 0.
+let g:neomake_open_list = 2
+
+" Only use eslint
+let g:neomake_javascript_enabled_makers = ['eslint']
+" Use the fix option of eslint
+let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
+
+" Callback for reloading file in buffer when eslint has finished and maybe has
+" autofixed some stuff
+function! s:Neomake_callback(options)
+  if (a:options.name ==? 'eslint') && (a:options.has_next == 0)
+    checktime
+  endif
+endfunction
+
+" Call neomake#Make directly instead of the Neomake provided command
+autocmd BufWritePost,BufEnter * call neomake#Make(1, [], function('s:Neomake_callback'))
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
@@ -913,8 +821,8 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 :map <F5> :setlocal spell! spelllang=en_us<CR>
 
 " Ag: The Silver Searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --column
-else
-  set grepprg=grep\ -rn\ $*\ *
-endif
+" if executable('ag')
+"   set grepprg=ag\ --nogroup\ --nocolor\ --column
+" else
+"   set grepprg=grep\ -rn\ $*\ *
+" endif
