@@ -1,6 +1,7 @@
-
-set encoding=utf-8
-set nocompatible               " be iMproved
+if !has('nvim')
+  set encoding=utf-8
+  set nocompatible               " be iMproved
+endif
 
 filetype off                   " required!
 
@@ -36,6 +37,16 @@ endif
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar'
+Plug 'Raimondi/delimitMate'
+Plug 'mattn/webapi-vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'joequery/Stupid-EasyMotion'
+Plug 'danro/rename.vim'
+Plug 'tpope/vim-rsi'
+Plug 'rking/ag.vim'
+" Plug 'ervandew/supertab'
+
+" Completion & syntax checking
 if has('nvim')
   Plug 'benekastah/neomake'
   Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
@@ -43,15 +54,10 @@ else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
-Plug 'Raimondi/delimitMate'
-Plug 'mattn/webapi-vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'joequery/Stupid-EasyMotion'
-Plug 'danro/rename.vim'
-Plug 'SirVer/ultisnips', { 'on': [] } | Plug 'honza/vim-snippets'
-Plug 'tpope/vim-rsi'
-Plug 'rking/ag.vim'
-" Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'honza/vim-snippets'
+Plug 'jamescarr/snipmate-nodejs'
+Plug 'wellle/tmux-complete.vim'
 
 " Syntaxes and such.
 Plug 'tomtom/tcomment_vim'
