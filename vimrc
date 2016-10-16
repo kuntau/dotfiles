@@ -50,6 +50,7 @@ Plug 'rking/ag.vim'
 " Completion & syntax checking
 if has('nvim')
   Plug 'benekastah/neomake'
+	Plug 'jaawerth/nrun.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 else
   Plug 'scrooloose/syntastic'
@@ -613,7 +614,7 @@ endif
 " let g:jedi#goto_command = "<leader>g
 
 " Double rainbow - What does it mean!?
-au VimEnter * RainbowParentheses
+" au VimEnter * RainbowParentheses
 " au Syntax * RainbowParenthesesLoadRound
 
 " neomake settings
@@ -621,23 +622,42 @@ au VimEnter * RainbowParentheses
 " This setting will open the |loclist| or |quickfix| list (depending on whether
 " it is operating on a file) when adding entries. A value of 2 will preserve the
 " cursor position when the |loclist| or |quickfix| window is opened. Defaults to 0.
-let g:neomake_open_list = 2
+" let g:neomake_open_list = 2
 
 " Only use eslint
+let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
 let g:neomake_javascript_enabled_makers = ['eslint']
 " Use the fix option of eslint
-let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
+" let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
+" let g:neomake_javascript_eslint_args = ['-f', '--fix']
 
 " Callback for reloading file in buffer when eslint has finished and maybe has
 " autofixed some stuff
-function! s:Neomake_callback(options)
-  if (a:options.name ==? 'eslint') && (a:options.has_next == 0)
-    checktime
-  endif
-endfunction
+" function! s:Neomake_callback(options)
+"   if (a:options.name ==? 'eslint') && (a:options.has_next == 0)
+"     checktime
+"   endif
+" endfunction
 
 " Call neomake#Make directly instead of the Neomake provided command
-autocmd BufWritePost,BufEnter * call neomake#Make(1, [], function('s:Neomake_callback'))
+" autocmd BufWritePost,BufEnter * call neomake#Make(1, [], function('s:Neomake_callback'))
+" function! NeomakeESlintChecker()
+"   let l:npm_bin = ''
+"   let l:eslint = 'eslint'
+"
+"   if executable('npm')
+"     let l:npm_bin = split(system('npm bin'), '\n')[0]
+"   endif
+"
+"   if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+"     let l:eslint = l:npm_bin . '/eslint'
+"   endif
+"
+"   let b:neomake_javascript_eslint_exe = l:eslint
+" endfunction
+" autocmd FileType javascript :call NeomakeESlintChecker()
+
+autocmd! BufWritePost,BufReadPost * Neomake
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
