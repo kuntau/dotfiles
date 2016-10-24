@@ -88,6 +88,7 @@ Plug 'othree/jspc.vim',                        { 'for': [ 'javascript', 'javascr
 Plug 'itspriddle/vim-jquery',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'elzr/vim-json',                          { 'for': 'json' }
 Plug 'kchmck/vim-coffee-script',               { 'for': [ 'coffeescript' ] }
+Plug 'mxw/vim-jsx',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
 Plug 'mattn/emmet-vim',                        { 'for': 'html' }
 Plug 'othree/html5.vim',                       { 'for': 'html' }
@@ -155,10 +156,10 @@ if !has("gui_running")
     " let g:solarized_termcolors=256
     " let g:rehash256=1
     colorscheme solarized
-    if strftime("%H") < 12
-      set background=dark
-    else
+    if strftime("%H") > 8 && strftime("%H") < 19
       set background=light
+    else
+      set background=dark
     endif
 
     " fix terminal timeout when pressing escape
