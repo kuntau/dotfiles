@@ -50,7 +50,7 @@ Plug 'rking/ag.vim'
 " Completion & syntax checking
 if has('nvim')
   Plug 'benekastah/neomake'
-	Plug 'jaawerth/nrun.vim'
+  Plug 'jaawerth/nrun.vim'
   Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 else
   Plug 'scrooloose/syntastic'
@@ -78,26 +78,30 @@ Plug 'mutewinter/nginx.vim'
 " Plug 'atourino/jinja.vim'
 " Plug 'puppetlabs/puppet-syntax-vim'
 
-" html, Javascript & css bundles
-Plug 'marijnh/tern_for_vim',                   { 'on': [], 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'carlitux/deoplete-ternjs',               { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'othree/jspc.vim',                        { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'itspriddle/vim-jquery',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
-Plug 'elzr/vim-json',                          { 'for': 'json' }
-Plug 'kchmck/vim-coffee-script',               { 'for': [ 'coffeescript' ] }
-Plug 'mxw/vim-jsx',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
+" html bundles
 Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
 Plug 'mattn/emmet-vim',                        { 'for': 'html' }
 Plug 'othree/html5.vim',                       { 'for': 'html' }
 Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
-Plug 'wavded/vim-stylus',                      { 'for': 'stylus' }
-Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
-Plug 'ap/vim-css-color',                       { 'for': 'css' }
 " Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-" Plug 'mklabs/grunt.vim'
+
+" CSS bundles
+Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
+Plug 'wavded/vim-stylus',                      { 'for': [ 'stylus', 'vue' ] }
+Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue' ] }
+
+" Javascript bundles
+Plug 'marijnh/tern_for_vim',                   { 'on': [], 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'carlitux/deoplete-ternjs',               { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'othree/jspc.vim',                        { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'itspriddle/vim-jquery',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'mxw/vim-jsx',                            { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'kchmck/vim-coffee-script',               { 'for': [ 'coffeescript' ] }
+Plug 'posva/vim-vue',                          { 'for': [ 'vue' ] }
+Plug 'elzr/vim-json',                          { 'for': 'json' }
 
 " Python bundles
 Plug 'nvie/vim-flake8',              { 'for': 'python' }
@@ -367,7 +371,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
 noremap <space> :
-noremap <leader>ei :vsplit ~/dotfiles/vimrc<CR>
+noremap <leader>ei :e ~/dotfiles/vimrc<CR>
 noremap <leader>so :w!<cr> :source %<CR>
 
 " give me normal jk!! ** should enable with softwrap only **
@@ -377,12 +381,12 @@ noremap <leader>so :w!<cr> :source %<CR>
 " use delete move without storing to register
 " noremap X "_X
 " noremap x "_x
-noremap dw "_dw
-noremap dW "_dW
-noremap de "_de
-noremap dE "_dE
-noremap dd "_dd
-noremap d "_d
+" noremap dw "_dw
+" noremap dW "_dW
+" noremap de "_de
+" noremap dE "_dE
+" noremap dd "_dd
+" noremap d "_d
 
 " Easier movement and copy paste combo
 " noremap 0 0
@@ -704,7 +708,7 @@ set laststatus=2    " Always dislay the statusline in all windows
 let g:CSApprox_loaded = 1
 
 " Javascript-libraries-syntax
-let g:used_javascript_libs = 'jquery, underscore, angularjs'
+let g:used_javascript_libs = 'jquery, underscore, angularjs, react, vue'
 
 " Indent Guides
 " let g:indent_guides_guide_size = 1
