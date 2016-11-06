@@ -91,10 +91,10 @@ Plug 'wavded/vim-stylus',                      { 'for': [ 'stylus', 'vue' ] }
 Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue' ] }
 
 " Javascript bundles
-Plug 'marijnh/tern_for_vim',                   { 'on': [], 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'ternjs/tern_for_vim',                    { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 Plug 'carlitux/deoplete-ternjs',               { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
-Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'othree/yajs.vim',                        { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'othree/jspc.vim',                        { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'itspriddle/vim-jquery',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
@@ -102,6 +102,7 @@ Plug 'mxw/vim-jsx',                            { 'for': [ 'javascript', 'javascr
 Plug 'kchmck/vim-coffee-script',               { 'for': [ 'coffeescript' ] }
 Plug 'posva/vim-vue',                          { 'for': [ 'vue' ] }
 Plug 'elzr/vim-json',                          { 'for': 'json' }
+" Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 
 " Python bundles
 Plug 'nvie/vim-flake8',              { 'for': 'python' }
@@ -272,6 +273,7 @@ set foldmethod=indent
 set nofoldenable          " don't fold by default
 set foldlevel=99
 set foldnestmax=10        " max fold nest
+set foldmethod=indent
 
 " Highlight VCS conflict markers
 """"""""""""""""""""""""""""""""
