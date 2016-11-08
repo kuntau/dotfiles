@@ -531,6 +531,11 @@ let g:gist_show_privates = 1
   nmap ga <Plug>(EasyAlign)
 " endif
 
+" if exists(":delimitMate")
+  let delimitMate_expand_cr = 2
+  let delimitMate_expand_space = 2
+" endif
+
 " ----------------------------------------------------------------------------
 " {{{ FZF
 " ----------------------------------------------------------------------------
@@ -732,9 +737,9 @@ let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
 " if exists(":TmuxNavigator")
-if has('nvim')
-  nmap <silent> <BS> :TmuxNavigateLeft<CR>
-endif
+" if has('nvim')
+"   nmap <silent> <BS> :TmuxNavigateLeft<CR>
+" endif
 
 " Emmet Vim
 " if exists(":Emmet")
