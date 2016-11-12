@@ -114,6 +114,11 @@ Plug 'jmcantrell/vim-virtualenv',    { 'for': 'python' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
+" PHP bundles
+Plug 'StanAngeloff/php.vim',       { 'for': 'php' }
+Plug 'tpope/vim-ragtag',           { 'for': 'php' }
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+
 " Fun, but not useful
 Plug 'bling/vim-airline'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -556,6 +561,7 @@ endif
 " NERDTree
 " if exists(":NERDTreeTabsToggle")
   nnoremap <Leader>ft :NERDTreeToggle<CR>
+  nnoremap <F1> :NERDTreeToggle<CR>
   " nnoremap <leader>cd :NERDTreeCWD<CR>
   " nnoremap <leader>nf :NERDTreeFind<CR>
   let NERDTreeBookmarksFile=$HOME.'/.vim/.NERDTreeBookmarks'
@@ -832,6 +838,7 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
+  let g:limelight_conceal_ctermfg = 'gray'
   Limelight
   " ...
 endfunction
@@ -845,7 +852,7 @@ function! s:goyo_leave()
   Limelight!
   " ...
 endfunction
-:map <F8> :Goyo<CR>
+:map <F11> :Goyo<CR>
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
