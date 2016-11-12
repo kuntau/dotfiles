@@ -82,6 +82,11 @@ else
   export EDITOR=vim
 fi
 
+# add composer vender bin to PATH only if composer exist
+if command -v composer &>/dev/null; then
+  export PATH=$PATH:$HOME/.composer/vendor/bin
+fi
+
 alias 'rld=source ~/.zshrc'
 alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
