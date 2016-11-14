@@ -61,13 +61,16 @@ Plug 'honza/vim-snippets'
 Plug 'jamescarr/snipmate-nodejs'
 Plug 'wellle/tmux-complete.vim'
 
+" A solid language pack for Vim
+Plug 'sheerun/vim-polyglot'
+
 " Syntaxes and such.
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
-Plug 'mutewinter/nginx.vim'
+" Plug 'mutewinter/nginx.vim'
 " Plug 'groenewege/vim-less'
 " Plug 'tpope/vim-cucumber'
 " Plug 'tpope/vim-liquid'
@@ -79,15 +82,15 @@ Plug 'mutewinter/nginx.vim'
 " Plug 'puppetlabs/puppet-syntax-vim'
 
 " html bundles
-Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
-Plug 'mattn/emmet-vim',                        { 'for': 'html' }
-Plug 'othree/html5.vim',                       { 'for': 'html' }
+Plug 'mattn/emmet-vim',                        { 'for': [ 'html', 'php', 'vue', 'javascript', 'blade' ] }
 Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
+" Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
+" Plug 'othree/html5.vim',                       { 'for': 'html' }
 " Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 
 " CSS bundles
 Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
-Plug 'wavded/vim-stylus',                      { 'for': [ 'stylus', 'vue' ] }
+" Plug 'wavded/vim-stylus',                      { 'for': [ 'stylus', 'vue' ] }
 Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue' ] }
 
 " Javascript bundles
@@ -116,9 +119,12 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 " PHP bundles
-Plug 'StanAngeloff/php.vim',       { 'for': 'php' }
-Plug 'tpope/vim-ragtag',           { 'for': 'php' }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+" Plug 'StanAngeloff/php.vim',               { 'for': 'php' }
+Plug 'tpope/vim-ragtag',                   { 'for': 'php' }
+Plug 'shawncplus/phpcomplete.vim',         { 'for': 'php' }
+Plug 'jwalton512/vim-blade',               { 'for': 'php' }
+Plug 'noahfrederick/vim-laravel',          { 'for': 'php' }
+Plug 'rafaelndev/deoplete-laravel-plugin', { 'for': 'php', 'do': 'composer install' }
 
 " Fun, but not useful
 Plug 'bling/vim-airline'
