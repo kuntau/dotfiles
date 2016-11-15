@@ -34,6 +34,10 @@ alias comic='open -a "Simple Comic" $@'
 # node workflow
 alias 'npml=npm list --depth=0'
 
+# laravel workflow
+alias 'artisan=php artisan'
+alias 'tinker=php artisan tinker'
+
 # mounted volumes shortcut
 multi='/mnt/multi'
 osx='/Volumes/Home'
