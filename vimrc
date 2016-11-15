@@ -637,11 +637,13 @@ endif
 " let g:neomake_open_list = 2
 
 " Only use eslint
-let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-let g:neomake_javascript_enabled_makers = ['eslint']
-" Use the fix option of eslint
-" let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
-" let g:neomake_javascript_eslint_args = ['-f', '--fix']
+if has(nvim)
+  let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
+  let g:neomake_javascript_enabled_makers = ['eslint']
+  " Use the fix option of eslint
+  " let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
+  " let g:neomake_javascript_eslint_args = ['-f', '--fix']
+endif
 
 " Callback for reloading file in buffer when eslint has finished and maybe has
 " autofixed some stuff
