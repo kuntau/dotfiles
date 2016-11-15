@@ -644,7 +644,7 @@ endif
 " let g:neomake_open_list = 2
 
 " Only use eslint
-if has(nvim)
+if has('nvim')
   let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
   let g:neomake_javascript_enabled_makers = ['eslint']
   " Use the fix option of eslint
