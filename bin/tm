@@ -10,6 +10,7 @@ tmux has-session -t default || tmux new-session -s default -d
 PS3="Please choose your session: "
 options=($(tmux list-sessions -F "#S" 2> /dev/null) \
   "New Session" \
+  "Workspace - CITY-CAR-PARK" \
   "Workspace - PAPSB-SYSTEM" \
   "ZSH" \
   "Cancel")
@@ -22,6 +23,9 @@ do
     "New Session")
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
+      break;;
+    "Workspace - CITY-CAR-PARK")
+      tmux source-file ~/dotfiles/tmux/citycarpark.tmuxrc
       break;;
     "Workspace - PAPSB-SYSTEM")
       tmux source-file ~/dotfiles/tmux/papsb.tmuxrc
