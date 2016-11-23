@@ -138,11 +138,13 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " Plug 'davidoc/taskpaper.vim'
 
 " Colorschemes
+Plug 'flazz/vim-Colorschemes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'chriskempson/base16-vim'
 Plug 'junegunn/seoul256.vim'
-Plug 'flazz/vim-Colorschemes'
+Plug 'ayu-theme/ayu-vim'
+Plug 'lifepillar/vim-solarized8'
 " Plug 'goatslacker/mango.vim'
 
 " Misc bundle
@@ -176,6 +178,12 @@ if !has("gui_running")
       set background=light
     else
       set background=dark
+    endif
+    if has("termguicolors")
+      " set t_8f=^[[38;2;%lu;%lu;%lum
+      " set t_8b=^[[48;2;%lu;%lu;%lum
+      set termguicolors
+      colorscheme solarized8_dark
     endif
 
     " fix terminal timeout when pressing escape
@@ -655,6 +663,8 @@ if has('nvim')
   " Use the fix option of eslint
   " let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
   " let g:neomake_javascript_eslint_args = ['-f', '--fix']
+
+  autocmd! BufWritePost,BufReadPost * Neomake
 endif
 
 " Callback for reloading file in buffer when eslint has finished and maybe has
@@ -683,7 +693,6 @@ endif
 " endfunction
 " autocmd FileType javascript :call NeomakeESlintChecker()
 
-autocmd! BufWritePost,BufReadPost * Neomake
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
