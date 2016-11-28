@@ -45,6 +45,7 @@ Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
 Plug 'tpope/vim-rsi'
 Plug 'rking/ag.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'ervandew/supertab'
 
 " Completion & syntax checking
@@ -94,7 +95,7 @@ Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
 Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue' ] }
 
 " Javascript bundles
-Plug 'ternjs/tern_for_vim',                    { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
+Plug 'ternjs/tern_for_vim',                    { 'for': [ 'javascript', 'javascript.jsx', 'vue' ], 'do': 'yarn' }
 Plug 'carlitux/deoplete-ternjs',               { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 Plug 'othree/yajs.vim',                        { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
@@ -119,12 +120,14 @@ Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 " PHP bundles
+Plug 'tpope/vim-ragtag',                    { 'for': [ 'php', 'blade' ] }
+Plug 'm2mdas/phpcomplete-extended',         { 'for': [ 'php', 'blade' ] }
+Plug 'm2mdas/phpcomplete-extended-laravel', { 'for': [ 'php', 'blade' ] }
+Plug 'noahfrederick/vim-laravel',           { 'for': [ 'php', 'blade' ] }
+Plug 'rafaelndev/deoplete-laravel-plugin',  { 'for': [ 'php', 'blade' ], 'do': 'composer install' }
+" Plug 'jwalton512/vim-blade',                { 'for': 'php' }
 " Plug 'StanAngeloff/php.vim',               { 'for': 'php' }
-Plug 'tpope/vim-ragtag',                   { 'for': 'php' }
-Plug 'shawncplus/phpcomplete.vim',         { 'for': 'php' }
-Plug 'jwalton512/vim-blade',               { 'for': 'php' }
-Plug 'noahfrederick/vim-laravel',          { 'for': 'php' }
-Plug 'rafaelndev/deoplete-laravel-plugin', { 'for': 'php', 'do': 'composer install' }
+" Plug 'shawncplus/phpcomplete.vim',         { 'for': 'php' }
 
 " Fun, but not useful
 Plug 'bling/vim-airline'
@@ -182,8 +185,10 @@ if !has("gui_running")
     if has("termguicolors")
       " set t_8f=^[[38;2;%lu;%lu;%lum
       " set t_8b=^[[48;2;%lu;%lu;%lum
+      " colorscheme solarized8_dark
+      let ayucolor="mirage"
+      colorscheme ayu
       set termguicolors
-      colorscheme solarized8_dark
     endif
 
     " fix terminal timeout when pressing escape
@@ -313,6 +318,7 @@ autocmd FileType mail highlight clear ExtraWhitespace
 autocmd FileType mail setlocal listchars=
 
 " Reformat XML files
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 " Crontab auto-commands
@@ -325,7 +331,7 @@ autocmd filetype ruby setlocal noexpandtab shiftwidth=2 tabstop=2
 
 " PHP Configurations
 """"""""""""""""""""
-autocmd FileType php setlocal colorcolumn=100
+autocmd FileType php,blade setlocal omnifunc=phpcomplete_extended#CompletePHP colorcolumn=80
 
 " HTML configurations
 """""""""""""""""""""
@@ -341,14 +347,15 @@ au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 ex
 " Javascript configurations
 """""""""""""""""""""""""""
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType javascript setlocal colorcolumn=80
-" autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
+" autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " Coffeescript configurations
 """""""""""""""""""""""""""""
-au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
 autocmd FileType coffeescript setlocal colorcolumn=100
+au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
 
 " Python configurations
 """""""""""""""""""""""
@@ -432,6 +439,14 @@ inoremap jj <esc>
 " NOTE: Most of this was replaced by vim-rsi
 " inoremap <c-j> <C-o>o
 " inoremap <c-k> <C-o>O
+
+" invoke autocompletion
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+\ "\<lt>C-n>" :
+\ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+\ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+\ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
 
 " Match tag
 map <c-space> %
@@ -590,6 +605,12 @@ let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 " Deoplete settings
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_refresh_always = 1
+  let g:deoplete#enable_smart_case = 1
+  if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+  endif
+  " let g:deoplete#disable_auto_complete = 1
   let g:deoplete#omni#functions = {}
   let g:deoplete#omni#functions.javascript = [
     \ 'tern#Complete',
@@ -599,8 +620,14 @@ if has('nvim')
   let g:deoplete#sources = {}
   let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
   " let g:SuperTabClosePreviewOnPopupClose = 1
-  " let g:tern#command = ['tern']
-  " let g:tern#arguments = ['--persistent']
+  let g:tern_request_timeout = 1
+  let g:tern_show_signature_in_pum = 0
+  let g:tern#command = ['tern']
+  let g:tern#arguments = ['--persistent']
+
+  " close preview window
+  " autocmd CompleteDone * pclose!
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 else
 " make YCM compatible with UltiSnips (using supertab)
   let g:ycm_key_list_select_completion = ['<C-n>']
@@ -735,7 +762,7 @@ set laststatus=2    " Always dislay the statusline in all windows
 " let g:airline_symbols = "\ua0"
 
 " CSApprox
-let g:CSApprox_loaded = 1
+" let g:CSApprox_loaded = 1
 
 " Javascript-libraries-syntax
 let g:used_javascript_libs = 'jquery, underscore, angularjs, react, vue'
@@ -774,6 +801,9 @@ endif
 " if exists(":Dash")
   nmap <silent> <leader>d <plug>DashSearch
 " endif
+
+" phpcomplete-extended
+let g:phpcomplete_index_composer_command = 'composer'
 
 " Useful functions
 """"""""""""""""""
