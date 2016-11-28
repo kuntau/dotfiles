@@ -130,7 +130,8 @@ Plug 'rafaelndev/deoplete-laravel-plugin',  { 'for': [ 'php', 'blade' ], 'do': '
 " Plug 'shawncplus/phpcomplete.vim',         { 'for': 'php' }
 
 " Fun, but not useful
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'chreekat/vim-paren-crosshairs'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
@@ -347,7 +348,7 @@ au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 ex
 " Javascript configurations
 """""""""""""""""""""""""""
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript setlocal omnifunc=tern#Complete
+" autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType javascript setlocal colorcolumn=80
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 " autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -786,10 +787,10 @@ let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
 " if exists(":TmuxNavigator")
-if has('nvim')
-  nmap <silent> <BS> :TmuxNavigateLeft<CR>
+" if has('nvim')
+  " nmap <silent> <BS> :TmuxNavigateLeft<CR>
   " nmap <silent> <c-h> :TmuxNavigateLeft<CR>
-endif
+" endif
 
 " Emmet Vim
 " if exists(":Emmet")
