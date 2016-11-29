@@ -598,14 +598,14 @@ if has('nvim')
   " let g:tern#arguments = ['--persistent']
 else
 " make YCM compatible with UltiSnips (using supertab)
-  let g:ycm_key_list_select_completion = ['<C-n>']
-  let g:ycm_key_list_previous_completion = ['<C-p>']
-  " let g:SuperTabDefaultCompletionType = '<C-n>'
-  augroup load_us_ycm
-    autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
-                      \| call youcompleteme#Enable() | autocmd! load_us_ycm
-  augroup END
+  " let g:ycm_key_list_select_completion = ['<C-n>']
+  " let g:ycm_key_list_previous_completion = ['<C-p>']
+  " " let g:SuperTabDefaultCompletionType = '<C-n>'
+  " augroup load_us_ycm
+  "   autocmd!
+  "   autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
+  "                     \| call youcompleteme#Enable() | autocmd! load_us_ycm
+  " augroup END
 endif
 
 " UltiSnips
@@ -620,12 +620,12 @@ endif
 " endif
 
 " UltiSnipsLazyLoad
-  augroup LazyLoadUltiSnips
-    autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips') |
-          \ call UltiSnips#ExpandSnippet() |
-          \ autocmd! LazyLoadUltiSnips
-  augroup END
+  " augroup LazyLoadUltiSnips
+  "   autocmd!
+  "   autocmd InsertEnter * call plug#load('ultisnips') |
+  "         \ call UltiSnips#ExpandSnippet() |
+  "         \ autocmd! LazyLoadUltiSnips
+  " augroup END
 
   " inoremap <silent> <NUL> <c-r>=LoadUltiSnips()<cr>
   " function! LoadUltiSnips()
@@ -687,7 +687,6 @@ endif
 "   let b:neomake_javascript_eslint_exe = l:eslint
 " endfunction
 " autocmd FileType javascript :call NeomakeESlintChecker()
-
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
