@@ -58,7 +58,6 @@ if [[ $osname == Linux ]]; then
   # PATH=$PATH
   PATH=$PATH:~/npm/bin:/usr/local/go/bin
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
-  TERM="xterm-256color"
   [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
   export ANDROID_HOME=~/Library/Android/sdk
@@ -89,6 +88,9 @@ fi
 
 alias 'rld=source ~/.zshrc'
 alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
+
+# make default term
+export TERM="xterm-256color"
 
 # make our custom scripts work!
 export PATH=$PATH:~/dotfiles/bin
