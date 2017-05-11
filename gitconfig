@@ -1,8 +1,8 @@
 [hub]
   protocol = https
 [user]
-  email = kuntau17@gmail.com
-  name = Kuntau
+	email = kuntau17@gmail.com
+	name = Nizamuddin Sulieman
 [alias]
   co = checkout
   count = !git shortlog -sn
@@ -25,7 +25,7 @@
   changed = green
   untracked = cyan
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
   editor = vim
 [apply]
   whitespace = nowarn
@@ -42,11 +42,11 @@
 [credential]
   helper = store
 [difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = ~/Applications/SourceTree.app/Contents/Resources/
 [mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+	cmd = ~/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 [giggle]
   main-window-maximized = false
   main-window-geometry = 794x848+0+900
@@ -56,3 +56,5 @@
 [filter "media"]
   clean = git-media-clean %f
   smudge = git-media-smudge %f
+[commit]
+	template = /Volumes/Home/Users/kuntau/.stCommitMsg
