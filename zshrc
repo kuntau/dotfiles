@@ -65,6 +65,7 @@ elif [[ $osname == Darwin ]]; then
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
   # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
+  export GOPATH='/Users/kuntau/coding/go'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # GEMPATH='~/.gem/ruby/2.1.0'
   # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
@@ -90,7 +91,7 @@ alias 'rld=source ~/.zshrc'
 alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
 # make default term
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 
 # make our custom scripts work!
 export PATH=$PATH:~/dotfiles/bin
@@ -114,3 +115,5 @@ if [ -f ~/.fzf.zsh ]; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
