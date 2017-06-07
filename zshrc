@@ -60,16 +60,19 @@ if [[ $osname == Linux ]]; then
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
+  # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
-  export PATH=${PATH}:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/2.7/bin:~/npm/bin:${ANDROID_HOME}/tools
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
   # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
-  export GOPATH='/Users/kuntau/coding/go'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # GEMPATH='~/.gem/ruby/2.1.0'
   # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
   # source $(brew --prefix nvm)/nvm.sh
+  # brew cask flags
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+  # export final osx path
+  export PATH=${PATH}:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools
 elif [[ $osname == CYGWIN_NT-6.1 ]]; then
   export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX"
   source ~/dotfiles/mintty/sol.dark
@@ -91,7 +94,7 @@ alias 'rld=source ~/.zshrc'
 alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
 
 # make default term
-# export TERM="xterm-256color"
+export TERM="xterm-256color"
 
 # make our custom scripts work!
 export PATH=$PATH:~/dotfiles/bin
@@ -116,4 +119,6 @@ if [ -f ~/.fzf.zsh ]; then
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
