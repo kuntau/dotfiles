@@ -9,11 +9,13 @@ ControlPersist yes
 
 Host hq
   User     kuntau
-  HostName kosx.duckdns.org
+  HostName kuntau.asuscomm.com
+  # HostName kosx.duckdns.org
 
-Host hqlocal
+Host hqrouter
   User     kuntau
-  HostName 192.168.1.100
+  HostName kuntau.asuscomm.com
+  Port     2211
 
 Host vps
   User     kuntau
@@ -25,13 +27,8 @@ Host dh
 
 Host pi
   User     kuntau
-  Port     22
+  Port     22111
   HostName pai.duckdns.org
-
-Host pilocal
-  User     kuntau
-  Port     22
-  HostName 192.168.1.112
 
 Host ocean
   User     kuntau
@@ -47,14 +44,27 @@ Host papcc
   port     24
   HostName paptt.asuscomm.com
 
-Host papcclocal
-  User     Nizam
-  HostName 192.168.1.109
-
 Host paprouter
   User     admin
   port     2211
   HostName paptt.asuscomm.com
+
+#
+# Local Network
+#
+
+Host hqlocal
+  User     kuntau
+  HostName 192.168.1.100
+
+Host pilocal
+  User     kuntau
+  Port     22
+  HostName 192.168.1.112
+
+Host papcclocal
+  User     Nizam
+  HostName 192.168.1.109
 
 Host paprouterlocal
   User     admin
