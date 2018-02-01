@@ -1,42 +1,43 @@
 # alias 'dus=du -sckx * | sort -nr'
-alias 'dus=du -hd 1'
-alias 'l=ls -l'
+alias dus='du -hd 1'
+alias l='ls -l'
 
 # config file shortcut
-alias 'zshrc=$EDITOR ~/.zshrc'
-alias 'vimrc=$EDITOR ~/.vimrc'
-alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
+alias zshrc='$EDITOR ~/.zshrc'
+alias vimrc='$EDITOR ~/.vimrc'
+alias git-plugin='cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
 
 # nvim 24 bit color; TUI ENABLE not needed anymore
 if command -v nvim &>/dev/null; then
-  alias 'vi=nvim'
+  alias vi='nvim'
 else
-  alias 'vi=vim'
+  alias vi='vim'
 fi
 
 # youtube-dl
-alias 'ytx=proxychains4 youtube-dl'
-alias 'yt=noglob youtube-dl'
-alias 'yt3=noglob youtube-dl -f 43' # 320p
-alias 'yt4=noglob youtube-dl -f 44' # 480p
-alias 'yt7=noglob youtube-dl -f 45' # 720p hd
-alias 'yt1=noglob youtube-dl -f 46' # 1080p full hd
-alias 'yta=noglob youtube-dl --extract-audio'
-alias 'ytav=noglob youtube-dl --extract-audio --keep-video'
-alias 'ytmp3=noglob youtube-dl --extract-audio --audio-format mp3'
+alias yt='noglob youtube-dl'
+alias ytx='proxychains4 youtube-dl'
+alias yt3='noglob youtube-dl -f 43' # 320p
+alias yt4='noglob youtube-dl -f 44' # 480p
+alias yt7='noglob youtube-dl -f 45' # 720p hd
+alias yt1='noglob youtube-dl -f 46' # 1080p full hd
+alias yta='noglob youtube-dl --extract-audio'
+alias ytav='noglob youtube-dl --extract-audio --keep-video'
+alias ytmp3='noglob youtube-dl --extract-audio --audio-format mp3'
 
 # aria2c -x = number of concurrent connections
-alias 'a2=noglob aria2c -x8 --file-allocation=none'
+alias a2='noglob aria2c -x8 --file-allocation=none'
+alias a2limit="noglob aria2c -x8 --file-allocation=none --max-overall-download-limit="
 
-alias 'sub=subliminal download -l en -l ms'
+alias sub='subliminal download -l en -l ms'
 alias comic='open -a "Simple Comic" $@'
 
 # node workflow
-alias 'npml=npm list --depth=0'
+alias npml='npm list --depth=0'
 
 # laravel workflow
-alias 'artisan=php artisan'
-alias 'tinker=php artisan tinker'
+alias artisan='php artisan'
+alias tinker='php artisan tinker'
 
 # mounted volumes shortcut
 multi='/mnt/multi'
@@ -45,9 +46,9 @@ www='/var/zpanel/hostdata/zadmin/public_html/'
 
 # prettify json on command line
 if command -v jq &> /dev/null; then
-  alias 'json=jq'
+  alias json='jq'
 else
-  alias 'json=python -mjson.tool'
+  alias json='python -mjson.tool'
 fi
 
 # alias 'zsh-plugin=cat ~/.oh-my-zsh/plugins/$@/$@.plugin.zsh'
@@ -238,3 +239,6 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Tmux Helper
+alias takeover="tmux detach -a"
