@@ -64,6 +64,7 @@ elif [[ $osname == Darwin ]]; then
   export ANDROID_HOME=~/Library/Android/sdk
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
   # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
+  [ -x rustup ] && source $HOME/.cargo/env
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # GEMPATH='~/.gem/ruby/2.1.0'
