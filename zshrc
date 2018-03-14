@@ -44,8 +44,6 @@ ZSH_TMUX_AUTOQUIT="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git git-extras git-flow node npm coffee bower brew-cask zsh-syntax-highlighting colorize tmux heroku laravel5)
 
-source $ZSH/oh-my-zsh.sh
-
 # Customize to your needs...
 # export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
 
@@ -73,9 +71,9 @@ elif [[ $osname == Darwin ]]; then
   # brew cask flags
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   # export final osx path
-  export PATH=${PATH}:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools
+  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools:$PATH
 elif [[ $osname == CYGWIN_NT-6.1 ]]; then
-  export PATH=$PATH:/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX"
+  export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
 fi
 
@@ -123,3 +121,5 @@ fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
+
+source $ZSH/oh-my-zsh.sh
