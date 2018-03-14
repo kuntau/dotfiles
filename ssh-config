@@ -41,12 +41,12 @@ Host papweb
 
 Host papcc
   User     Nizam
-  port     24
+  port     2211
   HostName paptt.asuscomm.com
 
 Host paprouter
   User     admin
-  port     2211
+  port     22111
   HostName paptt.asuscomm.com
 
 #
