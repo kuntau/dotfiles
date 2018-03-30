@@ -54,7 +54,7 @@ osname=$(uname)
 if [[ $osname == Linux ]]; then
   # GOROOT='/usr/lib/go'
   # PATH=$PATH
-  PATH=$PATH:~/npm/bin:/usr/local/go/bin
+  export PATH=~/npm/bin:/usr/local/go/bin:$PATH
   export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
 elif [[ $osname == Darwin ]]; then
