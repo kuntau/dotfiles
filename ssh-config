@@ -69,3 +69,12 @@ Host papcclocal
 Host paprouterlocal
   User     admin
   HostName 192.168.1.2
+
+#
+# JOB
+#
+
+Host barberweb
+  User u347636287
+  Port 65002
+  HostName 185.224.137.22
