@@ -3,7 +3,7 @@
 # install dotfiles script
 
 # an array of files to symlinks
-dotfiles=( vimrc gitignore gitconfig zshrc ideavimrc )
+dotfiles=( vimrc gitignore gitconfig zshrc ideavimrc tmux.conf )
 
 echo "Checking requirements..."
 command -v zsh >/dev/null 2>&1 || { echo >&2 "I require zsh but it's not installed.  Aborting."; exit 1; }
@@ -81,6 +81,15 @@ else
   ln -s ~/dotfiles/ssh-config ~/.ssh/config
 fi
 echo ""
+
+# Install tmux plugins manager
+echo "Install Tmux Plugins Manager?"
+select yn in "Yes" "No"; do
+  case $yn in
+    Yes ) git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm; break;;
+    No ) break;;
+  esac
+done
 
 # append path.. possible duplicate..
 echo "Copy your current PATH and adding it to the end of ~/.zshrc for you? "
