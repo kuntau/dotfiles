@@ -306,8 +306,8 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " I CAN HAZ NORMAL REGEXES?
 """""""""""""""""""""""""""
-" nnoremap / /\v
-" vnoremap / /\v
+nnoremap / /\v
+vnoremap / /\v
 
 " General auto-commands
 """""""""""""""""""""""
@@ -415,7 +415,8 @@ noremap <leader>so :w!<cr> :source %<CR>
 " noremap de "_de
 " noremap dE "_dE
 " noremap dd "_dd
-" noremap d "_d
+noremap <Leader>d "_d
+vnoremap p "_dP
 
 " Easier movement and copy paste combo
 " noremap 0 0
