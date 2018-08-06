@@ -81,7 +81,14 @@ Host paprouterlocal
 # JOB
 #
 
-Host barberweb
+Host donbarbershop
   User u220026892
+  Port 65002
+  # HostName 156.67.222.106 # SERVER LAMA
+  # HostName 156.67.222.148 # DALAM SETTING SSH
+  HostName 156.67.222.167
+
+Host donlegacy
+  User u129696706
   Port 65002
   HostName 156.67.222.106
