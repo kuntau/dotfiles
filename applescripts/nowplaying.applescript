@@ -54,4 +54,12 @@ else
   set pauseIcon to ""
 end if
 
-return pauseIcon & trackname & " – " & artistname & " (" & albumname & ")"
+(* return pauseIcon & trackname & " – " & artistname & " (" & albumname & ")" *)
+
+if artistname contains missing value and albumname contains missing value then
+  return pauseIcon & trackname
+else if albumname contains missing value then
+  return pauseIcon & trackname & " – " & artistname
+else
+  return pauseIcon & trackname & " – " & artistname & " (" & albumname & ")"
+end if
