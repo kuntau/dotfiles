@@ -30,7 +30,7 @@ Host dh
 Host pi
   User     kuntau
   Port     22111
-  HostName pai.duckdns.org
+  HostName kuntau.asuscomm.com
 
 Host ocean
   User     kuntau
@@ -68,6 +68,11 @@ Host pilocal
   User     kuntau
   Port     22
   HostName 192.168.1.112
+
+Host rtlocal
+  User     kuntau
+  HostName 192.168.1.2
+  Port     2211
 
 Host papcclocal
   User     Nizam
