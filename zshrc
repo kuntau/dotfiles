@@ -55,8 +55,10 @@ if [[ $osname == Linux ]]; then
   # GOROOT='/usr/lib/go'
   # PATH=$PATH
   export PATH=~/npm/bin:/usr/local/go/bin:$PATH
-  export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
-  [ -f ~/.nvm/nvm.sh ] && source ~/.nvm/nvm.sh
+  # export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 elif [[ $osname == Darwin ]]; then
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
