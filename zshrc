@@ -124,4 +124,12 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 
+# FIX the blinding green on green directory listing on external drive.
+# Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
+if [[ -f ~/.dircolors ]]; then
+  eval $(dircolors -b ~/.dircolors)
+elif [[ -f /etc/DIR_COLORS ]]; then
+  eval $(dircolors -b /etc/DIR_COLORS)
+fi
+
 source $ZSH/oh-my-zsh.sh
