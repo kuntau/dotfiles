@@ -25,9 +25,10 @@ alias yta='noglob youtube-dl --extract-audio'
 alias ytav='noglob youtube-dl --extract-audio --keep-video'
 alias ytmp3='noglob youtube-dl --extract-audio --audio-format mp3'
 
-# aria2c -x = number of concurrent connections
-alias a2='noglob aria2c -x8 --file-allocation=none'
-alias a2limit="noglob aria2c -x8 --file-allocation=none --max-overall-download-limit="
+# aria2c -x = number of concurrent connections, -j = number of concurrent download
+alias a1='noglob aria2c -c -j1 -x8 --file-allocation=none --auto-file-renaming=false'
+alias a2='noglob aria2c -c -j2 -x8 --file-allocation=none --auto-file-renaming=false'
+alias a2limit="noglob aria2c -c -j2 -x8 --file-allocation=none --max-overall-download-limit="
 
 alias sub='subliminal download -l en -l ms'
 alias comic='open -a "Simple Comic" $@'
