@@ -56,6 +56,10 @@ Host paprouter
   port     22111
   HostName paptt.asuscomm.com
 
+Host papsvr
+  User     kuntau
+  HostName 175.139.178.197
+
 #
 # Local Network
 #
@@ -81,6 +85,10 @@ Host papcclocal
 Host paprouterlocal
   User     admin
   HostName 192.168.1.2
+
+Host papsvrlocal
+  User     kuntau
+  HostName 192.168.1.4
 
 #
 # JOB
