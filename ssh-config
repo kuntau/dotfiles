@@ -59,6 +59,7 @@ Host paprouter
 Host papsvr
   User     kuntau
   HostName 175.139.178.197
+  port     22122
 
 #
 # Local Network
