@@ -55,6 +55,7 @@ if [[ $osname == Linux ]]; then
   # GOROOT='/usr/lib/go'
   # PATH=$PATH
   export PATH=~/npm/bin:/usr/local/go/bin:$PATH
+  export PATH=~/.local/bin:$PATH
   # export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
