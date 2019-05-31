@@ -57,4 +57,4 @@
   clean = git-media-clean %f
   smudge = git-media-smudge %f
 [commit]
-	template = /Volumes/Home/Users/kuntau/.stCommitMsg
+	# template = /Volumes/Home/Users/kuntau/.stCommitMsg
