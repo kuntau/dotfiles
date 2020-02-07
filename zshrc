@@ -77,7 +77,7 @@ elif [[ $osname == Darwin ]]; then
   # brew cask flags
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   # export final osx path
-  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:~/Library/Python/3.7/bin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools:$PATH
+  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:~/Library/Python/3.7/bin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools:$PATH
 elif [[ $osname == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
@@ -138,4 +138,4 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
