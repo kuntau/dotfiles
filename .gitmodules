@@ -13,3 +13,6 @@
 [submodule "fonts/codeface"]
 	path = fonts/codeface
 	url = https://github.com/chrissimpkins/codeface.git
+[submodule "zsh/z"]
+	path = zsh/z
+	url = https://github.com/rupa/z.git
