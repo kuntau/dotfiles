@@ -50,7 +50,7 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'ervandew/supertab'
 
 " Completion & syntax checking
-if has('nvim')
+if has('nvim') || (v:version > 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   " Plug 'benekastah/neomake'
   " Plug 'jaawerth/nrun.vim'
@@ -692,7 +692,7 @@ let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 "   " autocmd CompleteDone * pclose!
 "   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-if has('nvim')
+if has('nvim') || (v:version > 800)
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -808,14 +808,14 @@ if has('nvim')
   "
 else
 " make YCM compatible with UltiSnips (using supertab)
-  let g:ycm_key_list_select_completion = ['<C-n>']
-  let g:ycm_key_list_previous_completion = ['<C-p>']
+  " let g:ycm_key_list_select_completion = ['<C-n>']
+  " let g:ycm_key_list_previous_completion = ['<C-p>']
   " let g:SuperTabDefaultCompletionType = '<C-n>'
-  augroup load_us_ycm
-    autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
-                      \| call youcompleteme#Enable() | autocmd! load_us_ycm
-  augroup END
+  " augroup load_us_ycm
+  "   autocmd!
+  "   autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
+  "                     \| call youcompleteme#Enable() | autocmd! load_us_ycm
+  " augroup END
 endif
 
 " UltiSnips
