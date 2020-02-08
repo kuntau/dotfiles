@@ -136,6 +136,7 @@ elif [[ -f /etc/DIR_COLORS ]]; then
   eval $(dircolors -b /etc/DIR_COLORS)
 fi
 
+source ~/dotfiles/zsh/z/z.sh
 source $ZSH/oh-my-zsh.sh
 
 export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
