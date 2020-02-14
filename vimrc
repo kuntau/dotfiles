@@ -29,12 +29,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 
 " System
-if executable('fzf') && !has('gui_running')
+" if executable('fzf') && !has('gui_running') && (has('nvim') || (v:version > 800))
+if executable('fzf') && has('nvim')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
   Plug 'yuki-ycino/fzf-preview.vim'
 else
-  Plug 'ctrlpvim/ctrlp.vim'
+  " Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'yggdroot/leaderf', { 'do': './install.sh' }
 endif
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
@@ -164,6 +166,7 @@ Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
 " Plug 'flomotlik/vim-livereload'
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'Yggdroot/indentLine'
+Plug 'bogado/file-line'
 
 call plug#end()
 
@@ -418,6 +421,9 @@ cmap w!! w !sudo tee % >/dev/null
 noremap <leader>ei :e ~/dotfiles/vimrc<CR>
 noremap <leader>so :w!<cr> :source %<CR>
 
+nnoremap <F4> :w!<CR>
+inoremap <F4> <c-o>:w!<CR>
+
 " give me normal jk!! ** should enable with softwrap only **
 " map j gj
 " map k gk
@@ -430,7 +436,7 @@ noremap <leader>so :w!<cr> :source %<CR>
 " noremap de "_de
 " noremap dE "_dE
 " noremap dd "_dd
-noremap <Leader>d "_d
+vnoremap <Leader>d "_d
 vnoremap p "_dP
 
 " Easier movement and copy paste combo
@@ -466,7 +472,7 @@ inoremap jj <esc>
 " imap <C-@> <C-Space>
 
 " Match tag
-map <c-space> %
+nnoremap <c-space> %
 
 " Working with split windows
 map <c-tab> <c-w>w
@@ -623,16 +629,18 @@ if executable('fzf') && !has('gui_running')
     endfunction
 
     let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
-  endif
 
-  " check if in git project ~k
-  " let isGitProject = call IsGitProject()
-  nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
-  " if (l:isGitProject != true)
-  "   nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
-  " elseif
-  "   nnoremap <silent> <c-p> :FZF<CR>
-  " endif
+    nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
+  else
+    " check if in git project ~k
+    " let isGitProject = call IsGitProject()
+    nnoremap <silent> <c-p> :Leaderf<CR>
+    " if (l:isGitProject != true)
+    "   nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
+    " elseif
+    "   nnoremap <silent> <c-p> :FZF<CR>
+    " endif
+  endif
 endif
 
 " FZF hide statuslinj
@@ -1091,7 +1099,7 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Toggle spellcheck in normal mode
-:map <F5> :setlocal spell! spelllang=en_us<CR>
+:nmap <F5> :setlocal spell! spelllang=en_us<CR>
 
 " Ag: The Silver Searcher
 " if executable('ag')
