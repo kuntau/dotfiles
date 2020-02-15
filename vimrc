@@ -54,6 +54,22 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Completion & syntax checking
 if has('nvim') || (v:version > 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+  " coc.nvim plugins~~
+  Plug 'neoclide/coc-emmet',
+  Plug 'neoclide/coc-eslint',
+  Plug 'neoclide/coc-git',
+  Plug 'neoclide/coc-snippets',
+  Plug 'neoclide/coc-yank',
+  Plug 'neoclide/coc-css',
+  Plug 'neoclide/coc-html',
+  Plug 'neoclide/coc-json',
+  Plug 'neoclide/coc-python',
+  Plug 'neoclide/coc-tsserver',
+  Plug 'neoclide/coc-vetur',
+  Plug 'neoclide/coc-yaml',
+  Plug 'marlonfan/coc-phpls',
+  Plug 'iamcco/coc-vimlsp',
+
   " Plug 'benekastah/neomake'
   " Plug 'jaawerth/nrun.vim'
   " Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
