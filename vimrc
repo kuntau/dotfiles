@@ -792,6 +792,20 @@ else
   " augroup END
 endif
 
+" CoC Settings
+" let g:coc_global_extensions = [
+"       \'coc-vetur',
+"       \'coc-explorer',
+"       \'coc-json',
+"       \'coc-git',
+"       \'coc-html',
+"       \'coc-css',
+"       \'coc-markdownlint',
+"       \'coc-highlight',
+"       \'coc-go',
+"       \'coc-python'
+"       \]
+
 " UltiSnips
 " if exists(":UltiSnipsEdit")
   let g:UltiSnipsExpandTrigger='<tab>'
