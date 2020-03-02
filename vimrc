@@ -54,9 +54,21 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Completion & syntax checking
 if has('nvim') || (v:version > 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-  " Plug 'benekastah/neomake'
-  " Plug 'jaawerth/nrun.vim'
-  " Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
+  " coc.nvim plugins~~
+  Plug 'neoclide/coc-emmet',
+  Plug 'neoclide/coc-eslint',
+  Plug 'neoclide/coc-git',
+  Plug 'neoclide/coc-snippets',
+  Plug 'neoclide/coc-yank',
+  Plug 'neoclide/coc-css',
+  Plug 'neoclide/coc-html',
+  Plug 'neoclide/coc-json',
+  Plug 'neoclide/coc-python',
+  Plug 'neoclide/coc-tsserver',
+  Plug 'neoclide/coc-vetur',
+  Plug 'neoclide/coc-yaml',
+  Plug 'marlonfan/coc-phpls',
+  Plug 'iamcco/coc-vimlsp',
 else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
@@ -99,8 +111,6 @@ Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
 Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue' ] }
 
 " Javascript bundles
-" Plug 'ternjs/tern_for_vim',                    { 'for': [ 'javascript', 'javascript.jsx', 'vue' ], 'do': 'yarn' }
-" Plug 'carlitux/deoplete-ternjs',               { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 " Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 " Plug 'othree/yajs.vim',                        { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for': [ 'javascript', 'javascript.jsx' ] }
@@ -128,7 +138,6 @@ Plug 'tpope/vim-ragtag',                    { 'for': [ 'php', 'blade' ] }
 Plug 'm2mdas/phpcomplete-extended',         { 'for': [ 'php', 'blade' ] }
 Plug 'm2mdas/phpcomplete-extended-laravel', { 'for': [ 'php', 'blade' ] }
 Plug 'noahfrederick/vim-laravel',           { 'for': [ 'php', 'blade' ] }
-" Plug 'rafaelndev/deoplete-laravel-plugin',  { 'for': [ 'php', 'blade' ], 'do': 'composer install' }
 " Plug 'jwalton512/vim-blade',                { 'for': 'php' }
 " Plug 'StanAngeloff/php.vim',               { 'for': 'php' }
 " Plug 'shawncplus/phpcomplete.vim',         { 'for': 'php' }
@@ -455,22 +464,6 @@ nnoremap <up> m`O<esc>``
 " Escape key mapping
 inoremap jj <esc>
 
-" supertab for everything
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" insert mode movement mapping
-" NOTE: Most of this was replaced by vim-rsi
-" inoremap <c-j> <C-o>o
-" inoremap <c-k> <C-o>O
-
-" invoke autocompletion
-" inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-" \ "\<lt>C-n>" :
-" \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-" \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-" \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-" imap <C-@> <C-Space>
-
 " Match tag
 nnoremap <c-space> %
 
@@ -673,33 +666,6 @@ endif
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
-" Deoplete settings -------------- trying coc.vim now
-" if has('nvim')
-"   let g:deoplete#enable_at_startup = 1
-"   let g:deoplete#enable_refresh_always = 1
-"   let g:deoplete#enable_smart_case = 1
-"   if !exists('g:deoplete#omni#input_patterns')
-"     let g:deoplete#omni#input_patterns = {}
-"   endif
-"   " let g:deoplete#disable_auto_complete = 1
-"   let g:deoplete#omni#functions = {}
-"   let g:deoplete#omni#functions.javascript = [
-"     \ 'tern#Complete',
-"     \ 'jspc#omni'
-"   \]
-"   set completeopt=longest,menuone,preview
-"   let g:deoplete#sources = {}
-"   let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
-"   " let g:SuperTabClosePreviewOnPopupClose = 1
-"   let g:tern_request_timeout = 1
-"   let g:tern_show_signature_in_pum = 0
-"   let g:tern#command = ['tern']
-"   let g:tern#arguments = ['--persistent']
-"
-"   " close preview window
-"   " autocmd CompleteDone * pclose!
-"   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
 if has('nvim') || (v:version > 800)
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -837,75 +803,12 @@ endif
   " let g:UltiSnipsListSnippets='<NUL>'
 " endif
 
-" UltiSnipsLazyLoad
-  augroup LazyLoadUltiSnips
-    autocmd!
-    autocmd InsertEnter * call plug#load('ultisnips') |
-          \ call UltiSnips#ExpandSnippet() |
-          \ autocmd! LazyLoadUltiSnips
-  augroup END
-
-  " inoremap <silent> <NUL> <c-r>=LoadUltiSnips()<cr>
-  " function! LoadUltiSnips()
-  "   let l:curpos = getcurpos()
-  "   execute plug#load('ultisnips')
-  "   call cursor(l:curpos[1], l:curpos[2])
-  "   call UltiSnips#ExpandSnippet()
-  "   return ""
-  " endfunction
-" endif
-
 " Jedi
 " let g:jedi#goto_command = "<leader>g
 
 " Double rainbow - What does it mean!?
 " au VimEnter * RainbowParentheses
 " au Syntax * RainbowParenthesesLoadRound
-
-" neomake settings
-
-" This setting will open the |loclist| or |quickfix| list (depending on whether
-" it is operating on a file) when adding entries. A value of 2 will preserve the
-" cursor position when the |loclist| or |quickfix| window is opened. Defaults to 0.
-" let g:neomake_open_list = 2
-
-" Only use eslint
-" if has('nvim')
-"   let g:neomake_javascript_eslint_exe = nrun#Which('eslint')
-"   let g:neomake_javascript_enabled_makers = ['eslint']
-"   " Use the fix option of eslint
-"   " let g:neomake_javascript_eslint_args = ['-f', 'compact', '--fix']
-"   " let g:neomake_javascript_eslint_args = ['-f', '--fix']
-"
-"   autocmd! BufWritePost,BufReadPost * Neomake
-" endif
-
-" Callback for reloading file in buffer when eslint has finished and maybe has
-" autofixed some stuff
-" function! s:Neomake_callback(options)
-"   if (a:options.name ==? 'eslint') && (a:options.has_next == 0)
-"     checktime
-"   endif
-" endfunction
-
-" Call neomake#Make directly instead of the Neomake provided command
-" autocmd BufWritePost,BufEnter * call neomake#Make(1, [], function('s:Neomake_callback'))
-" function! NeomakeESlintChecker()
-"   let l:npm_bin = ''
-"   let l:eslint = 'eslint'
-"
-"   if executable('npm')
-"     let l:npm_bin = split(system('npm bin'), '\n')[0]
-"   endif
-"
-"   if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
-"     let l:eslint = l:npm_bin . '/eslint'
-"   endif
-"
-"   let b:neomake_javascript_eslint_exe = l:eslint
-" endfunction
-" autocmd FileType javascript :call NeomakeESlintChecker()
-
 
 " Syntastic settings
 " if exists(":SyntasticInfo")
