@@ -64,7 +64,6 @@ elif [[ $osname == Darwin ]]; then
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
-  # [ -x fzf ] && export FZF_DEFAULT_OPTS="-x"
   [ -x rustup ] && source $HOME/.cargo/env
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
@@ -117,9 +116,11 @@ export PROMPT_COMMAND="${PROMPT_COMMAND} ${PROMPT_TITLE}; "
 typeset -U PATH
 
 # FZF -- https://github.com/junegunn/fzf
+# https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 if [ -f ~/.fzf.zsh ]; then
-  export FZF_DEFAULT_OPTS="-x"
-  export FZF_DEFAULT_COMMAND="ag -l -g ''"
+  export FZF_DEFAULT_OPTS="--extended --reverse --inline-info"
+  # export FZF_DEFAULT_COMMAND="ag -l -g ''"
+  export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
