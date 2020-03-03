@@ -16,7 +16,12 @@ else
   alias lsd='ls -l | grep "^d"' # List only directories
 fi
 
-
+# FZF aliases
+if command -v fzf &> /dev/null; then
+  alias f='fzf-tmux'
+  alias ft='fzf-tmux --preview "bat --style=numbers --color=always {}"'
+  alias fp='fzf --preview "bat --style=numbers --color=always {}"'
+fi
 
 # Always use color output for `ls`
 # if [[ "$OSTYPE" =~ ^darwin ]]; then
