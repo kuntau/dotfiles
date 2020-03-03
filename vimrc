@@ -30,16 +30,17 @@ Plug 'mattn/gist-vim'
 
 " System
 " if executable('fzf') && !has('gui_running') && (has('nvim') || (v:version > 800))
-if executable('fzf') && has('nvim')
+" if executable('fzf') && has('nvim') && !has('gui_running')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
   Plug 'yuki-ycino/fzf-preview.vim'
-else
+" elseif has("gui_running")
+  " Plug 'yggdroot/leaderf', { 'do': './install.sh' }
   " Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'yggdroot/leaderf', { 'do': './install.sh' }
-endif
+" endif
+Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar'
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/webapi-vim'
@@ -48,6 +49,7 @@ Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
 Plug 'tpope/vim-rsi'
 Plug 'rking/ag.vim'
+" Plug 'jremmen/vim-ripgrep'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'ervandew/supertab'
 
@@ -55,11 +57,13 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 if has('nvim') || (v:version > 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   " coc.nvim plugins~~
-  Plug 'neoclide/coc-emmet',
-  Plug 'neoclide/coc-eslint',
+  " Plug 'weirongxu/coc-explorer',
   Plug 'neoclide/coc-git',
   Plug 'neoclide/coc-snippets',
   Plug 'neoclide/coc-yank',
+  Plug 'neoclide/coc-emmet',
+  " coc.nvim language specific plugins~~
+  Plug 'neoclide/coc-eslint',
   Plug 'neoclide/coc-css',
   Plug 'neoclide/coc-html',
   Plug 'neoclide/coc-json',
@@ -73,9 +77,9 @@ else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
-Plug 'SirVer/ultisnips', { 'on': [] }
+" Plug 'SirVer/ultisnips', { 'on': [] } ---- we're using coc-snippets now
 Plug 'honza/vim-snippets'
-Plug 'jamescarr/snipmate-nodejs'
+Plug 'bingeboy/snipmate-nodejs'
 Plug 'wellle/tmux-complete.vim'
 
 " A solid language pack for Vim
@@ -135,9 +139,9 @@ Plug 'tpope/vim-endwise', { 'for': 'ruby' }
 
 " PHP bundles
 Plug 'tpope/vim-ragtag',                    { 'for': [ 'php', 'blade' ] }
-Plug 'm2mdas/phpcomplete-extended',         { 'for': [ 'php', 'blade' ] }
-Plug 'm2mdas/phpcomplete-extended-laravel', { 'for': [ 'php', 'blade' ] }
-Plug 'noahfrederick/vim-laravel',           { 'for': [ 'php', 'blade' ] }
+" Plug 'm2mdas/phpcomplete-extended',         { 'for': [ 'php', 'blade' ] }
+" Plug 'm2mdas/phpcomplete-extended-laravel', { 'for': [ 'php', 'blade' ] }
+" Plug 'noahfrederick/vim-laravel',           { 'for': [ 'php', 'blade' ] }
 " Plug 'jwalton512/vim-blade',                { 'for': 'php' }
 " Plug 'StanAngeloff/php.vim',               { 'for': 'php' }
 " Plug 'shawncplus/phpcomplete.vim',         { 'for': 'php' }
@@ -176,6 +180,7 @@ Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'Yggdroot/indentLine'
 Plug 'bogado/file-line'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -296,13 +301,12 @@ if has("gui_running")
   if has('win32') || has('win64')
     set gfn=Consolas:h10                " font to use
   elseif has('mac') || has('macunix')
-    set gfn=PragmataPro\ for\ Powerline:h12
+    " set gfn=PragmataPro\ for\ Powerline:h12
   elseif has('gui_gtk2')
     set gfn=PragmataPro\ 9
     " set lines=50 columns=100
   endif
 endif
-" set gfn=PragmataPro\ for\ Powerline:h12
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
@@ -420,15 +424,16 @@ let mapleader   = ","
 let g:mapleader = ","
 
 " Get rid of search hilighting with ,/
-nnoremap <silent> <leader>/ :nohlsearch<CR>
+" nnoremap <silent> <leader>/ :nohlsearch<CR> --- use vim-unimpaired *yoh* instead
 
 " Fix those pesky situations where you edit & need sudo to save
 cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
-" noremap <space> :
+noremap <space><space> :
 noremap <leader>ei :e ~/dotfiles/vimrc<CR>
 noremap <leader>so :w!<cr> :source %<CR>
+noremap \ :Rg<CR>
 
 nnoremap <F4> :w!<CR>
 inoremap <F4> <c-o>:w!<CR>
@@ -456,10 +461,10 @@ vnoremap p "_dP
 " noremap yP yyP
 " noremap yd yydd
 
-" Line mod time saver
-nnoremap <enter> i<enter><esc>
-nnoremap <down> m`o<esc>``
-nnoremap <up> m`O<esc>``
+" Line mod time saver --------- please use vim-unimpaired
+" nnoremap <enter> i<enter><esc>
+" nnoremap <down> m`o<esc>``
+" nnoremap <up> m`O<esc>``
 
 " Escape key mapping
 inoremap jj <esc>
@@ -488,8 +493,8 @@ noremap <d-down>  <m-down>
 " Close the current buffer
 map <leader>bd :Bclose<cr>
 
-" Close all the buffers
-map <leader>ba :1,300 bd!<cr>
+" Close all the buffers including currently viewed
+map <leader>ba :bufdo bd<cr>
 
 " Use the arrows to something usefull
 noremap <right> :bn<cr>
@@ -588,7 +593,8 @@ let g:gist_show_privates = 1
 " ----------------------------------------------------------------------------
 " {{{ FZF
 " ----------------------------------------------------------------------------
-if executable('fzf') && !has('gui_running')
+" if executable('fzf') && !has('gui_running')
+if executable('fzf')
   if has('nvim')
     function! FloatingFZF(width, height, border_highlight)
       function! s:create_float(hl, opts)
@@ -623,11 +629,12 @@ if executable('fzf') && !has('gui_running')
 
     let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
 
-    nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
-  else
+    " nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
+    nnoremap <silent> <c-p> :Files<CR>
+  " else
     " check if in git project ~k
     " let isGitProject = call IsGitProject()
-    nnoremap <silent> <c-p> :Leaderf<CR>
+    " nnoremap <silent> <c-p> :Leaderf<CR>
     " if (l:isGitProject != true)
     "   nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
     " elseif
@@ -636,21 +643,65 @@ if executable('fzf') && !has('gui_running')
   endif
 endif
 
-" FZF hide statuslinj
+" FZF hide statusline
 if has('nvim') && !exists('g:fzf_layout')
   autocmd! FileType fzf
   autocmd  FileType fzf set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 endif
 
-" NERDTreeTabs
+map <leader>/ :Rg<Cr>
+
+" add --no-ignore to respect .gitignore list
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --hidden --fixed-strings --follow --ignore-case --glob "!.git/*" --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+" coc-explorer
+  " nnoremap <space>e :CocCommand explorer --toggle --sources=buffer+,file+ /root/path<CR>
+  nnoremap <space>e :CocCommand explorer<CR>
+  let g:coc_explorer_global_presets = {
+  \   '.vim': {
+  \      'root-uri': '~/.vim',
+  \   },
+  \   'floating': {
+  \      'position': 'floating',
+  \   },
+  \   'floatingLeftside': {
+  \      'position': 'floating',
+  \      'floating-position': 'left-center',
+  \      'floating-width': 50,
+  \   },
+  \   'floatingRightside': {
+  \      'position': 'floating',
+  \      'floating-position': 'left-center',
+  \      'floating-width': 50,
+  \   },
+  \   'simplify': {
+  \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+  \   }
+  \ }
+
+" Use preset argument to open it
+  nmap <space>ed :CocCommand explorer --preset .vim<CR>
+  nmap <space>ef :CocCommand explorer --preset floating<CR>
+
+" List all presets
+  nmap <space>el :CocList explPresets
+
+" NERDTreeTabs -------- replaced by coc-explorer
 " if exists(":NERDTree")
   let g:nerdtree_tabs_open_on_gui_startup = 0
   let g:nerdtree_tabs_open_on_console_startup = 0
   let g:nerdtree_tabs_open_on_new_tab = 0
 " endif
 
-" NERDTree
+" NERDTree -------- replaced by coc-explorer
 " if exists(":NERDTreeTabsToggle")
   nnoremap <Leader>ft :NERDTreeToggle<CR>
   nnoremap <F1> :NERDTreeToggle<CR>
@@ -669,16 +720,29 @@ let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 if has('nvim') || (v:version > 800)
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  " inoremap <silent><expr> <TAB>
+  "       \ pumvisible() ? "\<C-n>" :
+  "       \ <SID>check_back_space() ? "\<TAB>" :
+  "       \ coc#refresh()
+  " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  "
+  " function! s:check_back_space() abort
+  "   let col = col('.') - 1
+  "   return !col || getline('.')[col - 1]  =~# '\s'
+  " endfunction
+
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
+        \ pumvisible() ? coc#_select_confirm() :
+        \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
   function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
+
+  let g:coc_snippet_next = '<tab>'
 
   " Use <c-space> to trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -793,6 +857,9 @@ else
 endif
 
 " CoC Settings
+nmap <space>e :CocCommand explorer<CR>
+nmap <space>y :CocList -A --normal yank<CR>
+
 " let g:coc_global_extensions = [
 "       \'coc-vetur',
 "       \'coc-explorer',
@@ -806,6 +873,22 @@ endif
 "       \'coc-python'
 "       \]
 
+" coc-snippets settings
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
 " UltiSnips
 " if exists(":UltiSnipsEdit")
   let g:UltiSnipsExpandTrigger='<tab>'
@@ -815,40 +898,6 @@ endif
   let g:UltiSnipsEditSplit='vertical'
   " let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
   " let g:UltiSnipsListSnippets='<NUL>'
-" endif
-
-" Jedi
-" let g:jedi#goto_command = "<leader>g
-
-" Double rainbow - What does it mean!?
-" au VimEnter * RainbowParentheses
-" au Syntax * RainbowParenthesesLoadRound
-
-" Syntastic settings
-" if exists(":SyntasticInfo")
-  nmap <leader>sy :SyntasticToggleMode<cr>
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 0
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-  let g:syntastic_enable_signs = 1
-  let g:syntastic_auto_jump = 0
-  let g:syntastic_error_symbol = "✗"
-  let g:syntastic_warning_symbol = "⚠"
-  let g:syntastic_style_error_symbol = '✠'
-  let g:syntastic_style_warning_symbol = '≈'
-  " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-  let g:syntastic_javascript_checkers = []
-  let g:syntastic_coffee_checkers = ['coffeelint']
-  let g:syntastic_css_checkers = ['csslint']
-  let g:syntastic_html_tidy_exec = 'tidy5'
-  let g:syntastic_html_checkers = []
-  let g:syntastic_html_tidy_ignore_errors = [
-    \' proprietary attribute "ng-',
-    \'proprietary attribute "ui-',
-    \'<ng-',
-    \'</ng-'
-    \]
 " endif
 
 " Powerline & airline
@@ -904,9 +953,6 @@ let g:vim_markdown_folding_disabled = 1
 " if exists(":Dash")
   nmap <silent> <leader>d <plug>DashSearch
 " endif
-
-" phpcomplete-extended
-let g:phpcomplete_index_composer_command = 'composer'
 
 " Useful functions
 """"""""""""""""""
@@ -1017,6 +1063,13 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Toggle spellcheck in normal mode
 :nmap <F5> :setlocal spell! spelllang=en_us<CR>
+
+" Rg: ripgrep
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+else
+  set grepprg=grep\ -rn\ $*\ *
+endif
 
 " Ag: The Silver Searcher
 " if executable('ag')
