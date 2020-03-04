@@ -541,6 +541,29 @@ if executable('fzf')
   endif
 endif
 
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':70%', '?'), <bang>0)
+command! -bang -nargs=+ -complete=dir Locate
+  \ call fzf#vim#locate(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':60%:hidden','?'), <bang>0)
+command! -bang -nargs=?               GFiles
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(s:fzf_preview_side()))
+command! -bar  -bang                  Snippets
+  \ call fzf#vim#snippets(<bang>0)
+" All files
+command! -nargs=? -complete=dir AF
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \ })))
+
+" command! -bang LS call fzf#run(fzf#wrap({'source': 'ls', 'options': [ '--reverse', '--preview', '--inline-info' ]},fzf#vim#with_preview('left')))
+" add --no-ignore to respect .gitignore list
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --hidden --fixed-strings --follow --ignore-case --glob "!.git/*" --color=always '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+"   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+"   \   <bang>0)
+
 " FZF hide statusline
 if has('nvim') && !exists('g:fzf_layout')
   autocmd! FileType fzf
