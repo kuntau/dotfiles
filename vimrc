@@ -147,21 +147,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'chreekat/vim-paren-crosshairs'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
-" Plug 'mgutz/vim-colors'
 " Plug 'tpope/vim-speeddating'
-" Plug 'vim-scripts/CSApprox'
-" Plug 'Rykka/colorv.vim' " add 180ms startup time
-" Plug 'davidoc/taskpaper.vim'
 
 " Colorschemes
 Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-solarized8'
 " Plug 'flazz/vim-Colorschemes'
-" Plug 'altercation/vim-colors-solarized'
 " Plug 'tomasr/molokai'
-" Plug 'chriskempson/base16-vim'
 " Plug 'junegunn/seoul256.vim'
-" Plug 'goatslacker/mango.vim'
 
 " Misc bundle
 Plug 'junegunn/vim-peekaboo'
@@ -170,10 +163,6 @@ Plug 'tomtom/tlib_vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesQ3/vim-windowswap'
 Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
-" Plug 'mattn/livestyle-vim'
-" Plug 'flomotlik/vim-livereload'
-" Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'Yggdroot/indentLine'
 Plug 'bogado/file-line'
 Plug 'ryanoasis/vim-devicons'
 
