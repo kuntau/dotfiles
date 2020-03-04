@@ -154,13 +154,13 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " Plug 'davidoc/taskpaper.vim'
 
 " Colorschemes
-Plug 'flazz/vim-Colorschemes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'chriskempson/base16-vim'
-Plug 'junegunn/seoul256.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-solarized8'
+" Plug 'flazz/vim-Colorschemes'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'tomasr/molokai'
+" Plug 'chriskempson/base16-vim'
+" Plug 'junegunn/seoul256.vim'
 " Plug 'goatslacker/mango.vim'
 
 " Misc bundle
