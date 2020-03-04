@@ -258,7 +258,7 @@ set synmaxcol=500        " maximum length to apply syntax highlight
 
 " Even more setting as suggested by coc.vim readme
 " Better display for messages
-set cmdheight=2
+set cmdheight=1
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
