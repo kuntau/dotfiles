@@ -633,8 +633,9 @@ command! -bang -nargs=? -complete=dir Files
   \ }
 
 " Use preset argument to open it
-  nmap <space>ed :CocCommand explorer --preset .vim<CR>
-  nmap <space>ef :CocCommand explorer --preset floating<CR>
+  nmap <space>ee :CocCommand explorer<CR>
+  " nmap <space>ed :CocCommand explorer --preset .vim<CR>
+  " nmap <space>ef :CocCommand explorer --preset floating<CR>
 
 " List all presets
   nmap <space>el :CocList explPresets<CR>
