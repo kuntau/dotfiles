@@ -184,13 +184,6 @@ filetype plugin indent on     " required!
 " Configurations
 """"""""""""""""
 if !has("gui_running")
-    " set term=xterm-256color
-    " set t_Co=256
-    " let &t_AB="\e[48;5;%dm"
-    " let &t_AF="\e[38;5;%dm"
-    " let g:molokai_original=1
-    " let g:solarized_termcolors=256
-    " let g:rehash256=1
     colorscheme solarized
     if strftime("%H") > 8 && strftime("%H") < 19
       set background=light
@@ -198,9 +191,6 @@ if !has("gui_running")
       set background=dark
     endif
     if has("termguicolors")
-      " set t_8f=^[[38;2;%lu;%lu;%lum
-      " set t_8b=^[[48;2;%lu;%lu;%lum
-      " colorscheme solarized8_dark
       let ayucolor="mirage"
       colorscheme ayu
       set termguicolors
