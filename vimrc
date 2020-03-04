@@ -33,11 +33,8 @@ Plug 'mattn/gist-vim'
 " if executable('fzf') && has('nvim') && !has('gui_running')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
-  Plug 'yuki-ycino/fzf-preview.vim'
-" elseif has("gui_running")
-  " Plug 'yggdroot/leaderf', { 'do': './install.sh' }
-  " Plug 'ctrlpvim/ctrlp.vim'
-" endif
+  " Plug 'yuki-ycino/fzf-preview.vim'
+endif
 Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 
