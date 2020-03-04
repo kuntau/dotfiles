@@ -29,11 +29,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 
 " System
-" if executable('fzf') && !has('gui_running') && (has('nvim') || (v:version > 800))
 " if executable('fzf') && has('nvim') && !has('gui_running')
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+if executable('fzf') && (has('nvim') || (v:version > 800))
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  " Plug 'yuki-ycino/fzf-preview.vim'
 endif
 Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
@@ -1084,10 +1083,3 @@ if executable('rg')
 else
   set grepprg=grep\ -rn\ $*\ *
 endif
-
-" Ag: The Silver Searcher
-" if executable('ag')
-"   set grepprg=ag\ --nogroup\ --nocolor\ --column
-" else
-"   set grepprg=grep\ -rn\ $*\ *
-" endif
