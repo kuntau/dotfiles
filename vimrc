@@ -295,6 +295,9 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+" diff always open in vertical split
+set diffopt+=vertical
+
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
   set guioptions=-t
