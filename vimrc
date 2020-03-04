@@ -173,18 +173,11 @@ filetype plugin indent on     " required!
 " Configurations
 """"""""""""""""
 if !has("gui_running")
-    colorscheme solarized
     if strftime("%H") > 8 && strftime("%H") < 19
       set background=light
     else
       set background=dark
     endif
-    if has("termguicolors")
-      let ayucolor="mirage"
-      colorscheme ayu
-      set termguicolors
-    endif
-
     " fix terminal timeout when pressing escape
     " set ttimeout
     " set ttimeoutlen=50
@@ -194,7 +187,14 @@ if !has("gui_running")
     "   au InsertLeave * set timeoutlen=1000
     " augroup END
 else
-    colorscheme molokai
+    colorscheme solarized8_flat
+endif
+
+if has("termguicolors")
+  set termguicolors
+  let ayucolor="mirage"
+  colorscheme ayu
+  " colorscheme solarized8
 endif
 
 " Wildmenu completion
