@@ -40,7 +40,7 @@ Plug 'mattn/gist-vim'
 " endif
 Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'jistr/vim-nerdtree-tabs'
+
 Plug 'majutsushi/tagbar'
 Plug 'Raimondi/delimitMate'
 Plug 'mattn/webapi-vim'
