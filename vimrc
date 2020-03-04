@@ -595,15 +595,6 @@ let g:gist_show_privates = 1
 if executable('fzf')
   if has('nvim')
     nnoremap <silent> <c-p> :Files<CR>
-  " else
-    " check if in git project ~k
-    " let isGitProject = call IsGitProject()
-    " nnoremap <silent> <c-p> :Leaderf<CR>
-    " if (l:isGitProject != true)
-    "   nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
-    " elseif
-    "   nnoremap <silent> <c-p> :FZF<CR>
-    " endif
   endif
 endif
 
@@ -628,7 +619,7 @@ command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 " coc-explorer
   " nnoremap <space>e :CocCommand explorer --toggle --sources=buffer+,file+ /root/path<CR>
-  nnoremap <space>e :CocCommand explorer<CR>
+  nnoremap <leader>ft :CocCommand explorer<CR>
   let g:coc_explorer_global_presets = {
   \   '.vim': {
   \      'root-uri': '~/.vim',
@@ -651,20 +642,10 @@ command! -bang -nargs=? -complete=dir Files
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
+" ----------------------
+" CoC completion routine
+" ----------------------
 if has('nvim') || (v:version > 800)
-  " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  " inoremap <silent><expr> <TAB>
-  "       \ pumvisible() ? "\<C-n>" :
-  "       \ <SID>check_back_space() ? "\<TAB>" :
-  "       \ coc#refresh()
-  " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-  "
-  " function! s:check_back_space() abort
-  "   let col = col('.') - 1
-  "   return !col || getline('.')[col - 1]  =~# '\s'
-  " endfunction
-
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? coc#_select_confirm() :
         \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -791,7 +772,6 @@ else
 endif
 
 " CoC Settings
-nmap <space>e :CocCommand explorer<CR>
 nmap <space>y :CocList -A --normal yank<CR>
 
 " let g:coc_global_extensions = [
