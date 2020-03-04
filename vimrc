@@ -24,18 +24,11 @@ endif
 " set rtp+=~/.fzf
 call plug#begin('~/.vim/bundle')
 
-" Plug help
-""""""""""""""
-" :PlugStatus          - list configured bundles
-" :PlugInstall(!)    - install(update) bundles
-" :PlugUpdate - search(or refresh cache first) for foo
-" :PlugClean(!)      - confirm(or auto-approve) removal of unused bundles
-
-
 " VCS
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
+Plug 'junegunn/gv.vim'
 
 " System
 " if executable('fzf') && has('nvim') && !has('gui_running')
