@@ -38,19 +38,16 @@ if executable('fzf') && (has('nvim') || (v:version >= 800))
 endif
 Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
-
-Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/webapi-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
-Plug 'danro/rename.vim'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-" Plug 'ervandew/supertab'
 
 " Completion & syntax checking
-if has('nvim') || (v:version > 800)
+if has('nvim') || (v:version >= 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   " coc.nvim plugins~~
   " Plug 'weirongxu/coc-explorer',
@@ -613,7 +610,7 @@ let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 " ----------------------
 " CoC completion routine
 " ----------------------
-if has('nvim') || (v:version > 800)
+if has('nvim') || (v:version >= 800)
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? coc#_select_confirm() :
         \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
