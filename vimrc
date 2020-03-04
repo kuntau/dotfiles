@@ -527,32 +527,9 @@ let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 2
 let g:gist_show_privates = 1
 
-" TaskList
-" map <leader>l <Plug>TaskList
-
-" if exists(":TagBar")
-  nnoremap <silent> <F3> :TagbarToggle<CR>
-  let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-  let g:tagbar_autoshowtag = 1
-  let g:tagbar_autofocus = 1
-" endif
-
-" if exists(":Tabularize")
-  " nmap <Leader>a= :Tabularize /=<CR>
-  " vmap <Leader>a= :Tabularize /=<CR>
-  " nmap <Leader>a: :Tabularize /:\zs<CR>
-  " vmap <Leader>a: :Tabularize /:\zs<CR>
-" endif
-
-" if exists(":vim-easy-align")
-  vmap <Enter> <Plug>(EasyAlign)
-  nmap ga <Plug>(EasyAlign)
-" endif
-
-" if exists(":delimitMate")
-  let delimitMate_expand_cr = 2
-  let delimitMate_expand_space = 2
-" endif
+" vim-easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " ----------------------------------------------------------------------------
 " {{{ FZF
@@ -769,15 +746,13 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " UltiSnips
-" if exists(":UltiSnipsEdit")
-  let g:UltiSnipsExpandTrigger='<tab>'
-  " let g:UltiSnipsExpandTrigger='<C-j>'
-  let g:UltiSnipsJumpForwardTrigger='<tab>'
-  let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-  let g:UltiSnipsEditSplit='vertical'
-  " let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
-  " let g:UltiSnipsListSnippets='<NUL>'
-" endif
+let g:UltiSnipsExpandTrigger='<tab>'
+" let g:UltiSnipsExpandTrigger='<C-j>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+let g:UltiSnipsEditSplit='vertical'
+" let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
+" let g:UltiSnipsListSnippets='<NUL>'
 
 " Powerline & airline
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
@@ -785,26 +760,6 @@ set laststatus=2    " Always dislay the statusline in all windows
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 " let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix' ]
-
-" CSApprox
-" let g:CSApprox_loaded = 1
-
-" Javascript-libraries-syntax
-let g:used_javascript_libs = 'jquery, underscore, angularjs, react, vue'
-
-" Indent Guides
-" let g:indent_guides_guide_size = 1
-" let g:indent_guides_indent_levels = 3
-" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-
-" IndentLine
-let g:indentLine_color_term = 245
-let g:indentLine_color_gui = '#A4E57E'
-" let g:indentLine_char = '┊'
-" let g:indentLine_char = '┆'
-" let g:indentLine_char = '⁞'
-let g:indentLine_char = '⋮'
-" http://unicode-table.com/en/search/?q=dash
 
 " Plasticboy Markdown
 let g:vim_markdown_folding_disabled = 1
