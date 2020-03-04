@@ -71,7 +71,8 @@ else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
-" Plug 'SirVer/ultisnips', { 'on': [] } ---- we're using coc-snippets now
+" "---- we're using coc-snippets now
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'bingeboy/snipmate-nodejs'
 Plug 'wellle/tmux-complete.vim'
@@ -739,9 +740,9 @@ if has('nvim') || (v:version > 800)
 
   " Using CocList
   " Show all diagnostics
-  nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+  " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
   " Manage extensions
-  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
   " Show commands
   nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
   " Find symbol of current document
@@ -749,15 +750,15 @@ if has('nvim') || (v:version > 800)
   " Search workspace symbols
   nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
-  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+  " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
-  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+  " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list
-  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+  " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-  "
+  " ----------------------------
   " START YouCompleteMe SETTINGS
-  "
+  " ----------------------------
 else
 " make YCM compatible with UltiSnips (using supertab)
   " let g:ycm_key_list_select_completion = ['<C-n>']
