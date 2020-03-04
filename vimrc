@@ -608,27 +608,25 @@ command! -bang -nargs=* Rg
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 " coc-explorer
-  " nnoremap <space>e :CocCommand explorer --toggle --sources=buffer+,file+ /root/path<CR>
-  nnoremap <leader>ft :CocCommand explorer<CR>
-  let g:coc_explorer_global_presets = {
-  \   '.vim': {
-  \      'root-uri': '~/.vim',
-  \   },
-  \   'floating': {
-  \      'position': 'floating',
-  \   },
-  \   'simplify': {
-  \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-  \   }
-  \ }
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\      'root-uri': '~/.vim',
+\   },
+\   'floating': {
+\      'position': 'floating',
+\   },
+\   'simplify': {
+\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
 
 " Use preset argument to open it
   nmap <space>ee :CocCommand explorer<CR>
   " nmap <space>ed :CocCommand explorer --preset .vim<CR>
   " nmap <space>ef :CocCommand explorer --preset floating<CR>
 
-" List all presets
-  nmap <space>el :CocList explPresets<CR>
+" list all presets
+nmap <space>el :coclist explpresets<cr>
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
