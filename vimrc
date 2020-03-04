@@ -636,16 +636,6 @@ command! -bang -nargs=? -complete=dir Files
   \   'floating': {
   \      'position': 'floating',
   \   },
-  \   'floatingLeftside': {
-  \      'position': 'floating',
-  \      'floating-position': 'left-center',
-  \      'floating-width': 50,
-  \   },
-  \   'floatingRightside': {
-  \      'position': 'floating',
-  \      'floating-position': 'left-center',
-  \      'floating-width': 50,
-  \   },
   \   'simplify': {
   \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
   \   }
@@ -656,27 +646,7 @@ command! -bang -nargs=? -complete=dir Files
   nmap <space>ef :CocCommand explorer --preset floating<CR>
 
 " List all presets
-  nmap <space>el :CocList explPresets
-
-" NERDTreeTabs -------- replaced by coc-explorer
-" if exists(":NERDTree")
-  let g:nerdtree_tabs_open_on_gui_startup = 0
-  let g:nerdtree_tabs_open_on_console_startup = 0
-  let g:nerdtree_tabs_open_on_new_tab = 0
-" endif
-
-" NERDTree -------- replaced by coc-explorer
-" if exists(":NERDTreeTabsToggle")
-  nnoremap <Leader>ft :NERDTreeToggle<CR>
-  nnoremap <F1> :NERDTreeToggle<CR>
-  " nnoremap <leader>cd :NERDTreeCWD<CR>
-  " nnoremap <leader>nf :NERDTreeFind<CR>
-  let NERDTreeBookmarksFile=$HOME.'/.vim/.NERDTreeBookmarks'
-  let NERDTreeDirArrows=1
-  let NERDTreeMinimalUI=1
-  let NERDTreeShowBookmarks=1
-  let NERDChristmasTree=0
-" endif
+  nmap <space>el :CocList explPresets<CR>
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
