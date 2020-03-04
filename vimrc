@@ -39,7 +39,7 @@ Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 
 Plug 'majutsushi/tagbar'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/webapi-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
