@@ -817,15 +817,9 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Powerline & airline
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set laststatus=2    " Always dislay the statusline in all windows
-" if exists(":AirlineToggle") || exists(":PowerlineToggle")
-  let g:Powerline_symbols = 'fancy'
-  let g:airline_powerline_fonts = 1
-" endif
-
-" if exists("g:airline_symbols")
-"   let g:airline_symbols = {}
-" endif
-" let g:airline_symbols = "\ua0"
+let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 1
+" let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix' ]
 
 " CSApprox
 " let g:CSApprox_loaded = 1
