@@ -398,22 +398,10 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 """"""""""""""""""
 
-" Toggle comment shorthand
-" noremap <leader>cc :TComment<CR>
-
-" Genral
-" noremap <silent> <F4> :QFix<CR>
-
 " Change leader
 let localleader = ","
 let mapleader   = ","
 let g:mapleader = ","
-
-" Get rid of search hilighting with ,/
-" nnoremap <silent> <leader>/ :nohlsearch<CR> --- use vim-unimpaired *yoh* instead
-
-" Fix those pesky situations where you edit & need sudo to save
-cmap w!! w !sudo tee % >/dev/null
 
 " Core fix -Kuntau-
 noremap <space><space> :
