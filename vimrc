@@ -1,9 +1,18 @@
-if !has('nvim')
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+" ==================================================
+
+if (v:version < 800)
   set encoding=utf-8
   set nocompatible               " be iMproved
+  filetype off                   " required!
+else
+  unlet! skip_defaults_vim       " Vim 8 defaults
+  silent! source $VIMRUNTIME/defaults.vim
 endif
 
-filetype off                   " required!
+augroup vimrc
+  autocmd!
+augroup END
 
 " Plug automatic installation
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -30,7 +39,7 @@ Plug 'mattn/gist-vim'
 
 " System
 " if executable('fzf') && has('nvim') && !has('gui_running')
-if executable('fzf') && (has('nvim') || (v:version > 800))
+if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
 endif
@@ -942,6 +951,10 @@ augroup _fzf
   autocmd!
   autocmd ColorScheme * call <sid>update_fzf_colors()
 augroup END
+
+function! s:fzf_preview_side()
+  return winwidth(0) * 1.0 / winheight(0) >= 2 ? 'right' : 'down'
+endfunction
 
 " Delete trailing white space on save, useful for Python, CoffeeScript & Jade
 func! DeleteTrailingWS()
