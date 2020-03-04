@@ -594,40 +594,6 @@ let g:gist_show_privates = 1
 " if executable('fzf') && !has('gui_running')
 if executable('fzf')
   if has('nvim')
-    function! FloatingFZF(width, height, border_highlight)
-      function! s:create_float(hl, opts)
-        let buf = nvim_create_buf(v:false, v:true)
-        let opts = extend({'relative': 'editor', 'style': 'minimal'}, a:opts)
-        let win = nvim_open_win(buf, v:true, opts)
-        call setwinvar(win, '&winhighlight', 'NormalFloat:'.a:hl)
-        call setwinvar(win, '&colorcolumn', '')
-        return buf
-      endfunction
-
-      " Size and position
-      let width = float2nr(&columns * a:width)
-      let height = float2nr(&lines * a:height)
-      let row = float2nr((&lines - height) / 2)
-      let col = float2nr((&columns - width) / 2)
-
-      " Border
-      let top = '╭' . repeat('─', width - 2) . '╮'
-      let mid = '│' . repeat(' ', width - 2) . '│'
-      let bot = '╰' . repeat('─', width - 2) . '╯'
-      let border = [top] + repeat([mid], height - 2) + [bot]
-
-      " Draw frame
-      let s:frame = s:create_float(a:border_highlight, {'row': row, 'col': col, 'width': width, 'height': height})
-      call nvim_buf_set_lines(s:frame, 0, -1, v:true, border)
-
-      " Draw viewport
-      call s:create_float('Normal', {'row': row + 1, 'col': col + 2, 'width': width - 4, 'height': height - 2})
-      autocmd BufWipeout <buffer> execute 'bwipeout' s:frame
-    endfunction
-
-    let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
-
-    " nnoremap <silent> <c-p> :FzfPreviewProjectFiles<CR>
     nnoremap <silent> <c-p> :Files<CR>
   " else
     " check if in git project ~k
@@ -952,8 +918,108 @@ let g:vim_markdown_folding_disabled = 1
   nmap <silent> <leader>d <plug>DashSearch
 " endif
 
-" Useful functions
-""""""""""""""""""
+" =============================================== "
+" Useful, Core that can't be fit up top functions "
+" =============================================== "
+
+" ------------------- "
+" FZF Floating Window "
+" ------------------- "
+" --- Style 1 ---
+function! FloatingFZF(width, height, border_highlight)
+  function! s:create_float(hl, opts)
+    let buf = nvim_create_buf(v:false, v:true)
+    let opts = extend({'relative': 'editor', 'style': 'minimal'}, a:opts)
+    let win = nvim_open_win(buf, v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:'.a:hl)
+    call setwinvar(win, '&colorcolumn', '')
+    return buf
+  endfunction
+
+  " Size and position
+  let width = float2nr(&columns * a:width)
+  let height = float2nr(&lines * a:height)
+  let row = float2nr((&lines - height) / 2)
+  let col = float2nr((&columns - width) / 2)
+
+  " Border
+  let top = '╭' . repeat('─', width - 2) . '╮'
+  let mid = '│' . repeat(' ', width - 2) . '│'
+  let bot = '╰' . repeat('─', width - 2) . '╯'
+  let border = [top] + repeat([mid], height - 2) + [bot]
+
+  " Draw frame
+  let s:frame = s:create_float(a:border_highlight, {'row': row, 'col': col, 'width': width, 'height': height})
+  call nvim_buf_set_lines(s:frame, 0, -1, v:true, border)
+
+  " Draw viewport
+  call s:create_float('Normal', {'row': row + 1, 'col': col + 2, 'width': width - 4, 'height': height - 2})
+  autocmd BufWipeout <buffer> execute 'bwipeout' s:frame
+endfunction
+
+let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
+let $FZF_DEFAULT_OPTS='--no-reverse  --margin=1,4 --inline-info'
+" let $FZF_DEFAULT_OPTS='--color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:15,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,2'
+
+" --- Style 2 ---
+" let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+"
+" function! FloatingFZF()
+"   let buf = nvim_create_buf(v:false, v:true)
+"   call setbufvar(buf, '&signcolumn', 'no')
+"
+"   let width = float2nr(80)
+"   let height = float2nr(20)
+"   let horizontal = float2nr((&columns - width) / 2)
+"   let vertical = 1
+"
+"   let opts = {
+"         \ 'relative': 'editor',
+"         \ 'row': vertical,
+"         \ 'col': horizontal,
+"         \ 'width': width,
+"         \ 'height': height,
+"         \ 'style': 'minimal'
+"         \ }
+"
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
+
+" FZF matching with vim colorscheme https://github.com/junegunn/fzf.vim/issues/59
+function! s:update_fzf_colors()
+  let rules =
+  \ { 'fg':      [['Normal',       'fg']],
+    \ 'bg':      [['Normal',       'bg']],
+    \ 'hl':      [['Comment',      'fg']],
+    \ 'fg+':     [['CursorColumn', 'fg'], ['Normal', 'fg']],
+    \ 'bg+':     [['CursorColumn', 'bg']],
+    \ 'hl+':     [['Statement',    'fg']],
+    \ 'info':    [['PreProc',      'fg']],
+    \ 'prompt':  [['Conditional',  'fg']],
+    \ 'pointer': [['Exception',    'fg']],
+    \ 'marker':  [['Keyword',      'fg']],
+    \ 'spinner': [['Label',        'fg']],
+    \ 'header':  [['Comment',      'fg']] }
+  let cols = []
+  for [name, pairs] in items(rules)
+    for pair in pairs
+      let code = synIDattr(synIDtrans(hlID(pair[0])), pair[1])
+      if !empty(name) && code > 0
+        call add(cols, name.':'.code)
+        break
+      endif
+    endfor
+  endfor
+  let s:orig_fzf_default_opts = get(s:, 'orig_fzf_default_opts', $FZF_DEFAULT_OPTS)
+  let $FZF_DEFAULT_OPTS = s:orig_fzf_default_opts .
+        \ empty(cols) ? '' : (' --color='.join(cols, ','))
+endfunction
+
+augroup _fzf
+  autocmd!
+  autocmd ColorScheme * call <sid>update_fzf_colors()
+augroup END
 
 " Delete trailing white space on save, useful for Python, CoffeeScript & Jade
 func! DeleteTrailingWS()
