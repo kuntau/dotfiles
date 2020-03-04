@@ -45,8 +45,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'joequery/Stupid-EasyMotion'
 Plug 'danro/rename.vim'
 Plug 'tpope/vim-rsi'
-Plug 'rking/ag.vim'
-" Plug 'jremmen/vim-ripgrep'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'ervandew/supertab'
 
