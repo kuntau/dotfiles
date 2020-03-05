@@ -287,6 +287,9 @@ endif
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
 set fillchars+=vert:\     " fix ugly vertical pane separator
+if has('nvim')
+  set fillchars+=eob:\    " unfortunately vim still haven't support this https://github.com/vim/vim/issues/3820
+endif
 
 " Default Tabs & spaces
 set tabstop=2     " a tab is two spaces
