@@ -811,7 +811,7 @@ set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the st
 set laststatus=2    " Always dislay the statusline in all windows
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
-" let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix' ]
+" let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix', 'vista' ]
 
 " Plasticboy Markdown
 let g:vim_markdown_folding_disabled = 1
@@ -1046,3 +1046,8 @@ function! s:helptab()
   endif
 endfunction
 autocmd vimrc BufEnter *.txt call s:helptab()
+
+augroup goodbye_netrw
+  au!
+  autocmd VimEnter * silent! au! FileExplorer *
+augroup END
