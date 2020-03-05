@@ -400,6 +400,7 @@ let g:mapleader = ","
 noremap <space><space> :
 noremap <leader>ei :e ~/dotfiles/vimrc<CR>
 noremap <leader>so :w!<cr> :source %<CR>
+noremap <leader>S :Startify<CR>
 noremap \ :Rg<CR>
 
 nnoremap <F4> :w!<CR>
@@ -529,6 +530,7 @@ noremap <F2> :set paste!<cr>
 " Startify
 let g:startify_bookmarks = [
   \ {'d': '~/dotfiles/'},
+  \ {'v': '~/.config/nvim/bundle'},
   \ {'g': '~/Coding/gigpos/'},
   \ '~/Coding/donbarberweb/'
   \]
