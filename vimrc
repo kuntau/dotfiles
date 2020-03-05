@@ -561,10 +561,8 @@ let g:gist_show_privates = 1
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" ----------------------------------------------------------------------------
-" {{{ FZF
-" ----------------------------------------------------------------------------
-" if executable('fzf') && !has('gui_running')
+" FZF
+" ====================================
 if executable('fzf')
   if has('nvim')
     nnoremap <silent> <c-p> :Files<CR>
@@ -572,11 +570,11 @@ if executable('fzf')
 endif
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':70%', '?'), <bang>0)
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':70%:hidden', '?'), <bang>0)
 command! -bang -nargs=+ -complete=dir Locate
   \ call fzf#vim#locate(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':60%:hidden','?'), <bang>0)
 command! -bang -nargs=?               GFiles
-  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(s:fzf_preview_side()))
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':60%:hidden','?'), <bang>0)
 command! -bar  -bang                  Snippets
   \ call fzf#vim#snippets(<bang>0)
 " All files
@@ -604,15 +602,16 @@ endif
 map <leader>/ :Rg<Cr>
 
 " add --no-ignore to respect .gitignore list
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --hidden --fixed-strings --follow --ignore-case --glob "!.git/*" --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --hidden --fixed-strings --follow --ignore-case --glob "!.git/*" --color=always '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+"   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+"   \   <bang>0)
+"
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 " coc-explorer
 let g:coc_explorer_global_presets = {
 \   '.vim': {
@@ -842,8 +841,11 @@ let g:vim_markdown_folding_disabled = 1
 " ------------------- "
 " FZF Floating Window "
 " ------------------- "
+let g:fzf_layout = { 'window': 'call FloatingFZF1(0.9, 0.6, "Comment")' }
+let $FZF_DEFAULT_OPTS='--reverse  --margin=1,2 --inline-info'
+
 " --- Style 1 ---
-function! FloatingFZF(width, height, border_highlight)
+function! FloatingFZF1(width, height, border_highlight)
   function! s:create_float(hl, opts)
     let buf = nvim_create_buf(v:false, v:true)
     let opts = extend({'relative': 'editor', 'style': 'minimal'}, a:opts)
@@ -873,35 +875,32 @@ function! FloatingFZF(width, height, border_highlight)
   call s:create_float('Normal', {'row': row + 1, 'col': col + 2, 'width': width - 4, 'height': height - 2})
   autocmd BufWipeout <buffer> execute 'bwipeout' s:frame
 endfunction
-
-let g:fzf_layout = { 'window': 'call FloatingFZF(0.9, 0.6, "Comment")' }
-let $FZF_DEFAULT_OPTS='--no-reverse  --margin=1,4 --inline-info'
 " let $FZF_DEFAULT_OPTS='--color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:15,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,2'
 
 " --- Style 2 ---
 " let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-"
-" function! FloatingFZF()
-"   let buf = nvim_create_buf(v:false, v:true)
-"   call setbufvar(buf, '&signcolumn', 'no')
-"
-"   let width = float2nr(80)
-"   let height = float2nr(20)
-"   let horizontal = float2nr((&columns - width) / 2)
-"   let vertical = 1
-"
-"   let opts = {
-"         \ 'relative': 'editor',
-"         \ 'row': vertical,
-"         \ 'col': horizontal,
-"         \ 'width': width,
-"         \ 'height': height,
-"         \ 'style': 'minimal'
-"         \ }
-"
-"   call nvim_open_win(buf, v:true, opts)
-" endfunction
+" let g:fzf_layout = { 'window': 'call FloatingFZF2()' }
+
+function! FloatingFZF2()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let width = float2nr(80)
+  let height = float2nr(20)
+  let horizontal = float2nr((&columns - width) / 2)
+  let vertical = 1
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
 
 " FZF matching with vim colorscheme https://github.com/junegunn/fzf.vim/issues/59
 function! s:update_fzf_colors()
