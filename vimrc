@@ -571,11 +571,11 @@ if executable('fzf')
 endif
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':70%:hidden', '?'), <bang>0)
-command! -bang -nargs=+ -complete=dir Locate
-  \ call fzf#vim#locate(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':60%:hidden','?'), <bang>0)
+  \ call fzf#vim#files(<q-args>,    fzf#vim#with_preview(s:fzf_preview_side().':60%','?'), <bang>0)
 command! -bang -nargs=?               GFiles
-  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':60%:hidden','?'), <bang>0)
+  \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(s:fzf_preview_side().':60%','?'), <bang>0)
+command! -bang -nargs=+ -complete=dir Locate
+  \ call fzf#vim#locate(<q-args>,   fzf#vim#with_preview(s:fzf_preview_side().':60%:hidden','?'), <bang>0)
 command! -bar  -bang                  Snippets
   \ call fzf#vim#snippets(<bang>0)
 " All files
