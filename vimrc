@@ -50,22 +50,23 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 if has('nvim') || (v:version >= 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
   " coc.nvim plugins~~
-  " Plug 'weirongxu/coc-explorer',
-  Plug 'neoclide/coc-git',
-  Plug 'neoclide/coc-snippets',
-  Plug 'neoclide/coc-yank',
-  Plug 'neoclide/coc-emmet',
+  Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
   " coc.nvim language specific plugins~~
-  Plug 'neoclide/coc-eslint',
-  Plug 'neoclide/coc-css',
-  Plug 'neoclide/coc-html',
-  Plug 'neoclide/coc-json',
-  Plug 'neoclide/coc-python',
-  Plug 'neoclide/coc-tsserver',
-  Plug 'neoclide/coc-vetur',
-  Plug 'neoclide/coc-yaml',
-  Plug 'marlonfan/coc-phpls',
-  Plug 'iamcco/coc-vimlsp',
+  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'marlonfan/coc-phpls', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
