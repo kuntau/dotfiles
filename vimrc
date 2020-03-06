@@ -41,7 +41,8 @@ Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'joequery/Stupid-EasyMotion'
+" Plug 'joequery/Stupid-EasyMotion'
+Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
