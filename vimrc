@@ -737,15 +737,15 @@ if has('nvim') || (v:version >= 800)
 
   " Using CocList
   " Show all diagnostics
-  " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+  nnoremap <silent> <space>ca  :<C-u>CocList diagnostics<cr>
   " Manage extensions
-  " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent> <space>ce  :<C-u>CocList extensions<cr>
   " Show commands
-  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+  nnoremap <silent> <space>cc  :<C-u>CocList commands<cr>
   " Find symbol of current document
-  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  nnoremap <silent> <space>co  :<C-u>CocList outline<cr>
   " Search workspace symbols
-  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+  nnoremap <silent> <space>cs  :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
   " nnoremap <silent> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
@@ -771,19 +771,6 @@ endif
 " CoC Settings
 nmap <space>y :CocList -A --normal yank<CR>
 
-" let g:coc_global_extensions = [
-"       \'coc-vetur',
-"       \'coc-explorer',
-"       \'coc-json',
-"       \'coc-git',
-"       \'coc-html',
-"       \'coc-css',
-"       \'coc-markdownlint',
-"       \'coc-highlight',
-"       \'coc-go',
-"       \'coc-python'
-"       \]
-
 " coc-snippets settings
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
@@ -799,6 +786,32 @@ let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+let g:markdown_fenced_languages = [ 'vim', 'help' ] " coc-vimlsp config
+
+" coc-smartf
+nmap f <Plug>(coc-smartf-forward)
+nmap F <Plug>(coc-smartf-backward)
+nmap ; <Plug>(coc-smartf-repeat)
+nmap , <Plug>(coc-smartf-repeat-opposite)
+
+augroup smartf
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+augroup end
+
+" let g:coc_global_extensions = [
+"       \'coc-vetur',
+"       \'coc-explorer',
+"       \'coc-json',
+"       \'coc-git',
+"       \'coc-html',
+"       \'coc-css',
+"       \'coc-markdownlint',
+"       \'coc-highlight',
+"       \'coc-go',
+"       \'coc-python'
+"       \]
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger='<tab>'
