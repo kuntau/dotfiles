@@ -536,6 +536,7 @@ let g:startify_bookmarks = [
   \ {'g': '~/Coding/gigpos/'},
   \ '~/Coding/donbarberweb/'
   \]
+let g:startify_session_persistence = 1
 
 " Vista
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
