@@ -45,7 +45,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Completion & syntax checking
 if has('nvim') || (v:version >= 800)
