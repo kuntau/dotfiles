@@ -559,6 +559,9 @@ let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 2
 let g:gist_show_privates = 1
 
+" fugitive
+nmap <space>gc :Gcommit<CR>
+
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
