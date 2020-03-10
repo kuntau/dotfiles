@@ -408,6 +408,9 @@ noremap \ :Rg<CR>
 nnoremap <F4> :w!<CR>
 inoremap <F4> <c-o>:w!<CR>
 
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 " give me normal jk!! ** should enable with softwrap only **
 " map j gj
 " map k gk
