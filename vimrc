@@ -485,12 +485,12 @@ noremap <left>  :bp<cr>
 " map <leader>tm :tabmove
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-" nmap <m-j> mz:m+<cr>`z
-" nmap <m-k> mz:m-2<cr>`z
-" vmap <m-j> :m'>+<cr>`<my`>mzgv`yo`z
-" vmap <m-k> :m'<-2<cr>`>my`<mzgv`yo`z
-" imap <m-j> <Esc>:m .+1<CR>==gi
-" imap <m-k> <Esc>:m .-2<CR>==gi
+nmap <m-j> mz:m+<cr>`z
+nmap <m-k> mz:m-2<cr>`z
+vmap <m-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <m-k> :m'<-2<cr>`>my`<mzgv`yo`z
+imap <m-j> <Esc>:m .+1<CR>==gi
+imap <m-k> <Esc>:m .-2<CR>==gi
 
 " Alternate version which don't use bookmark
 nnoremap <m-j> :m .+1<CR>==
