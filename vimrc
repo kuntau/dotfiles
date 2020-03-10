@@ -41,32 +41,12 @@ Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-" Plug 'joequery/Stupid-EasyMotion'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
 
 " Completion & syntax checking
 if has('nvim') || (v:version >= 800)
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-  " coc.nvim plugins~~
-  Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-  " coc.nvim language specific plugins~~
-  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'marlonfan/coc-phpls', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
@@ -106,9 +86,9 @@ Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
 " Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 
 " CSS bundles
-Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
+" Plug 'hail2u/vim-css3-syntax',                 { 'for': 'css' }
 " Plug 'wavded/vim-stylus',                      { 'for': [ 'stylus', 'vue' ] }
-Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue' ] }
+" Plug 'ap/vim-css-color',                       { 'for': [ 'css', 'vue', 'vim' ] }
 
 " Javascript bundles
 " Plug 'pangloss/vim-javascript',                { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
@@ -148,11 +128,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'chreekat/vim-paren-crosshairs'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
-" Plug 'tpope/vim-speeddating'
 
 " Colorschemes
 Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-solarized8'
+Plug 'morhetz/gruvbox'
 " Plug 'flazz/vim-Colorschemes'
 " Plug 'tomasr/molokai'
 " Plug 'junegunn/seoul256.vim'
@@ -164,7 +144,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'wesQ3/vim-windowswap'
 Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
-Plug 'bogado/file-line'
+Plug 'justinmk/vim-gtfo'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
@@ -193,9 +173,8 @@ endif
 
 if has("termguicolors")
   set termguicolors
-  let ayucolor="mirage"
-  colorscheme ayu
-  " colorscheme solarized8
+  " let ayucolor="mirage"
+  colorscheme gruvbox
 endif
 
 " Wildmenu completion
@@ -448,8 +427,8 @@ nnoremap <c-space> %
 " Working with split windows
 map <c-tab> <c-w>w
 map <c-s-tab> <c-w>W
-nnoremap <c-w>\| <c-w>v
-nnoremap <c-w>- <c-w>s
+" nnoremap <c-w>\| <c-w>v
+" nnoremap <c-w>- <c-w>s
 noremap <c-w>< <c-w>10<
 noremap <c-w>> <c-w>10>
 " noremap <c-w>+ <c-w>10+
@@ -802,29 +781,41 @@ nmap ; <Plug>(coc-smartf-repeat)
 nmap , <Plug>(coc-smartf-repeat-opposite)
 
 augroup smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+  " autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#ed000f
+  " autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#1ff5ff
 augroup end
 
-" let g:coc_global_extensions = [
-"       \'coc-vetur',
-"       \'coc-explorer',
-"       \'coc-json',
-"       \'coc-git',
-"       \'coc-html',
-"       \'coc-css',
-"       \'coc-markdownlint',
-"       \'coc-highlight',
-"       \'coc-go',
-"       \'coc-python'
-"       \]
+" CoC Extensions!
+let g:coc_global_extensions = [
+      \'coc-explorer',
+      \'coc-snippets',
+      \'coc-lists',
+      \'coc-highlight',
+      \'coc-emmet',
+      \'coc-git',
+      \'coc-smartf',
+      \'coc-eslint',
+      \'coc-stylelint',
+      \'coc-markdownlint',
+      \'coc-tsserver',
+      \'coc-json',
+      \'coc-vetur',
+      \'coc-html',
+      \'coc-css',
+      \'coc-go',
+      \'coc-python'
+      \'coc-yaml'
+      \'coc-vimlsp'
+      \]
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger='<tab>'
+" let g:UltiSnipsExpandTrigger='<tab>'
 " let g:UltiSnipsExpandTrigger='<C-j>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-let g:UltiSnipsEditSplit='vertical'
+" let g:UltiSnipsJumpForwardTrigger='<tab>'
+" let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+" let g:UltiSnipsEditSplit='vertical'
 " let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
 " let g:UltiSnipsListSnippets='<NUL>'
 
@@ -1071,5 +1062,7 @@ autocmd vimrc BufEnter *.txt call s:helptab()
 
 augroup goodbye_netrw
   au!
-  autocmd VimEnter * silent! au! FileExplorer *
+  " autocmd VimEnter * silent! au! FileExplorer *
+  " autocmd VimEnter * if !argc() | Startify | CocCommand explorer | wincmd w | endif
+  " autocmd BufEnter * :CocCommand explorer
 augroup END
