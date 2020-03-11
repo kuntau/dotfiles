@@ -302,7 +302,7 @@ vnoremap / /\v
 
 " General auto-commands
 """""""""""""""""""""""
-autocmd FileType * setlocal colorcolumn=100
+" autocmd FileType * setlocal colorcolumn=100
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Get rid of trailing whitespace highlighting in mutt.
@@ -323,7 +323,7 @@ autocmd filetype ruby setlocal noexpandtab shiftwidth=2 tabstop=2
 
 " PHP Configurations
 """"""""""""""""""""
-autocmd FileType php,blade setlocal omnifunc=phpcomplete_extended#CompletePHP colorcolumn=80
+" autocmd FileType php,blade setlocal omnifunc=phpcomplete_extended#CompletePHP colorcolumn=80
 
 " HTML configurations
 """""""""""""""""""""
@@ -340,19 +340,19 @@ au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 ex
 """""""""""""""""""""""""""
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " autocmd FileType javascript setlocal omnifunc=tern#Complete
-autocmd FileType javascript setlocal colorcolumn=80
+" autocmd FileType javascript setlocal colorcolumn=80
 au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 " autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " Coffeescript configurations
 """""""""""""""""""""""""""""
-autocmd FileType coffeescript setlocal colorcolumn=100
+" autocmd FileType coffeescript setlocal colorcolumn=100
 au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
 
 " Python configurations
 """""""""""""""""""""""
 autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
-autocmd FileType python setlocal colorcolumn=80
+" autocmd FileType python setlocal colorcolumn=80
 autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
 autocmd FileType python set omnifunc=pythoncomplete#Complete
