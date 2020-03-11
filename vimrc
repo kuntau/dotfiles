@@ -518,7 +518,11 @@ let g:startify_bookmarks = [
   \ {'g': '~/Coding/gigpos/'},
   \ '~/Coding/donbarberweb/'
   \]
+let g:startify_fortune_use_unicode = 1
+let g:startify_padding_left = 3
+let g:startify_session_sort = 1
 let g:startify_session_persistence = 1
+let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
 
 " Vista
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
