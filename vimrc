@@ -805,8 +805,8 @@ let g:coc_global_extensions = [
       \'coc-html',
       \'coc-css',
       \'coc-go',
-      \'coc-python'
-      \'coc-yaml'
+      \'coc-python',
+      \'coc-yaml',
       \'coc-vimlsp'
       \]
 
