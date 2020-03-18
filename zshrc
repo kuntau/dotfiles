@@ -118,6 +118,8 @@ typeset -U PATH
 # FZF -- https://github.com/junegunn/fzf
 # https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 if [ -f ~/.fzf.zsh ]; then
+  FZF_TMUX=1
+  FZF_TMUX_HEIGHT=40%
   export FZF_DEFAULT_OPTS="--extended --reverse --inline-info"
   # export FZF_DEFAULT_COMMAND="ag -l -g ''"
   export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
