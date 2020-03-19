@@ -1031,9 +1031,15 @@ function! s:helptab()
 endfunction
 autocmd vimrc BufEnter *.txt call s:helptab()
 
-augroup goodbye_netrw
-  au!
+" augroup vimrc " goodbye_netrw
+  " autocmd!
   " autocmd VimEnter * silent! au! FileExplorer *
   " autocmd VimEnter * if !argc() | Startify | CocCommand explorer | wincmd w | endif
-  " autocmd BufEnter * :CocCommand explorer
-augroup END
+  " autocmd VimEnter * if argv(0) == '.' | Startify | CocCommand explorer | endif
+  " autocmd VimEnter * CocCommand explorer
+" augroup END
+
+" augroup vimrc " slash
+"   autocmd!
+"   autocmd CursorMoved,CursorMovedI * set nohlsearch | autocmd! slash
+" augroup END
