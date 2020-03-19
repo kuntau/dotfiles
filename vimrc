@@ -298,8 +298,8 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " I CAN HAZ NORMAL REGEXES?
 """""""""""""""""""""""""""
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 
 " General auto-commands
 """""""""""""""""""""""
@@ -519,6 +519,11 @@ let g:startify_bookmarks = [
   \ {'g': '~/Coding/gigpos/'},
   \ '~/Coding/donbarberweb/'
   \]
+let g:startify_commands = [
+  \ {'p': ['Upgrade Plug', 'PlugUpgrade']},
+  \ {'u': ['Update Plugins', 'PlugUpdate']},
+  \ {'c': ['Update CoC Extensions', 'CocUpdateSync']},
+  \ ]
 let g:startify_fortune_use_unicode = 1
 let g:startify_padding_left = 3
 let g:startify_session_sort = 1
@@ -692,7 +697,7 @@ if has('nvim') || (v:version >= 800)
   " Show all diagnostics
   nnoremap <silent> <space>ca  :<C-u>CocList diagnostics<cr>
   " Manage extensions
-  nnoremap <silent> <space>ce  :<C-u>CocList extensions<cr>
+  nnoremap <silent> <space>ce  :<C-u>CocList --normal extensions<cr>
   " Show commands
   nnoremap <silent> <space>cc  :<C-u>CocList commands<cr>
   " Find symbol of current document
