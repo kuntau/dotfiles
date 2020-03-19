@@ -748,9 +748,7 @@ nmap ; <Plug>(coc-smartf-repeat)
 nmap , <Plug>(coc-smartf-repeat-opposite)
 
 augroup smartf
-  " autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#ed000f
-  " autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#ed000f guibg=#ffffff
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#1ff5ff
 augroup end
 
