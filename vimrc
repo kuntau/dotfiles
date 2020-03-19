@@ -38,6 +38,7 @@ if executable('fzf') && (has('nvim') || (v:version >= 800))
 endif
 Plug 'mhinz/vim-startify'
 Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
+Plug 'osyo-manga/vim-over'
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
