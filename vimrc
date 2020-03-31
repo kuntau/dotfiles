@@ -194,8 +194,8 @@ set wildignore+=**.class                         " Cursed Java class files
 
 " Save when losing focus
 set autowriteall " Auto-save files when switching buffers or leaving vim.
-au FocusLost * silent! :wa
-au TabLeave  * silent! :wa
+au FocusLost * silent! :w
+au TabLeave  * silent! :w
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
