@@ -599,7 +599,7 @@ let g:coc_explorer_global_presets = {
   " nmap <space>ef :CocCommand explorer --preset floating<CR>
 
 " list all presets
-nmap <space>el :coclist explpresets<cr>
+nmap <space>el :<c-u>CocList explPresets<cr>
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
@@ -767,26 +767,32 @@ augroup end
 
 " CoC Extensions!
 let g:coc_global_extensions = [
-      \'coc-explorer',
-      \'coc-snippets',
-      \'coc-lists',
-      \'coc-highlight',
-      \'coc-emmet',
-      \'coc-git',
-      \'coc-smartf',
-      \'coc-eslint',
-      \'coc-stylelint',
-      \'coc-markdownlint',
-      \'coc-tsserver',
-      \'coc-json',
-      \'coc-vetur',
-      \'coc-html',
-      \'coc-css',
-      \'coc-go',
-      \'coc-python',
-      \'coc-yaml',
-      \'coc-vimlsp'
-      \]
+    \'coc-explorer',
+    \'coc-snippets',
+    \'coc-lists',
+    \'coc-highlight',
+    \'coc-emmet',
+    \'coc-yank',
+    \'coc-git',
+    \'coc-smartf',
+    \'coc-eslint',
+    \'coc-stylelint',
+    \'coc-markdownlint',
+    \'coc-tsserver',
+    \'coc-json',
+    \'coc-vetur',
+    \'coc-html',
+    \'coc-css',
+    \'coc-xml',
+    \'coc-go',
+    \'coc-phpls',
+    \'coc-clangd',
+    \'coc-flutter',
+    \'coc-python',
+    \'coc-rls',
+    \'coc-yaml',
+    \'coc-vimlsp'
+    \]
 
 " UltiSnips
 " let g:UltiSnipsExpandTrigger='<tab>'
