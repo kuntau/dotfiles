@@ -37,7 +37,10 @@ if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf.vim'
 endif
 Plug 'mhinz/vim-startify'
-Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
+Plug 'mbbill/undotree',       { 'on': 'UndotreeToggle' }
+  let g:undotree_WindowsLayout = 2
+  nnoremap U :UndotreeToggle<CR>
+" Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'osyo-manga/vim-over'
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
