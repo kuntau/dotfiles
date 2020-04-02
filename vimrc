@@ -422,6 +422,14 @@ noremap \ :Rg<CR>
 nnoremap <F4> :w!<CR>
 inoremap <F4> <c-o>:w!<CR>
 
+" Movement in insert mode
+inoremap <C-h> <C-o>h
+inoremap <C-l> <C-o>a
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+inoremap <C-^> <C-o><C-^>
+
+" Disable netrw
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 
