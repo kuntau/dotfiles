@@ -65,6 +65,7 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'sheerun/vim-polyglot'
 
 " Syntaxes and such.
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
