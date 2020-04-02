@@ -180,14 +180,16 @@ if has("termguicolors")
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
-  " let ayucolor="mirage"
+  set background=dark
+  let ayucolor="mirage"
   colorscheme gruvbox
 endif
 
 " Wildmenu completion
 """""""""""""""""""""
 set wildmenu
-set wildmode=list:longest
+set wildmode=full
+" set wildmode=list:longest
 set wildignore+=.hg,.git,.svn,.idea              " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
@@ -208,6 +210,7 @@ au VimResized * exe "normal! \<c-w>="
 
 " Basic
 syntax enable
+set lazyredraw
 set rnu                  " show relative number instead
 set number               " always show line numbers
 set hidden               " Allow un-saved buffers in background
@@ -222,17 +225,19 @@ set ffs=unix,dos,mac     " Default file types
 set nowrap               " don't wrap lines
 set showmatch            " set show matching parenthesis
 set ignorecase           " ignore case when searching
-set smartcase            " ignore case if search pattern is all lowercase,
-                         " case-sensitive otherwise
+set smartcase            " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set hlsearch             " highlight search terms
 set incsearch            " show search matches as you type
 set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
+set undofile             " enable persistent undo so history persists
+set undodir=/tmp,.       " directory for persistent undo
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
+set autoread             " update buffer if file changed outside vim
 
-" More settings borrowed from gh.com/tarruda/dot-files/
+" More settings borrowed from tarruda/dot-files, junegunn/dotfiles
 set showcmd              " display incomplete command
 set completeopt=menu,menuone,longest
 set complete=.,w,b,u,t   " h: 'complete'
@@ -242,10 +247,14 @@ set splitright           " put vertical split below
 set modelines=0          " running code in comments is not cool
 set matchtime=2          " time in decisecons to jump back from matching brackets
 set synmaxcol=500        " maximum length to apply syntax highlight
+set nostartofline        " keep cursor on the same column
+set nocursorline
+set nrformats=hex
 
-" Even more setting as suggested by coc.vim readme
-" Better display for messages
-set cmdheight=1
+" Status line config
+set cmdheight=1     " coc.nvim readme suggest cmdheight=2
+set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set laststatus=2    " Always dislay the statusline in all windows
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -313,7 +322,6 @@ set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 
 " General Code Folding
-""""""""""""""""""""""
 set foldmethod=indent
 set nofoldenable          " don't fold by default
 set foldlevel=99
@@ -321,11 +329,9 @@ set foldnestmax=10        " max fold nest
 set foldmethod=indent
 
 " Highlight VCS conflict markers
-""""""""""""""""""""""""""""""""
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " I CAN HAZ NORMAL REGEXES?
-"""""""""""""""""""""""""""
 " nnoremap / /\v
 " vnoremap / /\v
 
@@ -406,7 +412,7 @@ let localleader = ","
 let mapleader   = ","
 let g:mapleader = ","
 
-" Core fix -Kuntau-
+" kuntau
 noremap <space><space> :
 noremap <leader>ei :e ~/dotfiles/vimrc<CR>
 noremap <leader>so :w!<cr> :source %<CR>
@@ -582,6 +588,7 @@ let g:gist_show_privates = 1
 
 " fugitive
 nmap <space>gc :Gcommit<CR>
+nmap <space>gs :G<CR>
 
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
@@ -832,8 +839,6 @@ let g:coc_global_extensions = [
 " let g:UltiSnipsListSnippets='<NUL>'
 
 " Powerline & airline
-set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set laststatus=2    " Always dislay the statusline in all windows
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 " let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix', 'vista' ]
