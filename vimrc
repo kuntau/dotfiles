@@ -637,12 +637,12 @@ let g:coc_explorer_global_presets = {
 \ }
 
 " Use preset argument to open it
-  nmap <space>ee :CocCommand explorer<CR>
-  " nmap <space>ed :CocCommand explorer --preset .vim<CR>
-  " nmap <space>ef :CocCommand explorer --preset floating<CR>
+nmap <silent> <space>ee :CocCommand explorer<CR>
+" nmap <silent> <space>ed :CocCommand explorer --preset .vim<CR>
+" nmap <silent> <space>ef :CocCommand explorer --preset floating<CR>
 
 " list all presets
-nmap <space>el :<c-u>CocList explPresets<cr>
+nmap <silent> <space>el :<c-u>CocList explPresets<cr>
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
