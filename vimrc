@@ -502,8 +502,7 @@ noremap <left>  :bp<cr>
 " vmap = =gv
 
 " Tab configuration; not using tab currently
-" map <c-Tab> :tabnext<cr>
-" map <s-Tab> :tabprev<cr>
+" Use gt & gT to switch tab
 " map <leader>tn :tabnew<cr>
 " map <leader>te :tabedit
 " map <leader>tc :tabclose<cr>
