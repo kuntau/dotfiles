@@ -905,13 +905,14 @@ let g:coc_global_extensions = [
 " UltiSnips
 " let g:UltiSnipsExpandTrigger='<tab>'
 " let g:UltiSnipsExpandTrigger='<C-j>'
-" let g:UltiSnipsJumpForwardTrigger='<tab>'
-" let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+" let g:UltiSnipsJumpForwardTrigger='<c-j>'
+" let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 " let g:UltiSnipsEditSplit='vertical'
 " let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
 " let g:UltiSnipsListSnippets='<NUL>'
 
 " Powerline & airline
+let g:airline#extensions#tabline#enabled = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 " let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix', 'vista' ]
