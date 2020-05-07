@@ -219,8 +219,13 @@ set wildignore+=**.class                         " Cursed Java class files
 
 " Save when losing focus
 set autowriteall " Auto-save files when switching buffers or leaving vim.
-au FocusLost * silent! :w
-au TabLeave  * silent! :w
+au FocusLost * silent! noautocmd up
+" au FocusLost,TabLeave,WinLeave * silent! noautocmd up
+
+" update buffer if file changed outside vim
+set autoread
+" au FocusGained,BufEnter * silent! noautocmd checktime
+au FocusGained * silent! noautocmd checktime
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
@@ -252,7 +257,6 @@ set undodir=/tmp,.       " directory for persistent undo
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
-set autoread             " update buffer if file changed outside vim
 
 " More settings borrowed from tarruda/dot-files, junegunn/dotfiles
 set showcmd              " display incomplete command
