@@ -28,7 +28,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
-Plug 'junegunn/gv.vim'
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 " System
 " if executable('fzf') && has('nvim') && !has('gui_running')
@@ -41,9 +41,10 @@ Plug 'mbbill/undotree',       { 'on': 'UndotreeToggle' }
   let g:undotree_WindowsLayout = 2
   nnoremap U :UndotreeToggle<CR>
 " Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
-Plug 'osyo-manga/vim-over'
+Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
+let g:AutoPairsMapCh=0 " Remove <c-h> map in insert mode to cancel pair
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
@@ -56,22 +57,31 @@ else
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
 " "---- we're using coc-snippets now
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'bingeboy/snipmate-nodejs'
+" Plug 'bingeboy/snipmate-nodejs'
 Plug 'wellle/tmux-complete.vim'
 
 " A solid language pack for Vim
 Plug 'sheerun/vim-polyglot'
 
 " Syntaxes and such.
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'tomtom/tcomment_vim'
+Plug 'sgur/vim-editorconfig'
+Plug 'AndrewRadev/splitjoin.vim' " gS for splitting & gJ for joining
+Plug 'tomtom/tcomment_vim' " more feature but slower
+" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-git'
+Plug 'justinmk/vim-sneak'
+" nmap z <Plug>Sneak_s
+" nmap Z <Plug>Sneak_S
+nmap f <Plug>Sneak_s
+nmap F <Plug>Sneak_S
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+" Plug 'tpope/vim-git'
 " Plug 'mutewinter/nginx.vim'
 " Plug 'groenewege/vim-less'
 " Plug 'tpope/vim-cucumber'
@@ -84,7 +94,7 @@ Plug 'tpope/vim-git'
 " Plug 'puppetlabs/puppet-syntax-vim'
 
 " html bundles
-Plug 'mattn/emmet-vim',                        { 'for': [ 'html', 'php', 'vue', 'javascript', 'blade' ] }
+Plug 'mattn/emmet-vim',                        { 'for': [ 'html', 'php', 'vue', 'css', 'stylus', 'scss', 'sass' ] }
 Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
 " Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
 " Plug 'othree/html5.vim',                       { 'for': 'html' }
@@ -103,7 +113,7 @@ Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
 " Plug 'itspriddle/vim-jquery',                  { 'for': [ 'javascript', 'javascript.jsx' ] }
 " Plug 'mxw/vim-jsx',                            { 'for': [ 'javascript', 'javascript.jsx' ] }
 Plug 'kchmck/vim-coffee-script',               { 'for': [ 'coffeescript' ] }
-Plug 'posva/vim-vue',                          { 'for': [ 'vue' ] }
+Plug 'posva/vim-vue',                          { 'for': 'vue' }
 Plug 'elzr/vim-json',                          { 'for': 'json' }
 " Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 
@@ -130,16 +140,22 @@ Plug 'tpope/vim-ragtag',                    { 'for': [ 'php', 'blade' ] }
 " Fun, but not useful
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'chreekat/vim-paren-crosshairs'
+Plug 'edkolev/tmuxline.vim'
+Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
+" Plug 'chreekat/vim-paren-crosshairs'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 
 " Colorschemes
 Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+Plug 'fatih/molokai'
+Plug 'skielbasa/vim-material-monokai'
+let g:materialmonokai_italic=1
+let g:materialmonokai_subtle_spell=1
+let g:materialmonokai_custom_lint_indicator=1
 " Plug 'flazz/vim-Colorschemes'
-" Plug 'tomasr/molokai'
 " Plug 'junegunn/seoul256.vim'
 
 " Misc bundle
