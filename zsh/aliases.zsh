@@ -5,7 +5,7 @@ alias dus='du -hd 1'
 if command -v exa &> /dev/null; then
   alias l='exa'
   alias ll='exa --long --group-directories-first'
-  alias la='exa -alg --group-directories-first'
+  alias la='exa -alg --git --group-directories-first'
   alias laa='exa -alg -a --group-directories-first'
   alias lsd='exa --long --only-dirs' # List only directories
   alias lst='exa --long --tree --level=2 --group-directories-first' # Tree view

@@ -42,7 +42,7 @@ ZSH_TMUX_AUTOQUIT="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(vi-mode git git-extras git-flow node npm coffee bower zsh-syntax-highlighting colorize tmux heroku laravel5 fzf)
+plugins=(vi-mode git git-extras git-flow node npm coffee zsh-syntax-highlighting colorize tmux heroku laravel fzf)
 
 # Customize to your needs...
 # export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
@@ -121,6 +121,11 @@ if [ -f ~/.fzf.zsh ]; then
   FZF_TMUX=1
   FZF_TMUX_HEIGHT=40%
   export FZF_DEFAULT_OPTS="--extended --reverse --inline-info"
+  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+  --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
+  --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
+  --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
+  --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
   # export FZF_DEFAULT_COMMAND="ag -l -g ''"
   export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
