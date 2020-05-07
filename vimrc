@@ -830,27 +830,18 @@ if has('nvim') || (v:version >= 800)
   " ----------------------------
   " START YouCompleteMe SETTINGS
   " ----------------------------
-else
-" make YCM compatible with UltiSnips (using supertab)
-  " let g:ycm_key_list_select_completion = ['<C-n>']
-  " let g:ycm_key_list_previous_completion = ['<C-p>']
-  " let g:SuperTabDefaultCompletionType = '<C-n>'
-  " augroup load_us_ycm
-  "   autocmd!
-  "   autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'tern_for_vim')
-  "                     \| call youcompleteme#Enable() | autocmd! load_us_ycm
-  " augroup END
 endif
 
 " CoC Settings
-nmap <space>y :CocList -A --normal yank<CR>
+" nmap <space>y :CocList -A --normal yank<CR>
+nmap <space>y :CocList --normal yank<CR>
 
 " coc-snippets settings
 " Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
+" imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+" vmap <C-j> <Plug>(coc-snippets-select)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-j>'
@@ -864,15 +855,15 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 let g:markdown_fenced_languages = [ 'vim', 'help' ] " coc-vimlsp config
 
 " coc-smartf
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap , <Plug>(coc-smartf-repeat-opposite)
+" nmap f <Plug>(coc-smartf-forward)
+" nmap F <Plug>(coc-smartf-backward)
+" nmap ; <Plug>(coc-smartf-repeat)
+" nmap , <Plug>(coc-smartf-repeat-opposite)
 
-augroup smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#ed000f guibg=#ffffff
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#1ff5ff
-augroup end
+" augroup smartf
+"   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#ed000f guibg=#ffffff
+"   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#1ff5ff
+" augroup end
 
 " CoC Extensions!
 let g:coc_global_extensions = [
@@ -884,6 +875,7 @@ let g:coc_global_extensions = [
     \'coc-yank',
     \'coc-git',
     \'coc-smartf',
+    \'coc-prettier',
     \'coc-eslint',
     \'coc-stylelint',
     \'coc-markdownlint',
