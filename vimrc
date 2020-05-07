@@ -676,9 +676,10 @@ if executable('fzf')
   if has('nvim') || v:version >= 800
     nmap <silent> <c-p> :Files<CR>
     nmap <silent> <space>fc :Commands<CR>
-    nmap <silent> <space>ff :Commands<CR>
+    nmap <silent> <space>ff :Buffers<CR>
     nmap <silent> <space>fm :Maps<CR>
     nmap <silent> <space>ft :BTags<CR>
+    nmap <silent> <space>fv :Vista finder<CR>
   endif
 endif
 
