@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
-export PATH=$PATH:/usr/local/bin
+export PATH=/usr/local/bin:$PATH
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
 # startup a "default" session if non currently exists
-tmux has-session -t default || tmux new-session -s default -d
+tmux has-session -t $(uname) 2> /dev/null || tmux new-session -s $(uname) -d
 
 # present menu for user to choose which workspace to open
+IFS=$'\n'
 PS3="Please choose your session: "
-options=($(tmux list-sessions -F "#S" 2> /dev/null) \
-  "New Session" \
-  "Workspace - CITY-CAR-PARK" \
+options=("New Session")
+options+=($(tmux list-sessions -F '#S' 2> /dev/null))
+options+=("Workspace - CITY-CAR-PARK" \
   "Workspace - PAPSB-SYSTEM" \
   "ZSH" \
   "Cancel")
+# options+=($(ls ~/dotfiles/tmux/*.tmuxrc))
 echo "Available sessions"
 echo "------------------"
 echo " "
