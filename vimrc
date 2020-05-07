@@ -553,8 +553,29 @@ if has("mac") || has("macunix")
   " noremap <d-down> <m-down>
 endif
 
+" qq to record, Q to replay
+nnoremap Q @q
+
+" Zoom
+function! s:zoom()
+  if winnr('$') > 1
+    tab split
+  elseif len(filter(map(range(tabpagenr('$')), 'tabpagebuflist(v:val + 1)'),
+                  \ 'index(v:val, '.bufnr('').') >= 0')) > 1
+    tabclose
+  endif
+endfunction
+nnoremap <silent> <leader>z :call <sid>zoom()<cr>
+
+" Last inserted text
+nnoremap g. :normal! `[v`]<cr><left>
+
+" Disable netrw
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 " When pressing <leader>cd switch to the directory of the open buffer
-" map <leader>cd :cd %:p:h<cr>
+map <leader>cd :cd %:p:h<cr>
 
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
