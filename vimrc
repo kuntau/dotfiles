@@ -236,7 +236,7 @@ set lazyredraw
 set rnu                  " show relative number instead
 set number               " always show line numbers
 set hidden               " Allow un-saved buffers in background
-set clipboard=unnamed    " Share system clipboard.
+set clipboard+=unnamed    " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
 set noswapfile           " no swap files
 set nobackup             " no backup files
@@ -445,14 +445,10 @@ inoremap <F4> <c-o>:w!<CR>
 
 " Movement in insert mode
 inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>a
+inoremap <C-l> <C-o>l
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
-
-" Disable netrw
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
 
 " give me normal jk!! ** should enable with softwrap only **
 " map j gj
@@ -486,11 +482,11 @@ vnoremap p "_dP
 inoremap jj <esc>
 
 " Match tag
-nnoremap <c-space> %
+" nnoremap <c-space> %
 
 " Working with split windows
-map <c-tab> <c-w>w
-map <c-s-tab> <c-w>W
+" map <c-tab> <c-w>w
+" map <c-s-tab> <c-w>W
 " nnoremap <c-w>\| <c-w>v
 " nnoremap <c-w>- <c-w>s
 noremap <c-w>< <c-w>10<
@@ -530,12 +526,12 @@ noremap <left>  :bp<cr>
 " map <leader>tm :tabmove
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <m-j> mz:m+<cr>`z
-nmap <m-k> mz:m-2<cr>`z
-vmap <m-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <m-k> :m'<-2<cr>`>my`<mzgv`yo`z
-imap <m-j> <Esc>:m .+1<CR>==gi
-imap <m-k> <Esc>:m .-2<CR>==gi
+" nmap <m-j> mz:m+<cr>`z
+" nmap <m-k> mz:m-2<cr>`z
+" vmap <m-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <m-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" imap <m-j> <Esc>:m .+1<CR>==gi
+" imap <m-k> <Esc>:m .-2<CR>==gi
 
 " Alternate version which don't use bookmark
 nnoremap <m-j> :m .+1<CR>==
@@ -876,9 +872,12 @@ let g:vim_markdown_folding_disabled = 1
 
 " Vim Tmux Navigator
 " if exists(":TmuxNavigator")
-" if has('nvim')
-  " nmap <silent> <BS> :TmuxNavigateLeft<CR>
-  " nmap <silent> <c-h> :TmuxNavigateLeft<CR>
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+  nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+  nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+  " nnoremap <silent> <c-w> :TmuxNavigatePrevious<cr>
 " endif
 
 " Emmet Vim
