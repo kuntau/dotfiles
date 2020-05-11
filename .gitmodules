@@ -13,3 +13,6 @@
 [submodule "zsh/themes/spaceship-prompt"]
 	path = zsh/themes/spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
+[submodule "/Users/kuntau/dotfiles/zsh/themes/powerlevel10k"]
+	path = zsh/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
