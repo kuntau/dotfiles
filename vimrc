@@ -77,10 +77,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
 " nmap z <Plug>Sneak_s
 " nmap Z <Plug>Sneak_S
-nmap f <Plug>Sneak_s
-nmap F <Plug>Sneak_S
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
+" map f <Plug>Sneak_s
+" map F <Plug>Sneak_S
+map t <Plug>Sneak_s
+map T <Plug>Sneak_S
 " Plug 'tpope/vim-git'
 " Plug 'mutewinter/nginx.vim'
 " Plug 'groenewege/vim-less'
@@ -148,13 +148,22 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " Colorschemes
 Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-solarized8'
+let g:solarized_statusline="flat"
+let g:solarized_italics=1
+let g:solarized_old_cursor_style=0
 Plug 'gruvbox-community/gruvbox'
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_contrast_light='soft'
+let g:gruvbox_italicize_strings=1
 Plug 'arcticicestudio/nord-vim'
 Plug 'fatih/molokai'
 Plug 'skielbasa/vim-material-monokai'
 let g:materialmonokai_italic=1
 let g:materialmonokai_subtle_spell=1
 let g:materialmonokai_custom_lint_indicator=1
+Plug 'rakr/vim-one'
+let g:one_allow_italics=1
 " Plug 'flazz/vim-Colorschemes'
 " Plug 'junegunn/seoul256.vim'
 
@@ -257,6 +266,7 @@ set undodir=/tmp,.       " directory for persistent undo
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
+set modelines=2          " only check 2 lines for modeline
 
 " More settings borrowed from tarruda/dot-files, junegunn/dotfiles
 set showcmd              " display incomplete command
@@ -265,7 +275,6 @@ set complete=.,w,b,u,t   " h: 'complete'
 set pumheight=15         " limit completion menu height
 set splitbelow           " put horizontal split below
 set splitright           " put vertical split below
-set modelines=0          " running code in comments is not cool
 set matchtime=2          " time in decisecons to jump back from matching brackets
 set synmaxcol=500        " maximum length to apply syntax highlight
 set nostartofline        " keep cursor on the same column
