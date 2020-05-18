@@ -17,7 +17,7 @@ Host hq
 Host hqrouter
   User     kuntau
   HostName kuntau.asuscomm.com
-  Port     2211
+  Port     21211
 
 Host vps
   User     kuntau
@@ -58,6 +58,11 @@ Host paprouter
   port     22111
   HostName paptt.asuscomm.com
 
+Host hqsvr
+  User     kuntau
+  HostName kuntau.asuscomm.com
+  port     22122
+
 Host papsvr
   User     kuntau
   HostName 175.139.178.197
@@ -73,13 +78,12 @@ Host hqlocal
 
 Host pilocal
   User     kuntau
-  Port     22
   HostName 192.168.1.112
 
 Host rtlocal
   User     kuntau
   HostName 192.168.1.2
-  Port     2211
+  Port     21211
 
 Host papcclocal
   User     Nizam
@@ -90,6 +94,10 @@ Host paprouterlocal
   HostName 192.168.1.2
 
 Host papsvrlocal
+  User     kuntau
+  HostName 192.168.1.4
+
+Host hqsvrlocal
   User     kuntau
   HostName 192.168.1.4
 
