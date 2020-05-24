@@ -492,24 +492,13 @@ vnoremap p "_dP
 " nnoremap <up> m`O<esc>``
 
 " Escape key mapping
-inoremap jj <esc>
+" inoremap jj <esc>
 
-" Match tag
-" nnoremap <c-space> %
-
-" Working with split windows
-" noremap <c-w>< <c-w>10<
-" noremap <c-w>> <c-w>10>
-" noremap <c-w>+ <c-w>10+
-" noremap <c-w>- <c-w>10-
-" noremap <m-left>  <c-w>10<
-" noremap <m-right> <c-w>10>
-" noremap <m-up>    <c-w>10+
-" noremap <m-down>  <c-w>10-
-" noremap <d-left>  <m-left>
-" noremap <d-right> <m-right>
-" noremap <d-up>    <m-up>
-" noremap <d-down>  <m-down>
+" Working with split windows - resize
+nnoremap <silent> <m-left> :vertical resize-2<cr>
+nnoremap <silent> <m-right> :vertical resize+2<cr>
+nnoremap <silent> <m-up> :resize+2<cr>
+nnoremap <silent> <m-down> :resize-2<cr>
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
