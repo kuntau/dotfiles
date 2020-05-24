@@ -1,6 +1,7 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 " ==================================================
 
+" Initialization {{{
 if (v:version < 800)
   set encoding=utf-8
   set nocompatible               " be iMproved
@@ -13,15 +14,17 @@ endif
 augroup vimrc
   autocmd!
 augroup END
+" }}}
 
-" Plug automatic installation
+" Plug automatic installation {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
+" }}}
 
-" set rtp+=~/.fzf
+" Plugins begin {{{
 call plug#begin('~/.vim/bundle')
 
 " VCS
@@ -179,11 +182,10 @@ Plug 'justinmk/vim-gtfo'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
+" }}}
 
+" Configurations {{{
 filetype plugin indent on     " required!
-
-" Configurations
-""""""""""""""""
 if !has("gui_running")
   if has("termguicolors")
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -225,6 +227,7 @@ set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.luac                           " Lua byte code
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=**.class                         " Cursed Java class files
+" }}}
 
 " Save when losing focus
 set autowriteall " Auto-save files when switching buffers or leaving vim.
@@ -364,9 +367,9 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " I CAN HAZ NORMAL REGEXES?
 " nnoremap / /\v
 " vnoremap / /\v
+" }}}
 
-" General auto-commands
-"""""""""""""""""""""""
+" FileType autocommand {{{
 " autocmd FileType * setlocal colorcolumn=100
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
@@ -379,30 +382,24 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 " Crontab auto-commands
-"""""""""""""""""""""""
 autocmd FileType crontab setlocal backupcopy=yes
 
 " Ruby Configurations
-"""""""""""""""""""""
 autocmd filetype ruby setlocal noexpandtab shiftwidth=2 tabstop=2
 
 " PHP Configurations
-""""""""""""""""""""
 " autocmd FileType php,blade setlocal omnifunc=phpcomplete_extended#CompletePHP colorcolumn=80
 
 " HTML configurations
-"""""""""""""""""""""
 " autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
 au BufNewFile,BufReadPost *.html setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " CSS configurations
-"""""""""""""""""""""""""""
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " Javascript configurations
-"""""""""""""""""""""""""""
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " autocmd FileType javascript setlocal omnifunc=tern#Complete
 " autocmd FileType javascript setlocal colorcolumn=80
@@ -410,12 +407,10 @@ au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 " autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " Coffeescript configurations
-"""""""""""""""""""""""""""""
 " autocmd FileType coffeescript setlocal colorcolumn=100
 au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
 
 " Python configurations
-"""""""""""""""""""""""
 autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
 " autocmd FileType python setlocal colorcolumn=80
 autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
@@ -435,8 +430,9 @@ match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-""""""""""""""""""
+" }}}
 
+" Mappings {{{
 " Change leader
 let localleader = ","
 let mapleader   = ","
@@ -494,12 +490,8 @@ inoremap jj <esc>
 " nnoremap <c-space> %
 
 " Working with split windows
-" map <c-tab> <c-w>w
-" map <c-s-tab> <c-w>W
-" nnoremap <c-w>\| <c-w>v
-" nnoremap <c-w>- <c-w>s
-noremap <c-w>< <c-w>10<
-noremap <c-w>> <c-w>10>
+" noremap <c-w>< <c-w>10<
+" noremap <c-w>> <c-w>10>
 " noremap <c-w>+ <c-w>10+
 " noremap <c-w>- <c-w>10-
 noremap <m-left>  <c-w>10<
@@ -599,10 +591,21 @@ noremap <F2> :set paste!<cr>
 " #!! | Shebang
 " ----------------------------------------------------------------------------
 inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)
+" }}}
 
-"======================
-" Plugin's configurations
-"======================
+" Plugin's configurations {{{
+
+" Git functions {{{
+function! s:isGitRepo() abort
+  silent! !git rev-parse --is-inside-work-tree
+  return v:shell_error ? v:false : v:true
+endfunction
+
+function! s:getGitRoot() abort
+  if <SID>isGitRepo()
+    return system("git rev-parse --show-toplevel")
+  endif
+endfunctio>
 
 " Startify
 " returns all modified files of the current git repo
@@ -618,7 +621,9 @@ function! s:gitUntracked()
     let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
     return map(files, "{'line': v:val, 'path': v:val}")
 endfunction
+" }}}
 
+" Startify {{{
 let g:startify_lists = [
   \ { 'type': 'files',     'header': ['   MRU']            },
   \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
@@ -645,8 +650,9 @@ let g:startify_padding_left = 3
 let g:startify_session_sort = 1
 let g:startify_session_persistence = 1
 let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
+" }}}
 
-" Vista
+" Vista {{{
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
 let g:vista_executive_for = {
@@ -662,6 +668,7 @@ let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
+" }}}
 
 " Gist
 let g:gist_clip_command = 'pbcopy'
@@ -676,8 +683,7 @@ nmap <space>gs :G<CR>
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" FZF
-" ====================================
+" FZF {{{
 if executable('fzf')
   " https://github.com/junegunn/fzf.vim/issues/821#issuecomment-581481211
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'horizontal' } }
@@ -697,34 +703,12 @@ command! -nargs=? -complete=dir AF
   \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
   \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
   \ })))
-
-" coc-explorer
-let g:coc_explorer_global_presets = {
-\   '.vim': {
-\      'root-uri': '~/.vim',
-\   },
-\   'floating': {
-\      'position': 'floating',
-\   },
-\   'simplify': {
-\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-\   }
-\ }
-
-" Use preset argument to open it
-nmap <silent> <space>ee :CocCommand explorer<CR>
-" nmap <silent> <space>ed :CocCommand explorer --preset .vim<CR>
-" nmap <silent> <space>ef :CocCommand explorer --preset floating<CR>
-
-" list all presets
-nmap <silent> <space>el :<c-u>CocList explPresets<cr>
+" }}}
 
 " SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
-" ----------------------
-" CoC completion routine
-" ----------------------
+" CoC completion routine {{{
 if has('nvim') || (v:version >= 800)
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? coc#_select_confirm() :
@@ -840,8 +824,9 @@ if has('nvim') || (v:version >= 800)
   " START YouCompleteMe SETTINGS
   " ----------------------------
 endif
+" }}}
 
-" CoC Settings
+" CoC Mappings {{{
 " nmap <space>y :CocList -A --normal yank<CR>
 nmap <space>y :CocList --normal yank<CR>
 
@@ -862,19 +847,10 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 let g:markdown_fenced_languages = [ 'vim', 'help' ] " coc-vimlsp config
+" }}}
 
-" coc-smartf
-" nmap f <Plug>(coc-smartf-forward)
-" nmap F <Plug>(coc-smartf-backward)
-" nmap ; <Plug>(coc-smartf-repeat)
-" nmap , <Plug>(coc-smartf-repeat-opposite)
-
-" augroup smartf
-"   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#ed000f guibg=#ffffff
-"   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#1ff5ff
-" augroup end
-
-" CoC Extensions!
+" CoC Extensions & settings! {{{
+" CoC Extensions list: {{{
 let g:coc_global_extensions = [
     \'coc-explorer',
     \'coc-snippets',
@@ -903,6 +879,31 @@ let g:coc_global_extensions = [
     \'coc-yaml',
     \'coc-vimlsp'
     \]
+" }}}
+
+" CoC Extensions Settings {{{
+
+" coc-git
+" navigate chunks of current buffer
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap <leader>hp <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap <leader>hc <Plug>(coc-git-commit)
+nmap <silent> <leader>hs :CocCommand git.chunkStage<cr>
+nmap <silent> <leader>hu :CocCommand git.chunkUndo<cr>
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
+
+" coc-explorer
+nmap <silent> <space>ee :CocCommand explorer<CR>
+" }}}
+" }}}
+
 
 " UltiSnips
 " let g:UltiSnipsExpandTrigger='<tab>'
@@ -943,13 +944,10 @@ let g:vim_markdown_folding_disabled = 1
   nmap <silent> <leader>d <plug>DashSearch
 " endif
 
-" =============================================== "
-" Useful, Core that can't be fit up top functions "
-" =============================================== "
+" }}}
 
-" ------------------- "
-" FZF Floating Window "
-" ------------------- "
+" Useful functions that can't be fit up top functions {{{
+
 " let $FZF_DEFAULT_OPTS='--reverse  --margin=1,6 --inline-info'
 
 " Terminal buffer options for fzf
@@ -1100,3 +1098,5 @@ endfunction
 "   autocmd!
 "   autocmd CursorMoved,CursorMovedI * set nohlsearch | autocmd! slash
 " augroup END
+
+" }}}
