@@ -27,9 +27,11 @@ endif
 " Plugins begin {{{
 call plug#begin('~/.vim/bundle')
 
+" local
+" Plug 'file://'.expand('~/coding/vim-osc52')
+
 " VCS
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 Plug 'mattn/gist-vim'
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
@@ -149,7 +151,11 @@ Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 
 " Colorschemes
-Plug 'ayu-theme/ayu-vim'
+Plug 'kuntau/ayu-vim', { 'branch': 'italic' }
+let g:ayu_comment_italic=1
+let g:ayu_string_italic=0
+let g:ayu_type_italic=0
+let g:ayu_keyword_italic=1
 Plug 'lifepillar/vim-solarized8'
 let g:solarized_statusline="flat"
 let g:solarized_italics=1
