@@ -603,19 +603,20 @@ function! s:getGitRoot() abort
   endif
 endfunctio>
 
-" Startify
 " returns all modified files of the current git repo
-" `2>/dev/null` makes the command fail quietly, so that when we are not
-" in a git repo, the list will be empty
-function! s:gitModified()
-    let files = systemlist('git ls-files -m 2>/dev/null')
+function! s:gitModified() abort
+  if <SID>isGitRepo()
+    let files = systemlist('git ls-files -m')
     return map(files, "{'line': v:val, 'path': v:val}")
+  endif
 endfunction
 
 " same as above, but show untracked files, honouring .gitignore
-function! s:gitUntracked()
-    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+function! s:gitUntracked() abort
+  if <SID>isGitRepo()
+    let files = systemlist('git ls-files -o --exclude-standard')
     return map(files, "{'line': v:val, 'path': v:val}")
+  endif
 endfunction
 " }}}
 
@@ -625,8 +626,8 @@ let g:startify_lists = [
   \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
   \ { 'type': 'sessions',  'header': ['   Sessions']       },
   \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-  \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-  \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+  \ { 'type': function('<SID>gitModified'),  'header': ['   git modified']},
+  \ { 'type': function('<SID>gitUntracked'), 'header': ['   git untracked']},
   \ { 'type': 'commands',  'header': ['   Commands']       },
   \ ]
 let g:startify_bookmarks = [
@@ -645,6 +646,7 @@ let g:startify_fortune_use_unicode = 1
 let g:startify_padding_left = 3
 let g:startify_session_sort = 1
 let g:startify_session_persistence = 1
+let g:startify_change_to_dir = 0
 let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
 " }}}
 
@@ -962,14 +964,6 @@ endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 autocmd BufWrite *.styl :call DeleteTrailingWS()
-
-" Check if current directory is git project
-function! IsGitProject() abort
-  silent !git rev-parse --show-toplevel
-  if v:shell_error
-    return true
-  endif
-endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
