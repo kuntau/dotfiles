@@ -49,16 +49,30 @@ ZSH_TMUX_AUTOQUIT="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(vi-mode git git-extras git-flow node npm coffee zsh-syntax-highlighting colorize tmux heroku laravel fzf)
+plugins=(
+  vi-mode
+  git
+  git-extras
+  git-flow
+  node
+  npm
+  coffee
+  zsh-syntax-highlighting
+  colorize
+  tmux
+  heroku
+  laravel
+  fzf
+)
 
 # Customize to your needs...
 # export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
 
 # My aliases
 
-osname=$(uname)
+OS_NAME=$(uname)
 
-if [[ $osname == Linux ]]; then
+if [[ $OS_NAME == Linux ]]; then
   # GOROOT='/usr/lib/go'
   # PATH=$PATH
   export PATH=~/npm/bin:/usr/local/go/bin:$PATH
@@ -67,7 +81,7 @@ if [[ $osname == Linux ]]; then
   # export NVM_DIR="$HOME/.nvm"
   # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-elif [[ $osname == Darwin ]]; then
+elif [[ $OS_NAME == Darwin ]]; then
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
   # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
@@ -84,7 +98,7 @@ elif [[ $osname == Darwin ]]; then
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   # export final osx path
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:~/Library/Python/3.7/bin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools:$PATH
-elif [[ $osname == CYGWIN_NT-6.1 ]]; then
+elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
 fi
@@ -128,6 +142,8 @@ if [ -f ~/.fzf.zsh ]; then
   FZF_TMUX=1
   FZF_TMUX_HEIGHT=40%
   export FZF_DEFAULT_OPTS="--extended --reverse --inline-info"
+  # Set ayu mirage theme for fzf
+  # Set ayu mirage theme for fzf
   export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
   --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
