@@ -502,14 +502,14 @@ inoremap jj <esc>
 " noremap <c-w>> <c-w>10>
 " noremap <c-w>+ <c-w>10+
 " noremap <c-w>- <c-w>10-
-noremap <m-left>  <c-w>10<
-noremap <m-right> <c-w>10>
-noremap <m-up>    <c-w>10+
-noremap <m-down>  <c-w>10-
-noremap <d-left>  <m-left>
-noremap <d-right> <m-right>
-noremap <d-up>    <m-up>
-noremap <d-down>  <m-down>
+" noremap <m-left>  <c-w>10<
+" noremap <m-right> <c-w>10>
+" noremap <m-up>    <c-w>10+
+" noremap <m-down>  <c-w>10-
+" noremap <d-left>  <m-left>
+" noremap <d-right> <m-right>
+" noremap <d-up>    <m-up>
+" noremap <d-down>  <m-down>
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -547,20 +547,8 @@ nnoremap <m-j> :m .+1<CR>==
 nnoremap <m-k> :m .-2<CR>==
 vnoremap <m-j> :m '>+1<CR>gv=gv
 vnoremap <m-k> :m '<-2<CR>gv=gv
-inoremap <m-j> <Esc>:m .+1<CR>==gi
-inoremap <m-k> <Esc>:m .-2<CR>==gi
-
-" make it cross platform
-if has("mac") || has("macunix")
-  nmap <d-j> <m-j>
-  nmap <d-k> <m-k>
-  vmap <d-j> <m-j>
-  vmap <d-k> <m-k>
-  " noremap <d-right> <m-right>
-  " noremap <d-left> <m-left>
-  " noremap <d-up> <m-up>
-  " noremap <d-down> <m-down>
-endif
+" inoremap <m-j> <Esc>:m .+1<CR>==gi
+" inoremap <m-k> <Esc>:m .-2<CR>==gi
 
 " qq to record, Q to replay
 nnoremap Q @q
