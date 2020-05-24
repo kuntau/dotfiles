@@ -3,9 +3,13 @@ export PATH=/usr/local/bin:$PATH
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" == "" ] || exit 0
+
+# Set default session name
+DEFAULT_NAME=$(hostname | cut -d '.' -f1)
+
 # startup a "default" session if non currently exists
-tmux has-session -t $(uname) 2> /dev/null \
-  || tmux new-session -s $(uname) -d
+tmux has-session -t $DEFAULT_NAME 2> /dev/null \
+  || tmux new-session -s $DEFAULT_NAME -d
 
 # present menu for user to choose which workspace to open
 IFS=$'\n'
