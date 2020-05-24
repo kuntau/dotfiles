@@ -1080,6 +1080,16 @@ function! CreateCenteredFloatingWindow()
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
+" Copy yank buffer to system clipboard
+" USE OSC52 to put things into the system clipboard, works over SSH!
+function! Osc52Yank() abort
+  let buffer=system('base64 -w0', @0)  " -w0 to disable 76 char line wrapping
+  let buffer='\ePtmux;\e\e]52;c'.buffer.'\x07\e\\'
+  silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape(g:tty)
+endfunction
+
+nnoremap <leader>y :call Osc52Yank()<cr>
+
 " augroup vimrc " goodbye_netrw
   " autocmd!
   " autocmd VimEnter * silent! au! FileExplorer *
