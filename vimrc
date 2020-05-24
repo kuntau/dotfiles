@@ -918,9 +918,9 @@ nmap <silent> <space>ee :CocCommand explorer<CR>
 
 " Powerline & airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#hunks#coc_git = 1
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
-" let g:airline_extensions = [ 'coc', 'fugitiveline', 'quickfix', 'vista' ]
 
 " Plasticboy Markdown
 let g:vim_markdown_folding_disabled = 1
