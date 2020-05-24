@@ -219,8 +219,23 @@ else
     colorscheme solarized8_flat
 endif
 
-" Wildmenu completion
-"""""""""""""""""""""
+" Remove the toolbar if we're running under a GUI (e.g. MacVIM).
+if has("gui_running")
+  set guioptions=-t
+  if has('win32') || has('win64')
+    set gfn=Consolas:h10                " font to use
+  elseif has('mac') || has('macunix')
+    " guifont not supported in neovim
+    set guifont=PragmataPro\ for\ Powerline:h12
+  elseif has('gui_gtk2')
+    set gfn=PragmataPro\ 9
+    " set lines=50 columns=100
+  endif
+endif
+" }}}
+
+" (Neo)Vim settings {{{
+" Wildmenu completion {{{
 set wildmenu
 set wildmode=full
 " set wildmode=list:longest
@@ -254,7 +269,7 @@ set lazyredraw
 set rnu                  " show relative number instead
 set number               " always show line numbers
 set hidden               " Allow un-saved buffers in background
-set clipboard+=unnamed    " Share system clipboard.
+set clipboard+=unnamedplus     " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
 set noswapfile           " no swap files
 set nobackup             " no backup files
@@ -291,7 +306,7 @@ set nocursorline
 set nrformats=hex
 
 " Status line config
-set cmdheight=1     " coc.nvim readme suggest cmdheight=2
+set cmdheight=2     " coc.nvim readme suggest cmdheight=2
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set laststatus=2    " Always dislay the statusline in all windows
 
@@ -306,19 +321,6 @@ set signcolumn=yes
 
 " diff always open in vertical split
 set diffopt+=vertical
-
-" Remove the toolbar if we're running under a GUI (e.g. MacVIM).
-if has("gui_running")
-  set guioptions=-t
-  if has('win32') || has('win64')
-    set gfn=Consolas:h10                " font to use
-  elseif has('mac') || has('macunix')
-    " set gfn=PragmataPro\ for\ Powerline:h12
-  elseif has('gui_gtk2')
-    set gfn=PragmataPro\ 9
-    " set lines=50 columns=100
-  endif
-endif
 
 " Special characters for hilighting non-priting spaces/tabs/etc.
 set list listchars=tab:»\ ,trail:·
@@ -455,8 +457,8 @@ nnoremap <F4> :w!<CR>
 inoremap <F4> <c-o>:w!<CR>
 
 " Movement in insert mode
-inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>l
+inoremap <m-h> <C-o>h
+inoremap <m-l> <C-o>l
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
