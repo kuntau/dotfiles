@@ -85,7 +85,8 @@ alias a1='noglob aria2c -c -j1 -x8 --file-allocation=none --auto-file-renaming=f
 alias a2='noglob aria2c -c -j2 -x8 --file-allocation=none --auto-file-renaming=false'
 alias a2limit="noglob aria2c -c -j2 -x8 --file-allocation=none --max-overall-download-limit="
 
-alias sub='subliminal download -l en -l ms'
+alias sub='subliminal --opensubtitles $OS_USER $OS_PASS --omdb $OMDB_KEY download -l en -l ms'
+alias subn='subliminal download -l en -l ms'
 alias comic='open -a "Simple Comic" $@'
 
 # node workflow
