@@ -49,7 +49,7 @@ Plug 'mbbill/undotree',       { 'on': 'UndotreeToggle' }
 Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
-let g:AutoPairsMapCh=0 " Remove <c-h> map in insert mode to cancel pair
+let g:AutoPairsMapCh=1 " Remove <c-h> map in insert mode to cancel pair
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
@@ -206,7 +206,7 @@ if !has("gui_running")
       set background=dark
     endif
     " set background=dark
-    colorscheme ayu
+    colorscheme one
     " fix terminal timeout when pressing escape
     " set ttimeout
     " set ttimeoutlen=50
@@ -447,20 +447,20 @@ let mapleader   = ","
 let g:mapleader = ","
 
 " kuntau
-noremap <space><space> :
-noremap <leader>ei :e ~/dotfiles/vimrc<CR>
-noremap <leader>so :w!<cr> :source %<CR>
-noremap <leader>S :Startify<CR>
-noremap \ :Rg<CR>
+nnoremap <space><space> :
+nnoremap <leader>ei :e ~/dotfiles/vimrc<CR>
+nnoremap <leader>so :up!<cr> :source %<CR>
+nnoremap <leader>S :Startify<CR>
+nnoremap \ :Rg<CR>
 
-nnoremap <F4> :w!<CR>
-inoremap <F4> <c-o>:w!<CR>
+nnoremap <F4> :up!<CR>
+inoremap <F4> <c-o>:up!<CR>
 
 " Movement in insert mode
 inoremap <m-h> <C-o>h
 inoremap <m-l> <C-o>l
-inoremap <C-j> <C-o>j
-inoremap <C-k> <C-o>k
+inoremap <m-j> <C-o>j
+inoremap <m-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
 
 " give me normal jk!! ** should enable with softwrap only **
@@ -507,8 +507,8 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :bufdo bd<cr>
 
 " Use the arrows to something usefull
-noremap <right> :bn<cr>
-noremap <left>  :bp<cr>
+nnoremap <right> :bn<cr>
+nnoremap <left>  :bp<cr>
 
 " Retain selection after indent or formating
 " Use `gv` if we want to reselect
@@ -562,9 +562,10 @@ let g:loaded_netrwPlugin = 1
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
+" nnoremap <expr> <leader>cd ":echom".(<SID>isGitRepo ? "ok" : "not ok")."<cr>"
 
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+nnoremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 " noremap <leader>sp :setlocal paste!<cr>
