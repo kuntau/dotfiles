@@ -41,6 +41,8 @@ if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
 endif
+Plug 'kuntau/vim-osc52'
+vmap <c-c> <Plug>(YankOSC52)
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree',       { 'on': 'UndotreeToggle' }
   let g:undotree_WindowsLayout = 2
@@ -178,7 +180,9 @@ let g:one_allow_italics=1
 
 " Misc bundle
 Plug 'junegunn/vim-peekaboo'
-let g:peekaboo_window="call CreateCenteredFloatingWindow()"
+if has('nvim')
+  let g:peekaboo_window="call CreateCenteredFloatingWindow()"
+endif
 " Plug 'MarcWeber/vim-addon-mw-utils'
 " Plug 'tomtom/tlib_vim'
 Plug 'christoomey/vim-tmux-navigator'
