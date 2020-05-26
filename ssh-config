@@ -78,7 +78,7 @@ Host hqlocal
 
 Host pilocal
   User     kuntau
-  HostName 192.168.1.112
+  HostName 192.168.1.5
 
 Host rtlocal
   User     kuntau
