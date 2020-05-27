@@ -55,6 +55,7 @@ let g:AutoPairsMapCh=1 " Remove <c-h> map in insert mode to cancel pair
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
+Plug 'yegappan/mru'
 
 " Completion & syntax checking
 if has('nvim') || (v:version >= 800)
