@@ -214,8 +214,8 @@ alias c="tr -d '\n' | pbcopy"
 alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Shortcuts
-alias g="git"
-alias v="vim"
+# alias g="git"
+# alias v="vim"
 
 # File size
 alias fs="stat -f \"%z bytes\""
