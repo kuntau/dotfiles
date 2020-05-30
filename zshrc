@@ -46,17 +46,16 @@ zplug load
 
 # Set ENV VARIABLE {{{
 OS_NAME=$(uname)
+DOTFILES_HOME=$HOME/dotfiles
 
 if [[ $OS_NAME == Linux ]]; then
-  export PATH=~/npm/bin:/usr/local/go/bin:$PATH
-  export PATH=~/.local/bin:$PATH
+  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
+  # export PATH=~/.local/bin:$PATH
 elif [[ $OS_NAME == Darwin ]]; then
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
 
   # rust
-  [ -x rustup ] && source $HOME/.cargo/env
-
   # golang
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
 
@@ -127,20 +126,18 @@ fi
 # }}}
 
 # Update $PATH {{{
-export NPM_CONFIG_PREFIX=~/.npm-global # npm -g install location
-export PATH=$PATH:~/.npm-global/bin    # npm global binary path
-export PATH=$PATH:~/.local/bin         # pip app binary path
-export PATH=$PATH:/snap/bin            # snap binary path
-export PATH=$PATH:~/.cargo/bin         # rust cargo binary path
+hash npm   2>/dev/null && export NPM_CONFIG_PREFIX=~/.npm-global # npm -g install location
+hash npm   2>/dev/null && export PATH=$PATH:~/.npm-global/bin    # npm global binary path
+hash pip   2>/dev/null && export PATH=$PATH:~/.local/bin         # pip app binary path
+hash cargo 2>/dev/null && export PATH=$PATH:~/.cargo/bin         # rust cargo binary path
+hash snap  2>/dev/null && export PATH=$PATH:/snap/bin            # snap binary path
 # }}}
 
 # Extra sources {{{
-# source ~/dotfiles/zsh/z/z.sh
-# source ~/dotfiles/zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 source ~/dotfiles/zsh/aliases.zsh # my aliases
 source ~/.secret                  # don't commit this file
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -x rustup ]] && source $HOME/.cargo/env
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 # }}}
