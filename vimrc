@@ -447,7 +447,7 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
 " Mappings {{{
 " Change leader
-let localleader = ","
+let localleader = "\\"
 let mapleader   = ","
 let g:mapleader = ","
 
