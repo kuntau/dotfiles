@@ -1,6 +1,7 @@
 # Todo
 
 ## INSTALL SCRIPT
+- [ ] Borrow code from ohmyzsh installer
 
 ### AVAILABILITY FEATURE CHECKLIST
 - [ ] ZSH
