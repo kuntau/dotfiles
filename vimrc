@@ -47,28 +47,42 @@ Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree',       { 'on': 'UndotreeToggle' }
   let g:undotree_WindowsLayout = 2
   nnoremap U :UndotreeToggle<CR>
-" Plug 'sjl/gundo.vim',       { 'on': 'GundoToggle' }
 Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
-Plug 'liuchengxu/vista.vim'
-Plug 'jiangmiao/auto-pairs'
-let g:AutoPairsMapCh=1 " Remove <c-h> map in insert mode to cancel pair
-Plug 'terryma/vim-multiple-cursors'
+Plug 'Olical/vim-enmasse', { 'on': 'EnMasse' }
+let g:AutoPairsMapCh=0 " Remove <c-h> map in insert mode to cancel pair
+let g:AutoPairsMapCR=0
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
 Plug 'yegappan/mru'
 
 " Completion & syntax checking
-if has('nvim') || (v:version >= 800)
+if executable('node') && (has('nvim') || (v:version >= 800))
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 else
   Plug 'scrooloose/syntastic'
   Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
+Plug 'jiangmiao/auto-pairs'
+Plug 'liuchengxu/vista.vim'
+Plug 'honza/vim-snippets'
+Plug 'wellle/tmux-complete.vim'
 " "---- we're using coc-snippets now
 " Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 " Plug 'bingeboy/snipmate-nodejs'
-Plug 'wellle/tmux-complete.vim'
+
+" Movements
+Plug 'terryma/vim-multiple-cursors'
+Plug 'justinmk/vim-sneak'
+" nmap z <Plug>Sneak_s
+" nmap Z <Plug>Sneak_S
+" map f <Plug>Sneak_s
+" map F <Plug>Sneak_S
+let g:sneak#use_ic_scs=1
+let g:sneak#map_netrw=0
+map <LocalLeader>s <Plug>Sneak_s
+map <LocalLeader>S <Plug>Sneak_S
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-slash'
 
 " A solid language pack for Vim
 Plug 'sheerun/vim-polyglot'
@@ -80,15 +94,7 @@ Plug 'tomtom/tcomment_vim' " more feature but slower
 " Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
-Plug 'justinmk/vim-sneak'
-" nmap z <Plug>Sneak_s
-" nmap Z <Plug>Sneak_S
-" map f <Plug>Sneak_s
-" map F <Plug>Sneak_S
-map t <Plug>Sneak_s
-map T <Plug>Sneak_S
 " Plug 'tpope/vim-git'
 " Plug 'mutewinter/nginx.vim'
 " Plug 'groenewege/vim-less'
@@ -158,7 +164,7 @@ Plug 'kuntau/ayu-vim', { 'branch': 'italic' }
 let g:ayu_comment_italic=1
 let g:ayu_string_italic=0
 let g:ayu_type_italic=0
-let g:ayu_keyword_italic=1
+let g:ayu_keyword_italic=0
 Plug 'lifepillar/vim-solarized8'
 let g:solarized_statusline="flat"
 let g:solarized_italics=1
@@ -211,7 +217,7 @@ if !has("gui_running")
       set background=dark
     endif
     " set background=dark
-    colorscheme one
+    colorscheme solarized8
     " fix terminal timeout when pressing escape
     " set ttimeout
     " set ttimeoutlen=50
@@ -372,7 +378,6 @@ set foldmethod=indent
 set nofoldenable          " don't fold by default
 set foldlevel=99
 set foldnestmax=10        " max fold nest
-set foldmethod=indent
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -456,10 +461,11 @@ nnoremap <space><space> :
 nnoremap <leader>ei :e ~/dotfiles/vimrc<CR>
 nnoremap <leader>so :up!<cr> :source %<CR>
 nnoremap <leader>S :Startify<CR>
-nnoremap \ :Rg<CR>
+nnoremap \\ :Buffers<CR>
 
 nnoremap <F4> :up!<CR>
 inoremap <F4> <c-o>:up!<CR>
+nnoremap <TAB><TAB> <c-^>
 
 " Movement in insert mode
 inoremap <m-h> <C-o>h
