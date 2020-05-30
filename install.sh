@@ -13,6 +13,7 @@ CONFIG_FILES=(
   zshrc
   ideavimrc
   tmux.conf
+  tigrc
   p10k.zsh
 )
 
