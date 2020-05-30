@@ -13,6 +13,7 @@ CONFIG_FILES=(
   zshrc
   ideavimrc
   tmux.conf
+  p10k.zsh
 )
 
 echo "Checking requirements..."
@@ -57,32 +58,46 @@ select yn in "Yes" "No"; do
   esac
 done
 
+# Install zplug
+if [ -d $HOME/.zplug ]; then
+  echo "You already have zplug installed, skipping..."
+else
+  echo "Installing zplug..."
+  $(which git) clone --depth=1 https://github.com/zplug/zplug.git $ZPLUG_HOME
+fi
+echo ""
+
+# Install tmux plugins manager
+echo "Checking Tmux Plugins Manager status..."
+if [[ -d $HOME/.tmux/plugins/tpm  ]]; then
+  echo "TPM already installed"
+else
+  echo "Install Tmux Plugins Manager?"
+  select yn in "Yes" "No"; do
+    case $yn in
+      Yes ) $(which git) clone --depth=1 https://github.com/tmux-plugins/tpm.git $HOME/.tmux/plugins/tpm; break;;
+      No ) break;;
+    esac
+  done
+fi
+
 # symlinking ssh config
 echo "Installing SSH config..."
-if [ -f $HOME/.ssh/config ] || [ -h $HOME/.ssh/config ]; then
+if [[ -e $HOME/.ssh/config ]]; then
   echo "SSH config exist.. Skip installing"
 else
   ln -s $DOTFILES_HOME/ssh-config $HOME/.ssh/config
 fi
 echo ""
 
-# Install zplug
-if [ -d $HOME/.zplug ]; then
-  echo "You already have zplug installed, skipping..."
+# check .secret fiel availability
+echo "Checking .secret file..."
+if [[ -e $HOME/.secret ]]; then
+  echo ".secret file exist.. Skip installing"
 else
-  echo "Installing zplug..."
-  $(which git) clone https://github.com/zplug/zplug.git $ZPLUG_HOME
+  touch $HOME/.secret
 fi
 echo ""
-
-# Install tmux plugins manager
-echo "Install Tmux Plugins Manager?"
-select yn in "Yes" "No"; do
-  case $yn in
-    Yes ) git clone https://github.com/tmux-plugins/tpm.git $HOME/.tmux/plugins/tpm; break;;
-    No ) break;;
-  esac
-done
 
 # append path.. possible duplicate..
 echo "Copy your current PATH and adding it to the end of ~/.zshrc for you? "
