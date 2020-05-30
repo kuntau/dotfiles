@@ -453,7 +453,7 @@ let g:mapleader = ","
 
 " kuntau
 nnoremap <space><space> :
-nnoremap <leader>ei :e ~/dotfiles/vimrc<CR>
+nnoremap <leader>ei :tabe ~/dotfiles/vimrc<CR>
 nnoremap <leader>so :up!<cr> :source %<CR>
 nnoremap <leader>S :Startify<CR>
 nnoremap \ :Rg<CR>
@@ -467,6 +467,18 @@ inoremap <m-l> <C-o>l
 inoremap <m-j> <C-o>j
 inoremap <m-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
+
+" Terminal mode movement
+if has('nvim')
+  nnoremap <space><c-t> :split term://zsh<cr>
+  tnoremap jk <c-\><c-n><c-w>w
+  tnoremap jj <c-\><c-n>
+  tnoremap <m-h> <C-\><C-N><C-w>h
+  tnoremap <m-j> <C-\><C-N><C-w>j
+  tnoremap <m-k> <C-\><C-N><C-w>k
+  tnoremap <m-l> <C-\><C-N><C-w>l
+  autocmd TermOpen * startinsert
+endif
 
 " give me normal jk!! ** should enable with softwrap only **
 " map j gj
