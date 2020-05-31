@@ -90,6 +90,10 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+# nnn
+export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum'
+export NNN_FIFO=/tmp/nnn.fifo
+
 # bat theme
 export BAT_THEME="Monokai Extended"
 
