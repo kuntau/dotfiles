@@ -1,0 +1,72 @@
+#!/usr/bin/env sh
+
+# Description: Text based file previewer
+#
+# Note: This plugin needs a "NNN_FIFO" to work.
+#
+# Dependencies: tmux (>=3.0) or xterm (or set $TERMINAL), file, tree
+#
+# Usage:
+#   You need to set a NNN_FIFO path and set a key for the plugin,
+#   then start `nnn`:
+#
+#     $ NNN_FIFO=/tmp/nnn.fifo nnn
+#
+#   Then in `nnn`, launch the `preview-tui` plugin.
+#
+#   If you provide the same NNN_FIFO to all nnn instances, there will be a
+#   single common preview window. I you provide different FIFO path, they
+#   will be independent.
+#
+# Shell: POSIX compliant
+# Authors: Todd Yamakawa, Léo Villeveygoux
+
+TERMINAL="${TERMINAL:-xterm}"
+
+preview_file () {
+    clear
+    lines=$(($(tput lines)-1))
+    cols=$(tput cols)
+    encoding="$(file -b --mime-encoding "$1")"
+    type="$(file -b --mime-type "$1")"
+
+    if [ -d "$1" ]; then
+        # Print directory tree
+        cd "$1" && tree | head -n $lines | cut -c 1-"$cols"
+    elif [ "$type" = "application/zip" ] ; then
+        zip -sf "$1" | bat -r :$lines --style plain --paging never -
+    elif [ "$type" = "image/jpeg" ] ; then
+        viu "$1" | head -n "$lines"
+    elif [ "$encoding" = "binary" ] ; then
+        # Binary file: just print filetype info
+        echo "-------- Binary file -------- $type"
+        file -bI "$1"
+        file -b "$1"
+    else
+        # Text file: print file head
+        head -n $lines "$1" | cut -c 1-"$cols" | bat --style plain --paging never
+        # bat --terminal-width $cols --line-range :$lines --wrap never --paging never
+    fi
+}
+
+if [ "$PREVIEW_MODE" ] ; then
+    if [ ! -r "$NNN_FIFO" ] ; then
+        echo "No FIFO available! (\$NNN_FIFO='$NNN_FIFO')" >&2
+        read -r
+        exit 1
+    fi
+
+    preview_file "$1"
+
+    exec < "$NNN_FIFO"
+    while read -r selection ; do
+        preview_file "$selection"
+    done
+    exit 0
+fi
+
+if [ -e "${TMUX%%,*}" ] ; then
+    tmux split-window -e "NNN_FIFO=$NNN_FIFO" -e "PREVIEW_MODE=1" -dh "$0" "$1"
+else
+    PREVIEW_MODE=1 $TERMINAL -e "$0" "$1" &
+fi
