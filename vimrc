@@ -75,10 +75,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
 let g:sneak#use_ic_scs=1
 let g:sneak#map_netrw=0
-map z <Plug>Sneak_s
-map Z <Plug>Sneak_S
-nmap <LocalLeader>s <Plug>Sneak_s
-nmap <LocalLeader>S <Plug>Sneak_S
+map <LocalLeader>s <Plug>Sneak_s
+map <LocalLeader>S <Plug>Sneak_S
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-slash'
 

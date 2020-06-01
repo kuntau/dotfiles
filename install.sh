@@ -119,6 +119,6 @@ select yn in "Yes" "No"; do
 done
 
 # /usr/bin/env zsh
-# source ~/.zshrc
+source ~/.zshrc
 
 echo "kuntau dotfiles is now installed."
