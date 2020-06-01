@@ -80,7 +80,7 @@ export LANGUAGE="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
 # Plugins config & ENV {{{
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#707a8c,bg=#1f2430"   # fg=#ff00ff,bg=cyan,bold,underline"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
 
 # zsh-history-substring-search
 bindkey '^[[A' history-substring-search-up
