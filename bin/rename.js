@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require('fs');
 var args = process.argv.splice(2);
 var replaceToken = [
