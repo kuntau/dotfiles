@@ -73,14 +73,12 @@ Plug 'wellle/tmux-complete.vim'
 " Movements
 Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
-" nmap z <Plug>Sneak_s
-" nmap Z <Plug>Sneak_S
-" map f <Plug>Sneak_s
-" map F <Plug>Sneak_S
 let g:sneak#use_ic_scs=1
 let g:sneak#map_netrw=0
-map <LocalLeader>s <Plug>Sneak_s
-map <LocalLeader>S <Plug>Sneak_S
+map z <Plug>Sneak_s
+map Z <Plug>Sneak_S
+nmap <LocalLeader>s <Plug>Sneak_s
+nmap <LocalLeader>S <Plug>Sneak_S
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-slash'
 
