@@ -35,8 +35,10 @@ preview_file () {
         cd "$1" && tree | head -n $lines | cut -c 1-"$cols"
     elif [ "$type" = "application/zip" ] ; then
         zip -sf "$1" | bat -r :$lines --style plain --paging never -
-    elif [ "$type" = "image/jpeg" ] ; then
-        viu "$1" | head -n "$lines"
+    elif [ "$type" = "image/png" ] || [ "$type" = "image/jpeg" ] \
+      && [ "$(command -v viu 2> /dev/null)" ] ; then
+        viu "$1"
+        # viu "$1" | head -n "$lines" | cut -c 1-"$cols"
     elif [ "$encoding" = "binary" ] ; then
         # Binary file: just print filetype info
         echo "-------- Binary file -------- $type"
