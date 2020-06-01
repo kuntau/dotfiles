@@ -98,24 +98,8 @@ export NNN_FIFO=/tmp/nnn.fifo
 export BAT_THEME="Monokai Extended"
 
 # https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
-if [ -f ~/.fzf.zsh ]; then
-  export FZF_TMUX=0
-  export FZF_TMUX_HEIGHT=40%
-  export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-  export FZF_COLOR_MIRAGE='--color=fg:#cbccc6,bg:#1f2430,hl:#707a8c --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
-  export FZF_DEFAULT_OPTS="--extended --reverse --inline-info $FZF_COLOR_MIRAGE"
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-  export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(bat {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-
-  fzf-history-widget-accept() {
-    fzf-history-widget
-    zle accept-line
-  }
-  zle     -N     fzf-history-widget-accept
-  bindkey '^X^R' fzf-history-widget-accept
+# PREVIEW WINDOW OPTIONS down:3:hidden:wrap --bind '?:toggle-preview'
+if [ -d $HOME/.fzf ]; then
 fi
 
 # FIX the blinding green on green directory listing on external drive.
@@ -139,10 +123,11 @@ export PATH=$DOTFILES_HOME/bin:$PATH
 # }}}
 
 # Extra sources {{{
-source ~/dotfiles/zsh/aliases.zsh # my aliases
-source ~/.secret                  # don't commit this file
-
 [[ -x rustup ]] && source $HOME/.cargo/env
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+[[ -d ~/.fzf ]] && source $DOTFILES_HOME/zsh/fzf.zsh
+
+source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
+source $HOME/.secret                  # don't commit this file
 # }}}
