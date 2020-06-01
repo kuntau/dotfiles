@@ -1,18 +1,6 @@
-[submodule "zsh/plugins/zsh-syntax-highlighting"]
-	path = zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "fonts/powerlist-fonts"]
 	path = fonts/powerlist-fonts
 	url = https://github.com/Lokaltog/powerline-fonts.git
 [submodule "code/Dropbox-Uploader"]
 	path = code/Dropbox-Uploader
 	url = https://github.com/andreafabrizi/Dropbox-Uploader.git
-[submodule "zsh/z"]
-	path = zsh/z
-	url = https://github.com/rupa/z.git
-[submodule "zsh/themes/spaceship-prompt"]
-	path = zsh/themes/spaceship-prompt
-	url = https://github.com/denysdovhan/spaceship-prompt.git
-[submodule "/Users/kuntau/dotfiles/zsh/themes/powerlevel10k"]
-	path = zsh/themes/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
