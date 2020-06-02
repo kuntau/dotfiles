@@ -1,163 +1,106 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# vim: foldmethod=marker foldlevel=0 nomodeline:
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# start zplug {{{
+source ~/.zplug/init.zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="powerlevel10k"
+# from oh-my-zsh
+zplug "lib/clipboard", from:oh-my-zsh
+zplug "lib/history", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/key-bindings", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
+zplug "plugins/vi-mode", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/git-extras", from:oh-my-zsh
+zplug "plugins/git-flow", from:oh-my-zsh
+zplug "plugins/node", from:oh-my-zsh
+zplug "plugins/npm", from:oh-my-zsh
+zplug "plugins/tmux", from:oh-my-zsh
 
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
+# from github
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "b4b4r07/enhancd", use:init.sh
+zplug "rupa/z", use:z.sh
+# zplug "rupa/v", use:v
+# zplug "clvv/fasd", use:fasd
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+# theme
+zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+if ! zplug check; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
 
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
+zplug load
+# }}}
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-ZSH_TMUX_AUTOQUIT="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(
-  vi-mode
-  git
-  git-extras
-  git-flow
-  node
-  npm
-  coffee
-  zsh-syntax-highlighting
-  colorize
-  tmux
-  heroku
-  laravel
-  fzf
-)
-
-# Customize to your needs...
-# export PATH=$PATH:{{/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/local/go/bin:/home/kuntau/go/bin:/bin/feedingbottle/:/opt/lampp/bin/:/home/kuntau/.rvm/bin}:/home/kuntau/android-sdk/tools}:/home/kuntau/android-sdk/platform-tools
-
-# My aliases
-
+# Set ENV VARIABLE {{{
 OS_NAME=$(uname)
+DOTFILES_HOME=$HOME/dotfiles
 
 if [[ $OS_NAME == Linux ]]; then
-  # GOROOT='/usr/lib/go'
-  # PATH=$PATH
-  export PATH=~/npm/bin:/usr/local/go/bin:$PATH
-  export PATH=~/.local/bin:$PATH
-  # export NODE_PATH=$NODE_PATH:/home/kuntau/npm/lib/node_modules
-  # export NVM_DIR="$HOME/.nvm"
-  # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
+  # export PATH=~/.local/bin:$PATH
 elif [[ $OS_NAME == Darwin ]]; then
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
-  # [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
-  [ -x rustup ] && source $HOME/.cargo/env
+
+  # rust
+  # golang
   # export GOROOT='/usr/local/Cellar/go/1.1.2'
+
+  # Ruby
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # USE RUBY GEM AS USER --user-install
   GEM_HOME=$HOME/.gem/ruby/2.6.0/
   export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH
   # GEMPATH='~/.gem/ruby/2.1.0'
   # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
-  # source $(brew --prefix nvm)/nvm.sh
-  # brew cask flags
+
+  # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  # export final osx path
-  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:~/Library/Python/3.7/bin:~/Library/Python/2.7/bin:~/.npm/bin:${ANDROID_HOME}/tools:$PATH
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
 fi
 
-# make vim the default editor!
-if command -v nvim &>/dev/null; then
-  export EDITOR=nvim
-else
-  export EDITOR=vim
-fi
+# Fix locale
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
-# add composer vender bin to PATH only if composer exist
-if command -v composer &>/dev/null; then
-  export PATH=$PATH:$HOME/.composer/vendor/bin
-fi
+# Plugins config & ENV {{{
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
 
-alias 'rld=source ~/.zshrc'
-alias 'reloadaliases=source ~/dotfiles/zsh/aliases.zsh'
+# zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
-# make default term
-export TERM="xterm-256color"
+# nnn
+export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum'
+export NNN_FIFO=/tmp/nnn.fifo
 
-# make our custom scripts work!
-export PATH=$PATH:~/dotfiles/bin
+# bat theme
+export BAT_THEME="Monokai Extended"
 
-# fix locale
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-# Timing.app Terminal Support
-PROMPT_TITLE='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
-export PROMPT_COMMAND="${PROMPT_COMMAND} ${PROMPT_TITLE}; "
-# export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
-
-# Remove duplicate in PATH
-typeset -U PATH
-
-# FZF -- https://github.com/junegunn/fzf
 # https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
-if [ -f ~/.fzf.zsh ]; then
-  FZF_TMUX=1
-  FZF_TMUX_HEIGHT=40%
-  export FZF_DEFAULT_OPTS="--extended --reverse --inline-info"
-  # Set ayu mirage theme for fzf
-  # Set ayu mirage theme for fzf
-  export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-  --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
-  --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
-  --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
-  --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
-  # export FZF_DEFAULT_COMMAND="ag -l -g ''"
-  export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# PREVIEW WINDOW OPTIONS down:3:hidden:wrap --bind '?:toggle-preview'
+if [ -d $HOME/.fzf ]; then
 fi
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/opt/openssl/bin:$PATH"
 
 # FIX the blinding green on green directory listing on external drive.
 # Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
@@ -166,11 +109,25 @@ if [[ -f ~/.dircolors ]]; then
 elif [[ -f /etc/DIR_COLORS ]]; then
   eval $(dircolors -b /etc/DIR_COLORS)
 fi
+# }}}
 
-source ~/dotfiles/zsh/z/z.sh
-source $ZSH/oh-my-zsh.sh
+# }}}
 
-export PATH="$PATH:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
+# Update $PATH {{{
+hash npm   2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global # npm -g install location
+hash npm   2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin    # npm global binary path
+hash pip   2>/dev/null && export PATH=$PATH:$HOME/.local/bin         # pip app binary path
+hash cargo 2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin         # rust cargo binary path
+hash snap  2>/dev/null && export PATH=$PATH:/snap/bin                # snap binary path
+export PATH=$DOTFILES_HOME/bin:$PATH
+# }}}
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Extra sources {{{
+[[ -x rustup ]] && source $HOME/.cargo/env
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+[[ -d ~/.fzf ]] && source $DOTFILES_HOME/zsh/fzf.zsh
+
+source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
+source $HOME/.secret                  # don't commit this file
+# }}}
