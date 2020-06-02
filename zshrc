@@ -114,11 +114,11 @@ fi
 # }}}
 
 # Update $PATH {{{
-hash npm   2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global # npm -g install location
-hash npm   2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin    # npm global binary path
-hash pip   2>/dev/null && export PATH=$PATH:$HOME/.local/bin         # pip app binary path
-hash cargo 2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin         # rust cargo binary path
-hash snap  2>/dev/null && export PATH=$PATH:/snap/bin                # snap binary path
+[ "$(hash npm   2>/dev/null)" -eq 0 ] && export NPM_CONFIG_PREFIX=$HOME/.npm-global # npm -g install location
+[ "$(hash npm   2>/dev/null)" -eq 0 ] && export PATH=$PATH:$HOME/.npm-global/bin    # npm global binary path
+[ "$(hash pip   2>/dev/null)" -eq 0 ] && export PATH=$PATH:$HOME/.local/bin         # pip app binary path
+[ "$(hash cargo 2>/dev/null)" -eq 0 ] && export PATH=$PATH:$HOME/.cargo/bin         # rust cargo binary path
+[ "$(hash snap  2>/dev/null)" -eq 0 ] && export PATH=$PATH:/snap/bin                # snap binary path
 export PATH=$DOTFILES_HOME/bin:$PATH
 # }}}
 
