@@ -169,7 +169,7 @@ Plug 'gruvbox-community/gruvbox'
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
-let g:gruvbox_italicize_strings=1
+let g:gruvbox_italicize_strings=0
 Plug 'arcticicestudio/nord-vim'
 Plug 'fatih/molokai'
 Plug 'skielbasa/vim-material-monokai'
@@ -205,39 +205,39 @@ if !has("gui_running")
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
   endif
-    if strftime("%H") > 8 && strftime("%H") < 19
-      let ayucolor="light"
-      set background=light
-    else
-      let ayucolor="mirage"
-      set background=dark
-    endif
-    " set background=dark
-    colorscheme solarized8
-    " fix terminal timeout when pressing escape
-    " set ttimeout
-    " set ttimeoutlen=50
-    " augroup FastEscape
-    "   autocmd!
-    "   au InsertEnter * set timeoutlen=0
-    "   au InsertLeave * set timeoutlen=1000
-    " augroup END
+  if strftime("%H") > 8 && strftime("%H") < 19
+    let ayucolor="light"
+    set background=light
+  else
+    let ayucolor="mirage"
+    set background=dark
+  endif
+  " set background=dark
+  colorscheme solarized8
+  " fix terminal timeout when pressing escape
+  " set ttimeout
+  " set ttimeoutlen=50
+  " augroup FastEscape
+  "   autocmd!
+  "   au InsertEnter * set timeoutlen=0
+  "   au InsertLeave * set timeoutlen=1000
+  " augroup END
 else
-    colorscheme solarized8_flat
+    set guioptions=-t
+    if has('win32') || has('win64')
+      set gfn=Consolas:h10                " font to use
+    elseif !has('nvim') && (has('mac') || has('macunix'))
+      " guifont not supported in neovim
+      set guifont=PragmataPro\ for\ Powerline:h12
+    elseif has('gui_gtk2')
+      set gfn=PragmataPro\ 9
+      " set lines=50 columns=100
+    endif
+  colorscheme solarized8_flat
 endif
 
 " Remove the toolbar if we're running under a GUI (e.g. MacVIM).
 if has("gui_running")
-  set guioptions=-t
-  if has('win32') || has('win64')
-    set gfn=Consolas:h10                " font to use
-  elseif has('mac') || has('macunix')
-    " guifont not supported in neovim
-    set guifont=PragmataPro\ for\ Powerline:h12
-  elseif has('gui_gtk2')
-    set gfn=PragmataPro\ 9
-    " set lines=50 columns=100
-  endif
 endif
 " }}}
 
@@ -276,7 +276,7 @@ set lazyredraw
 set rnu                  " show relative number instead
 set number               " always show line numbers
 set hidden               " Allow un-saved buffers in background
-set clipboard+=unnamedplus     " Share system clipboard.
+set clipboard+=unnamed   " Share system clipboard.
 set backspace=indent,eol,start " Make backspace behave normally.
 set noswapfile           " no swap files
 set nobackup             " no backup files
