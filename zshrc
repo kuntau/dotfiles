@@ -52,6 +52,7 @@ if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
   # export PATH=~/.local/bin:$PATH
 elif [[ $OS_NAME == Darwin ]]; then
+  export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
 
@@ -63,7 +64,7 @@ elif [[ $OS_NAME == Darwin ]]; then
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # USE RUBY GEM AS USER --user-install
   GEM_HOME=$HOME/.gem/ruby/2.6.0/
-  export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH
+  export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
   # GEMPATH='~/.gem/ruby/2.1.0'
   # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
 
@@ -96,6 +97,7 @@ export NNN_FIFO=/tmp/nnn.fifo
 
 # bat theme
 export BAT_THEME="Monokai Extended"
+export BAT_STYLE="--style plain"
 
 # https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 # PREVIEW WINDOW OPTIONS down:3:hidden:wrap --bind '?:toggle-preview'
@@ -114,11 +116,11 @@ fi
 # }}}
 
 # Update $PATH {{{
-[ "$(hash npm   2>/dev/null)" -eq 0 ] && export NPM_CONFIG_PREFIX=$HOME/.npm-global # npm -g install location
-[ "$(hash npm   2>/dev/null)" -eq 0 ] && export PATH=$PATH:$HOME/.npm-global/bin    # npm global binary path
-[ "$(hash pip   2>/dev/null)" -eq 0 ] && export PATH=$PATH:$HOME/.local/bin         # pip app binary path
-[ "$(hash cargo 2>/dev/null)" -eq 0 ] && export PATH=$PATH:$HOME/.cargo/bin         # rust cargo binary path
-[ "$(hash snap  2>/dev/null)" -eq 0 ] && export PATH=$PATH:/snap/bin                # snap binary path
+hash npm   2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global # npm -g install location
+hash npm   2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin    # npm global binary path
+hash pip   2>/dev/null && export PATH=$PATH:$HOME/.local/bin         # pip app binary path
+hash cargo 2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin         # rust cargo binary path
+hash snap  2>/dev/null && export PATH=$PATH:/snap/bin                # snap binary path
 export PATH=$DOTFILES_HOME/bin:$PATH
 # }}}
 
@@ -128,6 +130,8 @@ export PATH=$DOTFILES_HOME/bin:$PATH
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 [[ -d ~/.fzf ]] && source $DOTFILES_HOME/zsh/fzf.zsh
 
+source $DOTFILES_HOME/zsh/default.zsh # my aliases
 source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
 source $HOME/.secret                  # don't commit this file
+typeset -U PATH
 # }}}

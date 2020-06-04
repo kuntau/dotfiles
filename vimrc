@@ -228,18 +228,16 @@ else
       set gfn=Consolas:h10                " font to use
     elseif !has('nvim') && (has('mac') || has('macunix'))
       " guifont not supported in neovim
-      set guifont=PragmataPro\ for\ Powerline:h12
+      set macmeta
+      set macligatures
+      set macthinstrokes
+      set guifont=OperatorMonoLigaturized\ Nerd\ Font:h13
     elseif has('gui_gtk2')
       set gfn=PragmataPro\ 9
       " set lines=50 columns=100
     endif
   colorscheme solarized8_flat
 endif
-
-" Remove the toolbar if we're running under a GUI (e.g. MacVIM).
-if has("gui_running")
-endif
-" }}}
 
 " (Neo)Vim settings {{{
 " Wildmenu completion {{{
