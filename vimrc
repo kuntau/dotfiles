@@ -236,7 +236,7 @@ else
       set gfn=PragmataPro\ 9
       " set lines=50 columns=100
     endif
-  colorscheme solarized8_flat
+  colorscheme gruvbox
 endif
 
 " (Neo)Vim settings {{{

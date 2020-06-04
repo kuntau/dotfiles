@@ -33,9 +33,8 @@ relative_path() {
 
 quick_paths() {
   fd -aH -d4 .
-  echo ~/src
-  fd -H -d2 . ~/src
-  fd -H . ~/src/nhooyr/dotfiles
+  fd -H -d2 . ~/coding
+  fd -H . ~/dotfiles
 }
 
 append_history() {
@@ -43,6 +42,7 @@ append_history() {
   print -s -- "$*"
 }
 
+# FZF + GIT helper {{{
 # fshow - git commit browser
 fshow() {
   git log --graph --color=always \
@@ -55,18 +55,34 @@ fshow() {
 FZF-EOF"
 }
 
+# show commit from log
 git-commit-show ()
 {
   git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  | \
    fzf --ansi --no-sort --reverse --tiebreak=index --preview \
    'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
-   --bind "alt-j:preview-down,alt-k:preview-up,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-m:execute
+   --bind "alt-j:preview-down,alt-k:preview-up,ctrl-d:preview-page-down,ctrl-u:preview-page-up,ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
 FZF-EOF" --preview-window=right:60%
 }
 # --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:
+# }}}
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with the $EDITOR
+fe() (
+  IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+  fi
+)
 
 fzf_quick_paths() {
   local word="${LBUFFER##* }"
@@ -113,7 +129,7 @@ bindkey '^X^R' fzf-history-widget-accept
 
 # CTRL-R - Execute or edit from history
 fzf-history-widget-ext() {
-  local selected num key n x
+  local selected num key
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
   selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\s+(.*)/, $1)}++' |
     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,..
@@ -123,18 +139,17 @@ fzf-history-widget-ext() {
                       --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
-    set -x
+    # if there is expect option, first array always the pressed key, none if enter pressed
     key=$selected[1]
     num=$selected[2]
-    if [ "$key" = ctrl-x ]; then
+    if [ "$key" = ctrl-e ]; then
       zle vi-fetch-history -n $num
       zle accept-line
-    elif [ "$key" = ctrl-e ]; then
+    elif [ "$key" = ctrl-x ]; then
       zle vi-fetch-history -n $num
     elif [ -n "$key" ]; then
       zle vi-fetch-history -n $key
     fi
-    set +x
   fi
   zle reset-prompt
   return $ret
