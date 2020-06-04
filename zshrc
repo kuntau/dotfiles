@@ -91,13 +91,19 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# nnn
+# nnn - https://github.com/jarun/nnn
 export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum'
 export NNN_FIFO=/tmp/nnn.fifo
 
-# bat theme
+# bat - https://github.com/sharkdp/bat
 export BAT_THEME="Monokai Extended"
-export BAT_STYLE="--style plain"
+export BAT_STYLE="plain"
+export BAT_PAGER="less -RSF"
+
+# enhancd - https://github.com/b4b4r07/enhancd
+export ENHANCD_DISABLE_DOT=1
+export ENHANCD_DISABLE_HYPHEN=0
+export ENHANCD_HYPHEN_ARG=':'
 
 # https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 # PREVIEW WINDOW OPTIONS down:3:hidden:wrap --bind '?:toggle-preview'
@@ -133,5 +139,5 @@ export PATH=$DOTFILES_HOME/bin:$PATH
 source $DOTFILES_HOME/zsh/default.zsh # my aliases
 source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
 source $HOME/.secret                  # don't commit this file
-typeset -U PATH
+typeset -U PATH                       # remove dups from $PATH
 # }}}
