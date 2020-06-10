@@ -3,8 +3,10 @@
 # install dotfiles script
 
 DOTFILES_HOME=$HOME/dotfiles
+THEME_DIR=$DOTFILES_HOME/zsh/themes
 XDG_CONFIG_HOME=$HOME/.config
 ZPLUG_HOME=$HOME/.zplug
+FZF_HOME=$HOME/.fzf
 # an array of files to symlinks
 CONFIG_FILES=(
   vimrc
@@ -14,7 +16,6 @@ CONFIG_FILES=(
   ideavimrc
   tmux.conf
   tigrc
-  p10k.zsh
 )
 
 echo "Checking requirements..."
@@ -30,6 +31,7 @@ select yn in "Yes" "No"; do
     No ) exit;;
   esac
 done
+echo ""
 
 for i in "${CONFIG_FILES[@]}"
 do
@@ -38,7 +40,7 @@ do
     echo "File exists.. The file .$i will be backup to .$i.bak"
     mv $HOME/.$i $HOME/.$i.bak
   fi
-  ln -s $DOTFILES_HOME/$i $HOME/.$i
+  ln -s --backup --suffix='.bak' $DOTFILES_HOME/$i $HOME/.$i
   echo ""
 done
 
@@ -50,8 +52,8 @@ select yn in "Yes" "No"; do
       if [[ -e $XDG_CONFIG_HOME/nvim/init.vim ]]; then
         echo "File exists.. Skip installing"
       else
-        ln -s $HOME/.vim $HOME/.nvim
-        ln -s $HOME/.vimrc $HOME/.nvimrc
+        ln -s $HOME/.vim $XDG_CONFIG_HOME/nvim
+        ln -s $HOME/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
       fi
       echo ""
       break;;
@@ -59,12 +61,23 @@ select yn in "Yes" "No"; do
   esac
 done
 
+# Install fzf
+if [ -d $FZF_HOME ]; then
+  echo "You already have fzf installed, skipping..."
+else
+  echo "Installing fzf..."
+  $(which git) clone --depth=1 https://github.com/junegunn/fzf.git $FZF_HOME
+  $FZF_HOME/install
+fi
+echo ""
+
 # Install zplug
-if [ -d $HOME/.zplug ]; then
+if [ -d $ZPLUG_HOME ]; then
   echo "You already have zplug installed, skipping..."
 else
   echo "Installing zplug..."
   $(which git) clone --depth=1 https://github.com/zplug/zplug.git $ZPLUG_HOME
+  $ZPLUG_HOME/autoload/zplug install
 fi
 echo ""
 
@@ -81,12 +94,14 @@ else
     esac
   done
 fi
+echo ""
 
 # symlinking ssh config
 echo "Installing SSH config..."
 if [[ -e $HOME/.ssh/config ]]; then
   echo "SSH config exist.. Skip installing"
 else
+  [[ ! -d $HOME/.ssh ]] && mkdir -p $HOME/.ssh
   ln -s $DOTFILES_HOME/ssh-config $HOME/.ssh/config
 fi
 echo ""
@@ -108,7 +123,7 @@ select yn in "Yes" "No"; do
     No ) break;;
   esac
 done
-# export PATH=\$PATH:$PATH >> ~/.zshrc
+echo ""
 
 echo "Time to change your default shell to zsh!"
 select yn in "Yes" "No"; do
@@ -117,8 +132,32 @@ select yn in "Yes" "No"; do
     No ) break;;
   esac
 done
+echo ""
 
-# /usr/bin/env zsh
-source ~/.zshrc
+# PS3="Select p10k theme: "
+echo "Select p10k theme"
+select opt in basic powerline nerdfont; do
+  case $opt in
+    basic)
+      ln -s --backup --suffix='.bak' $THEME_DIR/p10k.basic.zsh $HOME/.p10k.zsh;
+      break;;
+    powerline)
+      ln -s --backup --suffix='.bak' $THEME_DIR/p10k.powerline.zsh $HOME/.p10k.zsh;
+      break;;
+    nerdfont)
+      ln -s --backup --suffix='.bak' $THEME_DIR/p10k.nerdfont.zsh $HOME/.p10k.zsh;
+      break;;
+    *)
+      echo "Invalid option $REPLY"
+      ;;
+  esac
+done
+echo ""
+
+# source ~/.zshrc
+# $EDITOR +PlugInstall
+
+hash node 2>/dev/null || { echo "No NodeJS installation detected. Alternative https://github.com/nodesource/distributions/blob/master/README.md"; }
+hash nginx 2>/dev/null || { echo "No nginx installation detected. "; }
 
 echo "kuntau dotfiles is now installed."
