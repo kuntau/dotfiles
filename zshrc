@@ -8,7 +8,7 @@ fi
 source ~/.zplug/init.zsh
 
 # from oh-my-zsh
-zplug "lib/clipboard", from:oh-my-zsh
+zplug "lib/clipboard", depth:1, from:oh-my-zsh
 zplug "lib/history", from:oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
@@ -22,17 +22,17 @@ zplug "plugins/npm", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
 
 # from github
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "b4b4r07/enhancd", use:init.sh
-zplug "rupa/z", use:z.sh
+zplug "zsh-users/zsh-completions", depth:1
+zplug "zsh-users/zsh-autosuggestions", depth:1
+zplug "zsh-users/zsh-history-substring-search", depth:1
+zplug "zsh-users/zsh-syntax-highlighting", depth:1, defer:2
+zplug "b4b4r07/enhancd", depth:1, use:init.sh
+zplug "rupa/z", depth:1, use:z.sh
 # zplug "rupa/v", use:v
 # zplug "clvv/fasd", use:fasd
 
 # theme
-zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
+zplug "romkatv/powerlevel10k", depth:1, use:powerlevel10k.zsh-theme
 
 if ! zplug check; then
   printf "Install? [y/N]: "
