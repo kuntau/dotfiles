@@ -978,11 +978,17 @@ if has('nvim') && !exists('g:fzf_layout')
 endif
 
 " Delete trailing white space on save, useful for Python, CoffeeScript & Jade
-func! DeleteTrailingWS()
+func! s:deleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
   exe "normal `z`"
 endfunc
+command! DeleteTrailingWS call <SID>deleteTrailingWS()
+
+function! s:deleteEmptyLines()
+  :g/^\s*$/d
+endfunction
+command! DeleteEmptyLines call <SID>deleteEmptyLines()
 
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
@@ -1029,6 +1035,17 @@ function! HighlightRepeats() range
 endfunction
 
 command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
+
+" modify selected text using combining diacritics
+function! s:CombineSelection(line1, line2, cp)
+  execute 'let char = "\u'.a:cp.'"'
+  execute a:line1.','.a:line2.'s/\%V[^[:cntrl:]]/&'.char.'/ge'
+endfunction
+
+command! -range -nargs=0 Overline        call s:CombineSelection(<line1>, <line2>, '0305')
+command! -range -nargs=0 Underline       call s:CombineSelection(<line1>, <line2>, '0332')
+command! -range -nargs=0 DoubleUnderline call s:CombineSelection(<line1>, <line2>, '0333')
+command! -range -nargs=0 Strikethrough   call s:CombineSelection(<line1>, <line2>, '0336')
 
 " Goyo & Limelight
 function! s:goyo_enter()
