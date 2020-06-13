@@ -1,5 +1,4 @@
-" vim: set foldmethod=marker foldlevel=0 nomodeline:
-" ==================================================
+" Kuntau's vimrc, scavenged from around the wild web
 
 " Initialization {{{
 if (v:version < 800)
@@ -53,7 +52,8 @@ let g:AutoPairsMapCh=0 " Remove <c-h> map in insert mode to cancel pair
 let g:AutoPairsMapCR=0
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
-Plug 'yegappan/mru'
+Plug 'lvht/mru'
+" Plug 'yegappan/mru'
 
 " Completion & syntax checking
 if executable('node') && (has('nvim') || (v:version >= 800))
@@ -128,11 +128,11 @@ Plug 'elzr/vim-json',                          { 'for': 'json' }
 " Plug 'jelera/vim-javascript-syntax',           { 'for': [ 'javascript', 'javascript.jsx', 'vue' ] }
 
 " Python bundles
-Plug 'nvie/vim-flake8',              { 'for': 'python' }
-Plug 'fs111/pydoc.vim',              { 'for': 'python' }
-Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-Plug 'ehamberg/vim-cute-python',     { 'for': 'python' }
-Plug 'jmcantrell/vim-virtualenv',    { 'for': 'python' }
+" Plug 'nvie/vim-flake8',              { 'for': 'python' }
+" Plug 'fs111/pydoc.vim',              { 'for': 'python' }
+" Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
+" Plug 'ehamberg/vim-cute-python',     { 'for': 'python' }
+" Plug 'jmcantrell/vim-virtualenv',    { 'for': 'python' }
 
 " Ruby specific
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
@@ -169,7 +169,6 @@ Plug 'gruvbox-community/gruvbox'
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_contrast_light='soft'
-let g:gruvbox_italicize_strings=0
 Plug 'arcticicestudio/nord-vim'
 Plug 'fatih/molokai'
 Plug 'skielbasa/vim-material-monokai'
@@ -178,6 +177,7 @@ let g:materialmonokai_subtle_spell=1
 let g:materialmonokai_custom_lint_indicator=1
 Plug 'rakr/vim-one'
 let g:one_allow_italics=1
+Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
 " Plug 'flazz/vim-Colorschemes'
 " Plug 'junegunn/seoul256.vim'
 
@@ -193,27 +193,32 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
 Plug 'justinmk/vim-gtfo'
 Plug 'ryanoasis/vim-devicons'
+Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
 
 call plug#end()
 " }}}
 
 " Configurations {{{
 filetype plugin indent on     " required!
+
+" Auto light/dark
+if strftime("%H") > 8 && strftime("%H") < 19
+  let ayucolor="light"
+  set background=light
+else
+  let ayucolor="mirage"
+  set background=dark
+endif
+
+" Set themes
 if !has("gui_running")
   if has("termguicolors")
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
   endif
-  if strftime("%H") > 8 && strftime("%H") < 19
-    let ayucolor="light"
-    set background=light
-  else
-    let ayucolor="mirage"
-    set background=dark
-  endif
   " set background=dark
-  colorscheme solarized8
+  colorscheme tempus_rift
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
@@ -223,20 +228,23 @@ if !has("gui_running")
   "   au InsertLeave * set timeoutlen=1000
   " augroup END
 else
-    set guioptions=-t
-    if has('win32') || has('win64')
-      set gfn=Consolas:h10                " font to use
-    elseif !has('nvim') && (has('mac') || has('macunix'))
-      " guifont not supported in neovim
-      set macmeta
-      set macligatures
-      set macthinstrokes
-      set guifont=OperatorMonoLigaturized\ Nerd\ Font:h13
-    elseif has('gui_gtk2')
-      set gfn=PragmataPro\ 9
-      " set lines=50 columns=100
-    endif
-  colorscheme gruvbox
+  set guioptions=-t
+  if has('win32') || has('win64')
+    set gfn=Consolas:h10                " font to use
+  elseif !has('nvim') && (has('mac') || has('macunix'))
+    set macmeta
+    set macligatures
+    set macthinstrokes
+    " guifont not supported in neovim
+    set guifont=OperatorMonoLigaturized\ Nerd\ Font:h13
+  elseif has('gui_vimr')
+    " options for vimr.. specifics to vimr in `ginit.vim`
+  elseif has('gui_gtk2')
+    set gfn=PragmataPro\ 9
+    " set lines=50 columns=100
+  endif
+  let g:airline#extensions#tmuxline#enabled = 0
+  colorscheme material-monokai
 endif
 
 " (Neo)Vim settings {{{
@@ -423,11 +431,11 @@ au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
 au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
 
 " Python configurations
-autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4
+autocmd FileType python setlocal foldmethod=indent shiftwidth=4 expandtab tabstop=4 softtabstop=4
 " autocmd FileType python setlocal colorcolumn=80
-autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
-autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
-autocmd FileType python set omnifunc=pythoncomplete#Complete
+" autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
+" autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
+" autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " Puppet configurations
 """""""""""""""""""""""
@@ -516,19 +524,16 @@ nnoremap <silent> <m-left> :vertical resize-2<cr>
 nnoremap <silent> <m-right> :vertical resize+2<cr>
 nnoremap <silent> <m-up> :resize+2<cr>
 nnoremap <silent> <m-down> :resize-2<cr>
+nnoremap <c-w><c-q> <c-w>q
 
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers including currently viewed
-map <leader>ba :bufdo bd<cr>
+nmap <leader>bd :Bclose<cr> " Close the current buffer
+nmap <leader>ba :bufdo bd<cr> " Close all the buffers including currently viewed
 
 " Use the arrows to something usefull
 nnoremap <right> :bn<cr>
 nnoremap <left>  :bp<cr>
 
-" Retain selection after indent or formating
-" Use `gv` if we want to reselect
+" Retain selection after indent or formating; Use `gv` if we want to reselect
 " vmap > >gv
 " vmap < <gv
 " vmap = =gv
@@ -637,27 +642,34 @@ let g:startify_lists = [
   \ { 'type': function('<SID>gitUntracked'), 'header': ['   git untracked']},
   \ { 'type': 'commands',  'header': ['   Commands']       },
   \ ]
+
 let g:startify_bookmarks = [
   \ {'d': '~/dotfiles/'},
-  \ '~/.config/nvim/bundle',
+  \ '~/.config/nvim/bundle/',
   \ '~/Coding/gigpos/',
   \ '~/Coding/gigpos-ui/',
   \ '~/Coding/donbarberweb/'
   \]
+
 let g:startify_commands = [
   \ {'p': ['Upgrade Plug', 'PlugUpgrade']},
   \ {'u': ['Update Plugins', 'PlugUpdate']},
   \ {'c': ['Update CoC Extensions', 'CocUpdateSync']},
   \ ]
+
 let g:startify_fortune_use_unicode = 1
 let g:startify_padding_left = 3
 let g:startify_session_sort = 1
 let g:startify_session_persistence = 1
+let g:startify_session_autoload = 1
 let g:startify_change_to_dir = 0
+let g:startify_update_oldfiles = 1
+let g:startify_enable_unsafe = 1
 let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
 " }}}
 
 " Vista {{{
+let g:vista_ctags_executable = '/usr/local/bin/ctags'
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
 let g:vista_executive_for = {
@@ -1111,3 +1123,5 @@ nnoremap <leader>y :call Osc52Yank()<cr>
 " augroup END
 
 " }}}
+
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
