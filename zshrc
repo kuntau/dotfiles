@@ -27,8 +27,8 @@ zplug "zsh-users/zsh-autosuggestions", depth:1
 zplug "zsh-users/zsh-history-substring-search", depth:1
 zplug "zsh-users/zsh-syntax-highlighting", depth:1, defer:2
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
-zplug "rupa/z", depth:1, use:z.sh
-# zplug "rupa/v", use:v
+zplug "agkozak/zsh-z", depth:1
+# zplug "rupa/z", use:z.sh
 # zplug "clvv/fasd", use:fasd
 
 # theme
