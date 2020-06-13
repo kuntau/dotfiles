@@ -122,11 +122,12 @@ fi
 # }}}
 
 # Update $PATH {{{
-hash npm   2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global # npm -g install location
-hash npm   2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin    # npm global binary path
-hash pip   2>/dev/null && export PATH=$PATH:$HOME/.local/bin         # pip app binary path
-hash cargo 2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin         # rust cargo binary path
-hash snap  2>/dev/null && export PATH=$PATH:/snap/bin                # snap binary path
+hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
+hash npm      2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin      # npm global binary path
+hash pip      2>/dev/null && export PATH=$PATH:$HOME/.local/bin           # pip app binary path
+hash cargo    2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin           # rust cargo binary path
+hash composer 2>/dev/null && export PATH=$PATH:$HOME/.composer/vendor/bin # rust cargo binary path
+hash snap     2>/dev/null && export PATH=$PATH:/snap/bin                  # snap binary path
 export PATH=$DOTFILES_HOME/bin:$PATH
 # }}}
 
@@ -135,6 +136,7 @@ export PATH=$DOTFILES_HOME/bin:$PATH
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 [[ -d ~/.fzf ]] && source $DOTFILES_HOME/zsh/fzf.zsh
+hash hunter 2> /dev/null && source $HOME/.config/hunter/hunter_cd.sh
 
 source $DOTFILES_HOME/zsh/default.zsh # my aliases
 source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
