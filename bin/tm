@@ -5,7 +5,7 @@ export PATH=/usr/local/bin:$PATH
 [ "$TMUX" == "" ] || exit 0
 
 # Set default session name
-DEFAULT_NAME=$(hostname | cut -d '.' -f1)
+DEFAULT_NAME=$(uname)
 
 # startup a "default" session if non currently exists
 tmux has-session -t $DEFAULT_NAME 2> /dev/null \
