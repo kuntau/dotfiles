@@ -59,8 +59,8 @@ Plug 'lvht/mru'
 if executable('node') && (has('nvim') || (v:version >= 800))
   Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 else
-  Plug 'scrooloose/syntastic'
-  Plug 'Valloric/YouCompleteMe', { 'on': [] }
+  " Plug 'scrooloose/syntastic'
+  " Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'liuchengxu/vista.vim'
@@ -218,7 +218,7 @@ if !has("gui_running")
     set termguicolors
   endif
   " set background=dark
-  colorscheme tempus_rift
+  colorscheme solarized8_flat
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
