@@ -86,8 +86,8 @@ mkd() {
 #===============================================================
 
 # osx programs
-alias vlc='open -a "VLC"'
-alias st='open -a "Sublime Text"'
+# alias vlc='open -a "VLC"'
+# alias st='open -a "Sublime Text"'
 # also/or do this:
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 alias preview="open -a '$PREVIEW'"
