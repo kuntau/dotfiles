@@ -28,6 +28,7 @@ zplug "zsh-users/zsh-history-substring-search", depth:1
 zplug "zsh-users/zsh-syntax-highlighting", depth:1, defer:2
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
 zplug "agkozak/zsh-z", depth:1
+zplug "Vifon/zranger", depth:1
 # zplug "rupa/z", use:z.sh
 # zplug "clvv/fasd", use:fasd
 
@@ -51,6 +52,7 @@ DOTFILES_HOME=$HOME/dotfiles
 if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
   # export PATH=~/.local/bin:$PATH
+  export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 elif [[ $OS_NAME == Darwin ]]; then
   export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
   # set android dev path
