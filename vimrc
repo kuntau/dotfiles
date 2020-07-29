@@ -218,7 +218,7 @@ if !has("gui_running")
     set termguicolors
   endif
   " set background=dark
-  colorscheme solarized8_flat
+  colorscheme gruvbox
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
@@ -1138,6 +1138,8 @@ nnoremap <leader>y :call Osc52Yank()<cr>
 "   autocmd!
 "   autocmd CursorMoved,CursorMovedI * set nohlsearch | autocmd! slash
 " augroup END
+
+autocmd User Startified setlocal buflisted
 
 " }}}
 
