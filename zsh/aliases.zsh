@@ -197,7 +197,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
