@@ -100,7 +100,7 @@ export NNN_FIFO=/tmp/nnn.fifo
 # bat - https://github.com/sharkdp/bat
 export BAT_THEME="Monokai Extended"
 export BAT_STYLE="plain"
-export BAT_PAGER="less -RSF"
+export BAT_PAGER="less -RS"
 
 # enhancd - https://github.com/b4b4r07/enhancd
 export ENHANCD_DISABLE_DOT=1
