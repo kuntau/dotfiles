@@ -20,6 +20,8 @@ zplug "plugins/git-flow", from:oh-my-zsh
 zplug "plugins/node", from:oh-my-zsh
 zplug "plugins/npm", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
 
 # from github
 zplug "zsh-users/zsh-completions", depth:1
