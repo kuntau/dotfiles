@@ -140,6 +140,7 @@ export PATH=$DOTFILES_HOME/bin:$PATH
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 [[ -d ~/.fzf ]] && source $DOTFILES_HOME/zsh/fzf.zsh
+hash nnn 2> /dev/null && source $DOTFILES_HOME/nnn/quitcd.zsh
 hash hunter 2> /dev/null && source $HOME/.config/hunter/hunter_cd.sh
 
 source $DOTFILES_HOME/zsh/default.zsh # my aliases
