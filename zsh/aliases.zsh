@@ -80,6 +80,19 @@ mkd() {
   mkdir -p "$1" && cd "$1"
 }
 
+# wget crate mirror
+alias wgetm="wget \
+  --mirror \
+  --convert-links \
+  --adjust-extension \
+  --page-requisites \
+  --no-parent \
+  --reject html \
+  $1"
+
+# recursive wget download
+alias wgetr='wget --recursive --no-parent --reject html'
+
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
