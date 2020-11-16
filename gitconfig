@@ -40,7 +40,7 @@
 [push]
   default = current
 [credential]
-  helper = store
+	helper = osxkeychain
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
