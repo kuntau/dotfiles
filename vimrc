@@ -82,6 +82,7 @@ Plug 'junegunn/vim-slash'
 
 " A solid language pack for Vim
 Plug 'sheerun/vim-polyglot'
+" Plug 'cazador481/vim-nfo'
 
 " Syntaxes and such.
 Plug 'sgur/vim-editorconfig'
@@ -390,6 +391,10 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " FileType autocommand {{{
+autocmd BufReadPre,FileReadPre *.nfo set ft=nfo
+autocmd FileType nfo :setlocal fileencodings=cp437,utf-8
+autocmd FileType nfo highlight clear ExtraWhitespace
+
 " autocmd FileType * setlocal colorcolumn=100
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
@@ -408,6 +413,7 @@ autocmd FileType crontab setlocal backupcopy=yes
 autocmd filetype ruby setlocal noexpandtab shiftwidth=2 tabstop=2
 
 " PHP Configurations
+autocmd FileType php,blade setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab colorcolumn=80
 " autocmd FileType php,blade setlocal omnifunc=phpcomplete_extended#CompletePHP colorcolumn=80
 
 " HTML configurations
