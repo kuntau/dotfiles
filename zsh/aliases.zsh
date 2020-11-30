@@ -23,6 +23,19 @@ if command -v fzf &> /dev/null; then
   alias fp='fzf --preview "bat --style=numbers --color=always {}"'
 fi
 
+# docker aliases
+if command -v docker &> /dev/null; then
+  alias d='docker'
+  alias ds='docker start'
+  alias dst='docker stop'
+  alias dps='docker ps'
+  alias drm='docker rm'
+fi
+
+if command -v docker-compose &> /dev/null; then
+  alias dc='docker-compose'
+fi
+
 # nvim 24 bit color; TUI ENABLE not needed anymore
 if command -v nvim &>/dev/null; then
   alias vi='nvim'
@@ -87,11 +100,17 @@ alias wgetm="wget \
   --adjust-extension \
   --page-requisites \
   --no-parent \
-  --reject html \
+  --no-clobber \
   $1"
 
 # recursive wget download
-alias wgetr='wget --recursive --no-parent --reject html'
+# --cut-dirs=1 \
+alias wgetr='wget \
+  --mirror \
+  --no-parent \
+  --no-clobber \
+  --no-host-directories \
+  --reject "index.html*"'
 
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases
