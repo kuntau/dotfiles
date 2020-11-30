@@ -25,6 +25,7 @@
 ## Config file
 - [ ] Reorganize config files
 - [ ] Make separate config file for each OS
+- [ ] Update install script
 
 ## NNN
 - [ ] Make unique bookmarks for each machine
