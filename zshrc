@@ -55,6 +55,7 @@ if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
   # export PATH=~/.local/bin:$PATH
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+  export DENO_INSTALL="/home/kuntau/.deno"
 elif [[ $OS_NAME == Darwin ]]; then
   export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
   # set android dev path
@@ -97,6 +98,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # nnn - https://github.com/jarun/nnn
 export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum'
+export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;D:/HQPOOL/DATA;p:/HQPOOL;t:/HQPOOL/Downloads'
 export NNN_FIFO=/tmp/nnn.fifo
 
 # bat - https://github.com/sharkdp/bat
@@ -128,10 +130,11 @@ fi
 # Update $PATH {{{
 hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
 hash npm      2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin      # npm global binary path
-hash pip      2>/dev/null && export PATH=$PATH:$HOME/.local/bin           # pip app binary path
+[[ -f ~/.local/bin/pip ]] && export PATH=$PATH:$HOME/.local/bin           # pip app binary path
 hash cargo    2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin           # rust cargo binary path
 hash composer 2>/dev/null && export PATH=$PATH:$HOME/.composer/vendor/bin # rust cargo binary path
 hash snap     2>/dev/null && export PATH=$PATH:/snap/bin                  # snap binary path
+export PATH=$PATH:$DENO_INSTALL/bin                                       # deno binary path
 export PATH=$DOTFILES_HOME/bin:$PATH
 # }}}
 
