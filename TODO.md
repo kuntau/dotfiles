@@ -1,17 +1,17 @@
 # Todo
 
 ## INSTALL SCRIPT
-- [ ] Borrow code from ohmyzsh installer
+- [x] Borrow code from ohmyzsh installer
 
 ### AVAILABILITY FEATURE CHECKLIST
-- [ ] ZSH
-- [ ] Git & version
-- [ ] NodeJS
-- [ ] TMUX
-- [ ] Neovim
-- [ ] Vim & version
-- [ ] FZF
-- [ ] Go
+- [x] ZSH
+- [x] Git & version
+- [x] NodeJS
+- [x] TMUX
+- [x] Neovim
+- [x] Vim & version
+- [x] FZF
+- [x] Go
 
 ### Symlinks on install
 - [x] Symlink zshrc
@@ -25,3 +25,6 @@
 ## Config file
 - [ ] Reorganize config files
 - [ ] Make separate config file for each OS
+
+## NNN
+- [ ] Make unique bookmarks for each machine
