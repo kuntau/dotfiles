@@ -2,6 +2,7 @@
 
 ## INSTALL SCRIPT
 - [x] Borrow code from ohmyzsh installer
+- [ ] OS detection in install script for BSD/Linux difference
 
 ### AVAILABILITY FEATURE CHECKLIST
 - [x] ZSH
