@@ -466,7 +466,7 @@ let g:mapleader = ","
 
 " kuntau
 nnoremap <space><space> :
-nnoremap <leader>ei :tabe ~/dotfiles/vimrc<CR>
+nnoremap <leader>ei :e ~/.vimrc<CR>
 nnoremap <leader>so :up!<cr> :source %<CR>
 nnoremap <leader>S :Startify<CR>
 nnoremap \\ :Buffers<CR>
@@ -996,9 +996,9 @@ function! s:deleteEmptyLines()
 endfunction
 command! DeleteEmptyLines call <SID>deleteEmptyLines()
 
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-autocmd BufWrite *.styl :call DeleteTrailingWS()
+autocmd BufWrite *.py :call <SID>deleteTrailingWS()
+autocmd BufWrite *.coffee :call <SID>deleteTrailingWS()
+autocmd BufWrite *.styl :call <SID>deleteTrailingWS()
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
