@@ -2,6 +2,9 @@
 
 # install dotfiles script
 
+TEST=false
+OS=$(uname)
+HOSTNAME=$(hostname)
 DOTFILES_HOME=$HOME/dotfiles
 THEME_DIR=$DOTFILES_HOME/zsh/themes
 XDG_CONFIG_HOME=$HOME/.config
@@ -40,7 +43,7 @@ do
     echo "File exists.. The file .$i will be backup to .$i.bak"
     mv $HOME/.$i $HOME/.$i.bak
   fi
-  ln -s --backup --suffix='.bak' $DOTFILES_HOME/$i $HOME/.$i
+  ln -s --backup --suffix='.bak' $DOTFILES_HOME/config/$i $HOME/.$i
   echo ""
 done
 
@@ -147,6 +150,9 @@ select opt in basic powerline nerdfont; do
     nerdfont)
       ln -s --backup --suffix='.bak' $THEME_DIR/p10k.nerdfont.zsh $HOME/.p10k.zsh;
       break;;
+    skip)
+      echo "Skip linking p10k theme"
+      break;;
     *)
       echo "Invalid option $REPLY"
       ;;
@@ -161,3 +167,15 @@ hash node 2>/dev/null || { echo "No NodeJS installation detected. Alternative ht
 hash nginx 2>/dev/null || { echo "No nginx installation detected. "; }
 
 echo "kuntau dotfiles is now installed."
+
+
+###################
+# FUNCTIONS
+###################
+
+function makeSymlink() {
+  echo $*
+  # check if link exist
+  # handle os difference
+  # if TEST=true just echo result without making change
+}
