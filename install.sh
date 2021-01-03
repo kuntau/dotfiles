@@ -2,7 +2,29 @@
 
 # install dotfiles script
 
-TEST=false
+# FUNCTIONS #
+
+function makeSymlink {
+  # check if link exist
+  # handle os difference
+  # if TEST=true just echo result without making change
+  if [ "$DEBUG" = true ]; then
+    echo "::DEBUG: $OS:: ln -s $1 $2"
+  elif [ "$OS" = Darwin ]; then
+    # echo "::$OS ln -s $1 $2"
+    ln -sv "$1" "$2"
+  elif [ "$OS" = Linux ]; then
+    # ln -s --backup --suffix='.bak' "$1" "$2"
+    echo "::$OS ln -s $1 $2"
+  else
+    echo "ELSE FAILED"
+  fi
+
+}
+
+# CONFIGS #
+
+DEBUG=false
 OS=$(uname)
 HOSTNAME=$(hostname)
 DOTFILES_HOME=$HOME/dotfiles
@@ -20,6 +42,8 @@ CONFIG_FILES=(
   tmux.conf
   tigrc
 )
+
+# START INSTALL #
 
 echo "Checking requirements..."
 hash zsh 2>/dev/null || { echo >&2 "I require zsh but it's not installed.  Aborting."; exit 1; }
@@ -43,10 +67,12 @@ do
     echo "File exists.. The file .$i will be backup to .$i.bak"
     mv $HOME/.$i $HOME/.$i.bak
   fi
-  ln -s --backup --suffix='.bak' $DOTFILES_HOME/config/$i $HOME/.$i
+  # ln -s --backup --suffix='.bak' $DOTFILES_HOME/config/$i $HOME/.$i
+  makeSymlink "$DOTFILES_HOME/config/$i" "$HOME/.$i"
   echo ""
 done
 
+echo "Symlinking Vim to NeoVim next.."
 echo "Continue installation? "
 select yn in "Yes" "No"; do
   case $yn in
@@ -54,9 +80,13 @@ select yn in "Yes" "No"; do
       echo "Symlinking vim to neovim"
       if [[ -e $XDG_CONFIG_HOME/nvim/init.vim ]]; then
         echo "File exists.. Skip installing"
+      elif [ ! -d $HOME/.vim ]; then
+        echo "Vim config dir not found, setup Vim first? Skipping..."
       else
-        ln -s $HOME/.vim $XDG_CONFIG_HOME/nvim
-        ln -s $HOME/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+        # ln -s $HOME/.vim $XDG_CONFIG_HOME/nvim
+        # ln -s $HOME/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+        makeSymlink "$HOME/.vim" "$XDG_CONFIG_HOME/nvim"
+        makeSymlink "$HOME/.vimrc" "$XDG_CONFIG_HOME/nvim/init.vim"
       fi
       echo ""
       break;;
@@ -105,7 +135,8 @@ if [[ -e $HOME/.ssh/config ]]; then
   echo "SSH config exist.. Skip installing"
 else
   [[ ! -d $HOME/.ssh ]] && mkdir -p $HOME/.ssh
-  ln -s $DOTFILES_HOME/ssh-config $HOME/.ssh/config
+  # ln -s $DOTFILES_HOME/ssh-config $HOME/.ssh/config
+  makeSymlink "$DOTFILES_HOME/ssh-config" "$HOME/.ssh/config"
 fi
 echo ""
 
@@ -142,13 +173,16 @@ echo "Select p10k theme"
 select opt in basic powerline nerdfont; do
   case $opt in
     basic)
-      ln -s --backup --suffix='.bak' $THEME_DIR/p10k.basic.zsh $HOME/.p10k.zsh;
+      # ln -s --backup --suffix='.bak' $THEME_DIR/p10k.basic.zsh $HOME/.p10k.zsh;
+      makeSymlink "$THEME_DIR/p10k.basic.zsh" "$HOME/.p10k.zsh"
       break;;
     powerline)
-      ln -s --backup --suffix='.bak' $THEME_DIR/p10k.powerline.zsh $HOME/.p10k.zsh;
+      # ln -s --backup --suffix='.bak' $THEME_DIR/p10k.powerline.zsh $HOME/.p10k.zsh;
+      makeSymlink "$THEME_DIR/p10k.powerline.zsh" "$HOME/.p10k.zsh"
       break;;
     nerdfont)
-      ln -s --backup --suffix='.bak' $THEME_DIR/p10k.nerdfont.zsh $HOME/.p10k.zsh;
+      # ln -s --backup --suffix='.bak' $THEME_DIR/p10k.nerdfont.zsh $HOME/.p10k.zsh;
+      makeSymlink "$THEME_DIR/p10k.nerdfont.zsh" "$HOME/.p10k.zsh"
       break;;
     skip)
       echo "Skip linking p10k theme"
@@ -168,14 +202,3 @@ hash nginx 2>/dev/null || { echo "No nginx installation detected. "; }
 
 echo "kuntau dotfiles is now installed."
 
-
-###################
-# FUNCTIONS
-###################
-
-function makeSymlink() {
-  echo $*
-  # check if link exist
-  # handle os difference
-  # if TEST=true just echo result without making change
-}
