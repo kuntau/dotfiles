@@ -57,9 +57,12 @@ if [[ $OS_NAME == Linux ]]; then
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL="/home/kuntau/.deno"
 elif [[ $OS_NAME == Darwin ]]; then
-  export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
+  # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
   # set android dev path
   export ANDROID_HOME=~/Library/Android/sdk
+
+  # pip
+  export PATH=$PATH:$HOME/Library/Python/3.9/bin
 
   # rust
   # golang
@@ -68,8 +71,8 @@ elif [[ $OS_NAME == Darwin ]]; then
   # Ruby
   # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
   # USE RUBY GEM AS USER --user-install
-  GEM_HOME=$HOME/.gem/ruby/2.6.0/
-  export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
+  # GEM_HOME=$HOME/.gem/ruby/2.6.0/
+  # export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
   # GEMPATH='~/.gem/ruby/2.1.0'
   # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
 
