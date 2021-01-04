@@ -136,7 +136,7 @@ if [[ -e $HOME/.ssh/config ]]; then
 else
   [[ ! -d $HOME/.ssh ]] && mkdir -p $HOME/.ssh
   # ln -s $DOTFILES_HOME/ssh-config $HOME/.ssh/config
-  makeSymlink "$DOTFILES_HOME/ssh-config" "$HOME/.ssh/config"
+  makeSymlink "$DOTFILES_HOME/config/ssh-config" "$HOME/.ssh/config"
 fi
 echo ""
 
