@@ -78,6 +78,7 @@ elif [[ $OS_NAME == Darwin ]]; then
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+  export HOMEBREW_NO_AUTO_UPDATE=1
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
