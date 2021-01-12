@@ -49,6 +49,7 @@ zplug load
 
 # Set ENV VARIABLE {{{
 OS_NAME=$(uname)
+HOST_NAME=$(hostname)
 DOTFILES_HOME=$HOME/dotfiles
 
 if [[ $OS_NAME == Linux ]]; then
@@ -102,9 +103,14 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # nnn - https://github.com/jarun/nnn
 export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum'
-export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;D:/HQPOOL/DATA;p:/HQPOOL;t:/HQPOOL/Downloads'
 export NNN_FIFO='/tmp/nnn.fifo'
-export NNN_OPTS='cErxQHF'
+export NNN_OPTS='cdEHFrxQU'
+export NNN_OPENER='nuke'
+if [[ $HOST_NAME == 'hqsvr' ]]; then
+  export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
+elif [[ $HOST_NAME == 'HQ' ]]; then
+  export NNN_BMS='d:~/dotfiles;D:/Volume/HOME/Downloads'
+fi
 
 # bat - https://github.com/sharkdp/bat
 export BAT_THEME="Monokai Extended"
