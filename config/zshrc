@@ -56,11 +56,16 @@ if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
   # export PATH=~/.local/bin:$PATH
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
-  export DENO_INSTALL="/home/kuntau/.deno"
+  export DENO_INSTALL='/home/kuntau/.deno'
 elif [[ $OS_NAME == Darwin ]]; then
   # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
   # set android dev path
-  export ANDROID_HOME=~/Library/Android/sdk
+  if [[ $HOST_NAME == 'HQ' ]]; then
+    export ANDROID_HOME=/Volumes/HOME/Android/SDK
+    export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
+  elif [[ $HOST_NAME == 'rMBP' ]]; then
+    export ANDROID_HOME=~/Library/Android/sdk
+  fi
 
   # pip
   export PATH=$PATH:$HOME/Library/Python/3.9/bin
