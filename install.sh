@@ -14,8 +14,8 @@ function makeSymlink {
     # echo "::$OS ln -s $1 $2"
     ln -sv "$1" "$2"
   elif [ "$OS" = Linux ]; then
-    # ln -s --backup --suffix='.bak' "$1" "$2"
-    echo "::$OS ln -s $1 $2"
+    # echo "::$OS ln -s $1 $2"
+    ln -sv --backup --suffix='.bak' "$1" "$2"
   else
     echo "ELSE FAILED"
   fi
