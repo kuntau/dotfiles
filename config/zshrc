@@ -145,11 +145,11 @@ fi
 
 # Update $PATH {{{
 hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
-hash npm      2>/dev/null && export PATH=$PATH:$HOME/.npm-global/bin      # npm global binary path
-[[ -f ~/.local/bin/pip ]] && export PATH=$PATH:$HOME/.local/bin           # pip app binary path
-hash cargo    2>/dev/null && export PATH=$PATH:$HOME/.cargo/bin           # rust cargo binary path
-hash composer 2>/dev/null && export PATH=$PATH:$HOME/.composer/vendor/bin # rust cargo binary path
-hash snap     2>/dev/null && export PATH=$PATH:/snap/bin                  # snap binary path
+hash npm      2>/dev/null && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
+[[ -f ~/.local/bin/pip ]] && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
+hash cargo    2>/dev/null && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
+hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # rust cargo binary path
+hash snap     2>/dev/null && export PATH=/snap/bin:$PATH                  # snap binary path
 export PATH=$PATH:$DENO_INSTALL/bin                                       # deno binary path
 export PATH=$DOTFILES_HOME/bin:$PATH
 # }}}
