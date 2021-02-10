@@ -53,6 +53,7 @@ alias yt1='noglob youtube-dl -f 46' # 1080p full hd
 alias yta='noglob youtube-dl --extract-audio'
 alias ytav='noglob youtube-dl --extract-audio --keep-video'
 alias ytmp3='noglob youtube-dl --extract-audio --audio-format mp3'
+alias ytopus='noglob youtube-dl --extract-audio --audio-format opus'
 
 # aria2c -x = number of concurrent connections, -j = number of concurrent download
 alias a1='noglob aria2c -c -j1 -x8 --file-allocation=none --auto-file-renaming=false'
