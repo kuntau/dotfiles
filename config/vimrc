@@ -39,7 +39,9 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'yuki-yano/fzf-preview.vim'
+  Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+  let g:fzf_preview_use_dev_icons=1
+  let g:fzf_preview_dev_icons_limit=1000
 endif
 Plug 'kuntau/vim-osc52'
 vmap <c-c> <Plug>(YankOSC52)
@@ -718,7 +720,8 @@ if executable('fzf')
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'horizontal' } }
   let g:fzf_preview_window = 'right:60%'
   if has('nvim') || v:version >= 800
-    nmap <silent> <c-p> :Files<CR>
+    " nmap <silent> <c-p> :Files<CR>
+    nmap <silent> <c-p> :FzfPreviewDirectoryFilesRpc<CR>
     nmap <silent> <space>fc :Commands<CR>
     nmap <silent> <space>ff :Buffers<CR>
     nmap <silent> <space>fm :Maps<CR>
