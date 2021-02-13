@@ -108,7 +108,7 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # nnn - https://github.com/jarun/nnn
-export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum'
+export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum;m:mediainf;z:fzz;k:pskill;n:nuke'
 export NNN_OPTS='acdEHFrxQU'
 export NNN_OPENER='nuke'
 if [[ $HOST_NAME == 'hqsvr' ]]; then
