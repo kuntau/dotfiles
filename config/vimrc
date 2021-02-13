@@ -31,7 +31,7 @@ call plug#begin('~/.vim/bundle')
 
 " VCS
 Plug 'tpope/vim-fugitive'
-Plug 'mattn/gist-vim'
+" Plug 'mattn/gist-vim'
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 
 " System
@@ -39,6 +39,7 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  Plug 'yuki-yano/fzf-preview.vim'
 endif
 Plug 'kuntau/vim-osc52'
 vmap <c-c> <Plug>(YankOSC52)
@@ -47,9 +48,7 @@ Plug 'mbbill/undotree',       { 'on': 'UndotreeToggle' }
   let g:undotree_WindowsLayout = 2
   nnoremap U :UndotreeToggle<CR>
 Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
-Plug 'Olical/vim-enmasse', { 'on': 'EnMasse' }
-let g:AutoPairsMapCh=0 " Remove <c-h> map in insert mode to cancel pair
-let g:AutoPairsMapCR=0
+" Plug 'Olical/vim-enmasse', { 'on': 'EnMasse' }
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
 Plug 'lvht/mru'
@@ -62,7 +61,11 @@ else
   " Plug 'scrooloose/syntastic'
   " Plug 'Valloric/YouCompleteMe', { 'on': [] }
 endif
-Plug 'jiangmiao/auto-pairs'
+Plug 'LunarWatcher/auto-pairs', { 'tag': '*' }
+" let g:AutoPairsMapCh=0 " Remove <c-h> map in insert mode to cancel pair
+" let g:AutoPairsMapCR=0
+let g:AutoPairsMapBS=1
+let g:AutoPairsMultilineClose = 1
 Plug 'liuchengxu/vista.vim'
 Plug 'honza/vim-snippets'
 Plug 'wellle/tmux-complete.vim'
@@ -105,7 +108,7 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'puppetlabs/puppet-syntax-vim'
 
 " html bundles
-Plug 'mattn/emmet-vim',                        { 'for': [ 'html', 'php', 'vue', 'css', 'stylus', 'scss', 'sass' ] }
+Plug 'mattn/emmet-vim',                        { 'for': [ 'html', 'php', 'vue', 'css', 'stylus', 'scss', 'sass', 'javascript', 'javascript.jsx' ] }
 Plug 'Valloric/MatchTagAlways',                { 'for': [ 'html', 'xml' ] }
 " Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
 " Plug 'othree/html5.vim',                       { 'for': 'html' }
@@ -219,7 +222,7 @@ if !has("gui_running")
     set termguicolors
   endif
   " set background=dark
-  colorscheme gruvbox
+  colorscheme ayu
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
@@ -442,6 +445,9 @@ autocmd FileType python setlocal foldmethod=indent shiftwidth=4 expandtab tabsto
 " autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
 " autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
 " autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+" JSONc config
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Puppet configurations
 """""""""""""""""""""""
@@ -886,16 +892,19 @@ let g:coc_global_extensions = [
     \'coc-emmet',
     \'coc-yank',
     \'coc-git',
-    \'coc-smartf',
+    \'coc-tabnine',
     \'coc-prettier',
     \'coc-eslint',
     \'coc-stylelint',
     \'coc-markdownlint',
     \'coc-tsserver',
+    \'coc-denoland',
     \'coc-json',
     \'coc-vetur',
     \'coc-html',
     \'coc-css',
+    \'coc-cssmodules',
+    \'coc-tailwindcss',
     \'coc-xml',
     \'coc-go',
     \'coc-phpls',
@@ -903,9 +912,13 @@ let g:coc_global_extensions = [
     \'coc-flutter',
     \'coc-python',
     \'coc-rls',
+    \'coc-sh',
     \'coc-yaml',
     \'coc-vimlsp'
     \]
+    " DISABLED
+    " \'coc-pairs',
+    " \'coc-smartf',
 " }}}
 
 " CoC Extensions Settings {{{
