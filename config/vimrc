@@ -38,10 +38,11 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 " if executable('fzf') && has('nvim') && !has('gui_running')
 if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+  " Plug 'junegunn/fzf.vim'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
   let g:fzf_preview_use_dev_icons=1
   let g:fzf_preview_dev_icons_limit=1000
+  let g:fzf_preview_floating_window_rate=0.8
 endif
 Plug 'kuntau/vim-osc52'
 vmap <c-c> <Plug>(YankOSC52)
@@ -477,17 +478,17 @@ nnoremap <space><space> :
 nnoremap <leader>ei :e ~/.vimrc<CR>
 nnoremap <leader>so :up!<cr> :source %<CR>
 nnoremap <leader>S :Startify<CR>
-nnoremap \\ :Buffers<CR>
+nnoremap \\ :FzfPreviewGitFilesRpc<CR>
 
 nnoremap <F4> :up!<CR>
 inoremap <F4> <c-o>:up!<CR>
 nnoremap <TAB><TAB> <c-^>
 
 " Movement in insert mode
-inoremap <m-h> <C-o>h
-inoremap <m-l> <C-o>l
-inoremap <m-j> <C-o>j
-inoremap <m-k> <C-o>k
+" inoremap <m-h> <C-o>h
+" inoremap <m-l> <C-o>l
+" inoremap <m-j> <C-o>j
+" inoremap <m-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
 
 " Terminal mode movement
@@ -658,11 +659,7 @@ let g:startify_lists = [
   \ ]
 
 let g:startify_bookmarks = [
-  \ {'d': '~/dotfiles/'},
-  \ '~/.config/nvim/bundle/',
-  \ '~/Coding/gigpos/',
-  \ '~/Coding/gigpos-ui/',
-  \ '~/Coding/donbarberweb/'
+  \ {'d': '~/dotfiles/'}
   \]
 
 let g:startify_commands = [
@@ -715,26 +712,34 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " FZF {{{
-if executable('fzf')
+if executable('fzf') && (has('nvim') || v:version >= 800)
   " https://github.com/junegunn/fzf.vim/issues/821#issuecomment-581481211
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'horizontal' } }
-  let g:fzf_preview_window = 'right:60%'
-  if has('nvim') || v:version >= 800
-    " nmap <silent> <c-p> :Files<CR>
-    nmap <silent> <c-p> :FzfPreviewDirectoryFilesRpc<CR>
-    nmap <silent> <space>fc :Commands<CR>
-    nmap <silent> <space>ff :Buffers<CR>
-    nmap <silent> <space>fm :Maps<CR>
-    nmap <silent> <space>ft :BTags<CR>
-    nmap <silent> <space>fv :Vista finder<CR>
-  endif
-endif
+  nmap <space>f [fzf-p]
+  xmap <space>f [fzf-p]
+
+  nnoremap <silent> [fzf-p]p     :<C-u>FzfPreviewFromResourcesRpc project_mru git<CR>
+  nnoremap <silent> [fzf-p]gs    :<C-u>FzfPreviewGitStatusRpc<CR>
+  nnoremap <silent> [fzf-p]ga    :<C-u>FzfPreviewGitActionsRpc<CR>
+  nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewBuffersRpc<CR>
+  nnoremap <silent> [fzf-p]B     :<C-u>FzfPreviewAllBuffersRpc<CR>
+  nnoremap <silent> [fzf-p]o     :<C-u>FzfPreviewFromResourcesRpc buffer project_mru<CR>
+  nnoremap <silent> [fzf-p]<C-o> :<C-u>FzfPreviewJumpsRpc<CR>
+  nnoremap <silent> [fzf-p]g;    :<C-u>FzfPreviewChangesRpc<CR>
+  nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+  nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+  nnoremap          [fzf-p]gr    :<C-u>FzfPreviewProjectGrepRpc<Space>
+  xnoremap          [fzf-p]gr    "sy:FzfPreviewProjectGrepRpc<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+  nnoremap <silent> [fzf-p]t     :<C-u>FzfPreviewVistaBufferCtagsRpc<CR>
+  nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFixRpc<CR>
+  nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationListRpc<CR>
 
 " All files
 command! -nargs=? -complete=dir AF
   \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
   \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
   \ })))
+
+endif
 " }}}
 
 " SnipMate
