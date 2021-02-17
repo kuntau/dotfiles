@@ -43,6 +43,8 @@ if executable('fzf') && (has('nvim') || (v:version >= 800))
   let g:fzf_preview_use_dev_icons=1
   let g:fzf_preview_dev_icons_limit=1000
   let g:fzf_preview_floating_window_rate=0.8
+  let g:fzf_preview_directory_files_command = 'fd --type f'
+  " let g:fzf_preview_directory_files_command = 'rg --files --hidden --follow --no-messages -g \!"* *"'
 endif
 Plug 'kuntau/vim-osc52'
 vmap <c-c> <Plug>(YankOSC52)
@@ -226,7 +228,7 @@ if !has("gui_running")
     set termguicolors
   endif
   " set background=dark
-  colorscheme ayu
+  colorscheme one
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
@@ -719,6 +721,7 @@ if executable('fzf') && (has('nvim') || v:version >= 800)
   nmap <space>f [fzf-p]
   xmap <space>f [fzf-p]
 
+  nnoremap <silent> <C-p>        :<C-u>FzfPreviewDirectoryFilesRpc<CR>
   nnoremap <silent> [fzf-p]p     :<C-u>FzfPreviewFromResourcesRpc project_mru git<CR>
   nnoremap <silent> [fzf-p]gs    :<C-u>FzfPreviewGitStatusRpc<CR>
   nnoremap <silent> [fzf-p]ga    :<C-u>FzfPreviewGitActionsRpc<CR>
