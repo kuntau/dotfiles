@@ -41,6 +41,9 @@
   default = current
 [credential]
 	helper = osxkeychain
+[credential "https://github.com"]
+	helper = cache --timeout=3600
+  username = kuntau
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
