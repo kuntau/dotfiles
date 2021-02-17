@@ -94,6 +94,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'sgur/vim-editorconfig'
 Plug 'AndrewRadev/splitjoin.vim' " gS for splitting & gJ for joining
 Plug 'tomtom/tcomment_vim' " more feature but slower
+let g:tcomment#filetype#guess_typescriptreact = 1
 " Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -251,7 +252,7 @@ else
     " set lines=50 columns=100
   endif
   let g:airline#extensions#tmuxline#enabled = 0
-  colorscheme material-monokai
+  colorscheme one
 endif
 
 " (Neo)Vim settings {{{
@@ -676,7 +677,8 @@ let g:startify_session_autoload = 1
 let g:startify_change_to_dir = 0
 let g:startify_update_oldfiles = 1
 let g:startify_enable_unsafe = 1
-let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
+" let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
+let g:startify_custom_header = 0
 " }}}
 
 " Vista {{{
