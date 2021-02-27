@@ -958,16 +958,6 @@ nmap <silent> <space>ee :CocCommand explorer<CR>
 " }}}
 " }}}
 
-
-" UltiSnips
-" let g:UltiSnipsExpandTrigger='<tab>'
-" let g:UltiSnipsExpandTrigger='<C-j>'
-" let g:UltiSnipsJumpForwardTrigger='<c-j>'
-" let g:UltiSnipsJumpBackwardTrigger='<c-k>'
-" let g:UltiSnipsEditSplit='vertical'
-" let g:UltiSnipsSnippetDirectory=['bundle/vim-snippets/UltiSnips']
-" let g:UltiSnipsListSnippets='<NUL>'
-
 " Powerline & airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#hunks#coc_git = 1
