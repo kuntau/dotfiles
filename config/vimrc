@@ -97,6 +97,7 @@ Plug 'sgur/vim-editorconfig'
 Plug 'AndrewRadev/splitjoin.vim' " gS for splitting & gJ for joining
 Plug 'tomtom/tcomment_vim' " more feature but slower
 let g:tcomment#filetype#guess_typescriptreact = 1
+let g:tcomment#filetype#guess_javascriptreact = 1
 " Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
