@@ -480,7 +480,7 @@ nnoremap \\ :FzfPreviewGitFilesRpc<CR>
 
 nnoremap <F4> :up!<CR>
 inoremap <F4> <c-o>:up!<CR>
-nnoremap <TAB><TAB> <c-^>
+nnoremap g<TAB> <c-^>
 
 " Movement in insert mode
 " inoremap <m-h> <C-o>h
