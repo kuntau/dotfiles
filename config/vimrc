@@ -39,12 +39,6 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
   " Plug 'junegunn/fzf.vim'
-  Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
-  let g:fzf_preview_use_dev_icons=1
-  let g:fzf_preview_dev_icons_limit=1000
-  let g:fzf_preview_floating_window_rate=0.8
-  let g:fzf_preview_directory_files_command = 'fd --type f'
-  " let g:fzf_preview_directory_files_command = 'rg --files --hidden --follow --no-messages -g \!"* *"'
 endif
 Plug 'kuntau/vim-osc52'
 vmap <c-c> <Plug>(YankOSC52)
@@ -719,25 +713,35 @@ nmap ga <Plug>(EasyAlign)
 " FZF {{{
 if executable('fzf') && (has('nvim') || v:version >= 800)
   " https://github.com/junegunn/fzf.vim/issues/821#issuecomment-581481211
+
+  " Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+  let g:fzf_preview_use_dev_icons=1
+  let g:fzf_preview_dev_icons_limit=1000
+  let g:fzf_preview_floating_window_rate=0.8
+  let g:fzf_preview_directory_files_command = 'fd --type f'
+  " let g:fzf_preview_directory_files_command = 'rg --files --hidden --follow --no-messages -g \!"* *"'
+
   nmap <space>f [fzf-p]
   xmap <space>f [fzf-p]
 
-  nnoremap <silent> <C-p>        :<C-u>FzfPreviewDirectoryFilesRpc<CR>
-  nnoremap <silent> [fzf-p]p     :<C-u>FzfPreviewFromResourcesRpc project_mru git<CR>
-  nnoremap <silent> [fzf-p]gs    :<C-u>FzfPreviewGitStatusRpc<CR>
-  nnoremap <silent> [fzf-p]ga    :<C-u>FzfPreviewGitActionsRpc<CR>
-  nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewBuffersRpc<CR>
-  nnoremap <silent> [fzf-p]B     :<C-u>FzfPreviewAllBuffersRpc<CR>
-  nnoremap <silent> [fzf-p]o     :<C-u>FzfPreviewFromResourcesRpc buffer project_mru<CR>
-  nnoremap <silent> [fzf-p]<C-o> :<C-u>FzfPreviewJumpsRpc<CR>
-  nnoremap <silent> [fzf-p]g;    :<C-u>FzfPreviewChangesRpc<CR>
-  nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-  nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-  nnoremap          [fzf-p]gr    :<C-u>FzfPreviewProjectGrepRpc<Space>
-  xnoremap          [fzf-p]gr    "sy:FzfPreviewProjectGrepRpc<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
-  nnoremap <silent> [fzf-p]t     :<C-u>FzfPreviewVistaBufferCtagsRpc<CR>
-  nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFixRpc<CR>
-  nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationListRpc<CR>
+  " nnoremap <silent> <C-p>        :<C-u>FzfPreviewDirectoryFilesRpc<CR>
+  nnoremap <silent> <C-p>        :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
+  nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+  nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
+  nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
+  nnoremap <silent> [fzf-p]b     :<C-u>CocCommand fzf-preview.Buffers<CR>
+  nnoremap <silent> [fzf-p]B     :<C-u>CocCommand fzf-preview.AllBuffers<CR>
+  nnoremap <silent> [fzf-p]o     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<CR>
+  nnoremap <silent> [fzf-p]<C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+  nnoremap <silent> [fzf-p]g;    :<C-u>CocCommand fzf-preview.Changes<CR>
+  nnoremap <silent> [fzf-p]/     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+  nnoremap <silent> [fzf-p]*     :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+  nnoremap          [fzf-p]gr    :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+  xnoremap          [fzf-p]gr    "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+  nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.BufferTags<CR>
+  nnoremap <silent> [fzf-p]q     :<C-u>CocCommand fzf-preview.QuickFix<CR>
+  nnoremap <silent> [fzf-p]l     :<C-u>CocCommand fzf-preview.LocationList<CR>
+  nnoremap <silent> [fzf-p]t     :<C-u>CocCommand fzf-preview.VistaBufferCtags<CR>
 
 " All files
 command! -nargs=? -complete=dir AF
@@ -900,12 +904,14 @@ let g:markdown_fenced_languages = [ 'vim', 'help' ] " coc-vimlsp config
 " CoC Extensions list: {{{
 let g:coc_global_extensions = [
     \'coc-explorer',
+    \'coc-fzf-preview',
     \'coc-snippets',
     \'coc-lists',
     \'coc-highlight',
     \'coc-emmet',
     \'coc-yank',
     \'coc-git',
+    \'coc-pairs',
     \'coc-tabnine',
     \'coc-prettier',
     \'coc-eslint',
