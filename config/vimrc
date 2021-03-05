@@ -752,16 +752,19 @@ command! -nargs=? -complete=dir AF
 endif
 " }}}
 
-" SnipMate
+" Snippet: SnipMate
 let g:snippets_dir = "~/.vim/bundle/snipmate-snippets"
 
-" CoC completion routine {{{
+" COC: CoC completion routine {{{
 if has('nvim') || (v:version >= 800)
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? coc#_select_confirm() :
         \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
+
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
   function! s:check_back_space() abort
     let col = col('.') - 1
@@ -937,7 +940,6 @@ let g:coc_global_extensions = [
     \'coc-vimlsp'
     \]
     " DISABLED
-    " \'coc-pairs',
     " \'coc-smartf',
 " }}}
 
