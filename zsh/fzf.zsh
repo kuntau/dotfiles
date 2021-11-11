@@ -156,3 +156,14 @@ fzf-history-widget-ext() {
 }
 zle     -N   fzf-history-widget-ext
 bindkey '^R' fzf-history-widget-ext
+
+function fg-bg {
+    if [[ $#BUFFER -eq 0 ]]; then
+        BUFFER=fg
+        zle accept-line
+    else
+        zle push-input
+    fi
+}
+zle -N fg-bg
+bindkey '^z' fg-bg
