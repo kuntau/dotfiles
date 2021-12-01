@@ -44,16 +44,16 @@ else
 fi
 
 # youtube-dl
-alias yt='noglob youtube-dl'
-alias ytx='proxychains4 youtube-dl'
-alias yt3='noglob youtube-dl -f 43' # 320p
-alias yt4='noglob youtube-dl -f 44' # 480p
-alias yt7='noglob youtube-dl -f 45' # 720p hd
-alias yt1='noglob youtube-dl -f 46' # 1080p full hd
-alias yta='noglob youtube-dl --extract-audio'
-alias ytav='noglob youtube-dl --extract-audio --keep-video'
-alias ytmp3='noglob youtube-dl --extract-audio --audio-format mp3'
-alias ytopus='noglob youtube-dl --extract-audio --audio-format opus'
+alias yt='noglob yt-dlp'
+alias ytx='proxychains4 yt-dlp'
+alias yt3='noglob yt-dlp -f 43' # 320p
+alias yt4='noglob yt-dlp -f 44' # 480p
+alias yt7='noglob yt-dlp -f 45' # 720p hd
+alias yt1='noglob yt-dlp -f 46' # 1080p full hd
+alias yta='noglob yt-dlp --extract-audio'
+alias ytav='noglob yt-dlp --extract-audio --keep-video'
+alias ytmp3='noglob yt-dlp --extract-audio --audio-format mp3'
+alias ytopus='noglob yt-dlp --extract-audio --audio-format opus'
 
 # aria2c -x = number of concurrent connections, -j = number of concurrent download
 alias a1='noglob aria2c -c -j1 -x8 --file-allocation=none --auto-file-renaming=false'
