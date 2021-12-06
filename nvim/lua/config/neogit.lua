@@ -2,7 +2,7 @@
 
 require('neogit').setup({
   commit_popup = {
-    kind = "split"
+    kind = "floating"
   },
   kind = "split_above",
 })
