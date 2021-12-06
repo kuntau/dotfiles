@@ -60,6 +60,7 @@ if [[ $OS_NAME == Linux ]]; then
   export DENO_INSTALL='/home/kuntau/.deno'
 elif [[ $OS_NAME == Darwin ]]; then
   # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
+  export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS
   # set android dev path
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
@@ -168,3 +169,5 @@ source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
 source $HOME/.secret                  # don't commit this file
 typeset -U PATH                       # remove dups from $PATH
 # }}}
+
+alias luamake=/Users/kuntau/coding/forks/lua-language-server/3rd/luamake/luamake
