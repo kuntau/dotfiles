@@ -1,13 +1,6 @@
 -- nvim-tree configs
 
 
-vim.g.nvim_tree_ignore = {
-  '.git',
-  '.hg',
-  '.svn',
-  'node_modules'
-}
-
 vim.api.nvim_set_keymap('n', '<F3>', ':NvimTreeToggle<CR>', {
   noremap = true,
   silent = true
@@ -21,6 +14,14 @@ require('nvim-tree').setup({
   hijack_cursor = true,
   disable_netrw = true,
   hijack_netrw = true,
+
+  nvim_tree_ignore = {
+    '.git',
+    '.hg',
+    '.svn',
+    'node_modules'
+  },
+
   ignore_ft_on_setup = { 'startify', 'help' },
 
   update_to_buf_dir = {

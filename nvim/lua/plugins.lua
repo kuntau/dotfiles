@@ -29,9 +29,10 @@ Plug('tpope/vim-unimpaired')
 Plug('tpope/vim-eunuch')
 Plug('tpope/vim-rsi')
 Plug('terryma/vim-multiple-cursors')
+Plug('ggandor/lightspeed.nvim')
 
 -- A solid language pack for Vim
--- Plug 'sheerun/vim-polyglot'
+-- Plug 'sheerun/vim-polyglot' -- Might not needed in favor of treesitter
 
 -- Syntaxes and such
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
@@ -40,19 +41,25 @@ Plug('tpope/vim-repeat')
 Plug('wellle/targets.vim') -- new text object
 Plug('numToStr/Comment.nvim')
 Plug('windwp/nvim-autopairs') -- autopairs plugin
+Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
 
 -- LSP & completions
 Plug('neovim/nvim-lspconfig')
+Plug('glepnir/lspsaga.nvim')
 Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
+Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
 Plug('hrsh7th/nvim-cmp')
-Plug('wellle/tmux-complete.vim')
+Plug('andersevenrud/cmp-tmux')
 
 -- VCS
 Plug('TimUntersberger/neogit')
 Plug('lewis6991/gitsigns.nvim')
+
+-- Diagnostics
+Plug('folke/trouble.nvim')
 
 -- Snippets
 Plug('hrsh7th/cmp-vsnip')
@@ -65,17 +72,20 @@ Plug('gruvbox-community/gruvbox')
 Plug('arcticicestudio/nord-vim')
 Plug('rakr/vim-one')
 Plug('catppuccin/nvim')
+Plug('EdenEast/nightfox.nvim')
 
 -- Misc bundle
 Plug('christoomey/vim-tmux-navigator')
 Plug('junegunn/vim-easy-align')
 
 -- UI & UX
-Plug('ggandor/lightspeed.nvim')
 Plug('p00f/nvim-ts-rainbow')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('lukas-reineke/indent-blankline.nvim')
+Plug('kuntau/lualine.nvim')
+Plug('kdheepak/tabline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
+-- Plug('ryanoasis/vim-devicons') -- for file icons
 
 vim.call('plug#end')
 
@@ -85,41 +95,24 @@ vim.call('plug#end')
 vim.g.undotree_WindowsLayout = 2
 -- nnoremap U :UndotreeToggle<CR>
 
-require('nvim-tree').setup() -- nvim-tree
-require('telescope').setup() -- telescope
 require('Comment').setup() -- Comment.nvim setup
 require('nvim-autopairs').setup() -- Autopairs
 require('colorizer').setup()
-require('neogit').setup({
-  commit_popup = {
-    kind = "split"
-  },
-  kind = "split_above",
+require('tabline').setup({
+  enable = false,
 })
-require("indent_blankline").setup({
-  show_current_context = true,
-  -- show_current_context_start = true
-})
-require('catppuccin').setup({
-  integrations = {
-    telescope = true,
-    neogit = true,
-    gitsigns = true,
-    lightspeed = true,
-    indent_blankline = {
-      enabled = true,
-      colored_indent_levels = true
-    },
-    nvimtree = {
-      enabled = true,
-      show_root = true
-    }
-  }
-})
+require('lspsaga').init_lsp_saga()
 
 require('config.lsp')
-require('config.nvim-cmp')
+require('config.cmp')
+require('config.tabnine')
+require('config.neogit')
+require('config.telescope')
 require('config.treesitter')
+require('config.nvimtree')
 require('config.startify')
 require('config.gitsigns')
-
+require('config.trouble')
+require('config.indent')
+require('config.statusline')
+require('config.catppuccin')

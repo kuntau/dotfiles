@@ -1,7 +1,16 @@
 -- telescope configs
 
+local action = require('telescope.actions')
+local trouble = require('trouble.providers.telescope')
+
 require('telescope').setup ({
   defaults = {
+    mappings = {
+      i = {
+        ['<ESC>'] = action.close,
+        ['<c-t>'] = trouble.open_with_trouble,
+      },
+    },
     vimgrep_arguments = {
       'rg',
       '--color=never',
@@ -11,7 +20,7 @@ require('telescope').setup ({
       '--column',
       '--smart-case'
     },
-    prompt_position    = "bottom",
+    prompt_position    = "top",
     prompt_prefix      = "> ",
     selection_caret    = "> ",
     entry_prefix       = "  ",

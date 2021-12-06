@@ -26,7 +26,6 @@ vim.g.startify_bookmarks = {
 vim.g.startify_commands = {
   { p = { 'Upgrade Plug', 'PlugUpgrade' }},
   { u = { 'Update Plugins', 'PlugUpdate' }},
-  { c = { 'Update CoC Extensions', 'CocUpdateSync' }},
 }
 
 vim.g.startify_fortune_use_unicode = 1
@@ -37,5 +36,5 @@ vim.g.startify_session_autoload = 1
 vim.g.startify_change_to_dir = 0
 vim.g.startify_update_oldfiles = 1
 vim.g.startify_enable_unsafe = 1
-vim.g.startify_custom_header = 0
--- let g:startify_custom_header = 'startify#center(startify#fortune#boxed())'
+vim.g.startify_custom_header = 1
+vim.g.startify_custom_header = 'startify#center(startify#fortune#boxed())'

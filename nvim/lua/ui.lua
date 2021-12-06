@@ -11,16 +11,18 @@ else
   vim.opt.background = 'dark'
 end
 
-if F.has('gui_running') == 0 then -- means running in terminal
-  if F.has('termguicolors') == 1 then
-    vim.opt.termguicolors = true
-  end
-  vim.cmd 'colo catppuccin'
-else -- running in GUI
-  vim.opt.guioptions:remove('t')
+if F.has('gui_running') == 1 then -- means running in terminal
+  -- vim.opt.guioptions:remove('t')
   if F.has('win32') or F.has('win64') then
     vim.opt.guifont = 'Consolas:h10'
+  elseif F.has('mac') then
+    vim.opt.macmeta = true
+    vim.opt.macligatures = true
+    vim.opt.macthinstrokes = true
+    vim.opt.guifont = 'OperatorMonoLigaturized Nerd Font:h13'
   end
+else -- running in terminal
+  vim.cmd 'colo catppuccin'
 end
 
 -- Colorscheme

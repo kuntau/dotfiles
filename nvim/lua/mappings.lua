@@ -31,14 +31,15 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 -- qq to record, Q to replay
 nmap('Q', '@q')
 
--- Plugins 
+-- Plugins
 nmap('<Leader>ee', ':NvimTreeToggle<cr>')
 nmap('<Leader>fz', ':FZF<cr>')
 nmap('<Leader>S', ':Startify<cr>')
+nmap('<Leader>G', ':Neogit kind=split_above<cr>')
 
 -- Telescope bindings
 nmap('<c-p>', ':Telescope find_files<cr>')
-nmap('<Leader>fa', ':Telescope find_files<cr>')
+nmap('<Leader>fa', ':Telescope builtin<cr>')
 nmap('<Leader>ff', ':Telescope git_files<cr>')
 nmap('<Leader>ft', ':Telescope find_browser<cr>')
 nmap('<Leader>fg', ':Telescope live_grep<cr>')
