@@ -1,7 +1,24 @@
 -- neovim status line configs
--- could be any of lualine, airline or lightline
+-- could be any of powerline, windline, lualine, airline or lightline
+
+require('wlsample.airline')
+
+--[[
+local ft_extension = {
+    sections = {lualine_a = {'filetype'}},
+    filetypes = {'startify', 'Trouble', 'undotree', 'vim-plug'}
+}
+
+local neogit_extension = {
+    sections = {lualine_a = {'branch'}},
+    filetypes = {'NeogitStatus'}
+}
 
 require('lualine').setup({
+  options = {
+    component_separators = '',
+    -- section_separators = { left = '', right = '' },
+  },
   tabline = {
     lualine_a = {},
     lualine_b = {},
@@ -12,11 +29,9 @@ require('lualine').setup({
   },
   extensions = {
     'nvim-tree',
-    'neogit',
-    'trouble',
-    'vim-plug',
-    'undotree',
-    'quickfix'
+    'quickfix',
+    ft_extension,
+    neogit_extension,
   }
 })
-
+]]
