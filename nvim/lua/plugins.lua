@@ -23,6 +23,7 @@ Plug('mhinz/vim-startify')
 Plug('mbbill/undotree', { on = 'UndotreeToggle' })
 Plug('kyazdani42/nvim-tree.lua')
 Plug('nvim-telescope/telescope.nvim')
+Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- Movements
 Plug('tpope/vim-unimpaired')
@@ -67,6 +68,7 @@ Plug('hrsh7th/vim-vsnip')
 Plug('rafamadriz/friendly-snippets')
 
 -- Colorschemes
+Plug('folke/lsp-colors.nvim')
 Plug('kuntau/ayu-vim', { branch = 'italic' })
 Plug('gruvbox-community/gruvbox')
 Plug('arcticicestudio/nord-vim')
@@ -82,7 +84,8 @@ Plug('junegunn/vim-easy-align')
 Plug('p00f/nvim-ts-rainbow')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('lukas-reineke/indent-blankline.nvim')
-Plug('kuntau/lualine.nvim')
+Plug('windwp/windline.nvim')
+-- Plug('nvim-lualine/lualine.nvim')
 Plug('kdheepak/tabline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
 -- Plug('ryanoasis/vim-devicons') -- for file icons
@@ -98,10 +101,6 @@ vim.g.undotree_WindowsLayout = 2
 require('Comment').setup() -- Comment.nvim setup
 require('nvim-autopairs').setup() -- Autopairs
 require('colorizer').setup()
-require('tabline').setup({
-  enable = false,
-})
-require('lspsaga').init_lsp_saga()
 
 require('config.lsp')
 require('config.cmp')
@@ -114,5 +113,6 @@ require('config.startify')
 require('config.gitsigns')
 require('config.trouble')
 require('config.indent')
+require('config.tabline')
 require('config.statusline')
 require('config.catppuccin')
