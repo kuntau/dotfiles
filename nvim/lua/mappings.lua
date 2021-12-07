@@ -43,5 +43,9 @@ nmap('<Leader>fa', ':Telescope builtin<cr>')
 nmap('<Leader>ff', ':Telescope git_files<cr>')
 nmap('<Leader>ft', ':Telescope find_browser<cr>')
 nmap('<Leader>fg', ':Telescope live_grep<cr>')
-nmap('<Leader>fb', ':Telescope buffers<cr>')
+nmap('<Leader>fb', ':Telescope buffers sort_lastused=true<cr>')
 nmap('<Leader>fh', ':Telescope help_tags<cr>')
+
+-- junegunn easy align
+vmap('<Enter>', '<Plug>(EasyAlign)')
+nmap('ga', '<Plug>(EasyAlign)')
