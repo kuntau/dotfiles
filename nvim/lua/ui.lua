@@ -21,6 +21,7 @@ if F.has('gui_running') == 1 then -- means running in terminal
     vim.opt.macthinstrokes = true
     vim.opt.guifont = 'OperatorMonoLigaturized Nerd Font:h13'
   end
+  vim.cmd 'colo catppuccin'
 else -- running in terminal
   vim.cmd 'colo catppuccin'
 end
