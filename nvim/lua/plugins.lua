@@ -1,7 +1,7 @@
-if vim.fn.empty(vim.fn.glob('~/.vim/autoload/plug.vim')) ~= 0 then
+if vim.fn.empty(vim.fn.glob('~/.local/share/nvim/site/autoload/plug.vim')) ~= 0 then
   vim.cmd [[
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim 
+    \ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall
   ]]
 end
