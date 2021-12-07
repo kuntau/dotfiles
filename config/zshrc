@@ -58,9 +58,10 @@ if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/.local/bin:$PATH
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL='/home/kuntau/.deno'
+  export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/Linux # Sumneko lua path
 elif [[ $OS_NAME == Darwin ]]; then
   # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
-  export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS
+  export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS # Sumneko lua path
   # set android dev path
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
