@@ -1,10 +1,18 @@
 -- utils.lua
 
 local M = {}
-local F = vim.fn
+-- local F = vim.fn
 
 M.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
+end
+
+M.termcode = function(key)
+  vim.api.nvim_replace_termcodes(key, true, true, true)
+end
+
+M.feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
 -- Help in new tabs
