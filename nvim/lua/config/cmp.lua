@@ -1,28 +1,18 @@
 -- nvim-cmp
 
--- for vim-vsnip
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
--- end for vim-vsnip
-
 local cmp = require('cmp')
-local types = require('cmp.types')
 local lspkind = require('lspkind')
+-- local types = require('cmp.types')
 
+local feedkey = require("utils").feedkey
 local source_mapping = {
-  buffer = "[BUF]",
+  buffer = "[Buf]",
   nvim_lsp = "[LSP]",
-  nvim_lua = "[Lua]",
+  nvim_lua = "[api]",
   cmp_tabnine = "[TN]",
   copilot = "[CO]",
-  path = "[Path]",
-  tmux = "[TMUX]",
+  path = "[path]",
+  tmux = "[TX]",
 }
 
 cmp.setup({
@@ -31,8 +21,6 @@ cmp.setup({
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
     end,
   },
   mapping = {
@@ -46,30 +34,26 @@ cmp.setup({
     }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
-    -- -- start vim-vsnip
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif vim.fn["vsnip#available"](1) == 1 then
-    --     feedkey("<Plug>(vsnip-expand-or-jump)", "")
-    --   elseif has_words_before() then
-    --     cmp.complete()
-    --   else
-    --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-    --   end
-    -- end, { "i", "s" }),
+    -- start vim-vsnip
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      else
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      end
+    end, { "i", "s" }),
 
-    -- ["<S-Tab>"] = cmp.mapping(function()
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-    --     feedkey("<Plug>(vsnip-jump-prev)", "")
-    --   end
-    -- end, { "i", "s" }),
-    -- -- end vim-vsnip
+    ["<S-Tab>"] = cmp.mapping(function()
+      if vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      end
+    end, { "i", "s" }),
+    -- end vim-vsnip
 
   },
+
   sources = cmp.config.sources({
+    -- this order = priority
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'vsnip' }, -- For vsnip users.
@@ -79,6 +63,7 @@ cmp.setup({
     { name = 'path' }, -- path completion
     { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
   }),
+
   formatting = {
     format = lspkind.cmp_format({
       with_text = false, -- do not show text alongside icons
@@ -87,34 +72,43 @@ cmp.setup({
 
       -- The function below will be called before any actual modifications from lspkind
       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      before = function (entry, vim_item)
-        -- local word = entry:get_insert_text()
-        -- if entry.completion_item.insertTextFormat == types.lsp.insertTextFormat.Snippet then
-        --   word = vim.lsp.util.parse_snippet(word)
-        -- end
-        -- word = str.oneline()
-        -- if entry.completion_item.insertTextFormat == types.lsp.insertTextFormat.Snippet then
-        --   word = word .. '~'
-        -- end
-        return vim_item
-      end
+      -- before = function (entry, vim_item)
+      -- local word = entry:get_insert_text()
+      -- if entry.completion_item.insertTextFormat == types.lsp.insertTextFormat.Snippet then
+      --   word = vim.lsp.util.parse_snippet(word)
+      -- end
+      -- word = str.oneline()
+      -- if entry.completion_item.insertTextFormat == types.lsp.insertTextFormat.Snippet then
+      --   word = word .. '~'
+      -- end
+      -- return vim_item
+      -- end
     })
+  },
+  -- completion = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, scrollbar = "║" },
+  -- documentation = {
+  --   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  --   scrollbar = "║",
+  -- },
+  experimental = {
+    native_menu = false,
+    ghost_text = false,
   }
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   sources = {
-    { name = 'buffer' }
+    { name = 'buffer', keyword_length = 3 },
+    -- { name = 'nvim_lsp_document_symbol', keyword_length = 3 },
   }
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'path' },
+    { name = 'cmdline', max_item_count = 20, keyword_length = 3 }
   })
 })
 
