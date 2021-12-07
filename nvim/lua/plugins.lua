@@ -44,9 +44,12 @@ Plug('numToStr/Comment.nvim')
 Plug('windwp/nvim-autopairs') -- autopairs plugin
 Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
 
--- LSP & completions
+-- LSP & diagnostics
 Plug('neovim/nvim-lspconfig')
 Plug('glepnir/lspsaga.nvim')
+Plug('folke/trouble.nvim')
+
+-- Completions
 Plug('github/copilot.vim')
 Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-nvim-lua')
@@ -55,15 +58,12 @@ Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
 Plug('hrsh7th/cmp-copilot')
 Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
-Plug('hrsh7th/nvim-cmp')
 Plug('andersevenrud/cmp-tmux')
+Plug('hrsh7th/nvim-cmp')
 
 -- VCS
 Plug('TimUntersberger/neogit')
 Plug('lewis6991/gitsigns.nvim')
-
--- Diagnostics
-Plug('folke/trouble.nvim')
 
 -- Snippets
 Plug('hrsh7th/cmp-vsnip')

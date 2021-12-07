@@ -1,7 +1,6 @@
 -- utils.lua
 
 local M = {}
--- local F = vim.fn
 
 M.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
