@@ -1,5 +1,8 @@
 -- Neovim LSP configs
 
+require('lsp-colors').setup()
+require('lspsaga').init_lsp_saga()
+
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
@@ -7,19 +10,21 @@ vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "Diagno
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
 -- global config for diagnostic
-vim.diagnostic.config({
-  underline = false,
-  virtual_text = true,
-  signs = true,
-  severity_sort = true,
-})
+if vim.fn.has('nvim-0.6') == 1 then
+  vim.diagnostic.config({
+    underline = true,
+    virtual_text = true,
+    signs = true,
+    severity_sort = true,
+  })
+end
 
 local nvim_lsp = require('lspconfig')
 local configs = require('lspconfig.configs')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -78,7 +83,6 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
--- local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
 local servers = { 'sumneko_lua', 'tsserver', 'intelephense', 'html', 'jsonls', 'cssls', 'eslint', 'ls_emmet' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -100,7 +104,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 require('lspconfig').sumneko_lua.setup {
   capabilities = capabilities,
-  on_attach = custom_attach,
+  on_attach = on_attach,
   cmd = { sumneko_binary_path, "-E", sumneko_root_path ..'/main.lua' },
   settings = {
     Lua = {
