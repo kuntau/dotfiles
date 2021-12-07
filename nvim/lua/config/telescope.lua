@@ -54,12 +54,23 @@ require('telescope').setup ({
     grep_previewer       = require'telescope.previewers'.vim_buffer_vimgrep.new,
     qflist_previewer     = require'telescope.previewers'.vim_buffer_qflist.new,
 
+    extensions = {
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = 'smart_case',
+      }
+    },
+
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
 })
 
-vim.api.nvim_set_keymap('n', '<Leader>ob', ':Telescope buffers show_all_buffers=true sort_lastused=true<CR>', {})
-vim.api.nvim_set_keymap('n', '<Leader>of', ':Telescope find_files<CR>', {})
-vim.api.nvim_set_keymap('n', '<Leader>og', ':Telescope git_files<CR>', {})
+require('telescope').load_extension('fzf')
+
+-- vim.api.nvim_set_keymap('n', '<Leader>ob', ':Telescope buffers show_all_buffers=true sort_lastused=true<CR>', {})
+-- vim.api.nvim_set_keymap('n', '<Leader>of', ':Telescope find_files<CR>', {})
+-- vim.api.nvim_set_keymap('n', '<Leader>og', ':Telescope git_files<CR>', {})
 -- vim.api.nvim_set_keymap('n', '<Leader>', ':Telescope <CR>', {})
