@@ -47,10 +47,13 @@ Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
 -- LSP & completions
 Plug('neovim/nvim-lspconfig')
 Plug('glepnir/lspsaga.nvim')
+Plug('github/copilot.vim')
 Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-nvim-lua')
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
+Plug('hrsh7th/cmp-copilot')
 Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
 Plug('hrsh7th/nvim-cmp')
 Plug('andersevenrud/cmp-tmux')
@@ -88,6 +91,7 @@ Plug('windwp/windline.nvim')
 -- Plug('nvim-lualine/lualine.nvim')
 Plug('kdheepak/tabline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
+Plug('onsails/lspkind-nvim') -- LSP completion menu icons
 -- Plug('ryanoasis/vim-devicons') -- for file icons
 
 vim.call('plug#end')
