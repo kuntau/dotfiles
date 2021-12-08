@@ -23,6 +23,34 @@ M.helpTab = function()
 end
 -- vim.cmd [[autocmd vimrc BufEnter *.txt v:lua.helpTab()]]
 
+M.newMap = function (key)
+  local opts = { noremap = true }
+  for i, value in pairs(key) do
+    print(i, value)
+    if type(i) == 'string' then
+      print('STRING', value)
+      opts[i] = value
+      print('OPTS', opts[i])
+      -- for index, value in ipairs(t) do
+      --   
+      -- end
+    end
+  end
+
+  local buffer = opts.buffer
+  opts.buffer = nil
+
+  if buffer then
+    -- vim.api.nvim_buf_set_keymap(0, key[1], key[2], key[3], opts)
+    -- print('BUF', key[1], key[2], key[3], opts:get())
+    print('BUF', key[1], key[2], key[3], vim.inspect(opts))
+  else
+    -- vim.api.nvim_set_keymap(key[1], key[2], key[3], opts)
+    -- print(key[1], key[2], key[3], opts)
+    print('ALL', key[1], key[2], key[3], vim.inspect(opts))
+  end
+end
+
 M.map = function (mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
@@ -38,5 +66,10 @@ end
 M.vmap = function (shortcut, command)
   M.map('v', shortcut, command)
 end
+
+-- M.newMap {'n', 'ga', '<Plug>(EasyAlign)', { noremap = false }}
+-- M.newMap {'n', 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = true  }}
+M.newMap( { buffer = '%', 'n', 'ga', '<Plug>(EasyAlign)', noremap = false, silent = true  } )
+-- M.newMap( { 'n', 'ga', '<Plug>(EasyAlign)', noremap = false, silent = true  } )
 
 return M
