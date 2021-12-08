@@ -7,7 +7,6 @@ vim.g.maplocalleader = '\\'
 local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
-local termcode = require('utils').termcode
 
 nmap('<LocalLeader>q', ':q<cr>')
 nmap('<F4>', ':up!<cr>')
@@ -49,16 +48,5 @@ nmap('<Leader>fg', ':Telescope live_grep<cr>')
 nmap('<Leader>fb', ':Telescope buffers sort_lastused=true<cr>')
 nmap('<Leader>fh', ':Telescope help_tags<cr>')
 
--- junegunn easy align
--- vim.api.nvim_set_keymap('n', '<Enter>', termcode("<Plug>(EasyAlign)"), { noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<Enter>', "<Plug>(EasyAlign)", { noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', 'ga', "<Plug>(EasyAlign)", { noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'ga', "<Plug>(EasyAlign)", { noremap = true, silent = true})
--- vmap('<Enter>', [[<cmd>EasyAlign<cr>]])
--- vmap('<Enter>', [[<Plug>(EasyAlign)]])
--- vmap('<Enter>', [[:EasyAlign]])
--- vmap('ga', [[:EasyAlign]])
--- vmap('<Enter>', termcode('<Plug>(EasyAlign)'))
--- nmap('ga', termcode('<Plug>(EasyAlign)'))
--- nmap('ga', [[<Plug>EasyAlign]])
--- nmap('ga', ':EasyAlign')
+vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('v', 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = true })
