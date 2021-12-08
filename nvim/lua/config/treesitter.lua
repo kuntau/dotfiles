@@ -11,7 +11,7 @@ require('nvim-treesitter.configs').setup({
   },
   refactor = {
     highlight_current_scope = {
-      enable = true
+      enable = false
     },
     highlight_definition = {
       enable = true
@@ -19,7 +19,7 @@ require('nvim-treesitter.configs').setup({
     smart_rename = {
       enable = true,
       keymaps = {
-        smart_rename = 'grr'
+        smart_rename = 'gtr'
       }
     },
     navigation = {

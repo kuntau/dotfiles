@@ -37,6 +37,7 @@ Plug('ggandor/lightspeed.nvim')
 
 -- Syntaxes and such
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
+Plug('nvim-treesitter/nvim-treesitter-refactor')  -- Refactor module for treesitter
 Plug('tpope/vim-surround')
 Plug('tpope/vim-repeat')
 Plug('wellle/targets.vim') -- new text object
@@ -46,8 +47,9 @@ Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
 
 -- LSP & diagnostics
 Plug('neovim/nvim-lspconfig')
-Plug('glepnir/lspsaga.nvim')
 Plug('folke/trouble.nvim')
+-- Plug('ray-x/navigator.lua')
+-- Plug('glepnir/lspsaga.nvim')
 
 -- Completions
 Plug('github/copilot.vim')
@@ -84,14 +86,15 @@ Plug('christoomey/vim-tmux-navigator')
 Plug('junegunn/vim-easy-align')
 
 -- UI & UX
+Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug('p00f/nvim-ts-rainbow')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('windwp/windline.nvim')
--- Plug('nvim-lualine/lualine.nvim')
 Plug('kdheepak/tabline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
 Plug('onsails/lspkind-nvim') -- LSP completion menu icons
+-- Plug('nvim-lualine/lualine.nvim')
 -- Plug('ryanoasis/vim-devicons') -- for file icons
 
 vim.call('plug#end')

@@ -1,7 +1,8 @@
 -- Neovim LSP configs
 
 require('lsp-colors').setup()
-require('lspsaga').init_lsp_saga()
+-- require('navigator').setup()
+-- require('lspsaga').init_lsp_saga()
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
@@ -53,14 +54,14 @@ local on_attach = function(_, bufnr)
   buf_set_keymap('n', '<Leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-end
+  vim.cmd [[
+    autocmd CursorHold,CursorHoldI  <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  ]]
+    -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+    -- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
 
-vim.cmd [[
-  autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-  autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-]]
+end
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
