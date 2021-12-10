@@ -39,6 +39,8 @@ Plug('ggandor/lightspeed.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
 Plug('nvim-treesitter/nvim-treesitter-refactor')  -- Refactor module for treesitter
 Plug('nvim-treesitter/nvim-treesitter-textobjects')  -- text-objects module for treesitter
+Plug('JoosepAlviste/nvim-ts-context-commentstring')
+Plug('windwp/nvim-ts-autotag') -- auto complete HTML tags
 Plug('tpope/vim-surround')
 Plug('tpope/vim-repeat')
 Plug('wellle/targets.vim') -- new text object
