@@ -2,8 +2,7 @@
 
 vim.opt.autochdir = false
 vim.opt.autowriteall = true
-vim.opt.clipboard = 'unnamed'
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.clipboard = 'unnamed,unnamedplus'
 vim.opt.backup = false
 vim.opt.errorbells = false
 vim.opt.ignorecase = true
@@ -30,14 +29,15 @@ vim.opt.smartindent = true
 vim.opt.autoindent = true
 vim.opt.copyindent = true
 
--- Folding options
-vim.opt.foldmethod = 'indent'
+-- Folding: managed by treesitter
 vim.opt.foldenable = false
-vim.opt.foldlevel = 99
+vim.opt.foldlevel = 20
 vim.opt.foldnestmax = 5
+vim.opt.foldminlines = 3
 
--- completion menu ignore
-vim.opt.wildignore = {}
+-- completion
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.wildignore = {} -- add file type to ignore completions
 
 vim.opt.list = false -- show special characters
 vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'} -- Special characters for highlighting non-printing spaces/tabs/etc
