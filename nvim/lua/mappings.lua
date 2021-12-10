@@ -31,12 +31,18 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 -- qq to record, Q to replay
 nmap('Q', '@q')
 
+-- buffer management
+nmap('<leader>bd', ':bdelete<cr>')
+
 -- Plugins
+vmap('<c-c>','<Plug>(YankOSC52)', { noremap = true })
 nmap('<Leader>ee', ':NvimTreeToggle<cr>')
 nmap('<Leader>fz', ':FZF<cr>')
 nmap('<Leader>S', ':Startify<cr>')
 nmap('<Leader>G', ':Neogit kind=split_above<cr>')
-nmap('<Leader>T', ':Trouble lsp_document_diagnostics<cr>')
+nmap('<Leader>oT', ':Trouble document_diagnostics<cr>')
+nmap('<Leader>oD', ':DiffviewOpen<cr>')
+nmap('<Leader>oS', ':lua require("spectre").open()<cr>')
 
 -- Telescope bindings
 nmap('<c-p>', ':Telescope find_files<cr>')
