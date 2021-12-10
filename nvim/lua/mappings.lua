@@ -1,9 +1,8 @@
--- mappings.lua
+-- mappings.lua: My custom keyboard mappings
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
--- local map = require('utils').map
 local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
@@ -16,7 +15,7 @@ nmap('<Leader><Leader>', ':')
 
 -- better arrow key
 nmap('<right>', ':bn<cr>')
-nmap('<left>', ':bp<cr>')
+nmap('<left>',  ':bp<cr>')
 
 -- Alternate version which don't use bookmark
 nmap('<m-j>', ':m .+1<CR>==')
@@ -48,5 +47,6 @@ nmap('<Leader>fg', ':Telescope live_grep<cr>')
 nmap('<Leader>fb', ':Telescope buffers sort_lastused=true<cr>')
 nmap('<Leader>fh', ':Telescope help_tags<cr>')
 
-vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = true })
-vim.api.nvim_set_keymap('v', 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = true })
+-- junegunn easy-align
+vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
+nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
