@@ -11,8 +11,10 @@ local source_mapping = {
   nvim_lua = "[api]",
   cmp_tabnine = "[TN]",
   copilot = "[CO]",
-  path = "[path]",
+  path = "[Path]",
   tmux = "[TX]",
+  vsnip = "[VSNiP]",
+  luasnip = "[LSNiP]",
 }
 
 cmp.setup({
@@ -51,24 +53,22 @@ cmp.setup({
     -- end vim-vsnip
 
   },
-
   sources = cmp.config.sources({
     -- this order = priority
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
+    { name = 'nvim_lsp', max_item_count = 20 },
+    { name = 'nvim_lua', max_item_count = 20 },
     { name = 'vsnip' }, -- For vsnip users.
     { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
-    { name = 'buffer', keyword_length = 5 }, -- buffer
+    { name = 'buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
     { name = 'path' }, -- path completion
     { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
   }),
-
   formatting = {
     format = lspkind.cmp_format({
       with_text = false, -- do not show text alongside icons
       menu = source_mapping,
-      -- maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      maxwidth = 80, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
       -- The function below will be called before any actual modifications from lspkind
       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
@@ -91,8 +91,8 @@ cmp.setup({
   --   scrollbar = "║",
   -- },
   experimental = {
-    native_menu = false,
-    ghost_text = false,
+    -- native_menu = false,
+    -- ghost_text = false,
   }
 })
 
@@ -108,7 +108,7 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     { name = 'path' },
-    { name = 'cmdline', max_item_count = 20, keyword_length = 3 }
+    { name = 'cmdline', max_item_count = 20, keyword_length = 2 }
   })
 })
 
