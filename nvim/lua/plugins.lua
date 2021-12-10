@@ -66,6 +66,7 @@ Plug('hrsh7th/nvim-cmp')
 -- VCS
 Plug('TimUntersberger/neogit')
 Plug('lewis6991/gitsigns.nvim')
+Plug('sindrets/diffview.nvim')
 
 -- Snippets
 Plug('hrsh7th/cmp-vsnip')
