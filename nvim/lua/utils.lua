@@ -11,18 +11,15 @@ M.feedkey = function(key, mode)
 end
 
 -- Help in new tabs
-M.helpTab = function()
-  if vim.o.buftype == 'help' then
+M.quickClosePane = function()
+  if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
     vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
     -- vim.cmd('wincmd T') -- move current buffer to new tab
   end
   M.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
-vim.cmd 'autocmd vimrc FileType help,qf lua require("utils").helpTab()' -- 1st choice
--- vim.cmd 'autocmd vimrc BufEnter *.txt lua require("utils").helpTab()' -- 2nd choice
--- vim.cmd [[autocmd vimrc BufEnter *.txt lua require('utils').helpTab()]] -- 3rd choice
--- vim.cmd [[autocmd vimrc BufEnter *.txt v:lua.helpTab()]] -- 4th choice, need to set our function to _G.
+vim.cmd 'autocmd init_lua FileType help,qf,spectre_panel lua require("utils").quickClosePane()' -- 1st choice
 
 M.map = function (mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }

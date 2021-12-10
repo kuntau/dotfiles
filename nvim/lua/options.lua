@@ -1,5 +1,11 @@
 -- options.lua
 
+vim.cmd [[
+  augroup init_lua
+    autocmd!
+  augroup END
+]]
+
 vim.opt.autochdir = false
 vim.opt.autowriteall = true
 vim.opt.clipboard = 'unnamed,unnamedplus'
