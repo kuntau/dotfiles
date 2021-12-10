@@ -6,10 +6,6 @@ M.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
 end
 
-M.termcode = function(key)
-  vim.api.nvim_replace_termcodes(key, true, true, true)
-end
-
 M.feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
@@ -23,17 +19,35 @@ M.helpTab = function()
 end
 -- vim.cmd [[autocmd vimrc BufEnter *.txt v:lua.helpTab()]]
 
-M.newMap = function (key)
-  local opts = { noremap = true }
-  for i, value in pairs(key) do
-    print(i, value)
-    if type(i) == 'string' then
-      print('STRING', value)
-      opts[i] = value
-      print('OPTS', opts[i])
-      -- for index, value in ipairs(t) do
-      --   
-      -- end
+M.rmap = function (mode, lhs, rhs, opts)
+  local options = { noremap = true, silent = true }
+  if opts and type(opts) == 'table' then
+    for key, value in pairs(opts) do
+      options[key] = value
+    end
+  end
+
+  local buffer = options.buffer
+  options.buffer = nil
+
+  if buffer then
+    vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, options)
+    -- print('buf', lhs, rhs, vim.inspect(options))
+  else
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    -- print(mode, lhs, rhs, vim.inspect(options))
+  end
+end
+
+M.mmap = function (mode, keymap)
+  local opts = { noremap = true, silent = true }
+  -- print(keymap[2])
+  for key, value in pairs(keymap) do
+    -- print(key, value)
+    if type(key) == 'string' then
+      -- print('STRING', value)
+      opts[key] = value
+      -- print('OPTS', opts[i])
     end
   end
 
@@ -41,13 +55,13 @@ M.newMap = function (key)
   opts.buffer = nil
 
   if buffer then
-    -- vim.api.nvim_buf_set_keymap(0, key[1], key[2], key[3], opts)
+    -- vim.api.nvim_buf_set_keymap(0, mode, keymap[1], keymap[2], opts)
     -- print('BUF', key[1], key[2], key[3], opts:get())
-    print('BUF', key[1], key[2], key[3], vim.inspect(opts))
+    print('buf', mode, keymap[1], keymap[2], vim.inspect(opts))
   else
-    -- vim.api.nvim_set_keymap(key[1], key[2], key[3], opts)
+    vim.api.nvim_set_keymap(mode, keymap[1], keymap[2], opts)
     -- print(key[1], key[2], key[3], opts)
-    print('ALL', key[1], key[2], key[3], vim.inspect(opts))
+    -- print(mode, keymap[1], keymap[2], vim.inspect(opts))
   end
 end
 
@@ -55,21 +69,24 @@ M.map = function (mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
 
-M.nmap = function (shortcut, command)
-  M.map('n', shortcut, command)
+M.nmap = function (lhs, rhs, opts)
+  M.rmap('n', lhs, rhs, opts)
 end
 
-M.imap = function (shortcut, command)
-  M.map('i', shortcut, command)
+M.vmap = function (lhs, rhs, opts)
+  M.rmap('v', lhs, rhs, opts)
 end
 
-M.vmap = function (shortcut, command)
-  M.map('v', shortcut, command)
+M.imap = function (lhs, rhs, opts)
+  M.rmap('i', lhs, rhs, opts)
 end
 
--- M.newMap {'n', 'ga', '<Plug>(EasyAlign)', { noremap = false }}
--- M.newMap {'n', 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = true  }}
-M.newMap( { buffer = '%', 'n', 'ga', '<Plug>(EasyAlign)', noremap = false, silent = true  } )
--- M.newMap( { 'n', 'ga', '<Plug>(EasyAlign)', noremap = false, silent = true  } )
+-- M.rmap( 'n', { 'ga', '<Plug>(EasyAlign)', { noremap = false, silent = false }  } )
+M.nmap( 'ga', '<Plug>(EasyAlign)', { noremap = false } )
+-- M.nnmap( 'v', 'ga', '<Plug>(EasyAlign)')
+-- M.nnmap( 'v', { 'ga', '<Plug>(EasyAlign)' } )
+-- M.nnmap( 'v', { 'ga', '<Plug>(EasyAlign)', { buffer = true, silent = false } } )
+-- M.nnmap( 'v', { 'ga', '<Plug>(EasyAlign)', { noremap = false } } )
+-- M.nnmap( { 'ga', '<Plug>(EasyAlign)', noremap = false, silent = false  } )
 
 return M
