@@ -18,7 +18,6 @@ Plug('junegunn/fzf', {
 -- Essentials
 Plug('nvim-lua/plenary.nvim')
 Plug('kuntau/vim-osc52')
--- vmap <c-c> <Plug>(YankOSC52)
 Plug('mhinz/vim-startify')
 Plug('mbbill/undotree', { on = 'UndotreeToggle' })
 Plug('kyazdani42/nvim-tree.lua')
@@ -29,11 +28,8 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 Plug('tpope/vim-unimpaired')
 Plug('tpope/vim-eunuch')
 Plug('tpope/vim-rsi')
-Plug('terryma/vim-multiple-cursors')
 Plug('ggandor/lightspeed.nvim')
-
--- A solid language pack for Vim
--- Plug 'sheerun/vim-polyglot' -- Might not needed in favor of treesitter
+-- Plug('terryma/vim-multiple-cursors')
 
 -- Syntaxes and such
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
@@ -43,14 +39,15 @@ Plug('JoosepAlviste/nvim-ts-context-commentstring')
 Plug('windwp/nvim-ts-autotag') -- auto complete HTML tags
 Plug('tpope/vim-surround')
 Plug('tpope/vim-repeat')
-Plug('wellle/targets.vim') -- new text object
-Plug('numToStr/Comment.nvim')
+Plug('numToStr/Comment.nvim') -- Comment plugins with treesitter support
 Plug('windwp/nvim-autopairs') -- autopairs plugin
 Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
+-- Plug('wellle/targets.vim') -- new text object
 
 -- LSP & diagnostics
 Plug('neovim/nvim-lspconfig')
 Plug('folke/trouble.nvim')
+Plug('kevinhwang91/nvim-bqf')
 -- Plug('ray-x/navigator.lua')
 -- Plug('glepnir/lspsaga.nvim')
 
@@ -94,12 +91,17 @@ Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug('p00f/nvim-ts-rainbow')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('lukas-reineke/indent-blankline.nvim')
-Plug('windwp/windline.nvim')
-Plug('kdheepak/tabline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
 Plug('onsails/lspkind-nvim') -- LSP completion menu icons
--- Plug('nvim-lualine/lualine.nvim')
+Plug('famiu/bufdelete.nvim') -- improve :bdelete experience
+-- Plug('windwp/nvim-spectre') -- Better search & replace
 -- Plug('ryanoasis/vim-devicons') -- for file icons
+
+-- StatusLine, bufferline & tabline
+Plug('kdheepak/tabline.nvim')
+-- Plug('famiu/feline.nvim') -- statusline
+-- Plug('windwp/windline.nvim') -- statusline
+Plug('nvim-lualine/lualine.nvim') -- statusline
 
 vim.call('plug#end')
 
@@ -124,6 +126,7 @@ require('config.startify')
 require('config.gitsigns')
 require('config.trouble')
 require('config.indent')
-require('config.tabline')
 require('config.statusline')
 require('config.catppuccin')
+require('config.diffview')
+require('config.tabline')
