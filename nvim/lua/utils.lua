@@ -13,11 +13,16 @@ end
 -- Help in new tabs
 M.helpTab = function()
   if vim.o.buftype == 'help' then
-	  -- vim.call('wincmd T')
-	  vim.api.nvim_buf_set_keymap('n','q',':q<cr>')
+	  vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
+	  -- vim.cmd('wincmd T') -- move current buffer to new tab
+	  M.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
   end
 end
--- vim.cmd [[autocmd vimrc BufEnter *.txt v:lua.helpTab()]]
+
+vim.cmd 'autocmd vimrc FileType help lua require("utils").helpTab()' -- 1st choice
+-- vim.cmd 'autocmd vimrc BufEnter *.txt lua require("utils").helpTab()' -- 2nd choice
+-- vim.cmd [[autocmd vimrc BufEnter *.txt lua require('utils').helpTab()]] -- 3rd choice
+-- vim.cmd [[autocmd vimrc BufEnter *.txt v:lua.helpTab()]] -- 4th choice, need to set our function to _G.
 
 M.map = function (mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
