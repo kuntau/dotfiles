@@ -1,9 +1,9 @@
 -- neovim status line configs
 -- could be any of powerline, windline, lualine, airline or lightline
 
-require('wlsample.airline')
+-- require('wlsample.airline')
+-- require('feline').setup()
 
---[[
 local ft_extension = {
     sections = {lualine_a = {'filetype'}},
     filetypes = {'startify', 'Trouble', 'undotree', 'vim-plug'}
@@ -34,4 +34,3 @@ require('lualine').setup({
     neogit_extension,
   }
 })
-]]
