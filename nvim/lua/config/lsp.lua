@@ -54,8 +54,9 @@ local on_attach = function(_, bufnr)
   buf_set_keymap('n', '<Leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
+  -- FIXME: Disable for LSP server without CursorHold support
   vim.cmd [[
-    autocmd CursorHold,CursorHoldI  <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
   ]]
     -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
@@ -74,7 +75,7 @@ if not configs.ls_emmet then
       cmd = { 'ls_emmet', '--stdio' };
       filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'haml',
         'xml', 'xsl', 'pug', 'slim', 'sass', 'stylus', 'less', 'sss'};
-      root_dir = function(fname)
+      root_dir = function(--[[ fname ]])
         return vim.loop.cwd()
       end;
       settings = {};
@@ -95,18 +96,18 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Lua
-local sumneko_binary_path = vim.fn.exepath("lua-language-server")
-local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ":h:h:h")
-
+-- Lua CLEANUP: Remove excessive codes since we already have main loop for all LSP server
+-- local sumneko_binary_path = vim.fn.exepath("lua-language-server")
+-- local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ":h:h:h")
+--
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
+-- table.insert(runtime_path, "lua/?.lua")
+-- table.insert(runtime_path, "lua/?/init.lua")
+--
 require('lspconfig').sumneko_lua.setup {
-  capabilities = capabilities,
+  -- capabilities = capabilities,
   on_attach = on_attach,
-  cmd = { sumneko_binary_path, "-E", sumneko_root_path ..'/main.lua' },
+  -- cmd = { sumneko_binary_path, "-E", sumneko_root_path ..'/main.lua' },
   settings = {
     Lua = {
       runtime = {
@@ -130,3 +131,5 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
+
+-- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
