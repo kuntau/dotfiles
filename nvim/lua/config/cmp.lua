@@ -2,14 +2,15 @@
 
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+-- local luasnip = require('luasnip')
 -- local types = require('cmp.types')
 
 local feedkey = require("utils").feedkey
 local source_mapping = {
   buffer = "[Buf]",
   nvim_lsp = "[LSP]",
-  nvim_lua = "[api]",
-  cmp_tabnine = "[TN]",
+  nvim_lua = "[API]",
+  cmp_tabnine = "[T9]",
   copilot = "[CO]",
   path = "[Path]",
   tmux = "[TX]",
@@ -19,10 +20,9 @@ local source_mapping = {
 
 cmp.setup({
   snippet = {
-    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
   mapping = {
@@ -35,6 +35,24 @@ cmp.setup({
       c = cmp.mapping.close(),
     }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+    -- -- start luasnip
+    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    --   if luasnip.expand_or_jumpable() then
+    --     luasnip.expand_or_jump()
+    --   else
+    --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+    --   end
+    -- end, { "i", "s" }),
+
+    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+    --   if luasnip.jumpable(-1) then
+    --     luasnip.jump(-1)
+    --   else
+    --     fallback()
+    --   end
+    -- end, { "i", "s" }),
+    -- -- end luasnip
 
     -- start vim-vsnip
     ["<Tab>"] = cmp.mapping(function(fallback)
@@ -55,9 +73,10 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     -- this order = priority
+    -- { name = 'luasnip' }, -- For luasnip users.
+    { name = 'vsnip' }, -- For vsnip users.
     { name = 'nvim_lsp', max_item_count = 20 },
     { name = 'nvim_lua', max_item_count = 20 },
-    { name = 'vsnip' }, -- For vsnip users.
     { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
     { name = 'buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
@@ -68,7 +87,7 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = false, -- do not show text alongside icons
       menu = source_mapping,
-      maxwidth = 80, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      maxwidth = 60, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
       -- The function below will be called before any actual modifications from lspkind
       -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
@@ -85,7 +104,7 @@ cmp.setup({
       -- end
     })
   },
-  -- completion = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, scrollbar = "║" },
+  completion = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, scrollbar = "║" },
   -- documentation = {
   --   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   --   scrollbar = "║",
@@ -100,7 +119,7 @@ cmp.setup({
 cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer', keyword_length = 3 },
-    -- { name = 'nvim_lsp_document_symbol', keyword_length = 3 },
+    { name = 'nvim_lsp_document_symbol', keyword_length = 3 },
   }
 })
 
@@ -111,10 +130,5 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline', max_item_count = 20, keyword_length = 2 }
   })
 })
-
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
---   capabilities = capabilities
--- }
 
 -- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
