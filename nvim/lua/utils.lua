@@ -59,6 +59,33 @@ end
 
 vim.cmd 'autocmd init_lua FileType help,qf,spectre_panel lua require("utils").quickClosePane()' -- 1st choice
 
+local isGitRepo = function()
+  return vim.fn.system('git rev-parse --is-inside-work-tree')
+end
+
+-- TODO: File bug report in Startify repo
+M.gitModified = function ()
+  if isGitRepo() then
+    local files = vim.fn.systemlist('git ls-files -m')
+    local results = {}
+    for _, file in ipairs(files) do
+      table.insert(results, { line = file, path = file })
+    end
+    return results
+  end
+end
+
+M.gitUntracked = function ()
+  if isGitRepo() then
+    local files = vim.fn.systemlist('git ls-files -o --exclude-standard')
+    local results = {}
+    for _, file in ipairs(files) do
+      table.insert(results, { line = file, path = file })
+    end
+    return results
+  end
+end
+
 M.reloadModule = function ()
   local module = vim.fn.expand('%:t:r')
   require('plenary.reload').reload_module(module)
