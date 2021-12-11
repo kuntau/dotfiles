@@ -12,6 +12,7 @@ nmap('<F4>', ':up!<cr>')
 imap('<F4>', '<c-o>:up!<cr>')
 nmap('<Leader>so', ':up<cr>:luafile %<cr>')
 nmap('<Leader><Leader>', ':')
+nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 
 -- better arrow key
 nmap('<right>', ':bn<cr>')

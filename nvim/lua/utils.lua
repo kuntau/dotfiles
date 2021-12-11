@@ -57,6 +57,10 @@ end
 
 M.omap = function (lhs, rhs, opts)
   M.map('x', lhs, rhs, opts)
+M.reloadModule = function ()
+  local module = vim.fn.expand('%:t:r')
+  require('plenary.reload').reload_module(module)
+  print(module .. ' module reloaded!')
 end
 
 return M
