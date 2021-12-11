@@ -48,6 +48,17 @@ M.omap = function (lhs, rhs, opts)
   map('x', lhs, rhs, opts)
 end
 
+-- Help in new tabs
+M.quickClosePane = function()
+  if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
+    vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
+    -- vim.cmd('wincmd T') -- move current buffer to new tab
+  end
+  M.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
+end
+
+vim.cmd 'autocmd init_lua FileType help,qf,spectre_panel lua require("utils").quickClosePane()' -- 1st choice
+
 M.reloadModule = function ()
   local module = vim.fn.expand('%:t:r')
   require('plenary.reload').reload_module(module)
