@@ -43,7 +43,8 @@ nmap('<Leader>S', ':Startify<cr>')
 nmap('<Leader>G', ':Neogit kind=split_above<cr>')
 nmap('<Leader>oT', ':Trouble document_diagnostics<cr>')
 nmap('<Leader>oD', ':DiffviewOpen<cr>')
-nmap('<Leader>oS', ':lua require("spectre").open()<cr>')
+nmap('U', ':UndotreeToggle<CR>')
+-- nmap('<Leader>oS', ':lua require("spectre").open()<cr>')
 
 -- Telescope bindings
 nmap('<c-p>', ':Telescope find_files<cr>')

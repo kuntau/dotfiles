@@ -71,6 +71,8 @@ Plug('sindrets/diffview.nvim')
 -- Snippets
 Plug('hrsh7th/cmp-vsnip')
 Plug('hrsh7th/vim-vsnip')
+-- Plug('saadparwaiz1/cmp_luasnip')
+-- Plug('L3MON4D3/LuaSnip')
 Plug('rafamadriz/friendly-snippets')
 
 -- Colorschemes
@@ -87,7 +89,7 @@ Plug('christoomey/vim-tmux-navigator')
 Plug('junegunn/vim-easy-align')
 
 -- UI & UX
-Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
+-- Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug('p00f/nvim-ts-rainbow')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('lukas-reineke/indent-blankline.nvim')
@@ -99,17 +101,16 @@ Plug('famiu/bufdelete.nvim') -- improve :bdelete experience
 
 -- StatusLine, bufferline & tabline
 Plug('kdheepak/tabline.nvim')
+Plug('nvim-lualine/lualine.nvim') -- statusline
 -- Plug('famiu/feline.nvim') -- statusline
 -- Plug('windwp/windline.nvim') -- statusline
-Plug('nvim-lualine/lualine.nvim') -- statusline
 
 vim.call('plug#end')
 
---[[ Plugins configuration ]]
+--[[ Plugins configuration ]]--
 
 -- UndoTree
 vim.g.undotree_WindowsLayout = 2
--- nnoremap U :UndotreeToggle<CR>
 
 require('Comment').setup() -- Comment.nvim setup
 require('nvim-autopairs').setup() -- Autopairs
