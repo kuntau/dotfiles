@@ -1,12 +1,15 @@
 -- utils.lua
 
-local M = {}
+local Utils = {}
 
-M.isDay = function()
+Utils.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
 end
 
-M.feedkey = function(key, mode)
+Utils.getRatio = function ()
+  return vim.fn.winwidth(0) > vim.fn.winheight(0) and 'horizontal' or 'vertical'
+end
+Utils.feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
@@ -28,68 +31,64 @@ local map = function (mode, lhs, rhs, opts)
   end
 end
 
-M.nmap = function (lhs, rhs, opts)
+Utils.nmap = function (lhs, rhs, opts)
   map('n', lhs, rhs, opts)
 end
 
-M.vmap = function (lhs, rhs, opts)
+Utils.vmap = function (lhs, rhs, opts)
   map('v', lhs, rhs, opts)
 end
 
-M.imap = function (lhs, rhs, opts)
+Utils.imap = function (lhs, rhs, opts)
   map('i', lhs, rhs, opts)
 end
 
-M.xmap = function (lhs, rhs, opts)
+Utils.xmap = function (lhs, rhs, opts)
   map('x', lhs, rhs, opts)
 end
 
-M.omap = function (lhs, rhs, opts)
+Utils.omap = function (lhs, rhs, opts)
   map('x', lhs, rhs, opts)
 end
 
--- Help in new tabs
-M.quickClosePane = function()
+-- Quickclose some pane
+Utils.quickClosePane = function()
   if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
     vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
     -- vim.cmd('wincmd T') -- move current buffer to new tab
   end
-  M.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
+  Utils.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
 vim.cmd 'autocmd init_lua FileType help,qf,spectre_panel lua require("utils").quickClosePane()' -- 1st choice
 
-local isGitRepo = function()
+Utils.isGitRepo = function()
   return vim.fn.system('git rev-parse --is-inside-work-tree')
 end
 
--- TODO: File bug report in Startify repo
-M.gitModified = function ()
-  if isGitRepo() then
-    local files = vim.fn.systemlist('git ls-files -m')
-    local results = {}
-    for _, file in ipairs(files) do
-      table.insert(results, { line = file, path = file })
-    end
-    return results
+-- Git utils function
+Utils.gitModified = function ()
+  if Utils.isGitRepo() then
+    return vim.fn.systemlist('git ls-files -m')
   end
 end
 
-M.gitUntracked = function ()
-  if isGitRepo() then
-    local files = vim.fn.systemlist('git ls-files -o --exclude-standard')
-    local results = {}
-    for _, file in ipairs(files) do
-      table.insert(results, { line = file, path = file })
-    end
-    return results
+Utils.gitUntracked = function ()
+  if Utils.isGitRepo() then
+    return vim.fn.systemlist('git ls-files -o --exclude-standard')
   end
 end
 
-M.reloadModule = function ()
+Utils.gitListCommit = function ()
+  if Utils.isGitRepo() then
+    return vim.fn.systemlist('git log --oneline | head -n10')
+  end
+end
+
+Utils.reloadModule = function ()
   local module = vim.fn.expand('%:t:r')
   require('plenary.reload').reload_module(module)
   print(module .. ' module reloaded!')
 end
 
-return M
+return Utils
