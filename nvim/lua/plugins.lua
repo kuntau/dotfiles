@@ -22,7 +22,6 @@ Plug('mhinz/vim-startify')
 Plug('mbbill/undotree', { on = 'UndotreeToggle' })
 Plug('kyazdani42/nvim-tree.lua')
 Plug('nvim-telescope/telescope.nvim')
-Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- Movements
 Plug('tpope/vim-unimpaired')
@@ -42,7 +41,6 @@ Plug('tpope/vim-repeat')
 Plug('numToStr/Comment.nvim') -- Comment plugins with treesitter support
 Plug('windwp/nvim-autopairs') -- autopairs plugin
 Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
--- Plug('wellle/targets.vim') -- new text object
 
 -- LSP & diagnostics
 Plug('neovim/nvim-lspconfig')
@@ -94,8 +92,7 @@ Plug('lukas-reineke/indent-blankline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
 Plug('onsails/lspkind-nvim') -- LSP completion menu icons
 Plug('famiu/bufdelete.nvim') -- improve :bdelete experience
--- Plug('windwp/nvim-spectre') -- Better search & replace
--- Plug('ryanoasis/vim-devicons') -- for file icons
+Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- StatusLine, bufferline & tabline
 Plug('kdheepak/tabline.nvim')
