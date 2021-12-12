@@ -7,24 +7,24 @@ local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
 
-nmap('<LocalLeader>q', ':q<cr>')
-nmap('<F4>', ':up!<cr>')
-imap('<F4>', '<c-o>:up!<cr>')
-nmap('<Leader>so', ':up<cr>:luafile %<cr>')
+nmap('<LocalLeader>q',   '<cmd>q<cr>')
+nmap('<F4>',             '<cmd>up!<cr>')
+imap('<F4>',             '<c-o><cmd>up!<cr>')
+nmap('<Leader>so',       '<cmd>up<cr><cmd>luafile %<cr>')
 nmap('<Leader><Leader>', ':')
-nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
+nmap('<Leader>rm',       '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 
 -- better arrow key
-nmap('<right>', ':bn<cr>')
-nmap('<left>',  ':bp<cr>')
+nmap('<right>', '<cmd>bn<cr>')
+nmap('<left>',  '<cmd>bp<cr>')
 
 -- Alternate version which don't use bookmark
-nmap('<m-j>', ':m .+1<CR>==')
-nmap('<m-k>', ':m .-2<CR>==')
-vmap('<m-j>', ":m '>+1<CR>gv=gv")
-vmap('<m-k>', ":m '<-2<CR>gv=gv")
--- inoremap <m-j> <Esc>:m .+1<CR>==gi
--- inoremap <m-k> <Esc>:m .-2<CR>==gi
+nmap('<m-j>', '<cmd>m .+1<CR>==')
+nmap('<m-k>', '<cmd>m .-2<CR>==')
+vmap('<m-j>', "<cmd>m '>+1<CR>gv=gv")
+vmap('<m-k>', "<cmd>m '<-2<CR>gv=gv")
+-- inoremap <m-j> <Esc><cmd>m .+1<CR>==gi
+-- inoremap <m-k> <Esc><cmd>m .-2<CR>==gi
 
 -- clear search highlight
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
@@ -33,27 +33,27 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 nmap('Q', '@q')
 
 -- buffer management
-nmap('<leader>bd', ':bdelete<cr>')
+nmap('<leader>bd', '<cmd>Bdelete<cr>')
 
 -- Plugins
-vmap('<c-c>','<Plug>(YankOSC52)', { noremap = true })
-nmap('<Leader>ee', ':NvimTreeToggle<cr>')
-nmap('<Leader>fz', ':FZF<cr>')
-nmap('<Leader>S', ':Startify<cr>')
-nmap('<Leader>G', ':Neogit kind=split_above<cr>')
-nmap('<Leader>oT', ':Trouble document_diagnostics<cr>')
-nmap('<Leader>oD', ':DiffviewOpen<cr>')
-nmap('U', ':UndotreeToggle<CR>')
--- nmap('<Leader>oS', ':lua require("spectre").open()<cr>')
+vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = true })
+nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
+nmap('<Leader>fz', '<cmd>FZF<cr>')
+nmap('<Leader>S',  '<cmd>Startify<cr>')
+nmap('<Leader>G',  '<cmd>Neogit kind=split_above<cr>')
+nmap('<Leader>oT', '<cmd>Trouble document_diagnostics<cr>')
+nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
+nmap('U',          '<cmd>UndotreeToggle<CR>')
+-- nmap('<Leader>oS', '<cmd>lua require("spectre").open()<cr>')
 
 -- Telescope bindings
-nmap('<c-p>', ':Telescope find_files<cr>')
-nmap('<Leader>fa', ':Telescope builtin<cr>')
-nmap('<Leader>ff', ':Telescope git_files<cr>')
-nmap('<Leader>ft', ':Telescope find_browser<cr>')
-nmap('<Leader>fg', ':Telescope live_grep<cr>')
-nmap('<Leader>fb', ':Telescope buffers sort_lastused=true<cr>')
-nmap('<Leader>fh', ':Telescope help_tags<cr>')
+nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
+nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
+nmap('<Leader>ff', '<cmd>Telescope git_files<cr>')
+nmap('<Leader>ft', '<cmd>Telescope find_browser<cr>')
+nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
+nmap('<Leader>fb', '<cmd>Telescope buffers sort_lastused=true<cr>')
+nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
