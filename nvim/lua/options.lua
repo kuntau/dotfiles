@@ -25,9 +25,10 @@ vim.opt.visualbell = false
 vim.opt.wrap = false
 
 -- Default tab & spaces
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
+local tabStop = 2
+vim.opt.tabstop = tabStop
+vim.opt.shiftwidth = tabStop
+vim.opt.softtabstop = tabStop
 vim.opt.expandtab = true
 vim.opt.shiftround = true
 vim.opt.smarttab = true
