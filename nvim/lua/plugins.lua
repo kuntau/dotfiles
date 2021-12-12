@@ -69,10 +69,8 @@ Plug('lewis6991/gitsigns.nvim')
 Plug('sindrets/diffview.nvim')
 
 -- Snippets
-Plug('hrsh7th/cmp-vsnip')
-Plug('hrsh7th/vim-vsnip')
--- Plug('saadparwaiz1/cmp_luasnip')
--- Plug('L3MON4D3/LuaSnip')
+Plug('saadparwaiz1/cmp_luasnip')
+Plug('L3MON4D3/LuaSnip')
 Plug('rafamadriz/friendly-snippets')
 
 -- Colorschemes

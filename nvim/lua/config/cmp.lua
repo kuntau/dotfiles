@@ -2,10 +2,9 @@
 
 local cmp = require('cmp')
 local lspkind = require('lspkind')
--- local luasnip = require('luasnip')
--- local types = require('cmp.types')
+local luasnip = require('luasnip')
 
-local feedkey = require("utils").feedkey
+require('luasnip.loaders.from_vscode').lazy_load()
 local source_mapping = {
   buffer = "[Buf]",
   nvim_lsp = "[LSP]",
@@ -21,8 +20,7 @@ local source_mapping = {
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- luasnip.lsp_expand(args.body) -- For `luasnip` users.
+      luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
   mapping = {
@@ -34,47 +32,28 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    }),
 
-    -- -- start luasnip
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   if luasnip.expand_or_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   else
-    --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-    --   end
-    -- end, { "i", "s" }),
-
-    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
-    --   if luasnip.jumpable(-1) then
-    --     luasnip.jump(-1)
-    --   else
-    --     fallback()
-    --   end
-    -- end, { "i", "s" }),
-    -- -- end luasnip
-
-    -- start vim-vsnip
+    -- start luasnip
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      else
-        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       end
     end, { "i", "s" }),
-
-    ["<S-Tab>"] = cmp.mapping(function()
-      if vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       end
     end, { "i", "s" }),
-    -- end vim-vsnip
+    -- end luasnip
 
   },
   sources = cmp.config.sources({
     -- this order = priority
-    -- { name = 'luasnip' }, -- For luasnip users.
-    { name = 'vsnip' }, -- For vsnip users.
+    { name = 'luasnip' }, -- For luasnip users.
     { name = 'nvim_lsp', max_item_count = 20 },
     { name = 'nvim_lua', max_item_count = 20 },
     { name = 'copilot' }, -- github copitlot
@@ -104,15 +83,6 @@ cmp.setup({
       -- end
     })
   },
-  completion = { border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, scrollbar = "║" },
-  -- documentation = {
-  --   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-  --   scrollbar = "║",
-  -- },
-  experimental = {
-    -- native_menu = false,
-    -- ghost_text = false,
-  }
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -131,4 +101,5 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- Setting up cmp sources by FileType
 -- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
