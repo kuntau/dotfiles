@@ -2,6 +2,7 @@
 
 local trouble = require('trouble.providers.telescope')
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('projects')
 
 require('telescope').setup ({
   defaults = {
