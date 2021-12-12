@@ -79,9 +79,10 @@ Utils.gitUntracked = function ()
   end
 end
 
-Utils.gitListCommit = function ()
+Utils.gitListCommit = function (count)
+  local commitCount = count or 5
   if Utils.isGitRepo() then
-    return vim.fn.systemlist('git log --oneline | head -n10')
+    return vim.fn.systemlist('git log --oneline | head -n' .. commitCount)
   end
 end
 
