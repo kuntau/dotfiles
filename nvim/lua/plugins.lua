@@ -83,6 +83,7 @@ Plug('EdenEast/nightfox.nvim')
 -- Misc bundle
 Plug('christoomey/vim-tmux-navigator')
 Plug('junegunn/vim-easy-align')
+Plug('ahmedkhalf/project.nvim')
 
 -- UI & UX
 -- Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
@@ -126,3 +127,4 @@ require('config.statusline')
 require('config.catppuccin')
 require('config.diffview')
 require('config.tabline')
+require('config.project')
