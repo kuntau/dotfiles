@@ -63,19 +63,21 @@ end
 vim.cmd 'autocmd init_lua FileType help,qf,spectre_panel lua require("utils").quickClosePane()' -- 1st choice
 
 Utils.isGitRepo = function()
-  return vim.fn.system('git rev-parse --is-inside-work-tree')
+  return (string.find(vim.fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1)
 end
 
 -- Git utils function
 Utils.gitModified = function ()
   if Utils.isGitRepo() then
     return vim.fn.systemlist('git ls-files -m')
+  else return {}
   end
 end
 
 Utils.gitUntracked = function ()
   if Utils.isGitRepo() then
     return vim.fn.systemlist('git ls-files -o --exclude-standard')
+  else return {}
   end
 end
 
@@ -83,6 +85,7 @@ Utils.gitListCommit = function (count)
   local commitCount = count or 5
   if Utils.isGitRepo() then
     return vim.fn.systemlist('git log --oneline | head -n' .. commitCount)
+  else return {}
   end
 end
 
