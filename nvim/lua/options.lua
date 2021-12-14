@@ -12,6 +12,7 @@ vim.opt.clipboard = 'unnamed,unnamedplus'
 vim.opt.backup = false
 vim.opt.errorbells = false
 vim.opt.ignorecase = true
+vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.smartcase = true
