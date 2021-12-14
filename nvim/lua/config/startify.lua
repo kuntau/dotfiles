@@ -36,8 +36,8 @@ vim.g.startify_lists = {
   { header = {'   MRU: Global'},      type = 'files' },
   { header = {'   Sessions'},         type = 'sessions' },
   { header = {'   Git modified'},     type = gitModified },
-  { header = {'   Git untracked'},    type = gitUntracked },
-  { header = {'   Git commits'},      type = gitCommit },
+  -- { header = {'   Git untracked'},    type = gitUntracked },
+  -- { header = {'   Git commits'},      type = gitCommit },
   { header = {'   Bookmarks'},        type = 'bookmarks' },
   { header = {'   Commands'},         type = 'commands' },
 }
@@ -68,10 +68,10 @@ vim.g.startify_enable_unsafe = 0
 vim.g.startify_padding_left = 3
 vim.g.startify_files_number = 6
 vim.g.startify_fortune_use_unicode = 1
-vim.g.startify_custom_header = 0
+-- vim.g.startify_custom_header = 0
 -- vim.g.startify_custom_header = 'startify#center(startify#fortune#boxed())'
 
-vim.g.startify_custom_footer = {
+vim.g.startify_custom_footerx = {
 '                                            ▟▙            ',
 '                                            ▝▘            ',
 '    ██▃▅▇█▆▖  ▗▟████▙▖   ▄████▄   ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
@@ -81,4 +81,9 @@ vim.g.startify_custom_footer = {
 '    ▀▀    ▀▀   ▝▀▀▀▀▀     ▀▀▀▀       ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
 }
 
--- vim.g.startify_custom_header = startify_ascii_header
+vim.g.startify_custom_header = {
+'   ▀██▀─▄███▄─▀██─██▀██▀▀█',
+'   ─██─███─███─██─██─██▄█',
+'   ─██─▀██▄██▀─▀█▄█▀─██▀█',
+'   ▄██▄▄█▀▀▀─────▀──▄██▄▄█',
+}
