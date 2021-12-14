@@ -50,6 +50,9 @@ vim.opt.list = false -- show special characters
 vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'} -- Special characters for highlighting non-printing spaces/tabs/etc
 vim.opt.fillchars = { vert = ' ', eob = ' '} -- remove ugly vertical seperator & end of boundry char
 
+-- disable matchparen
+vim.g.loaded_matchparen = 0
+
 vim.cmd 'au FocusLost * silent! noautocmd up'
 vim.cmd 'au FocusGained * silent! noautocmd checktime'
 vim.cmd 'au TextYankPost * silent! lua vim.highlight.on_yank {timeout=250}'

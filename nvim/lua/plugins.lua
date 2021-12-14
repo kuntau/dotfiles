@@ -90,6 +90,7 @@ Plug('ahmedkhalf/project.nvim')
 -- UI & UX
 -- Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug('p00f/nvim-ts-rainbow')
+Plug('monkoose/matchparen.nvim')
 Plug('norcalli/nvim-colorizer.lua')
 Plug('lukas-reineke/indent-blankline.nvim')
 Plug('kyazdani42/nvim-web-devicons') -- for file icons
@@ -112,6 +113,7 @@ vim.g.undotree_WindowsLayout = 2
 
 require('Comment').setup() -- Comment.nvim setup
 require('colorizer').setup()
+require('matchparen').setup()
 
 require('config.lsp')
 require('config.cmp')
@@ -129,4 +131,3 @@ require('config.catppuccin')
 require('config.diffview')
 require('config.tabline')
 require('config.project')
-require('config.autopairs')
