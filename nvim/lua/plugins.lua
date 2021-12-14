@@ -34,7 +34,7 @@ Plug('mg979/vim-visual-multi')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
 Plug('nvim-treesitter/nvim-treesitter-refactor')  -- Refactor module for treesitter
 Plug('nvim-treesitter/nvim-treesitter-textobjects')  -- text-objects module for treesitter
-Plug('JoosepAlviste/nvim-ts-context-commentstring')
+Plug('JoosepAlviste/nvim-ts-context-commentstring') -- context-commentstring module for treesitter
 Plug('windwp/nvim-ts-autotag') -- auto complete HTML tags
 Plug('tpope/vim-surround')
 Plug('tpope/vim-repeat')
@@ -79,6 +79,8 @@ Plug('arcticicestudio/nord-vim')
 Plug('rakr/vim-one')
 Plug('catppuccin/nvim')
 Plug('EdenEast/nightfox.nvim')
+Plug('NLKNguyen/papercolor-theme')
+Plug('joshdick/onedark.vim')
 
 -- Misc bundle
 Plug('christoomey/vim-tmux-navigator')
