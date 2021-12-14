@@ -21,10 +21,10 @@ nmap('<left>',  '<cmd>bp<cr>')
 -- Alternate version which don't use bookmark
 nmap('<m-j>', '<cmd>m .+1<CR>==')
 nmap('<m-k>', '<cmd>m .-2<CR>==')
-vmap('<m-j>', "<cmd>m '>+1<CR>gv=gv")
-vmap('<m-k>', "<cmd>m '<-2<CR>gv=gv")
--- inoremap <m-j> <Esc><cmd>m .+1<CR>==gi
--- inoremap <m-k> <Esc><cmd>m .-2<CR>==gi
+vmap('J', "<cmd>m '>+1<CR>gv=gv")
+vmap('K', "<cmd>m '<-2<CR>gv=gv")
+imap('<m-j>', '<Esc><cmd>m .+1<CR>==gi')
+imap('<m-k>', '<Esc><cmd>m .-2<CR>==gi')
 
 -- clear search highlight
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
