@@ -28,7 +28,7 @@ Plug('tpope/vim-unimpaired')
 Plug('tpope/vim-eunuch')
 Plug('tpope/vim-rsi')
 Plug('ggandor/lightspeed.nvim')
--- Plug('terryma/vim-multiple-cursors')
+Plug('mg979/vim-visual-multi')
 
 -- Syntaxes and such
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
