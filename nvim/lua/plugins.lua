@@ -109,7 +109,6 @@ vim.call('plug#end')
 vim.g.undotree_WindowsLayout = 2
 
 require('Comment').setup() -- Comment.nvim setup
-require('nvim-autopairs').setup() -- Autopairs
 require('colorizer').setup()
 
 require('config.lsp')
@@ -128,3 +127,4 @@ require('config.catppuccin')
 require('config.diffview')
 require('config.tabline')
 require('config.project')
+require('config.autopairs')
