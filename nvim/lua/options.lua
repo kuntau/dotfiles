@@ -15,6 +15,7 @@ vim.opt.ignorecase = true
 vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.signcolumn = 'yes:1'
 vim.opt.smartcase = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true

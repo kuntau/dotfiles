@@ -23,7 +23,7 @@ if F.has('gui_running') == 1 then -- means running in terminal
   end
   vim.cmd 'colo catppuccin'
 else -- running in terminal
-  vim.cmd 'colo catppuccin'
+  vim.cmd 'colo nightfox'
 end
 
 -- Colorscheme
