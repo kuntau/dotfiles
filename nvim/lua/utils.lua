@@ -6,6 +6,21 @@ Utils.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
 end
 
+-- @return: 'macos' | 'wsl' | 'linux' | 'windows'
+Utils.getOS = function ()
+  if vim.fn.has('mac') == 1 then
+    return 'macos'
+  elseif vim.fn.has('wsl') == 1 then
+    return 'wsl'
+  elseif vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
+    return 'windows'
+  elseif vim.fn.has('unix') == 1 then
+    return 'linux'
+  else
+    return nil
+  end
+end
+
 Utils.getWinOrientation = function ()
   print(vim.fn.winwidth(0) > vim.fn.winheight(0))
   return vim.fn.winwidth(0) > vim.fn.winheight(0) and 'horizontal' or 'vertical'
