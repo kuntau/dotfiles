@@ -17,6 +17,7 @@ local neogit_extension = {
 require('lualine').setup({
   options = {
     component_separators = '',
+    disabled_filetypes = {}
     -- section_separators = { left = '', right = '' },
   },
   tabline = {
