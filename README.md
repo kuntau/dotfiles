@@ -74,5 +74,7 @@ echo -e "\x1B[31mHello World\e[0m"
 ```
 
 ### Wake on LAN: https://www.techrepublic.com/article/how-to-enable-wake-on-lan-in-ubuntu-server-18-04/
+
 `sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target`
+
 ### P/S. It is hard & PITA to maintain the same dotfiles accross `OS X`, `Linux` & `Windows (Cygwin)`
