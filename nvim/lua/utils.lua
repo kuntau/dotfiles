@@ -6,7 +6,8 @@ Utils.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
 end
 
-Utils.getRatio = function ()
+Utils.getWinOrientation = function ()
+  print(vim.fn.winwidth(0) > vim.fn.winheight(0))
   return vim.fn.winwidth(0) > vim.fn.winheight(0) and 'horizontal' or 'vertical'
 end
 Utils.feedkey = function(key, mode)
@@ -54,13 +55,14 @@ end
 -- Quickclose some pane
 Utils.quickClosePane = function()
   if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
-    vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
+    vim.cmd('wincmd L') -- move current buffer to verticl split
+    -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
     -- vim.cmd('wincmd T') -- move current buffer to new tab
   end
   Utils.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
-vim.cmd 'autocmd init_lua FileType help,qf,spectre_panel lua require("utils").quickClosePane()' -- 1st choice
+vim.cmd 'autocmd init_lua FileType help,qf,startuptime lua require("utils").quickClosePane()' -- 1st choice
 
 Utils.isGitRepo = function()
   return (string.find(vim.fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1)
