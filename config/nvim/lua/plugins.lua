@@ -10,30 +10,33 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.vim/bundle')
 
+-- speedhack
+Plug 'lewis6991/impatient.nvim'
+
 -- dev
 if vim.fn.empty(vim.fn.glob('~/coding/vim/unimpaired.nvim')) == 0 then
   Plug('~/coding/vim/unimpaired.nvim')
 end
 
+-- Essentials
+Plug 'nvim-lua/plenary.nvim'
+Plug 'kuntau/vim-osc52'
+Plug 'mhinz/vim-startify'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-telescope/telescope.nvim'
+Plug('mbbill/undotree', { on = 'UndotreeToggle' })
 Plug('junegunn/fzf', {
 	dir = '~/.fzf',
 	['do'] = './install --all'
 })
 
--- Essentials
-Plug('nvim-lua/plenary.nvim')
-Plug('kuntau/vim-osc52')
-Plug('mhinz/vim-startify')
-Plug('mbbill/undotree', { on = 'UndotreeToggle' })
-Plug('kyazdani42/nvim-tree.lua')
-Plug('nvim-telescope/telescope.nvim')
 
 -- Movements
-Plug('tpope/vim-unimpaired')
-Plug('tpope/vim-eunuch')
-Plug('tpope/vim-rsi')
-Plug('ggandor/lightspeed.nvim')
-Plug('mg979/vim-visual-multi')
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-rsi'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'mg979/vim-visual-multi'
 
 -- Syntaxes and such
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update

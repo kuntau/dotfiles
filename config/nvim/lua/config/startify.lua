@@ -32,14 +32,14 @@ local cwd = function ()
 end
 
 vim.g.startify_lists = {
+  { header = {'   Commands'},         type = 'commands' },
   { header = {('   MRU: ' .. cwd())}, type = 'dir' },
   { header = {'   MRU: Global'},      type = 'files' },
   { header = {'   Sessions'},         type = 'sessions' },
-  { header = {'   Git modified'},     type = gitModified },
+  -- { header = {'   Git modified'},     type = gitModified },
   -- { header = {'   Git untracked'},    type = gitUntracked },
   -- { header = {'   Git commits'},      type = gitCommit },
   { header = {'   Bookmarks'},        type = 'bookmarks' },
-  { header = {'   Commands'},         type = 'commands' },
 }
 
 vim.g.startify_bookmarks = {
@@ -48,12 +48,9 @@ vim.g.startify_bookmarks = {
 
 vim.g.startify_commands = {
   { pi = { 'Plug Install', 'PlugInstall' }},
-  { pg = { 'Upgrade Plug', 'PlugUpgrade' }},
   { pu = { 'Update Plugins', 'PlugUpdate' }},
-  { tu = { 'Treesitter Update', 'TSUpdate' }},
-  { ts = { 'Treesitter UpdateSync', 'TSUpdateSync' }},
+  { to = { 'Old files', 'Telescope oldfiles' }},
   { ch = { 'Check Health', 'checkhealth' }},
-  { ls = { 'LSP Info', 'LspInfo' }},
 }
 
 vim.g.startify_disable_at_vimenter = 0
