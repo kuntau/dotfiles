@@ -1,4 +1,4 @@
-if vim.fn.empty(vim.fn.glob('~/.local/share/nvim/site/autoload/plug.vim')) ~= 0 then
+if vim.fn.empty(vim.fn.glob('~/.local/share/nvim/site/autoload/plug.vim')) > 0 then
   vim.cmd [[
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim 
     \ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -9,6 +9,11 @@ end
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.vim/bundle')
+
+-- dev
+if vim.fn.empty(vim.fn.glob('~/coding/vim/unimpaired.nvim')) == 0 then
+  Plug('~/coding/vim/unimpaired.nvim')
+end
 
 Plug('junegunn/fzf', {
 	dir = '~/.fzf',
