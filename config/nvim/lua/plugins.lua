@@ -10,26 +10,19 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.vim/bundle')
 
--- speedhack
-Plug 'lewis6991/impatient.nvim'
-
 -- dev
 if vim.fn.empty(vim.fn.glob('~/coding/vim/unimpaired.nvim')) == 0 then
-  Plug('~/coding/vim/unimpaired.nvim')
+  Plug '~/coding/vim/unimpaired.nvim'
 end
 
 -- Essentials
+Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' })
+Plug('mbbill/undotree', { on = 'UndotreeToggle' })
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kuntau/vim-osc52'
 Plug 'mhinz/vim-startify'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
-Plug('mbbill/undotree', { on = 'UndotreeToggle' })
-Plug('junegunn/fzf', {
-	dir = '~/.fzf',
-	['do'] = './install --all'
-})
-
 
 -- Movements
 Plug 'tpope/vim-unimpaired'
@@ -40,74 +33,74 @@ Plug 'mg979/vim-visual-multi'
 
 -- Syntaxes and such
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })  -- We recommend updating the parsers on update
-Plug('nvim-treesitter/nvim-treesitter-refactor')  -- Refactor module for treesitter
-Plug('nvim-treesitter/nvim-treesitter-textobjects')  -- text-objects module for treesitter
-Plug('JoosepAlviste/nvim-ts-context-commentstring') -- context-commentstring module for treesitter
-Plug('windwp/nvim-ts-autotag') -- auto complete HTML tags
-Plug('tpope/vim-surround')
-Plug('tpope/vim-repeat')
-Plug('numToStr/Comment.nvim') -- Comment plugins with treesitter support
-Plug('windwp/nvim-autopairs') -- autopairs plugin
-Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
+Plug 'nvim-treesitter/nvim-treesitter-refactor'  -- Refactor module for treesitter
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'  -- text-objects module for treesitter
+Plug 'JoosepAlviste/nvim-ts-context-commentstring' -- context-commentstring module for treesitter
+Plug 'windwp/nvim-ts-autotag' -- auto complete HTML tags
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'numToStr/Comment.nvim' -- Comment plugins with treesitter support
+Plug 'windwp/nvim-autopairs' -- autopairs plugin
+Plug 'AndrewRadev/splitjoin.vim' -- gS for splitting & gJ for joining
 
 -- LSP & diagnostics
-Plug('neovim/nvim-lspconfig')
-Plug('folke/trouble.nvim')
-Plug('kevinhwang91/nvim-bqf')
+Plug 'neovim/nvim-lspconfig'
+Plug 'folke/trouble.nvim'
+Plug 'kevinhwang91/nvim-bqf'
 
 -- Completions
-Plug('github/copilot.vim')
-Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-nvim-lua')
-Plug('hrsh7th/cmp-buffer')
-Plug('hrsh7th/cmp-path')
-Plug('hrsh7th/cmp-cmdline')
-Plug('hrsh7th/cmp-copilot')
-Plug('hrsh7th/cmp-nvim-lsp-document-symbol')
+Plug 'github/copilot.vim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-copilot'
+Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
 Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
-Plug('andersevenrud/cmp-tmux')
-Plug('hrsh7th/nvim-cmp')
+Plug 'andersevenrud/cmp-tmux'
+Plug 'hrsh7th/nvim-cmp'
 
 -- VCS
-Plug('TimUntersberger/neogit')
-Plug('lewis6991/gitsigns.nvim')
-Plug('sindrets/diffview.nvim')
+Plug 'TimUntersberger/neogit'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
 
 -- Snippets
-Plug('saadparwaiz1/cmp_luasnip')
-Plug('L3MON4D3/LuaSnip')
-Plug('rafamadriz/friendly-snippets')
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
 
 -- Colorschemes
-Plug('folke/lsp-colors.nvim')
+Plug 'folke/lsp-colors.nvim'
+Plug 'gruvbox-community/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+Plug 'rakr/vim-one'
+Plug 'catppuccin/nvim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'joshdick/onedark.vim'
 Plug('kuntau/ayu-vim', { branch = 'italic' })
-Plug('gruvbox-community/gruvbox')
-Plug('arcticicestudio/nord-vim')
-Plug('rakr/vim-one')
-Plug('catppuccin/nvim')
-Plug('EdenEast/nightfox.nvim')
-Plug('NLKNguyen/papercolor-theme')
-Plug('joshdick/onedark.vim')
 
 -- Misc bundle
-Plug('christoomey/vim-tmux-navigator')
-Plug('junegunn/vim-easy-align')
-Plug('ahmedkhalf/project.nvim')
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/vim-easy-align'
+Plug 'ahmedkhalf/project.nvim'
 Plug('dstein64/vim-startuptime', { on = 'StartupTime'}) -- startup time benachmarking
 
 -- UI & UX
-Plug('p00f/nvim-ts-rainbow')
-Plug('monkoose/matchparen.nvim')
-Plug('norcalli/nvim-colorizer.lua')
-Plug('lukas-reineke/indent-blankline.nvim')
-Plug('kyazdani42/nvim-web-devicons') -- for file icons
-Plug('onsails/lspkind-nvim') -- LSP completion menu icons
-Plug('famiu/bufdelete.nvim') -- improve :bdelete experience
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'monkoose/matchparen.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'kyazdani42/nvim-web-devicons' -- for file icons
+Plug 'onsails/lspkind-nvim' -- LSP completion menu icons
+Plug 'famiu/bufdelete.nvim' -- improve :bdelete experience
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- StatusLine, bufferline & tabline
-Plug('kdheepak/tabline.nvim')
-Plug('nvim-lualine/lualine.nvim') -- statusline
+Plug 'kdheepak/tabline.nvim'
+Plug 'nvim-lualine/lualine.nvim' -- statusline
 -- Plug('famiu/feline.nvim') -- statusline
 -- Plug('windwp/windline.nvim') -- statusline
 

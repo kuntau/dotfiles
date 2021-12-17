@@ -1,6 +1,6 @@
 -- init.lua --
 
-require('impatient')
+require('impatient') -- NOS!! https://github.com/lewis6991/impatient.nvim
 require('options')
 require('plugins')
 require('ui')
