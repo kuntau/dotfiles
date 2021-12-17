@@ -52,8 +52,9 @@ vim.opt.list = false -- show special characters
 vim.opt.listchars = {eol = '↲', tab = '▸ ', trail = '·'} -- Special characters for highlighting non-printing spaces/tabs/etc
 vim.opt.fillchars = { vert = ' ', eob = ' '} -- remove ugly vertical seperator & end of boundry char
 
--- disable matchparen
-vim.g.loaded_matchparen = 0
+-- disable matchparen & matchit
+vim.g.loaded_matchparen = 1
+vim.g.loaded_matchit = 1
 
 vim.cmd 'au FocusLost * silent! noautocmd up'
 vim.cmd 'au FocusGained * silent! noautocmd checktime'

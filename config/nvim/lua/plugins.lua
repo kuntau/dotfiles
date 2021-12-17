@@ -16,7 +16,7 @@ if vim.fn.empty(vim.fn.glob('~/coding/vim/unimpaired.nvim')) == 0 then
 end
 
 -- Essentials
-Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' })
+Plug('junegunn/fzf', { dir = '~/.fzf', on = 'FZF', ['do'] = './install --all' })
 Plug('mbbill/undotree', { on = 'UndotreeToggle' })
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kuntau/vim-osc52'
@@ -42,6 +42,7 @@ Plug 'tpope/vim-repeat'
 Plug 'numToStr/Comment.nvim' -- Comment plugins with treesitter support
 Plug 'windwp/nvim-autopairs' -- autopairs plugin
 Plug 'AndrewRadev/splitjoin.vim' -- gS for splitting & gJ for joining
+Plug 'andymass/vim-matchup' -- Replace default `matchit` & `matchparen`
 
 -- LSP & diagnostics
 Plug 'neovim/nvim-lspconfig'
@@ -79,7 +80,6 @@ Plug 'rakr/vim-one'
 Plug 'catppuccin/nvim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'joshdick/onedark.vim'
 Plug('kuntau/ayu-vim', { branch = 'italic' })
 
 -- Misc bundle
@@ -90,12 +90,11 @@ Plug('dstein64/vim-startuptime', { on = 'StartupTime'}) -- startup time benachma
 
 -- UI & UX
 Plug 'p00f/nvim-ts-rainbow'
-Plug 'monkoose/matchparen.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'kyazdani42/nvim-web-devicons' -- for file icons
 Plug 'onsails/lspkind-nvim' -- LSP completion menu icons
-Plug 'famiu/bufdelete.nvim' -- improve :bdelete experience
+Plug('famiu/bufdelete.nvim', { on = 'Bdelete' }) -- improve :bdelete experience
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- StatusLine, bufferline & tabline
@@ -113,7 +112,6 @@ vim.g.undotree_WindowsLayout = 2
 
 require('Comment').setup() -- Comment.nvim setup
 require('colorizer').setup()
-require('matchparen').setup()
 
 require('config.lsp')
 require('config.cmp')
