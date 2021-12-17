@@ -46,8 +46,6 @@ Plug('AndrewRadev/splitjoin.vim') -- gS for splitting & gJ for joining
 Plug('neovim/nvim-lspconfig')
 Plug('folke/trouble.nvim')
 Plug('kevinhwang91/nvim-bqf')
--- Plug('ray-x/navigator.lua')
--- Plug('glepnir/lspsaga.nvim')
 
 -- Completions
 Plug('github/copilot.vim')
@@ -87,9 +85,9 @@ Plug('joshdick/onedark.vim')
 Plug('christoomey/vim-tmux-navigator')
 Plug('junegunn/vim-easy-align')
 Plug('ahmedkhalf/project.nvim')
+Plug('dstein64/vim-startuptime', { on = 'StartupTime'}) -- startup time benachmarking
 
 -- UI & UX
--- Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug('p00f/nvim-ts-rainbow')
 Plug('monkoose/matchparen.nvim')
 Plug('norcalli/nvim-colorizer.lua')
