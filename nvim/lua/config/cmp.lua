@@ -63,8 +63,8 @@ cmp.setup({
     { name = 'nvim_lua', max_item_count = 20 },
     { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
-    { name = 'buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
     { name = 'path' }, -- path completion
+    { name = 'buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
     { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
   }),
   formatting = {
@@ -94,7 +94,7 @@ cmp.setup({
 cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer', keyword_length = 3 },
-    { name = 'nvim_lsp_document_symbol', keyword_length = 3 },
+    { name = 'nvim_lsp_document_symbol' },
   }
 })
 
