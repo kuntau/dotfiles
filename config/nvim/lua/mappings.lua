@@ -29,9 +29,6 @@ imap('<m-k>', '<Esc><cmd>m .-2<CR>==gi')
 -- clear search highlight
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
--- qq to record, Q to replay
-nmap('Q', '@q')
-
 -- buffer management
 nmap('<leader>bd', '<cmd>Bdelete<cr>')
 
