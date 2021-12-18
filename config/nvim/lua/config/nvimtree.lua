@@ -1,11 +1,5 @@
 -- nvim-tree configs
 
-
-vim.api.nvim_set_keymap('n', '<F3>', ':NvimTreeToggle<CR>', {
-  noremap = true,
-  silent = true
-})
-
 require('nvim-tree').setup({
   auto_close = true,
   open_on_setup = true,

@@ -30,11 +30,12 @@ imap('<m-k>', '<Esc><cmd>m .-2<CR>==gi')
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
 -- buffer management
-nmap('<leader>bd', '<cmd>Bdelete<cr>')
+nmap('<leader>bd', '<cmd>Bdelete!<cr>')
 
 -- Plugins
 vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = true })
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
+nmap('<F3>', '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>fz', '<cmd>FZF<cr>')
 nmap('<Leader>S',  '<cmd>Startify<cr>')
 nmap('<Leader>G',  '<cmd>Neogit kind=vsplit<cr>')
