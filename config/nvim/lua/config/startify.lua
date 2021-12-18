@@ -32,14 +32,14 @@ local cwd = function ()
 end
 
 vim.g.startify_lists = {
-  { header = {'   Commands'},         type = 'commands' },
   { header = {('   MRU: ' .. cwd())}, type = 'dir' },
   { header = {'   MRU: Global'},      type = 'files' },
   { header = {'   Sessions'},         type = 'sessions' },
   -- { header = {'   Git modified'},     type = gitModified },
   -- { header = {'   Git untracked'},    type = gitUntracked },
   -- { header = {'   Git commits'},      type = gitCommit },
-  { header = {'   Bookmarks'},        type = 'bookmarks' },
+  -- { header = {'   Bookmarks'},        type = 'bookmarks' },
+  { header = {'   Commands'},         type = 'commands' },
 }
 
 vim.g.startify_bookmarks = {
@@ -47,9 +47,12 @@ vim.g.startify_bookmarks = {
 }
 
 vim.g.startify_commands = {
+  { tp = { 'Projects', 'Telescope projects' }},
+  { to = { 'Old files', 'Telescope oldfiles' }},
+  { gs = { 'Git status', 'Telescope git_status' }},
+  { gc = { 'Git commits', 'Telescope git_commits' }},
   { pi = { 'Plug Install', 'PlugInstall' }},
   { pu = { 'Update Plugins', 'PlugUpdate' }},
-  { to = { 'Old files', 'Telescope oldfiles' }},
   { ch = { 'Check Health', 'checkhealth' }},
 }
 
@@ -60,10 +63,10 @@ vim.g.startify_session_sort = 1
 vim.g.startify_session_persistence = 1
 vim.g.startify_session_autoload = 1
 vim.g.startify_change_to_dir = 0
-vim.g.startify_update_oldfiles = 1
-vim.g.startify_enable_unsafe = 0
+vim.g.startify_update_oldfiles = 0
+vim.g.startify_enable_unsafe = 1
 vim.g.startify_padding_left = 3
-vim.g.startify_files_number = 6
+vim.g.startify_files_number = 5
 vim.g.startify_fortune_use_unicode = 1
 -- vim.g.startify_custom_header = 0
 -- vim.g.startify_custom_header = 'startify#center(startify#fortune#boxed())'
