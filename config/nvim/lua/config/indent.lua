@@ -10,6 +10,8 @@ vim.g.indent_blankline_filetype_exclude = {
   'startify',
   'tex',
   'txt',
+  'startuptime',
+  'checkhealth',
 }
 vim.g.indent_blankline_use_treesitter = true
 

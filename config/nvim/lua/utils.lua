@@ -77,8 +77,6 @@ Utils.quickClosePane = function()
   Utils.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
-vim.cmd 'autocmd init_lua FileType help,qf,startuptime lua require("utils").quickClosePane()' -- 1st choice
-
 Utils.isGitRepo = function()
   return (string.find(vim.fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1)
 end
