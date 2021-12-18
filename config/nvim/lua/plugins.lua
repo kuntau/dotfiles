@@ -99,6 +99,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- StatusLine, bufferline & tabline
 Plug 'kdheepak/tabline.nvim'
+Plug 'edkolev/tmuxline.vim' -- Tmux statusline
 Plug 'nvim-lualine/lualine.nvim' -- statusline
 -- Plug('famiu/feline.nvim') -- statusline
 -- Plug('windwp/windline.nvim') -- statusline
