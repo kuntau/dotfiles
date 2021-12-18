@@ -156,6 +156,7 @@ Plug 'tpope/vim-ragtag',                    { 'for': [ 'php', 'blade' ] }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
+let g:airline#extensions#tmuxline#enabled = 0
 Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
 " Plug 'chreekat/vim-paren-crosshairs'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
@@ -223,7 +224,7 @@ if !has("gui_running")
     set termguicolors
   endif
   " set background=dark
-  colorscheme ayu
+  colorscheme solarized8
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
@@ -248,7 +249,6 @@ else
     set gfn=PragmataPro\ 9
     " set lines=50 columns=100
   endif
-  let g:airline#extensions#tmuxline#enabled = 0
   colorscheme one
 endif
 
