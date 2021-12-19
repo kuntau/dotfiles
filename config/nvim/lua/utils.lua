@@ -25,6 +25,15 @@ Utils.getWinOrientation = function ()
   return vim.fn.winwidth(0) <= 152 and 'vertical' or 'horizontal'
 end
 
+Utils.isGui = function ()
+  if vim.fn.has('gui_running') == 1 or
+    vim.g.gonvim_running == 1 or
+    vim.g.neoray == 1 then
+    return true
+  end
+  return false
+end
+
 Utils.feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
