@@ -8,21 +8,12 @@ require('nvim-tree').setup({
   hijack_cursor = true,
   disable_netrw = true,
   hijack_netrw = true,
-
-  nvim_tree_ignore = {
-    '.git',
-    '.hg',
-    '.svn',
-    'node_modules'
-  },
-
+  nvim_tree_ignore = { '.git', '.hg', '.svn', 'node_modules' },
   ignore_ft_on_setup = { 'startify', 'help' },
-
   update_to_buf_dir = {
     enable = false,
     auto_open = true,
   },
-
   diagnostics = {
     enable = false,
     icons = {
@@ -32,24 +23,22 @@ require('nvim-tree').setup({
       error = "",
     }
   },
-
   update_focused_file = {
     enable = true,
     update_cwd = true,
     ignore_list = {
       'help',
-      'startify'
+      'startify',
+      'NeogitStatus',
     }
   },
-
   git = {
-    enable = true,
+    enable = false,
     ignore = true,
+    timeout = 500,
   },
-
   trash = {
     cmd = 'trash',
     require_confirm = true
   }
-
 }) -- nvim-tree
