@@ -109,8 +109,11 @@ end
 
 Utils.reloadModule = function ()
   local module = vim.fn.expand('%:t:r')
-  require('plenary.reload').reload_module(module)
+  if pcall(require, 'plenary') then
+    require('plenary.reload').reload_module(module)
+  end
   print(module .. ' module reloaded!')
+  return require(module)
 end
 
 return Utils
