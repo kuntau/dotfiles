@@ -1,4 +1,8 @@
 -- Neovim LSP configs
+-- References = {
+-- https://github.com/tjdevries/config_manager/tree/master/xdg_config/nvim/lua/tj/lsp/
+-- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/lsp/
+-- }
 
 require('lsp-colors').setup()
 -- require('navigator').setup()
@@ -17,6 +21,15 @@ if vim.fn.has('nvim-0.6') == 1 then
     virtual_text = true,
     signs = true,
     severity_sort = true,
+    update_in_insert = true,
+    float = {
+      focusable = true,
+      style = "minimal",
+      border = "rounded",
+      source = "always",
+      header = "",
+      prefix = "",
+    },
   })
 end
 
@@ -90,7 +103,7 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
-      debounce_text_changes = 150,
+      debounce_text_changes = 50,
     },
     capabilities = capabilities
   }
