@@ -32,24 +32,32 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 -- buffer management
 nmap('<leader>bd', '<cmd>Bdelete!<cr>')
 
--- Plugins
+--                 Plugins
 vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = true })
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
-nmap('<F3>', '<cmd>NvimTreeToggle<cr>')
+nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>fz', '<cmd>FZF<cr>')
 nmap('<Leader>S',  '<cmd>Startify<cr>')
-nmap('<Leader>G',  '<cmd>Neogit kind=vsplit<cr>')
+nmap('<Leader>G',  '<cmd>Neogit '..(require("utils").getWinOrientation() == 'horizontal' and 'kind=vsplit' or 'kind=split')..'<cr>')
 nmap('<Leader>oT', '<cmd>Trouble document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
 
 -- Telescope bindings
+-- local layConfig = {
+--   width = 0.5,
+--   height = 0.5,
+-- }
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
-nmap('<Leader>fa', '<cmd>Telescope builtin previewer=false layout_config={"width":0.3}<cr>')
-nmap('<Leader>ff', '<cmd>Telescope git_files<cr>')
+-- nmap('<Leader>fa', '<cmd>lua require("telescope.builtin").builtin({previewer=false,'..layConfig..'})<cr>')
+nmap('<Leader>fa', '<cmd>Telescope builtin previewer=false layout_config={"width":0.5}<cr>')
+nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
 nmap('<Leader>ft', '<cmd>Telescope file_browser<cr>')
 nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
-nmap('<Leader>fb', '<cmd>Telescope buffers sort_lastused=true<cr>')
+-- nmap('<Leader>fb', '<cmd>Telescope buffers sort_lastused=true initial_mode=normal<cr>')
+nmap('<Leader>ff', [[<cmd>lua require('telescope.builtin').buffers({ sort_lastused=true, previewer=false, initial_mode='normal', layout_config={width=0.5, height=0.3}})<cr>]])
+-- nmap('<Leader>ff', [[<cmd>lua require('telescope.builtin').buffers({ sort_lastused=true, previewer=false, initial_mode='normal', layout_config={width=0.5, height=0.3}})<cr>]])
+-- layout_config={width='0.5', height='0.3'}
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
 
 -- junegunn easy-align

@@ -22,9 +22,9 @@ Utils.getOS = function ()
 end
 
 Utils.getWinOrientation = function ()
-  print(vim.fn.winwidth(0) > vim.fn.winheight(0))
-  return vim.fn.winwidth(0) > vim.fn.winheight(0) and 'horizontal' or 'vertical'
+  return vim.fn.winwidth(0) <= 152 and 'vertical' or 'horizontal'
 end
+
 Utils.feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
@@ -69,11 +69,14 @@ end
 
 -- Quickclose some pane
 Utils.quickClosePane = function()
-  if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
-    vim.cmd('wincmd L') -- move current buffer to verticl split
+  local orientation = Utils.getWinOrientation()
+  if vim.o.buftype == 'help' and orientation == 'vertical' then -- if it's help pane, do some modifications
+    vim.cmd 'wincmd J' -- Move to bottom most split
+  else
+    vim.cmd 'wincmd L' -- Move to right most vsplit
+  end
     -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
     -- vim.cmd('wincmd T') -- move current buffer to new tab
-  end
   Utils.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 

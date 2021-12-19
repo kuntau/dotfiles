@@ -1,6 +1,5 @@
 -- telescope configs
 
-local trouble = require('trouble.providers.telescope')
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('projects')
 
@@ -9,10 +8,9 @@ require('telescope').setup ({
     mappings = {
       i = {
         -- ['<ESC>'] = require('telescope.actions').close,
-        ['<c-t>'] = trouble.open_with_trouble,
       },
     },
-    layout_strategy      = 'flex',
+    layout_strategy      = require("utils").getWinOrientation(),
     path_display         = { 'smart' },
     selection_strategy   = 'closest',
     sorting_strategy     = 'ascending',
