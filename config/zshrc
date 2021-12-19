@@ -62,6 +62,7 @@ if [[ $OS_NAME == Linux ]]; then
 elif [[ $OS_NAME == Darwin ]]; then
   # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
   export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS # Sumneko lua path
+  export PATH=$PATH:~/Applications/goneovim.app/Contents/MacOS
   # set android dev path
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
