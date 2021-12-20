@@ -10,6 +10,7 @@ require('telescope').setup ({
         -- ['<ESC>'] = require('telescope.actions').close,
       },
     },
+    file_ignore_patterns = { 'node_modules', '.git' },
     layout_strategy      = require("utils").getWinOrientation(),
     path_display         = { 'smart' },
     selection_strategy   = 'closest',
@@ -22,7 +23,15 @@ require('telescope').setup ({
         prompt_position = 'top'
       },
     },
-
+    pickers = {
+      git_bcommits = {
+        initial_mode = 'normal'
+      },
+      colorscheme = {
+        initial_mode = 'normal',
+        enable_preview = true,
+      }
+    },
     extensions = {
       fzf = {
         fuzzy = true,
