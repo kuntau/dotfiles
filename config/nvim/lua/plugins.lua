@@ -107,7 +107,8 @@ Plug 'nvim-lualine/lualine.nvim' -- statusline
 vim.call('plug#end')
 
 --[[ Plugins configuration ]]--
-
+-- matchup
+vim.g.matchup_matchparen_deferred = 1
 -- UndoTree
 vim.g.undotree_WindowsLayout = 2
 
@@ -125,9 +126,9 @@ require('config.startify')
 require('config.gitsigns')
 require('config.trouble')
 require('config.indent')
-require('config.statusline')
 require('config.catppuccin')
 require('config.diffview')
 require('config.tabline')
+require('config.statusline')
 require('config.project')
 require('config.autopairs')
