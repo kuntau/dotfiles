@@ -22,7 +22,7 @@ Utils.getOS = function ()
 end
 
 Utils.getWinOrientation = function ()
-  return vim.fn.winwidth(0) <= 152 and 'vertical' or 'horizontal'
+  return vim.o.columns <= 152 and 'vertical' or 'horizontal'
 end
 
 Utils.isGui = function ()
