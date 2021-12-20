@@ -46,11 +46,11 @@ local map = function (mode, lhs, rhs, opts)
     end
   end
 
-  local buffer = options.buffer
+  local bufnr = options.buffer
   options.buffer = nil
 
-  if buffer then
-    vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, options)
+  if bufnr then
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options)
   else
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
   end
