@@ -1,4 +1,5 @@
 -- mappings.lua: My custom keyboard mappings
+-- NOTES: Use <cmd> only when have <cr>
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
@@ -9,7 +10,10 @@ local vmap = require('utils').vmap
 
 nmap('<LocalLeader>q',   '<cmd>q<cr>')
 nmap('<F4>',             '<cmd>up!<cr>')
-imap('<F4>',             '<c-o><cmd>up!<cr>')
+imap('<F4>',             '<cmd>up!<cr>')
+nmap('<D-s>',             '<cmd>up!<cr>')
+imap('<D-s>',             '<cmd>up!<cr>')
+imap('<D-v>',             '<c-r>+')
 nmap('<Leader>so',       '<cmd>up<cr><cmd>luafile %<cr>')
 nmap('<Leader><Leader>', ':')
 nmap('<Leader>rm',       '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
@@ -19,12 +23,16 @@ nmap('<right>', '<cmd>bn<cr>')
 nmap('<left>',  '<cmd>bp<cr>')
 
 -- Alternate version which don't use bookmark
-nmap('<m-j>', '<cmd>m .+1<CR>==')
-nmap('<m-k>', '<cmd>m .-2<CR>==')
-vmap('J', "<cmd>m '>+1<CR>gv=gv")
-vmap('K', "<cmd>m '<-2<CR>gv=gv")
-imap('<m-j>', '<Esc><cmd>m .+1<CR>==gi')
-imap('<m-k>', '<Esc><cmd>m .-2<CR>==gi')
+nmap('<m-j>', ':m .+1<CR>==')
+nmap('<m-k>', ':m .-2<CR>==')
+vmap('J', ":m '>+1<CR>gv=gv")
+vmap('K', ":m '<-2<CR>gv=gv")
+imap('<m-j>', '<Esc>:m .+1<CR>==gi')
+imap('<m-k>', '<Esc>:m .-2<CR>==gi')
+
+if vim.fn.has('nvim-0.7') ~= 1 then
+  nmap('Q', '@q')
+end
 
 -- clear search highlight
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
@@ -39,7 +47,7 @@ nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>fz', '<cmd>FZF<cr>')
 nmap('<Leader>S',  '<cmd>Startify<cr>')
 nmap('<Leader>G',  '<cmd>Neogit '..(require("utils").getWinOrientation() == 'horizontal' and 'kind=vsplit' or 'kind=split')..'<cr>')
-nmap('<Leader>oT', '<cmd>Trouble document_diagnostics<cr>')
+nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
 
@@ -49,6 +57,7 @@ nmap('U',          '<cmd>UndotreeToggle<CR>')
 --   height = 0.5,
 -- }
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
+nmap('<leader>tp', '<cmd>Telescope projects<cr>')
 -- nmap('<Leader>fa', '<cmd>lua require("telescope.builtin").builtin({previewer=false,'..layConfig..'})<cr>')
 nmap('<Leader>fa', '<cmd>Telescope builtin previewer=false layout_config={"width":0.5}<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
