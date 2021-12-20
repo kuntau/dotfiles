@@ -53,6 +53,7 @@ OS_NAME=$(uname)
 HOST_NAME=$(hostname)
 DOTFILES_HOME=$HOME/dotfiles
 
+# OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
   # export PATH=~/.local/bin:$PATH
@@ -61,8 +62,7 @@ if [[ $OS_NAME == Linux ]]; then
   export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/Linux # Sumneko lua path
 elif [[ $OS_NAME == Darwin ]]; then
   # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
-  export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS # Sumneko lua path
-  export PATH=$PATH:~/Applications/goneovim.app/Contents/MacOS
+
   # set android dev path
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
@@ -90,6 +90,11 @@ elif [[ $OS_NAME == Darwin ]]; then
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   export HOMEBREW_NO_AUTO_UPDATE=0
   export HOMEBREW_AUTO_UPDATE_SECS=86400
+
+  # One off binary
+  export PATH=~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS:$PATH # Sumneko lua path
+  export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH      # Neovim GUI in Go
+  export PATH=/usr/local/opt/sqlite/bin:$PATH                       # Homebrew's sqlite3
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
@@ -172,4 +177,4 @@ source $HOME/.secret                  # don't commit this file
 typeset -U PATH                       # remove dups from $PATH
 # }}}
 
-alias luamake=/Users/kuntau/coding/forks/lua-language-server/3rd/luamake/luamake
+# alias luamake=/Users/kuntau/coding/forks/lua-language-server/3rd/luamake/luamake
