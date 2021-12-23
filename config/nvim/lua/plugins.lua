@@ -46,8 +46,10 @@ Plug 'andymass/vim-matchup' -- Replace default `matchit` & `matchparen`
 
 -- LSP & diagnostics
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'kevinhwang91/nvim-bqf'
+Plug('simrat39/symbols-outline.nvim', { on = 'SymbolsOutline' })
 
 -- Completions
 Plug 'github/copilot.vim'
@@ -79,7 +81,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'rakr/vim-one'
 Plug 'catppuccin/nvim'
 Plug 'EdenEast/nightfox.nvim'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'folke/tokyonight.nvim'
+Plug 'rebelot/kanagawa.nvim' -- tokyonight + gruvbox
 Plug('kuntau/ayu-vim', { branch = 'italic' })
 
 -- Misc bundle
@@ -87,6 +90,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/vim-easy-align'
 Plug 'ahmedkhalf/project.nvim'
 Plug('dstein64/vim-startuptime', { on = 'StartupTime'}) -- startup time benachmarking
+Plug('glacambre/firenvim', { ['do'] = 'firenvim#install(0)' }) -- neovim in the browser
 
 -- UI & UX
 Plug 'p00f/nvim-ts-rainbow'
@@ -132,3 +136,4 @@ require('config.tabline')
 require('config.statusline')
 require('config.project')
 require('config.autopairs')
+
