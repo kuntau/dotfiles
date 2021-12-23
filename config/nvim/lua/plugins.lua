@@ -16,7 +16,7 @@ if not status_ok then
   return
 end
 
-return packer.startup(function(use)
+return packer.startup({function(use)
 
 -- dev
   if fn.empty(fn.glob('~/coding/vim/unimpaired.nvim')) == 0 then
@@ -108,7 +108,7 @@ return packer.startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'onsails/lspkind-nvim' -- LSP completion menu icons
   use{'lukas-reineke/indent-blankline.nvim', config = function () require('config.indent') end}
-  use{'norcalli/nvim-colorizer.lua', setup = function () require('colorizer').setup() end}
+  use{'norcalli/nvim-colorizer.lua', config = function () require('colorizer').setup() end}
   use{'famiu/bufdelete.nvim', cmd = 'Bdelete'} -- improve :bdelete experience
   use{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
@@ -123,5 +123,10 @@ return packer.startup(function(use)
   if packer_bookstrap then
     packer.sync()
   end
-end)
-
+end,
+  config = {
+    display = { open_fn = require("packer.util").float},
+    -- Move to lua dir so impatient.nvim can cache it
+    compile_path = fn.stdpath('config')..'/lua/packer_compiled.lua'
+  }
+})
