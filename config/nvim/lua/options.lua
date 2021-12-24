@@ -12,6 +12,7 @@ vim.opt.autochdir       = false
 vim.opt.autowriteall    = true
 vim.opt.backup          = false
 vim.opt.clipboard       = 'unnamed,unnamedplus' -- better safe than sorry
+vim.opt.cursorbind      = false -- Like scrollbind for cursor, let we edit same file in 2 split
 vim.opt.errorbells      = false
 vim.opt.ignorecase      = true
 vim.opt.inccommand      = 'split' -- cmdline search & replace open in split
@@ -25,7 +26,7 @@ vim.opt.visualbell      = false
 
 -- Looks & feels
 vim.opt.cursorcolumn    = false
-vim.opt.cursorline      = true
+vim.opt.cursorline      = true -- horizontal highlight line with cursor
 vim.opt.number          = true
 vim.opt.relativenumber  = true
 vim.opt.scrolloff       = 5 -- Show 5 line above & below cursor
