@@ -51,8 +51,8 @@ vim.g.startify_commands = {
   { to = { 'Old files', 'Telescope oldfiles' }},
   { gs = { 'Git status', 'Telescope git_status' }},
   { gc = { 'Git commits', 'Telescope git_commits' }},
-  { pi = { 'Plug Install', 'PlugInstall' }},
-  { pu = { 'Update Plugins', 'PlugUpdate' }},
+  { ps = { 'Packer Sync', 'PackerSync' }},
+  { pc = { 'Packer Compile', 'PackerCompile' }},
   { ch = { 'Check Health', 'checkhealth' }},
 }
 
