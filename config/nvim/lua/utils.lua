@@ -1,6 +1,15 @@
 -- utils.lua
 
-local Utils = {}
+-- Global helpers
+_G.I = function (v)
+  return vim.inspect(v)
+end
+
+_G.P = function (v)
+  print(v)
+  return v
+end
+-- end global helpers
 
 Utils.isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
