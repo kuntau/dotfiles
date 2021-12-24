@@ -18,30 +18,28 @@ end
 
 return packer.startup({function(use)
 
--- dev
+  -- dev
   if fn.empty(fn.glob('~/coding/vim/unimpaired.nvim')) == 0 then
     use '~/coding/vim/unimpaired.nvim'
   end
 
--- Essentials
+  -- Essentials
   use 'wbthomason/packer.nvim' -- Packer can manage itself
   use 'nvim-lua/plenary.nvim'
-  use 'kuntau/vim-osc52' -- Copy & paste across tmux & screen
+  use 'kuntau/vim-osc52' -- Copy & paste across tmux & screen over mosh
   use{'mhinz/vim-startify', config = function () require('config.startify') end}
   use{'kyazdani42/nvim-tree.lua', config = function () require('config.nvimtree') end}
   use{'nvim-telescope/telescope.nvim', config = function () require('config.telescope') end}
-  use{'mbbill/undotree', cmd = 'UndotreeToggle', config = function()
-    vim.g.undotree_WindowsLayout = 2
-  end }
+  use{'mbbill/undotree', config = function() vim.g.undotree_WindowsLayout = 2 end,  cmd = 'UndotreeToggle'}
 
--- Movements
+  -- Movements
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-eunuch'
   use 'tpope/vim-rsi'
   use 'ggandor/lightspeed.nvim'
   use 'mg979/vim-visual-multi'
 
--- Syntaxes and such
+  -- Syntaxes and such
   use{'nvim-treesitter/nvim-treesitter',
     config = function () require('config.treesitter') end,
     run = ':TSUpdate'
@@ -55,16 +53,14 @@ return packer.startup({function(use)
   use 'AndrewRadev/splitjoin.vim' -- gS for splitting & gJ for joining
   use{'numToStr/Comment.nvim', config = function () require('Comment').setup() end} -- Comment plugins with treesitter support
   use{'windwp/nvim-autopairs', config = function () require('config.autopairs') end} -- autopairs plugin
-  use{'andymass/vim-matchup', config = function ()
-    vim.g.matchup_matchparen_deferred = 1
-  end} -- Replace default `matchit` & `matchparen`
+  use{'andymass/vim-matchup', config = function () vim.g.matchup_matchparen_deferred = 1 end} -- Replace default `matchit` & `matchparen`
 
--- LSP & diagnostics
+  -- LSP & diagnostics
   use 'kevinhwang91/nvim-bqf'
   use{'neovim/nvim-lspconfig', config = function () require('config.lsp') end}
   use{'folke/trouble.nvim', config = function () require('config.trouble') end}
 
--- Completions
+  -- Completions
   use 'github/copilot.vim'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
@@ -77,17 +73,17 @@ return packer.startup({function(use)
   use{'tzachar/cmp-tabnine', run = './install.sh', config = function () require('config.tabnine') end}
   use{'hrsh7th/nvim-cmp', config = function () require('config.cmp') end}
 
--- VCS
+  -- VCS
   use{'TimUntersberger/neogit', config = function () require('config.neogit') end}
   use{'lewis6991/gitsigns.nvim', config = function () require('config.gitsigns') end}
   use{'sindrets/diffview.nvim', config = function () require('config.diffview') end}
 
--- Snippets
+  -- Snippets
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip'
   use 'rafamadriz/friendly-snippets'
 
--- Colorschemes
+  -- Colorschemes
   use 'folke/lsp-colors.nvim'
   use 'gruvbox-community/gruvbox'
   use 'arcticicestudio/nord-vim'
@@ -97,13 +93,13 @@ return packer.startup({function(use)
   use 'NLKNguyen/papercolor-theme'
   use{'kuntau/ayu-vim', branch = 'italic'}
 
--- Misc bundle
+  -- Misc bundle
   use 'christoomey/vim-tmux-navigator'
   use 'junegunn/vim-easy-align'
   use{'ahmedkhalf/project.nvim', config = function () require('project_nvim').setup() end}
   use{'dstein64/vim-startuptime', cmd = ':StartupTime'} -- startup time benachmarking
 
--- UI & UX
+  -- UI & UX
   use 'p00f/nvim-ts-rainbow'
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use 'onsails/lspkind-nvim' -- LSP completion menu icons
@@ -112,12 +108,12 @@ return packer.startup({function(use)
   use{'famiu/bufdelete.nvim', cmd = 'Bdelete'} -- improve :bdelete experience
   use{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
--- StatusLine, bufferline & tabline
+  -- StatusLine, bufferline & tabline
   use 'edkolev/tmuxline.vim' -- Tmux statusline
   use{'kdheepak/tabline.nvim', config = function () require('config.tabline') end}
   use{'nvim-lualine/lualine.nvim', config = function() require('config.statusline') end} -- statusline
--- use('famiu/feline.nvim') -- statusline
--- use('windwp/windline.nvim') -- statusline
+  -- use('famiu/feline.nvim') -- statusline
+  -- use('windwp/windline.nvim') -- statusline
 
   -- automatically setup configurations after cloning packer
   if packer_bookstrap then
