@@ -1,17 +1,29 @@
 -- telescope configs
 
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('projects')
-
 require('telescope').setup ({
   defaults = {
     mappings = {
       i = {
-        -- ['<ESC>'] = require('telescope.actions').close,
+        ['jj'] = require('telescope.actions').close,
+        ['<M-.>'] = require('telescope.actions.layout').toggle_preview,
+        ['<M-?>'] = require('telescope.actions').which_key,
+        ["<M-Up>"] = require('telescope.actions').cycle_history_prev,
+        ["<M-Down>"] = require('telescope.actions').cycle_history_next,
+        ['<C-u>'] = require('telescope.actions').results_scrolling_up,
+        ['<C-d>'] = require('telescope.actions').results_scrolling_down,
+        ['<PageUp>'] = require('telescope.actions').preview_scrolling_up,
+        ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
       },
+      n = {
+        ['<M-.>'] = require('telescope.actions.layout').toggle_preview,
+        ['<M-p>'] = require('telescope.actions.layout').cycle_layout_prev,
+        ['<M-n>'] = require('telescope.actions.layout').cycle_layout_next,
+        ['<C-u>'] = require('telescope.actions').results_scrolling_up,
+        ['<C-d>'] = require('telescope.actions').results_scrolling_down,
+        ['<PageUp>'] = require('telescope.actions').preview_scrolling_up,
+        ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
+      }
     },
-    file_ignore_patterns = { 'node_modules', '.git' },
-    layout_strategy      = require("utils").getWinOrientation(),
     file_ignore_patterns = { '^node_modules/', '^.git/' },
     layout_strategy      = (require("utils").getWinOrientation)(),
     path_display         = { 'smart' },
