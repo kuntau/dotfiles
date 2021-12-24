@@ -53,22 +53,15 @@ nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
 
 -- Telescope bindings
--- local layConfig = {
---   width = 0.5,
---   height = 0.5,
--- }
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
 nmap('<leader>tp', '<cmd>Telescope projects<cr>')
--- nmap('<Leader>fa', '<cmd>lua require("telescope.builtin").builtin({previewer=false,'..layConfig..'})<cr>')
-nmap('<Leader>fa', '<cmd>Telescope builtin previewer=false layout_config={"width":0.5}<cr>')
+nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
 nmap('<Leader>ft', '<cmd>Telescope file_browser<cr>')
 nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
--- nmap('<Leader>fb', '<cmd>Telescope buffers sort_lastused=true initial_mode=normal<cr>')
-nmap('<Leader>ff', [[<cmd>lua require('telescope.builtin').buffers({ sort_lastused=true, previewer=false, initial_mode='normal', layout_config={width=0.5, height=0.3}})<cr>]])
--- nmap('<Leader>ff', [[<cmd>lua require('telescope.builtin').buffers({ sort_lastused=true, previewer=false, initial_mode='normal', layout_config={width=0.5, height=0.3}})<cr>]])
--- layout_config={width='0.5', height='0.3'}
+nmap('<Leader>ff', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
+nmap('<Leader>fz', '<cmd>Telescope help_tags<cr>')
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
