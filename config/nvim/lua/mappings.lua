@@ -7,6 +7,7 @@ vim.g.maplocalleader = '\\'
 local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
+local orientation = require('utils').getWinOrientation
 
 nmap('<LocalLeader>q',   '<cmd>q<cr>')
 nmap('<F4>',             '<cmd>up!<cr>')
@@ -46,7 +47,7 @@ nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>fz', '<cmd>FZF<cr>')
 nmap('<Leader>S',  '<cmd>Startify<cr>')
-nmap('<Leader>G',  '<cmd>Neogit '..(require("utils").getWinOrientation() == 'horizontal' and 'kind=vsplit' or 'kind=split')..'<cr>')
+nmap('<Leader>G',  '<cmd>Neogit kind='..(orientation() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
 nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
