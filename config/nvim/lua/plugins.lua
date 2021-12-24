@@ -28,8 +28,8 @@ return packer.startup({function(use)
   use 'nvim-lua/plenary.nvim'
   use 'kuntau/vim-osc52' -- Copy & paste across tmux & screen over mosh
   use{'mhinz/vim-startify', config = function () require('config.startify') end}
-  use{'kyazdani42/nvim-tree.lua', config = function () require('config.nvimtree') end}
   use{'nvim-telescope/telescope.nvim', config = function () require('config.telescope') end}
+  use{'kyazdani42/nvim-tree.lua', config = function () require('config.nvimtree') end}
   use{'mbbill/undotree', config = function() vim.g.undotree_WindowsLayout = 2 end,  cmd = 'UndotreeToggle'}
 
   -- Movements
@@ -74,8 +74,8 @@ return packer.startup({function(use)
   use{'hrsh7th/nvim-cmp', config = function () require('config.cmp') end}
 
   -- VCS
-  use{'TimUntersberger/neogit', config = function () require('config.neogit') end}
   use{'lewis6991/gitsigns.nvim', config = function () require('config.gitsigns') end}
+  use{'TimUntersberger/neogit', config = function () require('config.neogit') end}
   use{'sindrets/diffview.nvim', config = function () require('config.diffview') end}
 
   -- Snippets
@@ -88,16 +88,16 @@ return packer.startup({function(use)
   use 'gruvbox-community/gruvbox'
   use 'arcticicestudio/nord-vim'
   use 'rakr/vim-one'
-  use{'catppuccin/nvim', opt = true, config = function () require('config.catppuccin') end}
   use 'EdenEast/nightfox.nvim'
   use 'NLKNguyen/papercolor-theme'
+  -- use{'catppuccin/nvim', config = function () require('config.catppuccin') end}
   use{'kuntau/ayu-vim', branch = 'italic'}
 
   -- Misc bundle
   use 'christoomey/vim-tmux-navigator'
   use 'junegunn/vim-easy-align'
+  use{'dstein64/vim-startuptime', cmd = 'StartupTime'} -- startup time benachmarking
   use{'ahmedkhalf/project.nvim', config = function () require('project_nvim').setup() end}
-  use{'dstein64/vim-startuptime', cmd = ':StartupTime'} -- startup time benachmarking
 
   -- UI & UX
   use 'p00f/nvim-ts-rainbow'
