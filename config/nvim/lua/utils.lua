@@ -11,12 +11,12 @@ _G.P = function (v)
 end
 -- end global helpers
 
-Utils.isDay = function()
+local isDay = function()
   return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
 end
 
--- @return: 'macos' | 'wsl' | 'linux' | 'windows'
-Utils.getOS = function ()
+---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
+local getOS = function ()
   if vim.fn.has('mac') == 1 then
     return 'macos'
   elseif vim.fn.has('wsl') == 1 then
@@ -30,11 +30,11 @@ Utils.getOS = function ()
   end
 end
 
-Utils.getWinOrientation = function ()
+local getWinOrientation = function ()
   return vim.o.columns <= 152 and 'vertical' or 'horizontal'
 end
 
-Utils.isGui = function ()
+local isGui = function ()
   if vim.fn.has('gui_running') == 1 or
     vim.g.gonvim_running == 1 or
     vim.g.neoray == 1 then
@@ -43,10 +43,12 @@ Utils.isGui = function ()
   return false
 end
 
-Utils.feedkey = function(key, mode)
+local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
+---@param mode string enum of ""|n|v|i|o|x
+---@param opts table Mapping options.
 local map = function (mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts and type(opts) == 'table' then
@@ -65,67 +67,69 @@ local map = function (mode, lhs, rhs, opts)
   end
 end
 
-Utils.nmap = function (lhs, rhs, opts)
+local nmap = function (lhs, rhs, opts)
   map('n', lhs, rhs, opts)
 end
 
-Utils.vmap = function (lhs, rhs, opts)
+local vmap = function (lhs, rhs, opts)
   map('v', lhs, rhs, opts)
 end
 
-Utils.imap = function (lhs, rhs, opts)
+local imap = function (lhs, rhs, opts)
   map('i', lhs, rhs, opts)
 end
 
-Utils.xmap = function (lhs, rhs, opts)
+local xmap = function (lhs, rhs, opts)
   map('x', lhs, rhs, opts)
 end
 
-Utils.omap = function (lhs, rhs, opts)
+local omap = function (lhs, rhs, opts)
   map('x', lhs, rhs, opts)
 end
 
 -- Quickclose some pane
-Utils.quickClosePane = function()
-  local orientation = Utils.getWinOrientation()
-  if vim.o.buftype == 'help' and orientation == 'vertical' then -- if it's help pane, do some modifications
-    vim.cmd 'wincmd J' -- Move to bottom most split
-  else
-    vim.cmd 'wincmd L' -- Move to right most vsplit
+local quickClosePane = function()
+  local orientation = getWinOrientation()
+  if vim.o.buftype == 'help' then 
+    if orientation == 'vertical' then -- if it's help pane, do some modifications
+      vim.cmd 'wincmd J' -- Move to bottom most split
+    else
+      vim.cmd 'wincmd L' -- Move to right most vsplit
+    end
   end
-    -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
-    -- vim.cmd('wincmd T') -- move current buffer to new tab
-  Utils.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
+  -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
+  -- vim.cmd('wincmd T') -- move current buffer to new tab
+  nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
-Utils.isGitRepo = function()
+local isGitRepo = function()
   return (string.find(vim.fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1)
 end
 
 -- Git utils function
-Utils.gitModified = function ()
-  if Utils.isGitRepo() then
+local gitModified = function ()
+  if isGitRepo() then
     return vim.fn.systemlist('git ls-files -m')
   else return {}
   end
 end
 
-Utils.gitUntracked = function ()
-  if Utils.isGitRepo() then
+local gitUntracked = function ()
+  if isGitRepo() then
     return vim.fn.systemlist('git ls-files -o --exclude-standard')
   else return {}
   end
 end
 
-Utils.gitListCommit = function (count)
+local gitListCommit = function (count)
   local commitCount = count or 5
-  if Utils.isGitRepo() then
+  if isGitRepo() then
     return vim.fn.systemlist('git log --oneline | head -n' .. commitCount)
   else return {}
   end
 end
 
-Utils.reloadModule = function ()
+local reloadModule = function ()
   local module = vim.fn.expand('%:t:r')
   if pcall(require, 'plenary') then
     require('plenary.reload').reload_module(module)
@@ -134,4 +138,21 @@ Utils.reloadModule = function ()
   return require(module)
 end
 
-return Utils
+return {
+  isDay = isDay,
+  isGui = isGui,
+  isGitRepo = isGitRepo,
+  feedkey = feedkey,
+  getOS = getOS,
+  getWinOrientation = getWinOrientation,
+  gitModified = gitModified,
+  gitUntracked = gitUntracked,
+  gitListCommit = gitListCommit,
+  quickClosePane = quickClosePane,
+  reloadModule = reloadModule,
+  nmap = nmap,
+  vmap = vmap,
+  imap = imap,
+  xmap = xmap,
+  omap = omap,
+}
