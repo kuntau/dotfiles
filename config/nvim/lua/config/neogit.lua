@@ -10,7 +10,8 @@ require('neogit').setup({
   kind = "vsplit",
   signs = {
     -- { closed, open }
-    section = { "❱", "▼" },
+    -- section = { "", "" },
+    section = { "▶", "▼" },
     item = { "", "" },
     hunk = { "›", "ˬ" },
   },
