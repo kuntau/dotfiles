@@ -41,7 +41,7 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 -- buffer management
 nmap('<leader>bd', '<cmd>Bdelete!<cr>')
 
---                 Plugins
+-- Plugins
 vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = true })
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
@@ -51,6 +51,10 @@ nmap('<Leader>G',  '<cmd>Neogit kind='..(orientation() == 'horizontal' and 'vspl
 nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
+
+-- Splitjoin
+nmap('gJ', '<cmd>SplitjoinJoin<cr>')
+nmap('gS', '<cmd>SplitjoinSplit<cr>')
 
 -- Telescope bindings
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
