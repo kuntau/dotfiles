@@ -32,8 +32,15 @@ return packer.startup({function(use)
   -- use {'mhinz/vim-startify', config = [[require('config.startify')]]}
   use {'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle'}
   use {'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle'}
-  use {'nvim-telescope/telescope.nvim', config = [[require('config.telescope')]], cmd = 'Telescope', module = 'telescope'}
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+  use {
+    'nvim-telescope/telescope.nvim',
+    config = [[require('config.telescope')]],
+    cmd = 'Telescope',
+    module = 'telescope',
+    requires = {
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+    }
+  }
 
   -- Movements
   use {'tpope/vim-unimpaired', keys = 'yoc'}
@@ -65,6 +72,7 @@ return packer.startup({function(use)
   -- LSP & diagnostics
   use 'kevinhwang91/nvim-bqf'
   use 'nvim-lua/lsp-status.nvim'
+  use 'onsails/lspkind-nvim' -- LSP completion menu icons
   use 'folke/lsp-colors.nvim'
   use {'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline'}
   use {'neovim/nvim-lspconfig', config = [[require('config.lsp')]]}
@@ -77,7 +85,6 @@ return packer.startup({function(use)
     config = [[require('config.cmp')]],
     event = 'InsertEnter *',
     requires = {
-      -- 'nvim-treesitter/nvim-treesitter',
       'hrsh7th/cmp-nvim-lsp',
       { 'github/copilot.vim', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
@@ -121,7 +128,7 @@ return packer.startup({function(use)
   -- UI & UX
   use 'p00f/nvim-ts-rainbow'
   use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use 'onsails/lspkind-nvim' -- LSP completion menu icons
+  use { "tversteeg/registers.nvim", keys = { {'n','"', 'i','<c-r>'}} } -- Like `vim-peekaboo`
   use {'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]]}
   use {'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]]}
   use {'famiu/bufdelete.nvim', cmd = 'Bdelete'} -- improve :bdelete experience
