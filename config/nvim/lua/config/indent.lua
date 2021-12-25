@@ -12,6 +12,7 @@ vim.g.indent_blankline_filetype_exclude = {
   'txt',
   'startuptime',
   'checkhealth',
+  'packer',
 }
 vim.g.indent_blankline_use_treesitter = true
 
