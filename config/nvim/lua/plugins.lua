@@ -73,11 +73,11 @@ return packer.startup({function(use)
   -- Completions
   use {
     'hrsh7th/nvim-cmp',
-    -- after = 'nvim-treesitter',
+    after = 'nvim-treesitter',
     config = [[require('config.cmp')]],
-    -- event = 'InsertEnter *',
+    event = 'InsertEnter *',
     requires = {
-      'nvim-treesitter/nvim-treesitter',
+      -- 'nvim-treesitter/nvim-treesitter',
       'hrsh7th/cmp-nvim-lsp',
       { 'github/copilot.vim', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
