@@ -16,6 +16,7 @@ vim.opt.cursorbind      = false -- Like scrollbind for cursor, let we edit same 
 vim.opt.errorbells      = false
 vim.opt.ignorecase      = true
 vim.opt.inccommand      = 'split' -- cmdline search & replace open in split
+vim.opt.lazyredraw      = false -- better ui performance
 vim.opt.mouse           = 'a'
 vim.opt.shada           = { "!", "'1000", "<50", "s10", "h" }
 vim.opt.smartcase       = true
@@ -78,9 +79,19 @@ vim.opt.shortmess:append 'c' -- Diff always open in vsplit
 -- Highlight VCS conflict markers
 vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
 
--- disable matchparen & matchit
+-- disable some builtin plugins
 vim.g.loaded_matchparen = 1
 vim.g.loaded_matchit    = 1
+vim.g.gzip              = 1
+vim.g.man               = 1
+vim.g.matchit           = 1
+vim.g.matchparen        = 1
+vim.g.shada_plugin      = 1
+vim.g.tarPlugin         = 1
+vim.g.tar               = 1
+vim.g.zipPlugin         = 1
+vim.g.zip               = 1
+vim.g.netrwPlugin       = 1
 
 vim.cmd 'au FocusLost * silent! noautocmd up'
 vim.cmd 'au FocusGained * silent! noautocmd checktime'
