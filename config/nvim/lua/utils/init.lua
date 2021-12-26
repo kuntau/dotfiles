@@ -47,7 +47,7 @@ end
 
 ---@param mode string enum of ""|n|v|i|o|x
 ---@param opts table Mapping options.
-local map = function (mode, lhs, rhs, opts)
+local mapper = function (mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts and type(opts) == 'table' then
     for key, value in pairs(opts) do
@@ -66,23 +66,23 @@ local map = function (mode, lhs, rhs, opts)
 end
 
 local nmap = function (lhs, rhs, opts)
-  map('n', lhs, rhs, opts)
+  mapper('n', lhs, rhs, opts)
 end
 
 local vmap = function (lhs, rhs, opts)
-  map('v', lhs, rhs, opts)
+  mapper('v', lhs, rhs, opts)
 end
 
 local imap = function (lhs, rhs, opts)
-  map('i', lhs, rhs, opts)
+  mapper('i', lhs, rhs, opts)
 end
 
 local xmap = function (lhs, rhs, opts)
-  map('x', lhs, rhs, opts)
+  mapper('x', lhs, rhs, opts)
 end
 
 local omap = function (lhs, rhs, opts)
-  map('x', lhs, rhs, opts)
+  mapper('x', lhs, rhs, opts)
 end
 
 -- Quickclose some pane
