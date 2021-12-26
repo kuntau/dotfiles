@@ -1,12 +1,6 @@
 -- Neovim internal option configs
 -- Try not to repeat many of neovim defaults `:help nvim-defaults`
 
-vim.cmd [[
-  augroup init_lua
-    autocmd!
-  augroup END
-]]
-
 -- Operations
 vim.opt.autochdir       = false
 vim.opt.autowriteall    = true

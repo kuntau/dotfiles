@@ -2,22 +2,15 @@
 
 require('impatient') -- NOS!! https://github.com/lewis6991/impatient.nvim
 require('options')
-require('plugins')
 require('packer_compiled')
+require('plugins')
 require('ui')
 require('mappings')
 require('filetypes')
 
+local utils = require('utils')
+local autocmd = utils.autocmd
+
 -- Re-source configs on save!
-vim.cmd [[
-  augroup nvim_configs
-    autocmd!
-    autocmd BufWritePost *nvim/**.lua :source <afile> | "lua vim.notify('Resourced "'..vim.fn.expand('%:t')..'"!', 2)
-  augroup end
-
-  augroup nvim_plugins
-    autocmd!
-    autocmd BufWritePost plugins.lua :source <afile> | PackerCompile
-  augroup end
-]]
-
+autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
+autocmd('nvim_compile', [[BufWritePost *nvim/lua/plugins.lua PackerCompile]], true)

@@ -1,6 +1,8 @@
 -- Filetype specific configs
 
-vim.cmd 'autocmd init_lua FileType help,qf,startuptime,checkhealth lua require("utils").quickClosePane()' -- 1st choice
+local autocmd = require('utils').autocmd
+
+autocmd('nvim_ft',[[FileType help,qf,startuptime,checkhealth lua require('utils').quickClosePane()]], true) -- 1st choice
 
 -- TODO: Deal with this later
 --[[
