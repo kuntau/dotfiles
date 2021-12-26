@@ -1,5 +1,8 @@
 -- utils.lua
 
+local fn = vim.fn
+local cmd = vim.cmd
+
 -- Global helpers
 _G.I = function (v)
   return vim.inspect(v)
@@ -12,21 +15,16 @@ end
 -- end global helpers
 
 local isDay = function()
-  return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
+  return tonumber(fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19
 end
 
 ---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
 local getOS = function ()
-  if vim.fn.has('mac') == 1 then
-    return 'macos'
-  elseif vim.fn.has('wsl') == 1 then
-    return 'wsl'
-  elseif vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
-    return 'windows'
-  elseif vim.fn.has('unix') == 1 then
-    return 'linux'
-  else
-    return nil
+  if fn.has('mac') == 1 then return 'macos'
+  elseif fn.has('wsl') == 1 then return 'wsl'
+  elseif fn.has('win32') == 1 or vim.fn.has('win64') == 1 then return 'windows'
+  elseif fn.has('unix') == 1 then return 'linux'
+  else return nil
   end
 end
 
@@ -35,7 +33,7 @@ local getWinOrientation = function ()
 end
 
 local isGui = function ()
-  if vim.fn.has('gui_running') == 1 or
+  if fn.has('gui_running') == 1 or
     vim.g.gonvim_running == 1 or
     vim.g.neoray == 1 then
     return true
@@ -90,33 +88,33 @@ end
 -- Quickclose some pane
 local quickClosePane = function()
   local orientation = getWinOrientation()
-  if vim.o.buftype == 'help' then 
-    if orientation == 'vertical' then -- if it's help pane, do some modifications
-      vim.cmd 'wincmd J' -- Move to bottom most split
+  if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
+    if orientation == 'vertical' then
+      cmd 'wincmd J' -- Move to bottom most split
     else
-      vim.cmd 'wincmd L' -- Move to right most vsplit
+      cmd 'wincmd L' -- Move to right most vsplit
     end
   end
-  -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
-  -- vim.cmd('wincmd T') -- move current buffer to new tab
+  -- cmd('resize') -- resize help buffer to maximum (CTRL-W__)
+  -- cmd('wincmd T') -- move current buffer to new tab
   nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
 local isGitRepo = function()
-  return (string.find(vim.fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1)
+  return (string.find(fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1)
 end
 
 -- Git utils function
 local gitModified = function ()
   if isGitRepo() then
-    return vim.fn.systemlist('git ls-files -m')
+    return fn.systemlist('git ls-files -m')
   else return {}
   end
 end
 
 local gitUntracked = function ()
   if isGitRepo() then
-    return vim.fn.systemlist('git ls-files -o --exclude-standard')
+    return fn.systemlist('git ls-files -o --exclude-standard')
   else return {}
   end
 end
@@ -124,13 +122,13 @@ end
 local gitListCommit = function (count)
   local commitCount = count or 5
   if isGitRepo() then
-    return vim.fn.systemlist('git log --oneline | head -n' .. commitCount)
+    return fn.systemlist('git log --oneline | head -n' .. commitCount)
   else return {}
   end
 end
 
 local reloadModule = function ()
-  local module = vim.fn.expand('%:t:r')
+  local module = fn.expand('%:t:r')
   if pcall(require, 'plenary') then
     require('plenary.reload').reload_module(module)
   end
@@ -138,6 +136,17 @@ local reloadModule = function ()
   return require(module)
 end
 
+-- Borrowed from https://github.com/wbthomason/dotfiles/blob/9134e87b00102cda07f875805f900775244067fe/neovim/.config/nvim/lua/config/utils.lua#L10-L17
+local autocmd = function (group, cmds, clear)
+  clear = clear == nil and false or clear
+  if type(cmds) == 'string' then cmds = {cmds} end
+  cmd('augroup ' .. group)
+  if clear then cmd [[autocmd!]] end
+  for _, c in ipairs(cmds) do cmd('autocmd ' .. c) end
+  cmd [[augroup END]]
+end
+
+-- What function to exposed
 return {
   isDay = isDay,
   isGui = isGui,
@@ -150,6 +159,7 @@ return {
   gitListCommit = gitListCommit,
   quickClosePane = quickClosePane,
   reloadModule = reloadModule,
+  autocmd = autocmd,
   nmap = nmap,
   vmap = vmap,
   imap = imap,
