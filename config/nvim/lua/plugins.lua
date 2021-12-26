@@ -38,16 +38,14 @@ return packer.startup({function(use)
     cmd = 'Telescope',
     module = 'telescope',
     requires = {
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', after = 'telescope.nvim'},
     }
   }
 
   -- Movements
-  use {'tpope/vim-unimpaired', keys = 'yoc'}
-  use 'tpope/vim-eunuch'
-  use 'tpope/vim-rsi'
-  use {'ggandor/lightspeed.nvim'}
-  -- use {'ggandor/lightspeed.nvim', keys = { {'n','s'}, {'n','S'}, {'n','f'}, {'n','F'} }}
+  use {'tpope/vim-unimpaired', keys = {'yoc', 'yob', '[', ']'}}
+  use {'tpope/vim-rsi', event = 'InsertEnter *'}
+  use {'ggandor/lightspeed.nvim', keys = { 's', 'S', 'f', 'F', 't', 'T' }}
   use {'mg979/vim-visual-multi', keys = '<c-n>' }
 
   -- Syntaxes and such
@@ -58,16 +56,17 @@ return packer.startup({function(use)
       {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'},  -- text-objects module for treesitter
       {'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter'}, -- context-commentstring module for treesitter
       {'windwp/nvim-ts-autotag', after = 'nvim-treesitter'}, -- auto complete HTML tags
+      {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]], after = 'nvim-treesitter'}
     },
     config = [[require('config.treesitter')]],
     run = ':TSUpdate',
   }  -- We recommend updating the parsers cmd update
-  use {'tpope/vim-surround', keys = { {'v', 'S'}, 'ys' }}
+  use {'tpope/vim-surround', keys = { {'v', 'S'}, 'ys', 'cs', 'ds' }}
   use {'tpope/vim-repeat', keys = '.'}
   use {'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' }} -- gS for splitting & gJ for joining
   use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]]} -- Comment plugins with treesitter support
   use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]]} -- autopairs plugin
-  use {'andymass/vim-matchup', config = 'vim.g.matchup_matchparen_deferred = 1'} -- Replace default `matchit` & `matchparen`
+  use {'andymass/vim-matchup', config = 'vim.g.matchup_matchparen_deferred = 1', event = 'InsertEnter *'} -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
   use 'kevinhwang91/nvim-bqf'
@@ -122,16 +121,15 @@ return packer.startup({function(use)
   -- Misc bundle
   use 'christoomey/vim-tmux-navigator'
   use 'junegunn/vim-easy-align'
-  use {'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 10', cmd = 'StartupTime'} -- startup time benachmarking
-  use {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]]}
+  use {'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 5', cmd = 'StartupTime'} -- startup time benachmarking
 
   -- UI & UX
   use 'p00f/nvim-ts-rainbow'
   use 'kyazdani42/nvim-web-devicons' -- for file icons
   use {'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]]}
-  use { "tversteeg/registers.nvim", keys = { {'n','"', 'i','<c-r>'}} } -- Like `vim-peekaboo`
   use {'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]], ft = {'html', 'vue', 'css', 'jsx', 'tsx', 'scss', 'js', 'ts', 'haml', 'md', 'styl'}}
   use {'famiu/bufdelete.nvim', cmd = 'Bdelete'} -- improve :bdelete experience
+  -- use { "tversteeg/registers.nvim", keys = { {'n','"', 'i','<c-r>'}} } -- Like `vim-peekaboo`
 
   -- StatusLine, bufferline & tabline
   use {'edkolev/tmuxline.vim', cmd = 'Tmuxline'} -- Tmux statusline
