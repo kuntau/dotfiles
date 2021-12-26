@@ -59,6 +59,8 @@ nmap('gS', '<cmd>SplitjoinSplit<cr>')
 -- Telescope bindings
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
 nmap('<leader>tp', '<cmd>Telescope projects<cr>')
+nmap('<leader>to', '<cmd>Telescope oldfiles<cr>')
+nmap('<leader>tc', '<cmd>Telescope command_history<cr>')
 nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
 nmap('<Leader>ft', '<cmd>Telescope file_browser<cr>')

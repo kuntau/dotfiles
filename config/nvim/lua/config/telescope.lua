@@ -46,14 +46,17 @@ require('telescope').setup ({
       layout_config = { width = 0.5 },
     },
     find_files = {
+      no_ignore = true,
+    },
+    oldfiles = {
+      only_cwd = true,
     },
     buffers = {
-      theme = 'ivy',
       previewer = false,
       initial_mode = 'normal',
       sort_lastused = true,
       sort_mru = true,
-      -- ignore_current_buffer = true,
+      layout_config = { width = 0.4, height = 0.5 },
     },
     git_bcommits = {
       initial_mode = 'normal'
