@@ -113,7 +113,7 @@ return packer.startup({function(use)
   use {'arcticicestudio/nord-vim', opt = true}
   use {'rakr/vim-one', opt = true}
   use {'NLKNguyen/papercolor-theme', opt = true}
-  use {'catppuccin/nvim', config = [[require('config.catppuccin')]]}
+  use {'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]]}
   use {'EdenEast/nightfox.nvim'}
   use {'folke/tokyonight.nvim'}
   use {'rebelot/kanagawa.nvim'} -- tokyonight + gruvbox
