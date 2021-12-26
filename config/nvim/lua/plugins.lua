@@ -52,8 +52,8 @@ return packer.startup({function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
-      {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'},  -- Refactor module for treesitter
-      {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'},  -- text-objects module for treesitter
+      {'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter'}, -- Refactor module for treesitter
+      {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}, -- text-objects module for treesitter
       {'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter'}, -- context-commentstring module for treesitter
       {'windwp/nvim-ts-autotag', after = 'nvim-treesitter'}, -- auto complete HTML tags
       {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]], after = 'nvim-treesitter'}
@@ -64,7 +64,7 @@ return packer.startup({function(use)
   use {'tpope/vim-surround', keys = { {'v', 'S'}, 'ys', 'cs', 'ds' }}
   use {'tpope/vim-repeat', keys = '.'}
   use {'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' }} -- gS for splitting & gJ for joining
-  use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]]} -- Comment plugins with treesitter support
+  use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { {'n','gc'}, {'v','gc'} }} -- Comment plugins with treesitter support
   use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]]} -- autopairs plugin
   use {'andymass/vim-matchup', config = 'vim.g.matchup_matchparen_deferred = 1', event = 'InsertEnter *'} -- Replace default `matchit` & `matchparen`
 
@@ -85,15 +85,15 @@ return packer.startup({function(use)
     event = 'InsertEnter *',
     requires = {
       'hrsh7th/cmp-nvim-lsp',
-      { 'github/copilot.vim', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-copilot', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
-      { 'andersevenrud/cmp-tmux', after = 'nvim-cmp' },
+      { 'github/copilot.vim',       after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer',       after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-cmdline',      after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-copilot',      after = 'nvim-cmp' },
+      { 'andersevenrud/cmp-tmux',   after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
       { 'tzachar/cmp-tabnine', run = './install.sh', config = [[require('config.tabnine')]], after = 'nvim-cmp' }
     },
   }
@@ -120,7 +120,7 @@ return packer.startup({function(use)
 
   -- Misc bundle
   use 'christoomey/vim-tmux-navigator'
-  use 'junegunn/vim-easy-align'
+  use {'junegunn/vim-easy-align'}
   use {'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 5', cmd = 'StartupTime'} -- startup time benachmarking
 
   -- UI & UX
