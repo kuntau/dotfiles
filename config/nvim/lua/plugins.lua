@@ -128,9 +128,9 @@ return packer.startup({function(use)
   -- UI & UX
   use 'p00f/nvim-ts-rainbow'
   use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use { "tversteeg/registers.nvim", keys = { {'n','"', 'i','<c-r>'}} } -- Like `vim-peekaboo`
   use {'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]]}
-  use {'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]]}
+  use { "tversteeg/registers.nvim", keys = { {'n','"', 'i','<c-r>'}} } -- Like `vim-peekaboo`
+  use {'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]], ft = {'html', 'vue', 'css', 'jsx', 'tsx', 'scss', 'js', 'ts', 'haml', 'md', 'styl'}}
   use {'famiu/bufdelete.nvim', cmd = 'Bdelete'} -- improve :bdelete experience
 
   -- StatusLine, bufferline & tabline
