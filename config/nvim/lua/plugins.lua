@@ -76,7 +76,7 @@ return packer.startup({function(use)
   use 'folke/lsp-colors.nvim'
   use {'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline'}
   use {'neovim/nvim-lspconfig', config = [[require('config.lsp')]]}
-  use {'folke/trouble.nvim', config = [[require('config.trouble')]]}
+  use {'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'TroubleToggle'}
 
   -- Completions
   use {
@@ -113,10 +113,10 @@ return packer.startup({function(use)
   use {'gruvbox-community/gruvbox', opt = true} -- Slowwww
   use {'arcticicestudio/nord-vim', opt = true}
   use {'rakr/vim-one', opt = true}
-  use {'EdenEast/nightfox.nvim', opt = true}
   use {'NLKNguyen/papercolor-theme', opt = true}
-  use {'folke/tokyonight.nvim', opt = true}
-  use {'catppuccin/nvim', opt = true}
+  use {'catppuccin/nvim', config = [[require('config.catppuccin')]]}
+  use {'EdenEast/nightfox.nvim'}
+  use {'folke/tokyonight.nvim'}
   use {'rebelot/kanagawa.nvim'} -- tokyonight + gruvbox
 
   -- Misc bundle
