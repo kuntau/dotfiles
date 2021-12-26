@@ -1,15 +1,18 @@
 -- mappings.lua: My custom keyboard mappings
 -- NOTES: Use <cmd> only when have <cr>
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
-
 local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
+local dbgi  = require('utils.logger').dbgi
+local warn  = require('utils.logger').warn
 local orientation = require('utils').getWinOrientation
 
-nmap('<LocalLeader>q',   '<cmd>q<cr>')
+vim.g.mapleader = [[ ]]
+vim.g.maplocalleader = [[\]]
+
+-- Basic
+nmap('<LocalLeader>q',   '<cmd>only<cr><cmd>q!<cr>')
 nmap('<F4>',             '<cmd>up!<cr>')
 imap('<F4>',             '<cmd>up!<cr>')
 nmap('<D-s>',             '<cmd>up!<cr>')
@@ -19,11 +22,13 @@ nmap('<Leader>so',       '<cmd>up<cr><cmd>luafile %<cr>')
 nmap('<Leader><Leader>', ':')
 nmap('<Leader>rm',       '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 
--- better arrow key
-nmap('<right>', '<cmd>bn<cr>')
-nmap('<left>',  '<cmd>bp<cr>')
+-- Better arrow key
+nmap('<right>', '<cmd>bnext<cr>')
+nmap('<left>',  '<cmd>bprevious<cr>')
+nmap('<M-right>', '<cmd>tabnext<cr>')
+nmap('<M-left>',  '<cmd>tabprevious<cr>')
 
--- Alternate version which don't use bookmark
+-- Moving block of codes
 nmap('<m-j>', ':m .+1<CR>==')
 nmap('<m-k>', ':m .-2<CR>==')
 vmap('J', ":m '>+1<CR>gv=gv")
@@ -60,7 +65,9 @@ nmap('gS', '<cmd>SplitjoinSplit<cr>')
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
 nmap('<leader>tp', '<cmd>Telescope projects<cr>')
 nmap('<leader>to', '<cmd>Telescope oldfiles<cr>')
-nmap('<leader>tc', '<cmd>Telescope command_history<cr>')
+nmap('<leader>tO', '<cmd>Telescope oldfiles only_cwd=false<cr>')
+nmap('<leader>t:', '<cmd>Telescope command_history<cr>')
+nmap('<leader>t/', '<cmd>Telescope search_history<cr>')
 nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
 nmap('<Leader>ft', '<cmd>Telescope file_browser<cr>')
