@@ -72,7 +72,7 @@ vim.opt.diffopt:append 'vertical' -- Diff always open in vsplit
 vim.opt.shortmess:append 'c' -- Diff always open in vsplit
 
 -- Highlight VCS conflict markers
-vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
+-- vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
 
 -- disable some builtin plugins
 vim.g.loaded_matchparen     = 1
@@ -87,10 +87,6 @@ vim.g.loaded_zip            = 1
 vim.g.loaded_netrwPlugin    = 1
 vim.g.loaded_2html_plugin   = 1
 vim.g.loaded_remote_plugins = 1
-
-vim.cmd 'au FocusLost * silent! noautocmd up'
-vim.cmd 'au FocusGained * silent! noautocmd checktime'
-vim.cmd 'au TextYankPost * silent! lua vim.highlight.on_yank {timeout=250}'
 
 -- References: {
 -- https://github.com/tarruda/dot-files

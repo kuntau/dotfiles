@@ -1,6 +1,11 @@
--- Filetype specific configs
+-- Autocmd events configs
 
 local autocmd = require('utils').autocmd
+
+autocmd('focus_lost', [[FocusLost * silent! noautocmd up]], true) -- Save when lose focus
+autocmd('focus_gain', [[FocusGained * silent! noautocmd checktime]], true) -- Check if file changed outside vim & re-read file
+autocmd('yank', [[TextYankPost * silent! lua vim.highlight.on_yank]], true) -- Highlight on yank
+autocmd('term', [[TermOpen * startinsert! | setlocal nonu nornu signcolumn=no ]], true) -- Start terminal in insert mode
 
 autocmd('nvim_ft',[[FileType help,qf,startuptime,checkhealth lua require('utils').quickClosePane()]], true) -- 1st choice
 

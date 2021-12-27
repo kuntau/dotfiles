@@ -12,7 +12,7 @@ require('packer_compiled')
 require('plugins')
 require('ui')
 require('mappings')
-require('filetypes')
+require('events')
 
 local utils = require('utils')
 local autocmd = utils.autocmd
