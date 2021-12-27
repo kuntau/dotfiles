@@ -27,9 +27,9 @@ return packer.startup({function(use)
 
   -- Essentials
   use 'nvim-lua/plenary.nvim'
-  use 'kuntau/vim-osc52' -- Copy & paste across tmux & screen over mosh
-  use {'wbthomason/packer.nvim', opt = true} -- Packer can manage itself
   -- use {'mhinz/vim-startify', config = [[require('config.startify')]]}
+  use {'kuntau/vim-osc52', keys = '<c-c>'} -- Copy & paste across tmux & screen over mosh
+  use {'wbthomason/packer.nvim', opt = true} -- Packer can manage itself
   use {'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle'}
   use {'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle'}
   use {
@@ -61,7 +61,7 @@ return packer.startup({function(use)
     config = [[require('config.treesitter')]],
     run = ':TSUpdate',
   }  -- We recommend updating the parsers cmd update
-  use {'tpope/vim-surround', keys = { {'v', 'S'}, 'ys', 'cs', 'ds' }}
+  use {'tpope/vim-surround', keys = { {'v', 'S'}, 'y', 'c', 'd' }}
   use {'tpope/vim-repeat', keys = '.'}
   use {'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' }} -- gS for splitting & gJ for joining
   use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { {'n','gc'}, {'v','gc'} }} -- Comment plugins with treesitter support
