@@ -4,6 +4,7 @@
 local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
+local tmap = require('utils').tmap
 local dbgi  = require('utils.logger').dbgi
 local warn  = require('utils.logger').warn
 local orientation = require('utils').getWinOrientation
@@ -23,6 +24,12 @@ nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 nmap('<LocalLeader>q', '<cmd>only<cr><cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>Bdelete!<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
+
+-- Terminal movements
+local ts = [[<C-\><C-n>]] -- terminal map shortcut
+nmap('<Leader>oC', '<cmd>'..(orientation() == 'vertical' and 's' or 'vs')..'plit term://zsh<cr>')
+nmap('<Leader>oc', '<cmd>term<cr>')
+tmap('<Esc>', ts)
 
 -- Better arrow key
 nmap('<right>',   '<cmd>bnext<cr>')

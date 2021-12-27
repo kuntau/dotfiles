@@ -65,6 +65,14 @@ local mapper = function (mode, lhs, rhs, opts)
   end
 end
 
+local map = function (lhs, rhs, opts)
+  mapper('', lhs, rhs, opts)
+end
+
+local tmap = function (lhs, rhs, opts)
+  mapper('t', lhs, rhs, opts)
+end
+
 local nmap = function (lhs, rhs, opts)
   mapper('n', lhs, rhs, opts)
 end
@@ -163,6 +171,8 @@ return {
   quickClosePane = quickClosePane,
   reloadModule = reloadModule,
   autocmd = autocmd,
+  map  = map,
+  tmap = tmap,
   nmap = nmap,
   vmap = vmap,
   imap = imap,
