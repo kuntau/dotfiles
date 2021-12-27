@@ -26,7 +26,8 @@ return packer.startup({function(use)
   end
 
   -- Essentials
-  use 'nvim-lua/plenary.nvim'
+  use {'nvim-lua/plenary.nvim'}
+  use { 'kuntau/impatient.nvim', requires = { 'tami5/sqlite.lua' } }
   -- use {'mhinz/vim-startify', config = [[require('config.startify')]]}
   use {'kuntau/vim-osc52', keys = '<c-c>'} -- Copy & paste across tmux & screen over mosh
   use {'wbthomason/packer.nvim', opt = true} -- Packer can manage itself
@@ -54,9 +55,9 @@ return packer.startup({function(use)
     requires = {
       {'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter'}, -- Refactor module for treesitter
       {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}, -- text-objects module for treesitter
-      {'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter'}, -- context-commentstring module for treesitter
-      {'windwp/nvim-ts-autotag', after = 'nvim-treesitter'}, -- auto complete HTML tags
-      {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]], after = 'nvim-treesitter'}
+      {'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim'}, -- context-commentstring module for treesitter
+      {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]], after = 'nvim-treesitter'},
+      {'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'html', 'jsx', 'tsx'}}, -- auto complete HTML tags
     },
     config = [[require('config.treesitter')]],
     run = ':TSUpdate',
@@ -126,7 +127,7 @@ return packer.startup({function(use)
   -- UI & UX
   use 'p00f/nvim-ts-rainbow'
   use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use {'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]]}
+  use {'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]], cmd = 'IndentBlanklineToggle'}
   use {'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]], ft = {'html', 'vue', 'css', 'jsx', 'tsx', 'scss', 'js', 'ts', 'haml', 'md', 'styl'}}
   use {'famiu/bufdelete.nvim', cmd = 'Bdelete'} -- improve :bdelete experience
   -- use { "tversteeg/registers.nvim", keys = { {'n','"', 'i','<c-r>'}} } -- Like `vim-peekaboo`
