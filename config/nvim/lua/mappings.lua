@@ -9,15 +9,20 @@ local warn  = require('utils.logger').warn
 local orientation = require('utils').getWinOrientation
 
 vim.g.mapleader = [[ ]]
-vim.g.maplocalleader = [[\]]
+vim.g.maplocalleader = [[,]]
 
 -- Basic
-nmap('<D-s>',          '<cmd>up!<cr>')
-imap('<D-s>',          '<cmd>up!<cr>')
-imap('<D-v>',          '<c-r>+')
-nmap('<Leader>so',     '<cmd>up<cr><cmd>luafile %<cr>')
-nmap('<Leader>rm',     '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
+nmap('<D-s>',      '<cmd>up!<cr>')
+imap('<D-s>',      '<cmd>up!<cr>')
+imap('<D-v>',      '<c-r>+')
+nmap('R',          ':help <c-r><c-w><cr>')
+nmap('<Leader>so', '<cmd>up<cr><cmd>luafile %<cr>')
+nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
+
+-- LocalLeader mappings
 nmap('<LocalLeader>q', '<cmd>only<cr><cmd>q!<cr>')
+nmap('<LocalLeader>x', '<cmd>Bdelete!<cr>')
+nmap('<LocalLeader>c', '<cmd>close!<cr>')
 
 -- Better arrow key
 nmap('<right>',   '<cmd>bnext<cr>')
@@ -44,9 +49,10 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 nmap('<leader>bd', '<cmd>Bdelete!<cr>')
 
 -- Plugins
-vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = true })
+vmap('<c-c>',      '<Plug>(YankOSC52)')
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
+nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
 nmap('<Leader>fz', '<cmd>FZF<cr>')
 nmap('<Leader>S',  '<cmd>Startify<cr>')
 nmap('<Leader>G',  '<cmd>Neogit kind='..(orientation() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
