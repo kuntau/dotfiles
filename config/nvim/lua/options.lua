@@ -33,6 +33,7 @@ vim.opt.splitright      = true
 vim.opt.termguicolors   = true -- enable truecolor
 vim.opt.title           = true
 vim.opt.wrap            = false
+vim.opt.previewheight   = 25 --height of preview window
 
 -- Default tab, spaces & indentation
 local tabStop           = 2
@@ -58,7 +59,7 @@ vim.opt.completeopt     = { 'menu', 'menuone', 'noselect' }
 vim.opt.wildignore      = {} -- add file type to ignore completions
 
 -- Cool floating window popup menu for completion on command line
-vim.opt.pumblend        = 17
+vim.opt.pumblend        = 10
 vim.opt.wildmode        = "longest:full"
 
 -- Characters configs
