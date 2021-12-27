@@ -12,19 +12,16 @@ vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[\]]
 
 -- Basic
-nmap('<LocalLeader>q',   '<cmd>only<cr><cmd>q!<cr>')
-nmap('<F4>',             '<cmd>up!<cr>')
-imap('<F4>',             '<cmd>up!<cr>')
-nmap('<D-s>',             '<cmd>up!<cr>')
-imap('<D-s>',             '<cmd>up!<cr>')
-imap('<D-v>',             '<c-r>+')
-nmap('<Leader>so',       '<cmd>up<cr><cmd>luafile %<cr>')
-nmap('<Leader><Leader>', ':')
-nmap('<Leader>rm',       '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
+nmap('<D-s>',          '<cmd>up!<cr>')
+imap('<D-s>',          '<cmd>up!<cr>')
+imap('<D-v>',          '<c-r>+')
+nmap('<Leader>so',     '<cmd>up<cr><cmd>luafile %<cr>')
+nmap('<Leader>rm',     '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
+nmap('<LocalLeader>q', '<cmd>only<cr><cmd>q!<cr>')
 
 -- Better arrow key
-nmap('<right>', '<cmd>bnext<cr>')
-nmap('<left>',  '<cmd>bprevious<cr>')
+nmap('<right>',   '<cmd>bnext<cr>')
+nmap('<left>',    '<cmd>bprevious<cr>')
 nmap('<M-right>', '<cmd>tabnext<cr>')
 nmap('<M-left>',  '<cmd>tabprevious<cr>')
 
