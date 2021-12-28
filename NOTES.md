@@ -6,10 +6,19 @@
 1. Clone neovim repo `https://github.com/neovim/neovim.git`
 2. Make with `make CMAKE_BUILD_TYPE=Release install`
 3. To change install directory add `CMAKE_INSTALL_PREFIX=$HOME/Example/Dir` to command above
+4. Try `rm -rf build` if build fails after pulling from _master_
 
 ## Troubeshooting
 
-### Error installing neovim HEAD with `homebrew`
+### `unknown terminal type` = missing `terminfo`
+
+If we got error `unknown terminal type` while setting up the `TERM` value, it's because we're missing `terminfo` information for that particular `TERM` on current machine. To solve this, we need another machine that have that `terminfo`. Here's how we can get that info for current machine.
+1. Export from donor machine `infocmp -x _<TERM_NAME>_ > _<FILENAME>_`
+2. Transfer _<FILENAME>_ to current machine.
+3. Import with `tic -x _<FILENAME>_`
+4. Set our `TERM` env with new _<TERM_NAME>_
+
+### Error installing neovim **HEAD** with `homebrew`
 
 If we got the following error
 
