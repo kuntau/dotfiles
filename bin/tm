@@ -31,11 +31,11 @@ do
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
       break;;
-    "Workspace - CITY-CAR-PARK")
-      tmux source-file ~/dotfiles/tmux/citycarpark.tmuxrc
+    "Workspace - Dotfiles")
+      tmux source-file ~/dotfiles/cofig/tmux/citycarpark.tmuxrc
       break;;
-    "Workspace - PAPSB-SYSTEM")
-      tmux source-file ~/dotfiles/tmux/papsb.tmuxrc
+    "Workspace - PAPTT")
+      tmux source-file ~/dotfiles/config/tmux/papsb.tmuxrc
       break;;
     "ZSH")
       zsh --login
