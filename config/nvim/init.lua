@@ -13,10 +13,3 @@ require('plugins')
 require('ui')
 require('mappings')
 require('events')
-
-local utils = require('utils')
-local autocmd = utils.autocmd
-
--- Re-source configs on save!
-autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
-autocmd('nvim_compile', [[BufWritePost *nvim/lua/plugins.lua PackerCompile]], true)

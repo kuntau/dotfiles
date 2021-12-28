@@ -3,7 +3,7 @@
 
 local ft_extension = {
     sections = {lualine_a = {'filetype'}},
-    filetypes = {'startify', 'Trouble', 'undotree', 'vim-plug', 'DiffviewFiles', 'startuptime', 'packer'}
+    filetypes = {'startify', 'Trouble', 'undotree', 'vim-plug', 'DiffviewFiles', 'startuptime', 'packer', 'help'}
 }
 
 local neogit_extension = {

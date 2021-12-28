@@ -7,6 +7,10 @@ autocmd('focus_gain', [[FocusGained * silent! noautocmd checktime]], true) -- Ch
 autocmd('yank', [[TextYankPost * silent! lua vim.highlight.on_yank]], true) -- Highlight on yank
 autocmd('term', [[TermOpen * startinsert! | setlocal nonu nornu signcolumn=no ]], true) -- Start terminal in insert mode
 
+-- Re-source configs on save!
+autocmd('nvim_compile', [[BufWritePost *nvim/lua/plugins.lua PackerCompile]], true)
+autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
+
 autocmd('nvim_ft',[[FileType help,qf,startuptime,checkhealth lua require('utils').quickClosePane()]], true) -- 1st choice
 
 -- TODO: Deal with this later
