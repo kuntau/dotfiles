@@ -1,10 +1,11 @@
 -- Neovim LSP configs
--- References = {
--- https://github.com/tjdevries/config_manager/tree/master/xdg_config/nvim/lua/tj/lsp/
--- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/lsp/
--- }
 
 require('lsp-colors').setup()
+
+local nvim_lsp = require('lspconfig')
+local configs = require('lspconfig.configs')
+local nmap = require('utils').nmap
+local imap = require('utils').imap
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
@@ -13,28 +14,21 @@ vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "Diagno
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
 -- global config for diagnostic
-if vim.fn.has('nvim-0.6') == 1 then
-  vim.diagnostic.config({
-    underline = true,
-    virtual_text = true,
-    signs = true,
-    severity_sort = true,
-    update_in_insert = true,
-    float = {
-      focusable = true,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
-    },
-  })
-end
-
-local nvim_lsp = require('lspconfig')
-local configs = require('lspconfig.configs')
-local nmap = require('utils').nmap
-local imap = require('utils').imap
+vim.diagnostic.config({
+  underline = true,
+  virtual_text = true,
+  signs = true,
+  severity_sort = true,
+  update_in_insert = true,
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -76,9 +70,46 @@ local on_attach = function(_, bufnr)
 
 end
 
--- Setup lspconfig.
+-- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'sumneko_lua', 'tsserver', 'vimls', 'volar' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 50,
+    },
+    capabilities = capabilities
+  }
+end
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require('lspconfig').sumneko_lua.setup {
+  -- capabilities = capabilities,
+  -- on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT', -- Tell the language server we're using LuaJIT
+        path = runtime_path, -- Setup your lua path
+      },
+      diagnostics = {
+        globals = {'vim'}, -- Get the language server to recognize the `vim` global
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true), -- Make the server aware of Neovim runtime files
+      },
+      telemetry = { enable = false, },
+    },
+  },
+}
 
 -- Custom server ls_emmet
 if not configs.ls_emmet then
@@ -95,53 +126,8 @@ if not configs.ls_emmet then
   }
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'sumneko_lua', 'tsserver', 'vimls', 'volar' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 50,
-    },
-    capabilities = capabilities
-  }
-end
-
--- Lua CLEANUP: Remove excessive codes since we already have main loop for all LSP server
--- local sumneko_binary_path = vim.fn.exepath("lua-language-server")
--- local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ":h:h:h")
---
-local runtime_path = vim.split(package.path, ';')
--- table.insert(runtime_path, "lua/?.lua")
--- table.insert(runtime_path, "lua/?/init.lua")
---
-require('lspconfig').sumneko_lua.setup {
-  -- capabilities = capabilities,
-  on_attach = on_attach,
-  -- cmd = { sumneko_binary_path, "-E", sumneko_root_path ..'/main.lua' },
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
-
 -- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
+-- References = {
+-- https://github.com/tjdevries/config_manager/tree/master/xdg_config/nvim/lua/tj/lsp/
+-- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/lsp/
+-- }
