@@ -46,6 +46,7 @@ require('telescope').setup ({
       layout_config = { width = 0.5 },
     },
     find_files = {
+      previewer = false,
       no_ignore = true,
     },
     oldfiles = {
