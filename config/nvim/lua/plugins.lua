@@ -11,11 +11,7 @@ end
 
 vim.cmd 'packadd packer.nvim'
 
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-  print('Something wrong while requiring packer')
-  return
-end
+local packer = require("packer")
 
 return packer.startup({function(use)
 
@@ -66,17 +62,16 @@ return packer.startup({function(use)
   use {'tpope/vim-repeat', keys = '.'}
   use {'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' }} -- gS for splitting & gJ for joining
   use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { {'n','gc'}, {'v','gc'} }} -- Comment plugins with treesitter support
-  use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]]} -- autopairs plugin
+  use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]], ft = {'html', 'jsx', 'tsx'}} -- autopairs plugin
   use {'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *'} -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
-  use 'kevinhwang91/nvim-bqf'
-  use 'nvim-lua/lsp-status.nvim'
   use 'onsails/lspkind-nvim' -- LSP completion menu icons
   use 'folke/lsp-colors.nvim'
+  use 'kevinhwang91/nvim-bqf'
   use {'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline'}
   use {'neovim/nvim-lspconfig', config = [[require('config.lsp')]]}
-  use {'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'TroubleToggle'}
+  use {'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'Trouble'}
 
   -- Completions
   use {
@@ -112,13 +107,13 @@ return packer.startup({function(use)
   use {'kuntau/ayu-vim', branch = 'italic', opt = true}
   use {'gruvbox-community/gruvbox', opt = true} -- Slowwww
   use {'arcticicestudio/nord-vim', opt = true}
-  use {'rakr/vim-one', opt = true}
   use {'NLKNguyen/papercolor-theme', opt = true}
+  use {'rakr/vim-one', opt = true}
   use {'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]], cond = false}
-  use {'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], cond = true}
-  use {'folke/tokyonight.nvim'}
-  use {'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', opt = true}
-  use {'rebelot/kanagawa.nvim', cond = false} -- tokyonight + gruvbox
+  use {'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], cond = false}
+  use {'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', cond = false}
+  use {'folke/tokyonight.nvim', cond = true}
+  use {'rebelot/kanagawa.nvim', cond = true} -- tokyonight + gruvbox
 
   -- Misc bundle
   use 'christoomey/vim-tmux-navigator'
