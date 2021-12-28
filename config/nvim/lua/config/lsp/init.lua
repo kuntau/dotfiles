@@ -1,11 +1,15 @@
 -- Neovim LSP configs
 
-require('lsp-colors').setup()
+local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
+if not lspconfig_ok then
+  print('LSP: Error requiring lspconfig')
+  return
+end
 
-local nvim_lsp = require('lspconfig')
 local configs = require('lspconfig.configs')
 local nmap = require('utils').nmap
 local imap = require('utils').imap
+require('lsp-colors').setup()
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
@@ -70,6 +74,21 @@ local on_attach = function(_, bufnr)
 
 end
 
+-- Custom server ls_emmet.. must be above the main servers loop
+if not configs.ls_emmet then
+  configs.ls_emmet = {
+    default_config = {
+      cmd = { 'ls_emmet', '--stdio' };
+      filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'haml',
+        'xml', 'xsl', 'pug', 'slim', 'sass', 'stylus', 'less', 'sss'};
+      root_dir = function(--[[ fname ]])
+        return vim.loop.cwd()
+      end;
+      settings = {};
+    };
+  }
+end
+
 -- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -78,7 +97,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- map buffer local keybindings when the language server attaches
 local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'sumneko_lua', 'tsserver', 'vimls', 'volar' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  lspconfig[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 50,
@@ -91,7 +110,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require('lspconfig').sumneko_lua.setup {
+lspconfig.sumneko_lua.setup {
   -- capabilities = capabilities,
   -- on_attach = on_attach,
   settings = {
@@ -110,21 +129,6 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
-
--- Custom server ls_emmet
-if not configs.ls_emmet then
-  configs.ls_emmet = {
-    default_config = {
-      cmd = { 'ls_emmet', '--stdio' };
-      filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'haml',
-        'xml', 'xsl', 'pug', 'slim', 'sass', 'stylus', 'less', 'sss'};
-      root_dir = function(--[[ fname ]])
-        return vim.loop.cwd()
-      end;
-      settings = {};
-    };
-  }
-end
 
 -- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
 -- References = {
