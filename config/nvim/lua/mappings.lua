@@ -85,6 +85,7 @@ nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
 nmap('<Leader>ff', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
 nmap('<Leader>fz', '<cmd>Telescope help_tags<cr>')
+nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
