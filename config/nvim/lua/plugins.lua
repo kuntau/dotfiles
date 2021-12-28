@@ -27,7 +27,7 @@ return packer.startup({function(use)
 
   -- Essentials
   use {'nvim-lua/plenary.nvim'}
-  use { 'kuntau/impatient.nvim', requires = { 'tami5/sqlite.lua' } }
+  use { 'kuntau/impatient.nvim', requires = { { 'tami5/sqlite.lua', commit = '5725b89e56dddf58b254570ce15a61a0efe5fab2' } } }
   -- use {'mhinz/vim-startify', config = [[require('config.startify')]]}
   use {'kuntau/vim-osc52', keys = '<c-c>'} -- Copy & paste across tmux & screen over mosh
   use {'wbthomason/packer.nvim', opt = true} -- Packer can manage itself
@@ -44,7 +44,7 @@ return packer.startup({function(use)
   }
 
   -- Movements
-  use {'tpope/vim-unimpaired', keys = {'yoc', 'yob', '[', ']'}}
+  use {'tpope/vim-unimpaired', keys = {'yo', '[', ']'}}
   use {'tpope/vim-rsi', event = 'InsertEnter *'}
   use {'ggandor/lightspeed.nvim', keys = { 's', 'S', 'f', 'F', 't', 'T' }}
   use {'mg979/vim-visual-multi', keys = '<c-n>' }
@@ -106,7 +106,7 @@ return packer.startup({function(use)
 
   -- Snippets
   use {'L3MON4D3/LuaSnip', after = 'nvim-cmp'}
-  use 'rafamadriz/friendly-snippets'
+  use {'rafamadriz/friendly-snippets', after = 'LuaSnip'}
 
   -- Colorschemes
   use {'kuntau/ayu-vim', branch = 'italic', opt = true}
