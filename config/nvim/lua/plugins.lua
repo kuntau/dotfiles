@@ -1,13 +1,12 @@
 -- Plugins with packer.nvim
 
 local fn = vim.fn
-local packer_repo = 'https://github.com/wbthomason/packer.nvim'
 local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 local packer_bookstrap
 
 if fn.empty(fn.glob(install_path)) > 0 then
+  local packer_repo = 'https://github.com/wbthomason/packer.nvim'
   packer_bookstrap = fn.system({'git', 'clone', '--depth', '1',packer_repo, install_path})
-  -- print('BOOTSTRAP clone: '..packer_bootstrap)
 end
 
 vim.cmd 'packadd packer.nvim'
@@ -35,11 +34,13 @@ return packer.startup({function(use)
   use {'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle'}
   use {
     'nvim-telescope/telescope.nvim',
-    config = [[require('config.telescope')]],
+    config = [[require('config._telescope')]],
     cmd = 'Telescope',
-    module = 'telescope',
+    -- module = 'telescope',
     requires = {
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', after = 'telescope.nvim'},
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+      {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]]},
     }
   }
 
@@ -56,7 +57,6 @@ return packer.startup({function(use)
       {'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter'}, -- Refactor module for treesitter
       {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}, -- text-objects module for treesitter
       {'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim'}, -- context-commentstring module for treesitter
-      {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]], after = 'nvim-treesitter'},
       {'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'html', 'jsx', 'tsx'}}, -- auto complete HTML tags
     },
     config = [[require('config.treesitter')]],
@@ -67,7 +67,7 @@ return packer.startup({function(use)
   use {'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' }} -- gS for splitting & gJ for joining
   use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { {'n','gc'}, {'v','gc'} }} -- Comment plugins with treesitter support
   use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]]} -- autopairs plugin
-  use {'andymass/vim-matchup', config = 'vim.g.matchup_matchparen_deferred = 1', event = 'InsertEnter *'} -- Replace default `matchit` & `matchparen`
+  use {'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *'} -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
   use 'kevinhwang91/nvim-bqf'
@@ -106,7 +106,7 @@ return packer.startup({function(use)
 
   -- Snippets
   use {'L3MON4D3/LuaSnip', after = 'nvim-cmp'}
-  use {'rafamadriz/friendly-snippets', after = 'LuaSnip'}
+  use {'rafamadriz/friendly-snippets'}
 
   -- Colorschemes
   use {'kuntau/ayu-vim', branch = 'italic', opt = true}
@@ -114,10 +114,11 @@ return packer.startup({function(use)
   use {'arcticicestudio/nord-vim', opt = true}
   use {'rakr/vim-one', opt = true}
   use {'NLKNguyen/papercolor-theme', opt = true}
-  use {'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]]}
-  use {'EdenEast/nightfox.nvim'}
+  use {'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]], cond = false}
+  use {'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], cond = true}
   use {'folke/tokyonight.nvim'}
-  use {'rebelot/kanagawa.nvim'} -- tokyonight + gruvbox
+  use {'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', opt = true}
+  use {'rebelot/kanagawa.nvim', cond = false} -- tokyonight + gruvbox
 
   -- Misc bundle
   use 'christoomey/vim-tmux-navigator'
