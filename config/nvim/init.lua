@@ -6,10 +6,11 @@ if not ok then
   print("failed to require 'impatient'")
   return
 end
+-- impatient.enable_profile()
 
 require('options')
-require('packer_compiled')
 require('plugins')
+require('packer_compiled')
 require('ui')
 require('mappings')
 require('events')
