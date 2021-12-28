@@ -33,6 +33,7 @@ vim.opt.splitright      = true
 vim.opt.termguicolors   = true -- enable truecolor
 vim.opt.title           = true
 vim.opt.wrap            = false
+vim.opt.linebreak       = true   -- If we enable wrap at least wrap it at end of word
 vim.opt.previewheight   = 25 --height of preview window
 
 -- Default tab, spaces & indentation
