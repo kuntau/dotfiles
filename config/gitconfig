@@ -1,11 +1,8 @@
-[hub]
-  protocol = https
-[user]
-  email = kuntau17@gmail.com
-  name = Nizamuddin Sulieman
 [alias]
   co = checkout
   count = !git shortlog -sn
+[apply]
+  whitespace = nowarn
 [color]
   branch = auto
   diff = auto
@@ -26,44 +23,47 @@
   added = yellow
   changed = green
   untracked = cyan
+[commit]
+  # template = /Volumes/Home/Users/kuntau/.stCommitMsg
 [core]
   excludesfile = ~/.gitignore
-  editor = vim
-[apply]
-  whitespace = nowarn
-[mergetool]
-  keepBackup = false
-[difftool]
-  prompt = false
-[help]
-  autocorrect = 1
-[rerere]
-  enabled = true
-[push]
-  default = current
+  editor = nvim
 [credential]
 	helper = osxkeychain
 [credential "https://github.com"]
 	helper = cache --timeout=3600
   username = kuntau
+[difftool]
+  prompt = false
 [difftool "sourcetree"]
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
-[mergetool "sourcetree"]
-  cmd = /Users/kuntau/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
 [giggle]
   main-window-maximized = false
   main-window-geometry = 794x848+0+900
   history-view-vpane-position = 675
   file-view-vpane-position = 654
   main-window-view = FileView
-[filter "media"]
-  clean = git-media-clean %f
-  smudge = git-media-smudge %f
-[commit]
-  # template = /Volumes/Home/Users/kuntau/.stCommitMsg
+[help]
+  autocorrect = 1
+[hub]
+  protocol = https
+[mergetool]
+  keepBackup = false
+[mergetool "sourcetree"]
+  cmd = /Users/kuntau/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[rerere]
+  enabled = true
 [rebase]
   autostash = true
 [pull]
   rebase = true
+[push]
+  default = current
+[user]
+  email = kuntau17@gmail.com
+  name = Nizamuddin Sulieman
