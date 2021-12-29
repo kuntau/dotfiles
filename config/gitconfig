@@ -64,6 +64,7 @@
 	helper = cache --timeout=3600
   username = kuntau
 [delta]
+  features = calochortus-lyallii
   navigate = true
 [diff]
   colorMoved = default
@@ -85,6 +86,8 @@
   autocorrect = 1
 [hub]
   protocol = https
+[include]
+  path = ~/dotfiles/config/delta/themes.gitconfig
 [interactive]
   diffFilter = delta --color-only
 [merge]
