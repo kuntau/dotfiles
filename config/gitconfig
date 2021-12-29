@@ -1,6 +1,35 @@
 [alias]
   co = checkout
   count = !git shortlog -sn
+  now = status --short --branch
+  # https://gist.github.com/junegunn/f4fca918e937e6bf5bad#gistcomment-3715673
+  fzf = !"                                                                                                                                                                              \
+      function gfzf() {                                                                                                                                                                 \
+          local filter;                                                                                                                                                                 \
+          if [ -n $@ ] && [ -e $@ ]; then                                                                                                                                               \
+              filter=\"-- $@\";                                                                                                                                                         \
+          fi;                                                                                                                                                                           \
+          export LESS='-R'                                                                                                                                                              \
+          export BAT_PAGER='less -S -R -M -i';                                                                                                                                          \
+          git log                                                                                                                                                                       \
+              --graph --color=always --abbrev=7                                                                                                                                         \
+              --format=format:\"%C(bold blue)%h%C(reset) %C(dim white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(white)%s%C(reset) %C(bold green)(%ar)%C(reset)\" $@ |                   \
+                  fzf --ansi --no-sort --layout=reverse --tiebreak=index                                                                                                                \
+                      --preview=\"f() { set -- \\$(echo -- \\$@ | rg -o '\\b[a-f0-9]{7,}\\b'); [ \\$# -eq 0 ] || git show --color=always \\$1 $filter | delta --line-numbers; }; f {}\" \
+                      --bind=\"ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-j:preview-down,ctrl-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up\"                        \
+                      --bind=\"ctrl-m:execute:                                                                                                                                          \
+                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 |                                                                                                                   \
+                              xargs -I % -- git show --color=always %) << FZFEOF\n                                                                                                      \
+                              {}                                                                                                                                                        \
+                              \nFZFEOF\"                                                                                                                                                \
+                      --bind=\"ctrl-y:execute-silent:                                                                                                                                   \
+                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 | tr -d \\$'\\n' | pbcopy) << FZFEOF\n                                                                           \
+                              {}                                                                                                                                                        \
+                              \nFZFEOF\"                                                                                                                                                \
+                      --preview-window=right:60%;                                                                                                                                       \
+      };                                                                                                                                                                                \
+      gfzf                                                                                                                                                                              \
+  "
 [apply]
   whitespace = nowarn
 [color]
@@ -28,11 +57,16 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
+  pager = delta
 [credential]
 	helper = osxkeychain
 [credential "https://github.com"]
 	helper = cache --timeout=3600
   username = kuntau
+[delta]
+  navigate = true
+[diff]
+  colorMoved = default
 [difftool]
   prompt = false
 [difftool "sourcetree"]
@@ -51,6 +85,10 @@
   autocorrect = 1
 [hub]
   protocol = https
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictstyle = diff3
 [mergetool]
   keepBackup = false
 [mergetool "sourcetree"]
@@ -61,9 +99,11 @@
 [rebase]
   autostash = true
 [pull]
+  ff = only
   rebase = true
 [push]
   default = current
 [user]
   email = kuntau17@gmail.com
   name = Nizamuddin Sulieman
+  signingkey = DFBA935E336840CA
