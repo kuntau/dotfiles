@@ -1,3 +1,5 @@
+# vim:ft=gitignore
+
 .DS_Store
 .svn
 *~

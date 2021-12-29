@@ -1,3 +1,5 @@
+# vim:ft=conf
+
 rename-session PAPSB
 rename-window workspace
 new-window -n vim

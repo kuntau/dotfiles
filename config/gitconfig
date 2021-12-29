@@ -1,3 +1,5 @@
+# vim:ft=gitconfig
+
 [alias]
   co = checkout
   count = !git shortlog -sn
