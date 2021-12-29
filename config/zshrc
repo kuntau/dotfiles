@@ -92,7 +92,7 @@ elif [[ $OS_NAME == Darwin ]]; then
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
   # One off binary
-  export PATH=~/.local/lsp/sumneko.lua-2.5.3/server/bin/macOS:$PATH # Sumneko lua path
+  export PATH=~/.local/lsp/sumneko.lua-2.5.6/server/bin:$PATH # Sumneko lua path
   export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH      # Neovim GUI in Go
   export PATH=/usr/local/opt/sqlite/bin:$PATH                       # Homebrew's sqlite3
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
