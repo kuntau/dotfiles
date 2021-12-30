@@ -136,8 +136,9 @@ return packer.startup({function(use)
   use {'edkolev/tmuxline.vim', cmd = 'Tmuxline'} -- Tmux statusline
   use {'kdheepak/tabline.nvim', config = [[require('config.tabline')]]}
   use {'nvim-lualine/lualine.nvim', config = [[require('config.statusline')]]} -- statusline
-  -- use('famiu/feline.nvim') -- statusline
-  -- use('windwp/windline.nvim') -- statusline
+
+  -- Language specifics
+  use {'SidOfc/mkdx', ft = 'markdown', config = [[require('config.markdown')]]}
 
   -- automatically setup configurations after cloning packer
   if packer_bookstrap then
@@ -145,7 +146,7 @@ return packer.startup({function(use)
   end
 end,
   config = {
-    -- display = { open_fn = require("packer.util").float},
+    display = { open_fn = require("packer.util").float},
     -- Move to lua dir so impatient.nvim can cache it
     compile_path = fn.stdpath('config')..'/lua/packer_compiled.lua'
   }
