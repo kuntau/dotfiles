@@ -102,7 +102,7 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     { name = 'path' },
-    { name = 'cmdline', max_item_count = 20, keyword_length = 2 }
+    { name = 'cmdline', keyword_length = 2 }
   })
 })
 
