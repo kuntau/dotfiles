@@ -3,7 +3,12 @@
 
 local ft_extension = {
     sections = {lualine_a = {'filetype'}},
-    filetypes = {'startify', 'Trouble', 'undotree', 'vim-plug', 'DiffviewFiles', 'startuptime', 'packer', 'help'}
+    filetypes = {'startify', 'Trouble', 'undotree', 'DiffviewFiles', 'startuptime', 'packer'}
+}
+
+local help_extension = {
+    sections = {lualine_a = {'filetype'}, lualine_c = {'filename'}},
+    filetypes = {'help'}
 }
 
 local neogit_extension = {
@@ -16,6 +21,9 @@ require('lualine').setup({
     component_separators = { left = '', right = '·'},
     disabled_filetypes = {},
   },
+  sections = {
+    lualine_c = {{'filename', path=1}},
+  },
   tabline = {
     lualine_c = { require'tabline'.tabline_buffers },
     lualine_x = { require'tabline'.tabline_tabs  },
@@ -26,5 +34,6 @@ require('lualine').setup({
     'symbols-outline',
     ft_extension,
     neogit_extension,
+    help_extension,
   }
 })
