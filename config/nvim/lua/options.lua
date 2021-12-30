@@ -63,9 +63,9 @@ vim.opt.wildignore      = {} -- add file type to ignore completions
 vim.opt.pumblend        = 10
 vim.opt.wildmode        = "longest:full"
 
--- Characters configs
+-- Characters configs. Sample: eol:↓, eol:¬, eol:↲, eol:⏎, tab:␉·, trail:␠, nbsp:⎵
 vim.opt.list            = false -- show special characters
-vim.opt.listchars       = {eol = '↲', tab = '▸ ', trail = '·'} -- Special characters for highlighting non-printing spaces/tabs/etc
+vim.opt.listchars       = {eol='↲', tab='▸ ', trail='·', extends='»', precedes='«', nbsp='⎵', conceal='×'} -- Special characters for highlighting non-printing spaces/tabs/etc
 vim.opt.fillchars       = { vert = ' ', eob = ' '} -- remove ugly vertical seperator & end of boundry char
 
 -- Extend defaults

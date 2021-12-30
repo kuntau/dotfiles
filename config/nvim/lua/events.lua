@@ -11,6 +11,11 @@ autocmd('term', [[TermOpen * startinsert! | setlocal nonu nornu signcolumn=no ]]
 autocmd('nvim_compile', [[BufWritePost *nvim/lua/plugins.lua PackerCompile]], true)
 autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
 
+-- Show listchars on insert mode
+autocmd('show_listchars', [[InsertEnter * :setl list]])
+autocmd('show_listchars', [[InsertLeave * :setl nolist]])
+
+-- Filetypes autocmds
 autocmd('nvim_ft',[[FileType help,qf,startuptime,checkhealth lua require('utils').quickClosePane()]], true) -- 1st choice
 
 -- TODO: Deal with this later
