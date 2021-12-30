@@ -16,7 +16,7 @@ vim.opt.shada           = { "!", "'1000", "<50", "s10", "h" }
 vim.opt.smartcase       = true
 vim.opt.swapfile        = false
 vim.opt.undofile        = true
-vim.opt.updatetime      = 1000
+vim.opt.updatetime      = 500
 vim.opt.visualbell      = false
 
 -- Looks & feels
@@ -70,7 +70,7 @@ vim.opt.fillchars       = { vert = ' ', eob = ' '} -- remove ugly vertical seper
 
 -- Extend defaults
 vim.opt.diffopt:append 'vertical' -- Diff always open in vsplit
-vim.opt.shortmess:append 'c' -- Diff always open in vsplit
+vim.opt.shortmess:append 'c'      -- don't give |ins-completion-menu| messages.
 
 -- Highlight VCS conflict markers
 -- vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
