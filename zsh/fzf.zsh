@@ -1,6 +1,6 @@
 # REFERENCE https://github.com/junegunn/fzf/issues/745
 
-export FZF_TMUX=0
+export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -43,21 +43,22 @@ append_history() {
 }
 
 # FZF + GIT helper {{{
-# fshow - git commit browser
-fshow() {
+# fzf_git_log - git commit browser
+fzf_commit_log () {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-r:toggle-sort \
       --bind "ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                xargs -I % sh -c 'git show --color=always % | $PAGER') << 'FZF-EOF'
                 {}
 FZF-EOF"
 }
+zle     -N     fzf_commit_log
+bindkey '^X^O' fzf_commit_log
 
 # show commit from log
-git-commit-show ()
-{
+fzf_commit_preview () {
   git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  | \
    fzf --ansi --no-sort --reverse --tiebreak=index --preview \
    'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
@@ -68,6 +69,8 @@ git-commit-show ()
 FZF-EOF" --preview-window=right:60%
 }
 # --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:
+zle     -N     fzf_commit_preview
+bindkey '^X^P' fzf_commit_preview
 # }}}
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
@@ -75,14 +78,16 @@ FZF-EOF" --preview-window=right:60%
 #   - Exit if there's no match (--exit-0)
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
-fe() (
+fzf_edit_file () {
   IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
   fi
-)
+}
+zle     -N     fzf_edit_file
+bindkey '^X^E' fzf_edit_file
 
 fzf_quick_paths() {
   local word="${LBUFFER##* }"
@@ -118,7 +123,7 @@ fzf_history() {
   zle reset-prompt
 }
 zle -N fzf-history fzf_history
-bindkey "^X^E" fzf-history
+bindkey "^X^I" fzf-history
 
 fzf-history-widget-accept() {
   fzf-history-widget
