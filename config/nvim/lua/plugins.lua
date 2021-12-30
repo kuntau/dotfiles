@@ -32,11 +32,15 @@ return packer.startup({function(use)
     'nvim-telescope/telescope.nvim',
     config = [[require('config._telescope')]],
     cmd = 'Telescope',
-    -- module = 'telescope',
     requires = {
       {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
-      {'ahmedkhalf/project.nvim', config = [[require('project_nvim').setup()]]},
+      {'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim',},
+      {'ahmedkhalf/project.nvim', after = 'telescope.nvim',
+        config = function ()
+          require('project_nvim').setup()
+          require('telescope').load_extension('projects')
+        end,
+      },
     }
   }
 
