@@ -54,10 +54,10 @@ return packer.startup({function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
-      {'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter'}, -- Refactor module for treesitter
-      {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}, -- text-objects module for treesitter
+      {'nvim-treesitter/nvim-treesitter-refactor',    event = 'InsertEnter *'}, -- Refactor module for treesitter
+      {'nvim-treesitter/nvim-treesitter-textobjects', event = 'InsertEnter *'}, -- text-objects module for treesitter
       {'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim'}, -- context-commentstring module for treesitter
-      {'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'html', 'jsx', 'tsx'}}, -- auto complete HTML tags
+      {'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'}}, -- auto complete HTML tags
     },
     config = [[require('config.treesitter')]],
     run = ':TSUpdate',
@@ -66,7 +66,7 @@ return packer.startup({function(use)
   use {'tpope/vim-repeat', keys = '.'}
   use {'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' }} -- gS for splitting & gJ for joining
   use {'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { {'n','gc'}, {'v','gc'} }} -- Comment plugins with treesitter support
-  use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]], ft = {'html', 'jsx', 'tsx'}} -- autopairs plugin
+  use {'windwp/nvim-autopairs', config = [[require('config.autopairs')]], event = 'InsertEnter *'} -- autopairs plugin
   use {'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *'} -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
