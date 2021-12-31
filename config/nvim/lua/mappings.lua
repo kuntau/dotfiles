@@ -29,7 +29,8 @@ nmap('<LocalLeader>c', '<cmd>close!<cr>')
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
 nmap('<Leader>oC', '<cmd>'..(orientation() == 'vertical' and 's' or 'vs')..'plit term://zsh<cr>')
 nmap('<Leader>oc', '<cmd>term<cr>')
-tmap('<Esc>', ts)
+tmap('<Leader><Esc>', ts)
+tmap('jj', ts)
 
 -- Better arrow key
 nmap('<right>',   '<cmd>bnext<cr>')
