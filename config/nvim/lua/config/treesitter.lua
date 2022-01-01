@@ -35,7 +35,7 @@ require('nvim-treesitter.configs').setup({
     smart_rename = {
       enable = true,
       keymaps = {
-        smart_rename = 'gtr'
+        smart_rename = 'grr'
       }
     },
     navigation = {
@@ -120,7 +120,7 @@ require('nvim-treesitter.configs').setup({
     enable = true,
   },
   rainbow = {
-    enable = true,
+    enable = false,
     extended_mode = true,
   }
 })
