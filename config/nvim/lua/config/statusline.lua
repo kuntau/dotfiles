@@ -16,6 +16,16 @@ local neogit_extension = {
   filetypes = {'NeogitStatus', 'NeogitCommitMessage', 'NeogitPopup', 'NeogitLogView', 'NeogitGitCommandHistory'}
 }
 
+local filetype_names = {
+  packer = 'Packer',
+  undotree = 'Undo Tree',
+  NeogitStatus = 'Neogit',
+  startuptime = 'Startup Time',
+  Outline = 'Symbols Outline',
+  startify = 'Startify',
+  DiffviewFiles = 'Diff View',
+}
+
 require('lualine').setup({
   options = {
     component_separators = { left = '', right = '·'},
@@ -23,10 +33,15 @@ require('lualine').setup({
   },
   sections = {
     lualine_c = {{'filename', path=1}},
+    lualine_b = {'diff', 'diagnostics'},
+  },
+  inactive_sections = {
+    lualine_c = {{'filename', path=1}},
   },
   tabline = {
     lualine_a = {{'buffers', filetype_names=filetype_names}},
     lualine_z = {{'tabs', mode=0}},
+    lualine_y = {'branch'},
   },
   extensions = {
     'nvim-tree',

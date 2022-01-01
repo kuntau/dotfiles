@@ -1,20 +1,20 @@
 -- mappings.lua: My custom keyboard mappings
 -- NOTES: Use <cmd> only when have <cr>
 
+local map  = require('utils').map
 local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
 local tmap = require('utils').tmap
-local dbgi  = require('utils.logger').dbgi
-local warn  = require('utils.logger').warn
+local dbgi = require('utils.logger').dbgi
+local warn = require('utils.logger').warn
 local orientation = require('utils').getWinOrientation
 
 vim.g.mapleader = [[ ]]
-vim.g.maplocalleader = [[,]]
+vim.g.maplocalleader = [[\]]
 
 -- Basic
-nmap('<D-s>',      '<cmd>up!<cr>')
-imap('<D-s>',      '<cmd>up!<cr>')
+map('<D-s>',       '<cmd>up!<cr>')
 imap('<D-v>',      '<c-r>+')
 nmap('R',          ':help <c-r><c-w><cr>')
 nmap('<Leader>so', '<cmd>up<cr><cmd>luafile %<cr>')
@@ -24,6 +24,7 @@ nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 nmap('<LocalLeader>q', '<cmd>only<cr><cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>Bdelete!<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
+nmap('<LocalLeader>s', '<cmd>up!<cr>')
 
 -- Terminal movements
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
