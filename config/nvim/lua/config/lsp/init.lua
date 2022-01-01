@@ -17,15 +17,6 @@ vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignW
 vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
---[[ vim.lsp.protocol.CompletionItemKind = {
-  " [text]",     " [method]", " [function]",  " [constructor]", " [field]",
-  " [variable]", " [class]",  " [interface]", " [module]",      "襁 [property]",
-  " [unit]",     " [value]",  " [enum]",      " [keyword]",     " [snippet]",
-  " [color]",    " [file]",   " [reference]", " [dir]",         " [enummember]",
-  " [constant]", " [struct]", " [event]",     " [operator]",    " [type]",
-} ]]
--- completion symbols
-
 -- global config for diagnostic
 vim.diagnostic.config({
   underline = true,
@@ -109,7 +100,7 @@ for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     flags = {
-      debounce_text_changes = 50,
+      debounce_text_changes = 250,
     },
     capabilities = capabilities
   }
