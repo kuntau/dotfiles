@@ -25,8 +25,8 @@ require('lualine').setup({
     lualine_c = {{'filename', path=1}},
   },
   tabline = {
-    lualine_c = { require'tabline'.tabline_buffers },
-    lualine_x = { require'tabline'.tabline_tabs  },
+    lualine_a = {{'buffers', filetype_names=filetype_names}},
+    lualine_z = {{'tabs', mode=0}},
   },
   extensions = {
     'nvim-tree',

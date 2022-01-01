@@ -133,7 +133,6 @@ return packer.startup({function(use)
 
   -- StatusLine, bufferline & tabline
   use { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' } -- Tmux statusline
-  use { 'kdheepak/tabline.nvim', config = [[require('config.tabline')]] }
   use { 'nvim-lualine/lualine.nvim', config = [[require('config.statusline')]] } -- statusline
 
   -- Language specifics
