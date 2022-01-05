@@ -113,7 +113,7 @@ return packer.startup({function(use)
 
   -- Misc bundle
   use { 'junegunn/vim-easy-align', keys = {{'v','ga'}, 'ga'} }
-  use { 'christoomey/vim-tmux-navigator', cmd = {'TmuxNavigateLeft','TmuxNavigateRight','TmuxNavigateUp','TmuxNavigateDown',} }
+  use { 'christoomey/vim-tmux-navigator' }
   use { 'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 5', cmd = 'StartupTime' } -- startup time benachmarking
 
   -- UI & UX
