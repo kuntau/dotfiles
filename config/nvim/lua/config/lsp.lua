@@ -4,8 +4,6 @@
 -- https://github.com/ChristianChiarulli/nvim/blob/master/lua/user/lsp/
 -- }
 
-require('lsp-colors').setup()
-
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })

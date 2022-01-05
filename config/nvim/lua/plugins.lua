@@ -21,7 +21,6 @@ return packer.startup({function(use)
   end
 
   -- Essentials
-  -- use { 'nvim-lua/plenary.nvim' }
   use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
   use { 'lewis6991/impatient.nvim' }
   use { 'kuntau/vim-osc52', keys = '<c-c>' } -- Copy & paste across tmux & screen over mosh
@@ -31,7 +30,7 @@ return packer.startup({function(use)
   use { 'nvim-telescope/telescope.nvim', requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim', },
-      { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { { 'tami5/sqlite.lua', commit = '5725b89e56dddf58b254570ce15a61a0efe5fab2' } }, after = 'telescope.nvim' },
+      { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { 'tami5/sqlite.lua' }, after = 'telescope.nvim' },
       { 'ahmedkhalf/project.nvim', after = 'telescope.nvim', config = function () require('project_nvim').setup() require('telescope').load_extension('projects') end, },
     },
     config = [[require('config._telescope')]],
@@ -64,9 +63,7 @@ return packer.startup({function(use)
   use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *' } -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
-  -- use { 'onsails/lspkind-nvim' } -- LSP completion menu icons
-  -- use { 'folke/lsp-colors.nvim' }
-  use { 'kevinhwang91/nvim-bqf', event = 'QuickFixCmdPre *' }
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' }
   use { 'neovim/nvim-lspconfig', config = [[require('config.lsp')]] }
   use { 'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'Trouble' }
