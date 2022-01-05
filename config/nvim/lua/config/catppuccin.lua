@@ -1,23 +1,18 @@
 -- catppuccin.lua
 
 require('catppuccin').setup({
+  term_colors = true,
+  styles = {
+    comments = "italic",
+    functions = "italic",
+    keywords = "italic",
+    strings = "NONE",
+    variables = "NONE",
+  },
   integrations = {
-    cmp         = true,
-    gitsigns    = true,
     lightspeed  = true,
-    lsp_saga    = true,
     lsp_trouble = true,
-    markdown    = true,
     neogit      = true,
-    telescope   = true,
     ts_rainbow  = true,
-    indent_blankline = {
-      enabled               = true,
-      colored_indent_levels = true
-    },
-    nvimtree = {
-      enabled   = true,
-      show_root = true
-    }
   }
 })
