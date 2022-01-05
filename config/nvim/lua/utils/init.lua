@@ -62,7 +62,7 @@ local mapper = function (mode, lhs, rhs, opts)
     end
   end
 
-  local bufnr = options.buffer
+  local bufnr = type(options.buffer) == 'number' and options.buffer or vim.api.nvim_get_current_buf()
   options.buffer = nil
 
   if bufnr then
