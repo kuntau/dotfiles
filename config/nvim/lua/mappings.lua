@@ -20,6 +20,27 @@ nmap('R',          ':help <c-r><c-w><cr>')
 nmap('<Leader>so', '<cmd>up<cr><cmd>luafile %<cr>')
 nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 
+---@experimental
+nmap('<F23>', '<cmd>split<cr>')  -- S-F11
+nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
+nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
+nmap('<F24>', '<cmd>split<cr>')  -- S-F12
+nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
+nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
+nmap('<S-F11>', '<cmd>split<cr>')
+nmap('<C-F11>', '<cmd>split<cr>')
+nmap('<C-S-F11>', '<cmd>vsplit<cr>')
+nmap('<S-F12>', '<cmd>split<cr>')
+nmap('<C-F12>', '<cmd>split<cr>')
+nmap('<C-S-F12>', '<cmd>vsplit<cr>')
+nmap('<M-@>', '<cmd>split<cr>')
+nmap('<S-M-@>', '<cmd>split<cr>')
+-- <F23><F22><F21><F20><F19><F35><F23><F34><S-F11><C-S-F11><S-F9>
+-- nmap('<S-CR>', '<cmd>vsplit<cr>')
+-- nmap('<C-CR>', '<cmd>vsplit<cr>')
+-- imap('<S-CR>', '<cmd>vsplit<cr>')
+-- imap('<C-CR>', '<cmd>vsplit<cr>')
+
 -- LocalLeader mappings
 nmap('<LocalLeader>q', '<cmd>only<cr><cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>Bdelete!<cr>')
