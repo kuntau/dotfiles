@@ -12,7 +12,7 @@ local imap = require('utils').imap
 local autocmd = require('utils').autocmd
 
 -- require('lsp-colors').setup()
-require('lsp.kind').setup()
+require('lsp.kind').setup({text = false, icon = true})
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
@@ -23,7 +23,7 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSig
 -- global config for diagnostic
 vim.diagnostic.config({
   underline = true,
-  virtual_text = true,
+  virtual_text = false,
   signs = true,
   severity_sort = true,
   update_in_insert = false,
@@ -65,7 +65,7 @@ local on_attach = function(_, bufnr)
   nmap('<Leader>D', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  nmap('<Leader>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
+  nmap('<Leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
   nmap('<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- FIXME: Disable for LSP server without CursorHold support
