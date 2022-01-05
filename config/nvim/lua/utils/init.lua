@@ -15,9 +15,9 @@ _G.I = function (...)
   return ...
 end
 
-_G.P = function (v)
-  print(v)
-  return v
+_G.P = function (...)
+  print(...)
+  return ...
 end
 -- end global helpers
 
