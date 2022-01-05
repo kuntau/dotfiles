@@ -3,15 +3,14 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local source_mapping = {
-  buffer      = "[Buf]",
+  buffer      = "[BF]",
   nvim_lsp    = "[LSP]",
   nvim_lua    = "[API]",
   cmp_tabnine = "[T9]",
   copilot     = "[CO]",
-  path        = "[Path]",
+  path        = "[PH]",
   tmux        = "[TX]",
-  vsnip       = "[VSNiP]",
-  luasnip     = "[LSNiP]",
+  luasnip     = "[SN]",
 }
 require('luasnip.loaders.from_vscode').lazy_load()
 
@@ -68,7 +67,7 @@ cmp.setup({
   formatting = {
     format = require('lsp.kind').cmp_format({
       icon = true,
-      text = false,
+      text = true,
       menu = source_mapping,
     }),
   },
