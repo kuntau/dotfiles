@@ -64,7 +64,6 @@ return packer.startup({function(use)
   use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *' } -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
-  -- use { 'onsails/lspkind-nvim' } -- LSP completion menu icons
   -- use { 'folke/lsp-colors.nvim' }
   use { 'kevinhwang91/nvim-bqf', event = 'QuickFixCmdPre *' }
   use { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' }

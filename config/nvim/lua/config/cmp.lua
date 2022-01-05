@@ -1,21 +1,19 @@
 -- nvim-cmp
 
 local cmp = require('cmp')
-local lspkind = require('lspkind')
 local luasnip = require('luasnip')
-
-require('luasnip.loaders.from_vscode').lazy_load()
 local source_mapping = {
-  buffer = "[Buf]",
-  nvim_lsp = "[LSP]",
-  nvim_lua = "[API]",
+  buffer      = "[Buf]",
+  nvim_lsp    = "[LSP]",
+  nvim_lua    = "[API]",
   cmp_tabnine = "[T9]",
-  copilot = "[CO]",
-  path = "[Path]",
-  tmux = "[TX]",
-  vsnip = "[VSNiP]",
-  luasnip = "[LSNiP]",
+  copilot     = "[CO]",
+  path        = "[Path]",
+  tmux        = "[TX]",
+  vsnip       = "[VSNiP]",
+  luasnip     = "[LSNiP]",
 }
+require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
   snippet = {
@@ -59,8 +57,8 @@ cmp.setup({
   sources = cmp.config.sources({
     -- this order = priority
     { name = 'luasnip' }, -- For luasnip users.
-    { name = 'nvim_lsp', max_item_count = 20 },
-    { name = 'nvim_lua', max_item_count = 20 },
+    { name = 'nvim_lsp', max_item_count = 50 },
+    { name = 'nvim_lua', max_item_count = 50 },
     { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
     { name = 'path' }, -- path completion
@@ -68,25 +66,11 @@ cmp.setup({
     { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
   }),
   formatting = {
-    format = lspkind.cmp_format({
-      with_text = false, -- do not show text alongside icons
+    format = require('lsp.kind').cmp_format({
+      icon = true,
+      text = false,
       menu = source_mapping,
-      maxwidth = 60, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      -- before = function (entry, vim_item)
-      -- local word = entry:get_insert_text()
-      -- if entry.completion_item.insertTextFormat == types.lsp.insertTextFormat.Snippet then
-      --   word = vim.lsp.util.parse_snippet(word)
-      -- end
-      -- word = str.oneline()
-      -- if entry.completion_item.insertTextFormat == types.lsp.insertTextFormat.Snippet then
-      --   word = word .. '~'
-      -- end
-      -- return vim_item
-      -- end
-    })
+    }),
   },
 })
 
