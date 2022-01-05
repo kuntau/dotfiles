@@ -83,10 +83,11 @@ nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
 nmap('<Leader>ft', '<cmd>Telescope file_browser<cr>')
 nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
-nmap('<Leader>ff', '<cmd>Telescope buffers<cr>')
+nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
 nmap('<Leader>fc', '<cmd>Telescope colorscheme<cr>')
 nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
+nmap('<Leader>ff', '<cmd>Telescope frecency<cr>')
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })

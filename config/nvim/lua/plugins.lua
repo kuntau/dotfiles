@@ -27,20 +27,14 @@ return packer.startup({function(use)
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
   use { 'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle' }
   use { 'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle' }
-  use {
-    'nvim-telescope/telescope.nvim',
+  use { 'nvim-telescope/telescope.nvim', requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim', },
+      { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { { 'tami5/sqlite.lua', commit = '5725b89e56dddf58b254570ce15a61a0efe5fab2' } }, after = 'telescope.nvim' },
+      { 'ahmedkhalf/project.nvim', after = 'telescope.nvim', config = function () require('project_nvim').setup() require('telescope').load_extension('projects') end, },
+    },
     config = [[require('config._telescope')]],
     cmd = 'Telescope',
-    requires = {
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim',},
-      {'ahmedkhalf/project.nvim', after = 'telescope.nvim',
-        config = function ()
-          require('project_nvim').setup()
-          require('telescope').load_extension('projects')
-        end,
-      },
-    }
   }
   -- use { 'mhinz/vim-startify', config = [[require('config.startify')]] }
 
