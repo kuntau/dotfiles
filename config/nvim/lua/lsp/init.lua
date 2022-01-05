@@ -9,8 +9,10 @@ end
 local configs = require('lspconfig.configs')
 local nmap = require('utils').nmap
 local imap = require('utils').imap
--- local autocmd = require('utils').autocmd
+local autocmd = require('utils').autocmd
+
 -- require('lsp-colors').setup()
+require('lsp.kind').setup()
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
@@ -51,6 +53,7 @@ local on_attach = function(_, bufnr)
   nmap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   nmap('K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   nmap('<Leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  nmap('<Leader><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   imap('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   nmap('<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   nmap('<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
@@ -66,10 +69,16 @@ local on_attach = function(_, bufnr)
   nmap('<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- FIXME: Disable for LSP server without CursorHold support
-  vim.cmd [[
-    autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  ]]
+  -- vim.cmd [[
+  --   autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+  --   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  -- ]]
+
+  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]], true)
+  autocmd('lsp', [[CursorMoved <buffer> lua vim.lsp.buf.clear_references()]], true)
+  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.diagnostic.open_float(0,{scope = 'cursor'})]], true)
+  -- autocmd('lsp', [[BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]], true)
+
     -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
     -- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
 
@@ -86,7 +95,7 @@ if not configs.ls_emmet then
         return vim.loop.cwd()
       end;
       settings = {};
-    };
+    }
   }
 end
 
@@ -94,6 +103,7 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local DEBOUNCE_TIME = 150
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'sumneko_lua', 'tsserver', 'vimls', 'volar' }
@@ -101,7 +111,7 @@ for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     flags = {
-      debounce_text_changes = 250,
+      debounce_text_changes = DEBOUNCE_TIME,
     },
     capabilities = capabilities
   }
@@ -112,8 +122,9 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.sumneko_lua.setup {
-  -- capabilities = capabilities,
-  -- on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = { debounce_text_changes = DEBOUNCE_TIME, },
   settings = {
     Lua = {
       runtime = {

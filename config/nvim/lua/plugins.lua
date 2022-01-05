@@ -64,10 +64,9 @@ return packer.startup({function(use)
   use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *' } -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
-  -- use { 'folke/lsp-colors.nvim' }
   use { 'kevinhwang91/nvim-bqf', event = 'QuickFixCmdPre *' }
   use { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' }
-  use { 'neovim/nvim-lspconfig', config = [[require('config.lsp')]] }
+  use { 'neovim/nvim-lspconfig', config = [[require('lsp')]] }
   use { 'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'Trouble' }
 
   -- Completions
@@ -111,7 +110,7 @@ return packer.startup({function(use)
   use { 'rebelot/kanagawa.nvim', cond = true } -- tokyonight + gruvbox
 
   -- Misc bundle
-  use { 'junegunn/vim-easy-align', keys = {{'v','ga'}, 'ga'} }
+  use { 'junegunn/vim-easy-align', cmd = 'EasyAlign' }
   use { 'christoomey/vim-tmux-navigator' }
   use { 'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 5', cmd = 'StartupTime' } -- startup time benachmarking
 
