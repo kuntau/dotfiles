@@ -36,8 +36,6 @@ tmap('jj', ts)
 -- Better arrow key
 nmap('<right>',   '<cmd>bnext<cr>')
 nmap('<left>',    '<cmd>bprevious<cr>')
-nmap('<M-right>', '<cmd>tabnext<cr>')
-nmap('<M-left>',  '<cmd>tabprevious<cr>')
 
 -- Moving block of codes
 nmap('<m-j>', ':m .+1<CR>==')
