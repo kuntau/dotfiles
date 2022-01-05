@@ -16,7 +16,7 @@ vim.opt.shada           = { "!", "'1000", "<50", "s10", "h" }
 vim.opt.smartcase       = true
 vim.opt.swapfile        = false
 vim.opt.undofile        = true
-vim.opt.updatetime      = 500
+vim.opt.updatetime      = 2000
 vim.opt.visualbell      = false
 
 -- Looks & feels

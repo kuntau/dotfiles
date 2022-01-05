@@ -21,7 +21,8 @@ return packer.startup({function(use)
   end
 
   -- Essentials
-  use { 'nvim-lua/plenary.nvim' }
+  -- use { 'nvim-lua/plenary.nvim' }
+  use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
   use { 'kuntau/impatient.nvim', requires = { { 'tami5/sqlite.lua', commit = '5725b89e56dddf58b254570ce15a61a0efe5fab2' } } }
   use { 'kuntau/vim-osc52', keys = '<c-c>' } -- Copy & paste across tmux & screen over mosh
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
