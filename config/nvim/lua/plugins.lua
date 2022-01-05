@@ -23,7 +23,7 @@ return packer.startup({function(use)
   -- Essentials
   -- use { 'nvim-lua/plenary.nvim' }
   use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
-  use { 'kuntau/impatient.nvim', requires = { { 'tami5/sqlite.lua', commit = '5725b89e56dddf58b254570ce15a61a0efe5fab2' } } }
+  use { 'lewis6991/impatient.nvim' }
   use { 'kuntau/vim-osc52', keys = '<c-c>' } -- Copy & paste across tmux & screen over mosh
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
   use { 'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle' }
