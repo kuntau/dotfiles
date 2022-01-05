@@ -9,7 +9,8 @@ end
 local configs = require('lspconfig.configs')
 local nmap = require('utils').nmap
 local imap = require('utils').imap
-require('lsp-colors').setup()
+-- local autocmd = require('utils').autocmd
+-- require('lsp-colors').setup()
 
 -- Change diagnostic signs.
 vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
@@ -23,7 +24,7 @@ vim.diagnostic.config({
   virtual_text = true,
   signs = true,
   severity_sort = true,
-  update_in_insert = true,
+  update_in_insert = false,
   float = {
     focusable = true,
     style = "minimal",
@@ -58,7 +59,7 @@ local on_attach = function(_, bufnr)
   nmap('<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   nmap('<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   nmap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  nmap('<Leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  nmap('<Leader>D', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   nmap('<Leader>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
