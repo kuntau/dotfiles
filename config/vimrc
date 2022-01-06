@@ -200,6 +200,7 @@ Plug 'rizzatti/dash.vim', { 'on': [ 'Dash', 'DashSearch' ] }
 Plug 'justinmk/vim-gtfo'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
+Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }
 
 call plug#end()
 " }}}
@@ -224,7 +225,7 @@ if !has("gui_running")
     set termguicolors
   endif
   " set background=dark
-  colorscheme solarized8
+  colorscheme ayu
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
