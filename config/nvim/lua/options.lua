@@ -15,7 +15,8 @@ opt.ignorecase      = true
 opt.inccommand      = 'split' -- cmdline search & replace open in split
 opt.lazyredraw      = false -- better ui performance
 opt.mouse           = 'a'
-opt.shada           = { "!", "'1000", "<50", "s10", "h" }
+opt.sessionoptions  = { 'blank', 'buffers', 'curdir', 'folds', 'help', 'tabpages', 'winsize', 'winpos', 'terminal' }
+opt.shada           = { '!', '\'1000', '<50', 's10', 'h' }
 opt.smartcase       = true
 opt.swapfile        = false
 opt.undofile        = true
@@ -64,7 +65,7 @@ opt.wildignore      = {} -- add file type to ignore completions
 
 -- Cool floating window popup menu for completion on command line
 opt.pumblend        = 10
-opt.wildmode        = "longest:full"
+opt.wildmode        = 'longest:full'
 
 -- Characters configs. Sample: eol:↓, eol:¬, eol:↲, eol:⏎, tab:␉·, trail:␠, nbsp:⎵
 opt.list            = false -- show special characters
@@ -79,18 +80,18 @@ opt.shortmess:append 'c'      -- don't give |ins-completion-menu| messages.
 -- vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
 
 -- disable some builtin plugins
-g.loaded_matchparen     = 1
-g.loaded_matchit        = 1
+g.loaded_2html_plugin   = 1
 g.loaded_gzip           = 1
 g.loaded_man            = 1
-g.loaded_shada_plugin   = 1
-g.loaded_tarPlugin      = 1
-g.loaded_tar            = 1
-g.loaded_zipPlugin      = 1
-g.loaded_zip            = 1
+g.loaded_matchit        = 1
+g.loaded_matchparen     = 1
 g.loaded_netrwPlugin    = 1
-g.loaded_2html_plugin   = 1
 g.loaded_remote_plugins = 1
+g.loaded_shada_plugin   = 1
+g.loaded_tar            = 1
+g.loaded_tarPlugin      = 1
+g.loaded_zip            = 1
+g.loaded_zipPlugin      = 1
 
 ---@experimental https://github.com/neovim/neovim/pull/16600
 if fn.has('nvim-0.7') == 1 then
