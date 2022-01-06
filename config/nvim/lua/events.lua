@@ -20,7 +20,7 @@ autocmd('show_listchars', [[InsertLeave * :setl nolist]])
 
 --[[ Filetypes autocmds ]]--
 
-autocmd('ft_qc',[[FileType help,qf,startuptime,checkhealth lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
+autocmd('ft_qc',[[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
 autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- Enhance `surround` for `lua`
 autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent]], true) -- Disable `cindent` for `gitcommit`
 
