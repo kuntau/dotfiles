@@ -19,7 +19,12 @@ autocmd('show_listchars', [[InsertEnter * :setl list]])
 autocmd('show_listchars', [[InsertLeave * :setl nolist]])
 
 -- Filetypes autocmds
+
+-- Add `q` to quickly close this filetypes
 autocmd('nvim_ft',[[FileType help,qf,startuptime,checkhealth lua require('utils').quickClosePane()]], true) -- 1st choice
+
+-- Enhance `surround` for lua
+autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true)
 
 -- TODO: Deal with this later
 --[[
