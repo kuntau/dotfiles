@@ -13,29 +13,7 @@ local autocmd = require('utils').autocmd
 
 -- require('lsp-colors').setup()
 require('lsp.kind').setup({text = false, icon = true})
-
--- Change diagnostic signs.
-vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-
--- global config for diagnostic
-vim.diagnostic.config({
-  underline = true,
-  virtual_text = false,
-  signs = true,
-  severity_sort = true,
-  update_in_insert = false,
-  float = {
-    focusable = true,
-    style = "minimal",
-    border = "rounded",
-    source = "always",
-    header = "",
-    prefix = "",
-  },
-})
+require('lsp.diagnostic')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -69,19 +47,11 @@ local on_attach = function(_, bufnr)
   nmap('<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- FIXME: Disable for LSP server without CursorHold support
-  -- vim.cmd [[
-  --   autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-  --   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  -- ]]
-
   autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]], true)
   autocmd('lsp', [[CursorMoved <buffer> lua vim.lsp.buf.clear_references()]], true)
-  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.diagnostic.open_float(0,{scope = 'cursor'})]], true)
+  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.diagnostic.open_float()]], true)
   -- autocmd('lsp', [[BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]], true)
-
-    -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-    -- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-
+  -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 end
 
 -- Custom server ls_emmet.. must be above the main servers loop
@@ -106,7 +76,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local DEBOUNCE_TIME = 150
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'sumneko_lua', 'tsserver', 'vimls', 'volar' }
+local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'tsserver', 'vimls', 'volar' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
