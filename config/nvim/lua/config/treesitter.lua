@@ -62,6 +62,10 @@ require('nvim-treesitter.configs').setup({
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["al"] = "@call.outer",
+        ["il"] = "@call.inner",
 
         -- Or you can define your own textobjects like this
         ["iF"] = {
@@ -94,12 +98,8 @@ require('nvim-treesitter.configs').setup({
     },
     swap = {
       enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
+      swap_next = { ["<leader>a"] = "@parameter.inner" },
+      swap_previous = { ["<leader>A"] = "@parameter.inner" },
     },
     lsp_interop = {
       enable = true,
@@ -109,6 +109,13 @@ require('nvim-treesitter.configs').setup({
         ["<leader>dF"] = "@class.outer",
       },
     },
+  },
+  textsubjects = {
+    enable = true,
+    keymaps = {
+      ['.'] = 'textsubjects-smart',
+      [';'] = 'textsubjects-container-outer',
+    }
   },
   context_commentstring = {
     enable = true

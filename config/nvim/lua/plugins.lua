@@ -48,6 +48,7 @@ return packer.startup({function(use)
   use { 'nvim-treesitter/nvim-treesitter', requires = {
       { 'nvim-treesitter/nvim-treesitter-refactor',    event = 'InsertEnter *' }, -- Refactor module for treesitter
       { 'nvim-treesitter/nvim-treesitter-textobjects', event = 'InsertEnter *' }, -- text-objects module for treesitter
+      { 'RRethy/nvim-treesitter-textsubjects', event = 'InsertEnter *' }, -- Location and syntax aware text objects
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim' }, -- context-commentstring module for treesitter
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
       { 'p00f/nvim-ts-rainbow', ft = {'fnl'} },
