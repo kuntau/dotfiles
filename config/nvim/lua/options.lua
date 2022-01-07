@@ -14,6 +14,7 @@ opt.errorbells      = false
 opt.ignorecase      = true
 opt.inccommand      = 'split' -- cmdline search & replace open in split
 opt.lazyredraw      = false -- better ui performance
+opt.modelines       = 2
 opt.mouse           = 'a'
 opt.sessionoptions  = { 'blank', 'buffers', 'curdir', 'folds', 'help', 'tabpages', 'winsize', 'winpos', 'terminal' }
 opt.shada           = { '!', '\'1000', '<50', 's10', 'h' }
