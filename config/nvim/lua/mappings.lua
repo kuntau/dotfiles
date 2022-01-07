@@ -14,49 +14,23 @@ vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[\]]
 
 -- Basic
-map('<D-s>',       '<cmd>up!<cr>')
-imap('<D-v>',      '<c-r>+')
-nmap('R',          ':help <c-r><c-w><cr>')
-nmap('<Leader>so', '<cmd>up<cr><cmd>luafile %<cr>')
-nmap('<Leader>rm', '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
-
----@experimental
-nmap('<F23>', '<cmd>split<cr>')  -- S-F11
-nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
-nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
-nmap('<F24>', '<cmd>split<cr>')  -- S-F12
-nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
-nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
-nmap('<S-F11>', '<cmd>split<cr>')
-nmap('<C-F11>', '<cmd>split<cr>')
-nmap('<C-S-F11>', '<cmd>vsplit<cr>')
-nmap('<S-F12>', '<cmd>split<cr>')
-nmap('<C-F12>', '<cmd>split<cr>')
-nmap('<C-S-F12>', '<cmd>vsplit<cr>')
-nmap('<M-@>', '<cmd>split<cr>')
-nmap('<S-M-@>', '<cmd>split<cr>')
--- <F23><F22><F21><F20><F19><F35><F23><F34><S-F11><C-S-F11><S-F9>
--- nmap('<S-CR>', '<cmd>vsplit<cr>')
--- nmap('<C-CR>', '<cmd>vsplit<cr>')
--- imap('<S-CR>', '<cmd>vsplit<cr>')
--- imap('<C-CR>', '<cmd>vsplit<cr>')
-
--- LocalLeader mappings
-nmap('<LocalLeader>q', '<cmd>only<cr><cmd>q!<cr>')
-nmap('<LocalLeader>x', '<cmd>Bdelete!<cr>')
-nmap('<LocalLeader>c', '<cmd>close!<cr>')
-nmap('<LocalLeader>s', '<cmd>up!<cr>')
+map('<D-s>',          '<cmd>up!<cr>')
+imap('<D-v>',         '<c-r>+')
+nmap('R',             ':help <c-r><c-w><cr>')
+nmap('<Leader><Tab>', '<C-^>')
+nmap('<Leader>so',    '<cmd>up<cr><cmd>luafile %<cr>')
+nmap('<Leader>rm',    '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
+nmap('<LocalLeader>s','<cmd>up!<cr>')
 
 -- Terminal movements
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
 nmap('<Leader>oC', '<cmd>'..(orientation() == 'vertical' and 's' or 'vs')..'plit term://zsh<cr>')
 nmap('<Leader>oc', '<cmd>term<cr>')
 tmap('<Leader><Esc>', ts)
-tmap('jj', ts)
 
 -- Better arrow key
-nmap('<right>',   '<cmd>bnext<cr>')
-nmap('<left>',    '<cmd>bprevious<cr>')
+nmap('<right>', '<cmd>bnext<cr>')
+nmap('<left>',  '<cmd>bprevious<cr>')
 
 -- Moving block of codes
 nmap('<m-j>', ':m .+1<CR>==')
@@ -74,10 +48,15 @@ end
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
 -- buffer management
-nmap('<leader>bd', '<cmd>Bdelete!<cr>')
+nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
+nmap('<LocalLeader>q', '<cmd>q!<cr>')
+nmap('<LocalLeader>x', '<cmd>bdelete!<cr>')
+nmap('<LocalLeader>X', '<cmd>xa!<cr>')
+nmap('<LocalLeader>c', '<cmd>close!<cr>')
+nmap('<M-Tab>', '<cmd>Telescope buffers<cr>')
 
 -- Plugins
-vmap('<c-c>',      '<Plug>(YankOSC52)')
+vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = false })
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
@@ -100,7 +79,7 @@ nmap('<leader>f:', '<cmd>Telescope command_history<cr>')
 nmap('<leader>f/', '<cmd>Telescope search_history<cr>')
 nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
-nmap('<Leader>ft', '<cmd>Telescope file_browser<cr>')
+nmap('<Leader>ft', '<cmd>Telescope filetypes<cr>')
 nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
 nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
@@ -111,3 +90,25 @@ nmap('<Leader>ff', '<cmd>Telescope frecency<cr>')
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
+
+---@experimental
+nmap('<F23>', '<cmd>split<cr>')  -- S-F11
+nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
+nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
+nmap('<F24>', '<cmd>split<cr>')  -- S-F12
+nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
+nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
+nmap('<S-F11>', '<cmd>split<cr>')
+nmap('<C-F11>', '<cmd>split<cr>')
+nmap('<C-S-F11>', '<cmd>vsplit<cr>')
+nmap('<S-F12>', '<cmd>split<cr>')
+nmap('<C-F12>', '<cmd>split<cr>')
+nmap('<C-S-F12>', '<cmd>vsplit<cr>')
+nmap('<M-@>', '<cmd>split<cr>')
+nmap('<S-M-@>', '<cmd>split<cr>')
+-- <F23><F22><F21><F20><F19><F35><F23><F34><S-F11><C-S-F11><S-F9>
+-- nmap('<S-CR>', '<cmd>vsplit<cr>')
+-- nmap('<C-CR>', '<cmd>vsplit<cr>')
+-- imap('<S-CR>', '<cmd>vsplit<cr>')
+-- imap('<C-CR>', '<cmd>vsplit<cr>')
+
