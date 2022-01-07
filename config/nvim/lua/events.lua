@@ -15,8 +15,8 @@ autocmd('nvim_compile', [[BufWritePost *nvim/lua/plugins.lua PackerCompile]], tr
 autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
 
 -- Show listchars on insert mode
-autocmd('show_listchars', [[InsertEnter * :setl list]])
-autocmd('show_listchars', [[InsertLeave * :setl nolist]])
+autocmd('i_list', [[InsertEnter * :setl list]], true)
+autocmd('n_list', [[InsertLeave * :setl nolist]], true)
 
 --[[ Filetypes autocmds ]]--
 
