@@ -23,7 +23,7 @@ return packer.startup({function(use)
   -- Essentials
   use { 'lewis6991/impatient.nvim' }
   use { 'kuntau/vim-osc52', keys = '<c-c>' } -- Copy & paste across tmux & screen over mosh
-  use { 'rmagatti/auto-session', config = [[require('auto-session').setup({auto_session_enabled = false})]] }
+  -- use { 'rmagatti/auto-session', config = [[require('auto-session').setup({auto_session_enabled = false})]] }
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
   use { 'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle' }
   use { 'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle' }
@@ -51,7 +51,8 @@ return packer.startup({function(use)
       { 'RRethy/nvim-treesitter-textsubjects', event = 'InsertEnter *' }, -- Location and syntax aware text objects
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim' }, -- context-commentstring module for treesitter
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
-      { 'p00f/nvim-ts-rainbow', ft = {'fnl'} },
+      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', ft = {'fnl'} },
+      -- { 'romgrk/nvim-treesitter-context', after = 'nvim-treesitter', opt = true }
     },
     config = [[require('config.treesitter')]],
     run = ':TSUpdate' -- We recommend updating the parsers cmd update
@@ -68,6 +69,7 @@ return packer.startup({function(use)
   use { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' }
   use { 'neovim/nvim-lspconfig', config = [[require('lsp')]] }
   use { 'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'Trouble' }
+  use { 'folke/lua-dev.nvim' }
 
   -- Completions
   use { 'hrsh7th/nvim-cmp', requires = {
@@ -116,6 +118,7 @@ return packer.startup({function(use)
   use { 'mtth/scratch.vim', cmd = 'Scratch' }
   use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
   use { 'christoomey/vim-tmux-navigator', config = 'vim.g.tmux_navigator_disable_when_zoomed = 1' }
+  use { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }
   use { 'anuvyklack/pretty-fold.nvim',
     config = function()
       require('pretty-fold').setup{}
