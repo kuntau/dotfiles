@@ -1,3 +1,4 @@
+# vim: set ft=tmux:
 #### COLOUR
 
 tm_icon="♟"

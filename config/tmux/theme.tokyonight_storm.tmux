@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# vim:set ft=tmux:
 
 # TokyoNight colors for Tmux
 

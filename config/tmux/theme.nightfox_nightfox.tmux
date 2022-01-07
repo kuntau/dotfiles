@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# vim:set ft=tmux:
 # Nightfox colors for Tmux
 # Style: nightfox
 # Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nightfox/nightfox_tmux.tmux

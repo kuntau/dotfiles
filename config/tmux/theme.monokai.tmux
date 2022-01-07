@@ -1,3 +1,4 @@
+# vim:set ft=tmux:
 # This tmux statusbar config was created by tmuxline.vim
 # on Fri, 05 Jun 2020
 
