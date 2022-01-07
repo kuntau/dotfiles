@@ -21,9 +21,9 @@ return packer.startup({function(use)
   end
 
   -- Essentials
-  use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
   use { 'lewis6991/impatient.nvim' }
   use { 'kuntau/vim-osc52', keys = '<c-c>' } -- Copy & paste across tmux & screen over mosh
+  use { 'rmagatti/auto-session', config = [[require('auto-session').setup({auto_session_enabled = false})]] }
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
   use { 'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle' }
   use { 'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle' }
@@ -92,6 +92,7 @@ return packer.startup({function(use)
   use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]], event = 'InsertEnter *' }
   use { 'TimUntersberger/neogit', config = [[require('config.neogit')]], cmd = 'Neogit' }
   use { 'sindrets/diffview.nvim', config = [[require('config.diffview')]], cmd = 'DiffviewOpen' }
+  use { 'rhysd/git-messenger.vim', cmd = 'GitMessenger' }
 
   -- Snippets
   use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp' }
@@ -103,22 +104,29 @@ return packer.startup({function(use)
   use { 'arcticicestudio/nord-vim', opt = true }
   use { 'NLKNguyen/papercolor-theme', opt = true }
   use { 'rakr/vim-one', opt = true }
-  use { 'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]], cond = false }
-  use { 'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], cond = false }
-  use { 'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', cond = false }
-  use { 'folke/tokyonight.nvim', cond = true }
-  use { 'rebelot/kanagawa.nvim', cond = true } -- tokyonight + gruvbox
+  use { 'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]], opt = true }
+  use { 'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], opt = true }
+  use { 'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', opt = true }
+  use { 'folke/tokyonight.nvim' }
+  use { 'rebelot/kanagawa.nvim' } -- tokyonight + gruvbox
 
-  -- Misc bundle
+  -- Qualify of life
   use { 'junegunn/vim-easy-align', cmd = 'EasyAlign' }
-  use { 'christoomey/vim-tmux-navigator' }
   use { 'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 5', cmd = 'StartupTime' } -- startup time benachmarking
+  use { 'mtth/scratch.vim', cmd = 'Scratch' }
+  use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
+  use { 'christoomey/vim-tmux-navigator', config = 'vim.g.tmux_navigator_disable_when_zoomed = 1' }
+  use { 'anuvyklack/pretty-fold.nvim',
+    config = function()
+      require('pretty-fold').setup{}
+      require('pretty-fold.preview').setup_keybinding()
+    end
+  }
 
   -- UI & UX
   use { 'kyazdani42/nvim-web-devicons' } -- for file icons
   use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]], cmd = 'IndentBlanklineToggle' }
   use { 'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]], ft = {'html', 'vue', 'css', 'jsx', 'tsx', 'scss', 'js', 'ts', 'haml', 'md', 'styl'} }
-  use { 'famiu/bufdelete.nvim', cmd = 'Bdelete' } -- improve :bdelete experience
 
   -- StatusLine, bufferline & tabline
   use { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' } -- Tmux statusline
@@ -133,7 +141,7 @@ return packer.startup({function(use)
   end
 end,
   config = {
-    display = { open_fn = require("packer.util").float },
+    display = { open_fn = function () return require("packer.util").float({ style = 'minimal', border = 'rounded'}) end },
     -- Move to lua dir so impatient.nvim can cache it
     compile_path = fn.stdpath('config')..'/lua/packer_compiled.lua'
   }
