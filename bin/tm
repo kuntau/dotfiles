@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 export PATH=/usr/local/bin:$PATH
 
 # abort if we're already inside a TMUX session
@@ -14,13 +15,13 @@ tmux has-session -t $DEFAULT_NAME 2> /dev/null \
 # present menu for user to choose which workspace to open
 IFS=$'\n'
 PS3="Please choose your session: "
+pattern='^[^0-9][-!$%^&*()_+|~=`{}\[\]:";<>?,.\/A-Za-z0-9]+$'
 options=("New Session")
 options+=($(tmux list-sessions -F '#S' 2> /dev/null))
-options+=("Workspace - PAPSB-SYSTEM" \
-  "ZSH" \
+options+=($(ls ~/dotfiles/config/tmux/workspace.*.tmux | sed -En 's/.*workspace\.(.+)\.tmux$/\1/p'))
+options+=("ZSH" \
   "BASH" \
   "Cancel")
-# options+=($(ls ~/dotfiles/tmux/*.tmuxrc))
 echo "Available sessions"
 echo "------------------"
 echo " "
@@ -31,12 +32,6 @@ do
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
       break;;
-    "Workspace - Dotfiles")
-      tmux source-file ~/dotfiles/cofig/tmux/citycarpark.tmuxrc
-      break;;
-    "Workspace - PAPTT")
-      tmux source-file ~/dotfiles/config/tmux/papsb.tmuxrc
-      break;;
     "ZSH")
       zsh --login
       break;;
@@ -45,8 +40,14 @@ do
       break;;
     "Cancel")
       exit;;
+    $([[ $opt =~ $pattern && ${#opt} -ne 0 ]]) ) # TODO: How the fuck this can happen?
+      echo "Invalid selection!"
+      exit;;
     *)
+      echo "Match selection: ${opt}"
       tmux attach-session -t $opt
       break;;
   esac
 done
+
+# vim:set ft=bash:
