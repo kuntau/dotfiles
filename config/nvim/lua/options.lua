@@ -26,23 +26,24 @@ opt.visualbell      = false
 
 -- Looks & feels
 opt.cursorcolumn    = false
-opt.cursorline      = true -- horizontal highlight line with cursor
+opt.cursorline      = false -- horizontal highlight line with cursor
+opt.linebreak       = true   -- If we enable wrap at least wrap it at end of word
 opt.number          = true
+opt.previewheight   = 25 --height of preview window
 opt.relativenumber  = true
 opt.scrolloff       = 5 -- Show 5 line above & below cursor
 opt.showcmd         = true  -- already in defaults
 opt.showmode        = false -- we already have mode in statusline
-opt.signcolumn      = 'yes:1' -- AKA the gutter, smallest size
+opt.signcolumn      = 'yes' -- AKA the gutter, smallest size
 opt.splitbelow      = true
 opt.splitright      = true
 opt.termguicolors   = true -- enable truecolor
 opt.title           = true
+opt.virtualedit     = 'all' -- move cursor anywhere
 opt.wrap            = false
-opt.linebreak       = true   -- If we enable wrap at least wrap it at end of word
-opt.previewheight   = 25 --height of preview window
 
 -- Default tab, spaces & indentation
-local tabStop           = 2
+local tabStop       = 2
 opt.tabstop         = tabStop
 opt.shiftwidth      = tabStop
 opt.softtabstop     = tabStop
@@ -74,8 +75,8 @@ opt.listchars       = {eol='↲', tab='▸ ', trail='·', extends='»', precedes
 opt.fillchars       = { vert = ' ', eob = ' '} -- remove ugly vertical seperator & end of boundry char
 
 -- Extend defaults
-opt.diffopt:append 'vertical' -- Diff always open in vsplit
-opt.shortmess:append 'c'      -- don't give |ins-completion-menu| messages.
+opt.diffopt:append   'vertical' -- Diff always open in vsplit
+opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
 
 -- Highlight VCS conflict markers
 -- vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
@@ -94,7 +95,7 @@ g.loaded_tarPlugin      = 1
 g.loaded_zip            = 1
 g.loaded_zipPlugin      = 1
 
----@experimental https://github.com/neovim/neovim/pull/16600
+-- EXPERIMENTAL: https://github.com/neovim/neovim/pull/16600
 if fn.has('nvim-0.7') == 1 then
   g.do_filetype_lua = 1
   g.did_load_filetypes = 0
