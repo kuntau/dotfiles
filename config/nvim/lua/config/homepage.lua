@@ -31,7 +31,9 @@ local formatter = function (files)
 end
 
 local gitModified = function ()
-  return formatter(utils.gitModified())
+  return a.sync(function ()
+    return a.wait(formatter(utils.gitModified()))
+  end)
 end
 
 local gitUntracked = function ()
@@ -56,7 +58,7 @@ local startify_config = function()
     { header = {('   MRU: ' .. cwd())}, type = 'dir' },
     -- { header = {'   MRU: Global'},      type = 'files' },
     { header = {'   Sessions'},         type = 'sessions' },
-    { header = {'   Git modified'},     type = gitModified },
+    -- { header = {'   Git modified'},     type = gitModified },
     -- { header = {'   Git untracked'},    type = gitUntracked },
     -- { header = {'   Git commits'},      type = gitCommit },
     -- { header = {'   Bookmarks'},        type = 'bookmarks' },
