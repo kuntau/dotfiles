@@ -128,7 +128,7 @@ return packer.startup({function(use)
   use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]], event = 'BufReadPre' }
   use { 'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]], ft = {'html', 'vue', 'css', 'jsx', 'tsx', 'scss', 'js', 'ts', 'haml', 'md', 'styl'} }
   use { 'norcalli/nvim-terminal.lua', config = [[require('terminal').setup()]], ft = 'terminal' }
-  use { 'edluffy/specs.nvim', config = [[require('config.specs')]], event = 'BufReadPre' }
+  use { 'edluffy/specs.nvim', config = [[require('config.cursor')]], event = 'BufReadPre' }
   use { 'anuvyklack/pretty-fold.nvim', config = [[require('config.fold')]] }
 
   -- StatusLine, bufferline & tabline
