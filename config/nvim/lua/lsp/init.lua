@@ -7,16 +7,14 @@ if not lspconfig_ok then
 end
 
 local configs = require('lspconfig.configs')
+local autocmd = require('utils').autocmd
 local nmap = require('utils').nmap
 local imap = require('utils').imap
-local autocmd = require('utils').autocmd
 
--- require('lsp-colors').setup()
 require('lsp.kind').setup({text = false, icon = true})
-require('lsp.diagnostic')
+require('lsp.diagnostic').setup()
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+-- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -40,16 +38,17 @@ local on_attach = function(_, bufnr)
   nmap('<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   nmap('<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   nmap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  nmap('<Leader>D', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   nmap('<Leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
   nmap('<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- nmap('<Leader>D', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
   -- FIXME: Disable for LSP server without CursorHold support
-  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]], true)
-  autocmd('lsp', [[CursorMoved <buffer> lua vim.lsp.buf.clear_references()]], true)
-  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.diagnostic.open_float()]], true)
+  autocmd('lsp_high', [[CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]], true)
+  autocmd('lsp_cref', [[CursorMoved <buffer> lua vim.lsp.buf.clear_references()]], true)
+  autocmd('lsp_diag', [[CursorHold,CursorHoldI <buffer> lua vim.diagnostic.open_float()]], true)
+
   -- autocmd('lsp', [[BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]], true)
   -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 end
@@ -86,6 +85,9 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities
   }
 end
+
+local luadev_ok, luadev = pcall(require, 'lua-dev')
+if luadev_ok then luadev.setup() end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")

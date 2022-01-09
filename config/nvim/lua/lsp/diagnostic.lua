@@ -1,25 +1,32 @@
 -- Diagnostic setup
 
--- Change diagnostic signs.
-vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
--- global config for diagnostic
-vim.diagnostic.config({
-  underline = true,
-  virtual_text = false,
-  signs = true,
-  severity_sort = true,
-  update_in_insert = false,
-  float = {
-    focusable = false,
-    style = "minimal",
-    border = "rounded",
-    source = "always",
-    header = "",
-    prefix = "",
-  },
-})
+local setup = function()
 
+  -- global config for diagnostic
+  vim.diagnostic.config({
+    underline = true,
+    virtual_text = false,
+    signs = true,
+    severity_sort = true,
+    update_in_insert = false,
+    float = {
+      focusable = false,
+      style = "minimal",
+      border = "rounded",
+      source = "always",
+      header = "",
+      prefix = "",
+    },
+  })
+
+  for type, icon in pairs(signs) do
+    local hl = string.format('DiagnosticSign%s', type)
+    vim.fn.sign_define(hl, { text = icon, texthl = hl})
+  end
+end
+
+return {
+  setup = setup
+}
