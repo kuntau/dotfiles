@@ -57,7 +57,7 @@ local startify_config = function()
   vim.g.startify_lists = {
     { header = {('   MRU: ' .. cwd())}, type = 'dir' },
     -- { header = {'   MRU: Global'},      type = 'files' },
-    { header = {'   Sessions'},         type = 'sessions' },
+    -- { header = {'   Sessions'},         type = 'sessions' },
     -- { header = {'   Git modified'},     type = gitModified },
     -- { header = {'   Git untracked'},    type = gitUntracked },
     -- { header = {'   Git commits'},      type = gitCommit },
@@ -68,12 +68,14 @@ local startify_config = function()
     { z = '~/dotfiles/config/zshrc' },
   }
   vim.g.startify_commands = {
-    { tp = { 'Projects', 'Telescope projects' }},
-    { to = { 'Old files', 'Telescope oldfiles' }},
+    { fp = { 'Projects', 'Telescope projects' }},
+    { fo = { 'Old files', 'Telescope oldfiles' }},
     { gs = { 'Git status', 'Telescope git_status' }},
     { gc = { 'Git commits', 'Telescope git_commits' }},
-    { ps = { 'Packer Sync', 'PackerSync' }},
     { pc = { 'Packer Compile', 'PackerCompile' }},
+    { pi = { 'Packer Install', 'PackerInstall' }},
+    { ps = { 'Packer Sync', 'PackerSync' }},
+    { st = { 'Startup Time', 'StartupTime' }},
     { ch = { 'Check Health', 'checkhealth' }},
   }
   vim.g.startify_disable_at_vimenter = 0

@@ -30,14 +30,14 @@ return packer.startup({function(use)
   use { 'nvim-telescope/telescope.nvim', requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim', },
-      { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { 'tami5/sqlite.lua' }, after = 'telescope.nvim' },
+      { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = 'tami5/sqlite.lua', after = 'telescope.nvim' },
       { 'ahmedkhalf/project.nvim', after = 'telescope.nvim', config = function () require('project_nvim').setup() require('telescope').load_extension('projects') end, },
     },
     config = [[require('config._telescope')]],
     cmd = 'Telescope',
   }
-  use { 'goolord/alpha-nvim', config = [[require('alpha').setup(require('alpha.themes.startify').opts)]] }
-  -- use { 'mhinz/vim-startify', config = [[require('config.homepage')]] }
+  -- use { 'goolord/alpha-nvim', config = [[require('alpha').setup(require('alpha.themes.startify').opts)]] }
+  use { 'mhinz/vim-startify', config = [[require('config.homepage').startify()]] }
 
   -- Movements
   use { 'tpope/vim-unimpaired', keys = {'yo', '[', ']'} }
@@ -53,7 +53,7 @@ return packer.startup({function(use)
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim' }, -- context-commentstring module for treesitter
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', ft = {'fnl'} },
-      -- { 'romgrk/nvim-treesitter-context', after = 'nvim-treesitter', opt = true }
+      { 'romgrk/nvim-treesitter-context', after = 'nvim-treesitter' }
     },
     event = 'BufRead',
     config = [[require('config.treesitter')]],
@@ -62,9 +62,9 @@ return packer.startup({function(use)
   use { 'tpope/vim-surround', keys = { {'v', 'S'}, 'y', 'c', 'd' } }
   use { 'tpope/vim-repeat', keys = '.' }
   use { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } } -- gS for splitting & gJ for joining
-  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { 'gc', 'gbc', {'v','gc'} } } -- Comment plugins with treesitter support
+  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { 'gb', 'gc', {'v','gb'}, {'v','gc'} } } -- Comment plugins with treesitter support
   use { 'windwp/nvim-autopairs', config = [[require('config.autopairs')]], event = 'InsertEnter *' } -- autopairs plugin
-  use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *' } -- Replace default `matchit` & `matchparen`
+  use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'BufReadPost' } -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
   use { 'neovim/nvim-lspconfig', config = [[require('lsp')]], event = 'BufReadPre' }
