@@ -36,7 +36,8 @@ return packer.startup({function(use)
     config = [[require('config._telescope')]],
     cmd = 'Telescope',
   }
-  -- use { 'mhinz/vim-startify', config = [[require('config.startify')]] }
+  use { 'goolord/alpha-nvim', config = [[require('alpha').setup(require('alpha.themes.startify').opts)]] }
+  -- use { 'mhinz/vim-startify', config = [[require('config.homepage')]] }
 
   -- Movements
   use { 'tpope/vim-unimpaired', keys = {'yo', '[', ']'} }
@@ -46,30 +47,31 @@ return packer.startup({function(use)
 
   -- Syntaxes and such
   use { 'nvim-treesitter/nvim-treesitter', requires = {
-      { 'nvim-treesitter/nvim-treesitter-refactor',    event = 'InsertEnter *' }, -- Refactor module for treesitter
-      { 'nvim-treesitter/nvim-treesitter-textobjects', event = 'InsertEnter *' }, -- text-objects module for treesitter
-      { 'RRethy/nvim-treesitter-textsubjects', event = 'InsertEnter *' }, -- Location and syntax aware text objects
+      { 'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter' }, -- Refactor module for treesitter
+      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' }, -- text-objects module for treesitter
+      { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' }, -- Location and syntax aware text objects
       { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim' }, -- context-commentstring module for treesitter
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', ft = {'fnl'} },
       -- { 'romgrk/nvim-treesitter-context', after = 'nvim-treesitter', opt = true }
     },
+    event = 'BufRead',
     config = [[require('config.treesitter')]],
     run = ':TSUpdate' -- We recommend updating the parsers cmd update
   }
   use { 'tpope/vim-surround', keys = { {'v', 'S'}, 'y', 'c', 'd' } }
   use { 'tpope/vim-repeat', keys = '.' }
   use { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } } -- gS for splitting & gJ for joining
-  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { {'n','gc'}, {'v','gc'} } } -- Comment plugins with treesitter support
+  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { 'gc', 'gbc', {'v','gc'} } } -- Comment plugins with treesitter support
   use { 'windwp/nvim-autopairs', config = [[require('config.autopairs')]], event = 'InsertEnter *' } -- autopairs plugin
   use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'InsertEnter *' } -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
+  use { 'neovim/nvim-lspconfig', config = [[require('lsp')]], event = 'BufReadPre' }
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' }
-  use { 'neovim/nvim-lspconfig', config = [[require('lsp')]] }
   use { 'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'Trouble' }
-  use { 'folke/lua-dev.nvim' }
+  use { 'folke/lua-dev.nvim', module = 'lsp' }
 
   -- Completions
   use { 'hrsh7th/nvim-cmp', requires = {
@@ -91,13 +93,13 @@ return packer.startup({function(use)
   }
 
   -- VCS
-  use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]], event = 'InsertEnter *' }
-  use { 'TimUntersberger/neogit', config = [[require('config.neogit')]], cmd = 'Neogit' }
+  use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]], event = 'BufReadPre' }
+  use { 'TimUntersberger/neogit', config = [[require('config.neogit')]], wants = 'diffview.nvim', cmd = 'Neogit' }
   use { 'sindrets/diffview.nvim', config = [[require('config.diffview')]], cmd = 'DiffviewOpen' }
   use { 'rhysd/git-messenger.vim', cmd = 'GitMessenger' }
 
   -- Snippets
-  use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp' }
+  use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp', wants = { 'friendly-snippets' } }
   use { 'rafamadriz/friendly-snippets' }
 
   -- Colorschemes
@@ -119,17 +121,15 @@ return packer.startup({function(use)
   use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100' } -- Fix CursorHold,CursorHoldI bug
   use { 'christoomey/vim-tmux-navigator', config = 'vim.g.tmux_navigator_disable_when_zoomed = 1' }
   use { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }
-  use { 'anuvyklack/pretty-fold.nvim',
-    config = function()
-      require('pretty-fold').setup{}
-      require('pretty-fold.preview').setup_keybinding()
-    end
-  }
+  use { 'kazhala/close-buffers.nvim', cmd = 'BDelete'}
 
   -- UI & UX
   use { 'kyazdani42/nvim-web-devicons' } -- for file icons
-  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]], cmd = 'IndentBlanklineToggle' }
+  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.indent')]], event = 'BufReadPre' }
   use { 'norcalli/nvim-colorizer.lua', config = [[require('colorizer').setup()]], ft = {'html', 'vue', 'css', 'jsx', 'tsx', 'scss', 'js', 'ts', 'haml', 'md', 'styl'} }
+  use { 'norcalli/nvim-terminal.lua', config = [[require('terminal').setup()]], ft = 'terminal' }
+  use { 'edluffy/specs.nvim', config = [[require('config.specs')]], event = 'BufReadPre' }
+  use { 'anuvyklack/pretty-fold.nvim', config = [[require('config.fold')]] }
 
   -- StatusLine, bufferline & tabline
   use { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' } -- Tmux statusline
