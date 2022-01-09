@@ -15,6 +15,7 @@ require('telescope').setup ({
         ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
       },
       n = {
+        ['q'] = require('telescope.actions').close,
         ['<M-.>'] = require('telescope.actions.layout').toggle_preview,
         ['<M-p>'] = require('telescope.actions.layout').cycle_layout_prev,
         ['<M-n>'] = require('telescope.actions.layout').cycle_layout_next,

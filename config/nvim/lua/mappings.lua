@@ -15,12 +15,14 @@ vim.g.maplocalleader = [[\]]
 
 -- Basic
 map('<D-s>',          '<cmd>up!<cr>')
+map('<M-C-S>',        '<cmd>up!<cr>') -- hyper_key
 imap('<D-v>',         '<c-r>+')
 nmap('R',             ':help <c-r><c-w><cr>')
 nmap('<Leader><Tab>', '<C-^>')
-nmap('<Leader>so',    '<cmd>up<cr><cmd>luafile %<cr>')
+nmap('<Leader>ro',    '<cmd>up<cr><cmd>luafile %<cr>')
 nmap('<Leader>rm',    '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
 nmap('<LocalLeader>s','<cmd>up!<cr>')
+nmap('<F5>','<cmd>lua require("specs").show_specs()<cr>')
 
 -- Terminal movements
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
@@ -50,10 +52,11 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 -- buffer management
 nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
 nmap('<LocalLeader>q', '<cmd>q!<cr>')
-nmap('<LocalLeader>x', '<cmd>bdelete!<cr>')
+nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
 nmap('<LocalLeader>X', '<cmd>xa!<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
-nmap('<M-Tab>', '<cmd>Telescope buffers<cr>')
+nmap('<Tab><Tab>',     '<cmd>Telescope buffers<cr>')
+nmap('<M-Tab>',        '<C-^>')
 
 -- Plugins
 vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = false })
@@ -61,6 +64,7 @@ nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
 nmap('<Leader>S',  '<cmd>Startify<cr>')
+nmap('<Leader>s',  '<cmd>Startify<cr>')
 nmap('<Leader>G',  '<cmd>Neogit kind='..(orientation() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
 nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
@@ -75,7 +79,7 @@ nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
 nmap('<leader>fp', '<cmd>Telescope projects<cr>')
 nmap('<leader>fo', '<cmd>Telescope oldfiles<cr>')
 nmap('<leader>fO', '<cmd>Telescope oldfiles only_cwd=false<cr>')
-nmap('<leader>f:', '<cmd>Telescope command_history<cr>')
+nmap('<leader>f;', '<cmd>Telescope command_history<cr>')
 nmap('<leader>f/', '<cmd>Telescope search_history<cr>')
 nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
 nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
@@ -83,7 +87,7 @@ nmap('<Leader>ft', '<cmd>Telescope filetypes<cr>')
 nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
 nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
-nmap('<Leader>fc', '<cmd>Telescope colorscheme<cr>')
+nmap('<Leader>fc', '<cmd>Telescope commands<cr>')
 nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
 nmap('<Leader>ff', '<cmd>Telescope frecency<cr>')
 
@@ -111,4 +115,3 @@ nmap('<S-M-@>', '<cmd>split<cr>')
 -- nmap('<C-CR>', '<cmd>vsplit<cr>')
 -- imap('<S-CR>', '<cmd>vsplit<cr>')
 -- imap('<C-CR>', '<cmd>vsplit<cr>')
-
