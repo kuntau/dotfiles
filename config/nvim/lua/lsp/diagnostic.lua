@@ -1,6 +1,6 @@
 -- Diagnostic setup
 
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
 local setup = function()
 
@@ -13,17 +13,19 @@ local setup = function()
     update_in_insert = false,
     float = {
       focusable = false,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
+      style = 'minimal',
+      border = 'rounded',
+      source = 'always',
+      -- header = "",
+      -- prefix = "",
     },
   })
 
   for type, icon in pairs(signs) do
     local hl = string.format('DiagnosticSign%s', type)
-    vim.fn.sign_define(hl, { text = icon, texthl = hl})
+    if vim.tbl_isempty(vim.fn.sign_getdefined(hl)) then
+      vim.fn.sign_define(hl, { text = icon, texthl = hl})
+    end
   end
 end
 
