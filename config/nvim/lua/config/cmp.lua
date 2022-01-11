@@ -65,6 +65,7 @@ cmp.setup({
     { name = 'luasnip' }, -- For luasnip users.
     { name = 'nvim_lsp', max_item_count = 50 },
     { name = 'nvim_lua', max_item_count = 50 },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
     { name = 'path' }, -- path completion
