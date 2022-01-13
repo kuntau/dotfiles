@@ -26,7 +26,7 @@ local on_attach = function(client, bufnr)
   -- if debug then dbgi(client) end
   -- PP(vim.lsp.protocol.make_client_capabilities())
 
-  mapping.setup(bufnr, {})
+  mapping.setup(bufnr, client.resolved_capabilities)
 
   handler.document_highlight(client)
   handler.code_action(client)
