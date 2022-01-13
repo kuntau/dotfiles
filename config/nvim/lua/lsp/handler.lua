@@ -2,7 +2,6 @@
 
 local autocmd = require('utils').autocmd
 local lsp = vim.lsp
-local float_id = nil
 local dbgi = require('utils.logger').dbgi
 
 -- Set default sign
@@ -10,20 +9,15 @@ local setup = function()
   if vim.tbl_isempty(vim.fn.sign_getdefined('CodeActionSign')) then
     vim.fn.sign_define('CodeActionSign', { text = "💡", texthl = "LspDiagnosticsDefaultInformation" })
   end
-  autocmd('lsp_diag', [[CursorHold <buffer> lua require('lsp.handler').open_float()]], true)
-  -- autocmd('lsp_diag', [[CursorHold <buffer> lua vim.diagnostic.open_float()]], true)
+  autocmd('lsp_diag', [[CursorHold <buffer> lua vim.diagnostic.open_float({focusable=false, close_events={'InsertEnter', 'CursorMoved'}})]], true)
   -- autocmd CursorHold,CursorHoldI * lua require('code_action_utils').code_action_listener()
   -- autocmd('lsp', [[BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]], true)
   -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 end
 
-local open_diagnostic_float = function(...)
-  float_id, _ = vim.diagnostic.open_float(...)
-end
-
-local close_diagnostic_float = function()
-  if float_id ~= nil then
-    vim.api.nvim_buf_delete(float_id, { unload = true })
+local cursorhold_handler = function(client)
+  if client.resolved_capabilities.code_action then
+    autocmd('lsp_coda', [[CursorHold,CursorHoldI <buffer> lua require('lsp.handler').code_action_listener()]], true)
   end
 end
 
@@ -65,7 +59,5 @@ return {
   code_action_listener = code_action_listener,
   document_highlight = document_highlight_handler,
   check_capabilities = check_capabilities,
-  open_float = open_diagnostic_float,
-  close_float = close_diagnostic_float,
   setup = setup
 }
