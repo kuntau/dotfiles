@@ -19,8 +19,9 @@ pattern='^[^0-9][-!$%^&*()_+|~=`{}\[\]:";<>?,.\/A-Za-z0-9]+$'
 options=("New Session")
 options+=($(tmux list-sessions -F '#S' 2> /dev/null))
 options+=($(ls ~/dotfiles/config/tmux/workspace.*.tmux | sed -En 's/.*workspace\.(.+)\.tmux$/\1/p'))
-options+=("ZSH" \
-  "BASH" \
+options+=("Zsh" \
+  "Nu" \
+  "Bash" \
   "Cancel")
 echo "Available sessions"
 echo "------------------"
@@ -32,10 +33,13 @@ do
       read -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
       break;;
-    "ZSH")
+    "Zsh")
       zsh --login
       break;;
-    "BASH")
+    "Nu")
+      nu --login
+      break;;
+    "Bash")
       bash --login
       break;;
     "Cancel")
