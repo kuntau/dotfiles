@@ -26,12 +26,23 @@ local setup = function(bufnr, resolved_capabilities)
 
   if vim.fn.has('nvim-0.7') == 1 then
     for cap, key in pairs(resolved_capabilities) do
-      local avaiable_mappings = mappings_table[cap]
-      if avaiable_mappings and key ~= false then
-        dbgi('Capability: '..cap..', Key: ',key and 'true' or 'false', I(mappings_table[cap]))
+      local keymap = mappings_table[cap]
+      if keymap and key ~= false then
+        -- dbgi('Capability: '..cap..', Key: ',key and 'true' or 'false', I(mappings_table[cap]))
+        if type(keymap[1]) == "string" then
+          -- dbgi('Keymap string: ', keymap)
+          vim.keymap.set(keymap[1], keymap[2], keymap[3], opts)
+        elseif type(keymap[1]) == "table" then
+          for _, map in ipairs(keymap) do
+            -- dbgi('Keymap table: ', map)
+            vim.keymap.set(map[1], map[2], map[3], opts)
+          end
+        else
+          vim.notify('Unknown Keymap: '..keymap, vim.log.levels.ERROR)
+        end
       end
     end
-  -- else
+  else
     nmap('gd',         '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     nmap('<c-]>',      '<cmd>Telescope lsp_definitions<CR>', opts)
     nmap('K',          '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
