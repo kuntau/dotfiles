@@ -43,6 +43,17 @@ else
   alias vi='vim'
 fi
 
+# set default top btop -> gotop -> htop -> top
+if command -v btop &>/dev/null; then
+  alias top=btop
+elif command -v gotop &>/dev/null; then
+  alias top=gotop
+elif command -v htop &>/dev/null; then
+  alias top=htop
+else
+  alias top=top
+fi
+
 # youtube-dl
 alias yt='noglob yt-dlp'
 alias ytx='proxychains4 yt-dlp'

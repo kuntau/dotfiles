@@ -5,32 +5,32 @@
   count = !git shortlog -sn
   now = status --short --branch
   # https://gist.github.com/junegunn/f4fca918e937e6bf5bad#gistcomment-3715673
-  fzf = !"                                                                                                                                                                              \
-      function gfzf() {                                                                                                                                                                 \
-          local filter;                                                                                                                                                                 \
-          if [ -n $@ ] && [ -e $@ ]; then                                                                                                                                               \
-              filter=\"-- $@\";                                                                                                                                                         \
-          fi;                                                                                                                                                                           \
-          export LESS='-R'                                                                                                                                                              \
-          export BAT_PAGER='less -S -R -M -i';                                                                                                                                          \
-          git log                                                                                                                                                                       \
-              --graph --color=always --abbrev=7                                                                                                                                         \
-              --format=format:\"%C(bold blue)%h%C(reset) %C(dim white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(white)%s%C(reset) %C(bold green)(%ar)%C(reset)\" $@ |                   \
-                  fzf --ansi --no-sort --layout=reverse --tiebreak=index                                                                                                                \
-                      --preview=\"f() { set -- \\$(echo -- \\$@ | rg -o '\\b[a-f0-9]{7,}\\b'); [ \\$# -eq 0 ] || git show --color=always \\$1 $filter | delta --line-numbers; }; f {}\" \
-                      --bind=\"ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-j:preview-down,ctrl-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up\"                        \
-                      --bind=\"ctrl-m:execute:                                                                                                                                          \
-                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 |                                                                                                                   \
-                              xargs -I % -- git show --color=always %) << FZFEOF\n                                                                                                      \
-                              {}                                                                                                                                                        \
-                              \nFZFEOF\"                                                                                                                                                \
-                      --bind=\"ctrl-y:execute-silent:                                                                                                                                   \
-                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 | tr -d \\$'\\n' | pbcopy) << FZFEOF\n                                                                           \
-                              {}                                                                                                                                                        \
-                              \nFZFEOF\"                                                                                                                                                \
-                      --preview-window=right:60%;                                                                                                                                       \
-      };                                                                                                                                                                                \
-      gfzf                                                                                                                                                                              \
+  fzf = !"                                                                                                                                                                                              \
+      function gfzf() {                                                                                                                                                                                 \
+          local filter;                                                                                                                                                                                 \
+          if [ -n $@ ] && [ -e $@ ]; then                                                                                                                                                               \
+              filter=\"-- $@\";                                                                                                                                                                         \
+          fi;                                                                                                                                                                                           \
+          export LESS='-R'                                                                                                                                                                              \
+          export BAT_PAGER='less -S -R -M -i';                                                                                                                                                          \
+          git log                                                                                                                                                                                       \
+              --graph --color=always --abbrev=7                                                                                                                                                         \
+              --format=format:\"%C(bold blue)%h%C(reset) %C(dim white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(white)%s%C(reset) %C(bold green)(%ar)%C(reset)\" $@ |                                   \
+                  fzf --ansi --no-sort --layout=reverse --tiebreak=index                                                                                                                                \
+                      --preview=\"f() { set -- \\$(echo -- \\$@ | rg -o '\\b[a-f0-9]{7,}\\b'); [ \\$# -eq 0 ] || git show --color=always \\$1 $filter | delta --no-gitconfig --diff-so-fancy; }; f {}\" \
+                      --bind=\"ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-j:preview-down,ctrl-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up\"                                        \
+                      --bind=\"ctrl-m:execute:                                                                                                                                                          \
+                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 |                                                                                                                                   \
+                              xargs -I % -- git show --color=always %) << FZFEOF\n                                                                                                                      \
+                              {}                                                                                                                                                                        \
+                              \nFZFEOF\"                                                                                                                                                                \
+                      --bind=\"ctrl-y:execute-silent:                                                                                                                                                   \
+                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 | tr -d \\$'\\n' | pbcopy) << FZFEOF\n                                                                                              \
+                              {}                                                                                                                                                                        \
+                              \nFZFEOF\"                                                                                                                                                                \
+                      --preview-window=right:60%;                                                                                                                                                       \
+      };                                                                                                                                                                                                \
+      gfzf                                                                                                                                                                                              \
   "
 [apply]
   whitespace = nowarn
@@ -65,9 +65,28 @@
 [credential "https://github.com"]
 	helper = cache --timeout=3600
   username = kuntau
+  # features = calochortus-lyallii
 [delta]
-  features = calochortus-lyallii
   navigate = true
+  side-by-side = true
+  diff-highlight = false
+  diff-so-fancy = true
+  features = unobtrusive-line-numbers decorations
+  whitespace-error-style = 22 reverse
+[delta "unobtrusive-line-numbers"]
+  line-numbers = true
+  line-numbers-minus-style = "#444444"
+  line-numbers-zero-style = "#444444"
+  line-numbers-plus-style = "#444444"
+  line-numbers-left-format = "{nm:>4}┊"
+  line-numbers-right-format = "{np:>4}│"
+  line-numbers-left-style = blue
+  line-numbers-right-style = blue
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+  hunk-header-decoration-style = yellow box  
 [diff]
   colorMoved = default
 [difftool]

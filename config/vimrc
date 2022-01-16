@@ -325,7 +325,7 @@ set nocursorline
 set nrformats=hex
 
 " Status line config
-set cmdheight=2     " coc.nvim readme suggest cmdheight=2
+set cmdheight=1     " coc.nvim readme suggest cmdheight=2
 set noshowmode      " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set laststatus=2    " Always dislay the statusline in all windows
 
@@ -445,8 +445,8 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " Mappings {{{
 " Change leader
 let localleader = "\\"
-let mapleader   = ","
-let g:mapleader = ","
+let mapleader   = " "
+let g:mapleader = " "
 
 " kuntau
 nnoremap <space><space> :
@@ -624,14 +624,14 @@ endfunction
 
 " Startify {{{
 let g:startify_lists = [
-  \ { 'type': 'files',     'header': ['   MRU']            },
   \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
   \ { 'type': 'sessions',  'header': ['   Sessions']       },
-  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-  \ { 'type': function('<SID>gitModified'),  'header': ['   git modified']},
-  \ { 'type': function('<SID>gitUntracked'), 'header': ['   git untracked']},
   \ { 'type': 'commands',  'header': ['   Commands']       },
   \ ]
+  " \ { 'type': 'files',     'header': ['   MRU']            },
+  " \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+  " \ { 'type': function('<SID>gitModified'),  'header': ['   git modified']},
+  " \ { 'type': function('<SID>gitUntracked'), 'header': ['   git untracked']},
 
 let g:startify_bookmarks = [
   \ {'d': '~/dotfiles/'}
@@ -640,6 +640,7 @@ let g:startify_bookmarks = [
 let g:startify_commands = [
   \ {'p': ['Upgrade Plug', 'PlugUpgrade']},
   \ {'u': ['Update Plugins', 'PlugUpdate']},
+  \ {'st': ['Startup Time', 'StartupTime']},
   \ {'c': ['Update CoC Extensions', 'CocUpdateSync']},
   \ ]
 
