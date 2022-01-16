@@ -215,6 +215,43 @@
   binding:
     Undo: 1
 
+# Navigate previous history
+- key:
+    Char: P
+  modifiers:
+    CTRL:
+  binding:
+    PreviousHistory:
+
+# Navigate next history
+- key:
+    Char: N
+  modifiers:
+    CTRL:
+  binding:
+    NextHistory:
+
+# move to beginning-of-line
+- key:
+    Char: A
+  modifiers:
+    CTRL:
+  binding:
+    Move: BeginningOfLine
+
+# move to end-of-line
+- key:
+    Char: E
+  modifiers:
+    CTRL:
+  binding:
+    Move: EndOfLine
+
+# /// beginning-of-buffer
+# BeginningOfBuffer,
+# /// end-of-buffer
+# EndOfBuffer,
+
 # KeyPress::UnknownEscSeq => Cmd::Noop,
 - key:
     UnknownEscSeq:
