@@ -2,13 +2,14 @@
 -- Ripped from https://github.com/b0o/mapx.nvim/blob/a95e22ac1e17da5f216c84c7578f769165ea2fc1/lua/mapx/log.lua
 
 local debug = true
+local api = vim.api
 
 local warn = function(...)
-  vim.api.nvim_echo({ { table.concat({ 'Warning:', ... }, ' '), 'WarningMsg' } }, true, {})
+  api.nvim_echo({ { table.concat({ 'Warning:', ... }, ' '), 'WarningMsg' } }, true, {})
 end
 
 local getpwin = function ()
-  for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+  for _, w in ipairs(api.nvim_tabpage_list_wins(0)) do
     if vim.fn.win_gettype(w) == 'preview' then
       return w
     end
@@ -19,20 +20,20 @@ local previewAppend = function(lines)
   local pwin = getpwin()
   if pwin == nil then
     vim.cmd(string.format(
-      'pedit +%s kuntau_debug',
+      'pedit +%s LOGGER',
       table.concat({ 'setlocal', 'nomodifiable', 'buftype=nofile', 'bufhidden=hide', 'nobuflisted',
-        'noswapfile', 'nonumber', 'norelativenumber', 'nomodeline', 'nolist', 'scrolloff=0' }, '\\ ')
+        'noswapfile', 'nonumber', 'norelativenumber', 'nomodeline', 'nolist', 'scrolloff=0', 'ft=lprolog' }, '\\ ')
     ))
     pwin = getpwin()
   end
   if pwin == nil then
     return false
   end
-  local pbuf = vim.api.nvim_win_get_buf(pwin)
-  vim.api.nvim_buf_set_option(pbuf, 'modifiable', true)
-  vim.api.nvim_buf_set_lines(pbuf, -1, -1, false, lines)
-  vim.api.nvim_buf_set_option(pbuf, 'modifiable', false)
-  vim.api.nvim_win_set_cursor(pwin, { vim.api.nvim_buf_line_count(pbuf), 0 })
+  local pbuf = api.nvim_win_get_buf(pwin)
+  api.nvim_buf_set_option(pbuf, 'modifiable', true)
+  api.nvim_buf_set_lines(pbuf, -1, -1, false, lines)
+  api.nvim_buf_set_option(pbuf, 'modifiable', false)
+  api.nvim_win_set_cursor(pwin, { api.nvim_buf_line_count(pbuf), 0 })
   return true
 end
 
