@@ -1,6 +1,6 @@
 local wezterm = require 'wezterm';
 
-local hyper_key = 'SHIFT|ALT|CTRL|SUPER'
+local hyper_key = 'SHIFT|ALT|CTRL|CMD'
 
 return {
   -- option = value , [default] comment
@@ -58,7 +58,7 @@ return {
   },
 
   window_decorations = 'RESIZE', -- 'TITLE', 'RESIZE', 'NONE'
-  exit_behavior = 'CloseonCleanExit',
+  exit_behavior = 'CloseOnCleanExit',
   window_close_confirmation = 'NeverPrompt',
   skip_close_confirmation_for_processes_named = {
     'bash', 'sh', 'zsh', 'fish', 'tmux', 'nu'
@@ -73,6 +73,8 @@ return {
     { key='q',   mods=hyper_key, action='QuitApplication' },
     { key='Enter', mods='CMD', action="ToggleFullScreen" },
 
+    -- { key="a", mods="LEADER|CTRL", action=wezterm.action{SendString="\x01"} }, -- can be used with tmux
+    { key="s", mods="LEADER|CTRL", action={SendKey={ key='s', mods='CTRL' }} }, -- more friendly way to send
     { key='v', mods='LEADER', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}} },
     { key='s', mods='LEADER', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}} },
     { key='x', mods='LEADER', action=wezterm.action{CloseCurrentPane={confirm=true}} },
