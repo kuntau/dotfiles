@@ -19,7 +19,9 @@ vim.g.indent_blankline_filetype_exclude = {
   'peek',
   'alpha',
   'Outline',
-  'DiffviewFiles'
+  'DiffviewFiles',
+  'FTerm',
+  'nfo'
 }
 
 vim.g.indent_blankline_bufname_exclude = {

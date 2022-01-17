@@ -1,8 +1,30 @@
 -- gitsigns.lua
 
+local make_signs = function()
+  local base = 'GitSigns'
+  local result = {}
+  local signs = {
+    add          = { sign = '│', text = 'Add' },
+    change       = { sign = '│', text = 'Change' },
+    changedelete = { sign = '~', text = 'Change' },
+    delete       = { sign = '_', text = 'Delete' },
+    topdelete    = { sign = '‾', text = 'Delete' },
+  }
+
+  for type, sign in pairs(signs) do
+    result[type] = {
+      hl     = base..sign.text,
+      text   = sign.sign,
+      numhl  = base..sign.text..'Nr',
+      linehl = base..sign.text..'Ln',
+    }
+  end
+  return result
+end
+
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
     change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
     delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
@@ -24,7 +46,7 @@ require('gitsigns').setup {
   },
   preview_config = {
     -- Options passed to nvim_open_win
-    border = 'single',
+    border = 'rounded',
     style = 'minimal',
     relative = 'cursor',
     row = 0,

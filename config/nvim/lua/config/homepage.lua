@@ -57,8 +57,8 @@ local startify_config = function()
   vim.g.startify_lists = {
     { header = {('   MRU: ' .. cwd())}, type = 'dir' },
     -- { header = {'   MRU: Global'},      type = 'files' },
-    -- { header = {'   Sessions'},         type = 'sessions' },
-    -- { header = {'   Git modified'},     type = gitModified },
+    { header = {'   Sessions'},         type = 'sessions' },
+    -- { header = {'   Git modified'},     type = async.gitModified },
     -- { header = {'   Git untracked'},    type = gitUntracked },
     -- { header = {'   Git commits'},      type = gitCommit },
     -- { header = {'   Bookmarks'},        type = 'bookmarks' },
@@ -68,13 +68,13 @@ local startify_config = function()
     { z = '~/dotfiles/config/zshrc' },
   }
   vim.g.startify_commands = {
-    { fp = { 'Projects', 'Telescope projects' }},
-    { fo = { 'Old files', 'Telescope oldfiles' }},
-    { gs = { 'Git status', 'Telescope git_status' }},
-    { gc = { 'Git commits', 'Telescope git_commits' }},
-    { pc = { 'Packer Compile', 'PackerCompile' }},
-    { pi = { 'Packer Install', 'PackerInstall' }},
-    { ps = { 'Packer Sync', 'PackerSync' }},
+    { fp = { 'Projects',     'Telescope projects' }},
+    { fo = { 'Old files',    'Telescope oldfiles' }},
+    { gs = { 'Git status',   'Telescope git_status' }},
+    { gc = { 'Git commits',  'Telescope git_commits' }},
+    { pc = { 'Pac Compile',  'Pac Compile' }},
+    { pi = { 'Pac Install',  'Pac Install' }},
+    { ps = { 'Pac Sync',     'Pac Sync' }},
     { st = { 'Startup Time', 'StartupTime' }},
     { ch = { 'Check Health', 'checkhealth' }},
   }

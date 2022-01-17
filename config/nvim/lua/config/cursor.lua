@@ -7,7 +7,7 @@
         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
         width = 10,
         winhl = "Todo", -- highlight to use for popup window
-        fader = require('specs').linear_fader,
+        fader = require('specs').pulse_fader,
         resizer = require('specs').shrink_resizer
     },
     ignore_filetypes = {},

@@ -10,7 +10,6 @@ require('neogit').setup({
   kind = "vsplit",
   signs = {
     -- { closed, open }
-    -- section = { "", "" },
     section = { "▶", "▼" },
     item = { "", "" },
     hunk = { "›", "ˬ" },
@@ -20,4 +19,27 @@ require('neogit').setup({
   disable_commit_confirmation = true,
   disable_builtin_notifications = false,
   disable_insert_on_commit = false,
+  sections = {
+      untracked = {
+        folded = true
+      },
+      unstaged = {
+        folded = false
+      },
+      staged = {
+        folded = false
+      },
+      stashes = {
+        folded = true
+      },
+      unpulled = {
+        folded = true
+      },
+      unmerged = {
+        folded = true
+      },
+      recent = {
+        folded = true
+      },
+    },
 })

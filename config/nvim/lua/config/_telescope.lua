@@ -16,6 +16,7 @@ require('telescope').setup ({
       },
       n = {
         ['q'] = require('telescope.actions').close,
+        ['D'] = require('telescope.actions').delete_buffer,
         ['<M-.>'] = require('telescope.actions.layout').toggle_preview,
         ['<M-p>'] = require('telescope.actions.layout').cycle_layout_prev,
         ['<M-n>'] = require('telescope.actions.layout').cycle_layout_next,

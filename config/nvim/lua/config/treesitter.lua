@@ -1,7 +1,5 @@
 -- treesitter.lua
 
--- TODO: investigate how to set this in lua
--- RESULT: Yep, we're overthinking it.. just set as literal string LOL
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
