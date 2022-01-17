@@ -3,14 +3,17 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local source_mapping = {
-  buffer      = "[BF]",
-  nvim_lsp    = "[LSP]",
-  nvim_lua    = "[API]",
-  cmp_tabnine = "[T9]",
-  copilot     = "[CO]",
-  path        = "[PH]",
-  tmux        = "[TX]",
-  luasnip     = "[SN]",
+  fuzzy_buffer    = "｢FB｣",
+  nvim_lsp        = "｢LSP｣",
+  nvim_lua        = "｢API｣",
+  cmp_tabnine     = "｢T9｣",
+  copilot         = "｢CO｣",
+  path            = "｢P｣",
+  tmux            = "｢TX｣",
+  luasnip         = "｢S｣",
+  cmdline         = "｢:｣",
+  cmdline_history = "｢:/｣",
+  nvim_lsp_signature_help = '｢SIG｣'
 }
 require('luasnip.loaders.from_vscode').lazy_load()
 
@@ -35,10 +38,14 @@ cmp.setup({
       select = true,
     }),
 
+    -- ['<Tab>'] = cmp.config.disable,
+    -- ['<S-Tab>'] = cmp.config.disable,
     -- start luasnip
     ["<Tab>"] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        cmp.confirm({ select = true})
       else
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
@@ -61,9 +68,23 @@ cmp.setup({
     { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
     { name = 'path' }, -- path completion
-    { name = 'buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
     { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
+    { name = 'fuzzy_buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
   }),
+  sorting = {
+      priority_weight = 2,
+      comparators = {
+        require('cmp_fuzzy_buffer.compare'),
+        cmp.config.compare.offset,
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+        cmp.config.compare.recently_used,
+        cmp.config.compare.kind,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.length,
+        cmp.config.compare.order,
+      }
+    },
   formatting = {
     format = require('lsp.kind').cmp_format({
       icon = true,
@@ -76,7 +97,7 @@ cmp.setup({
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
   sources = {
-    { name = 'buffer', keyword_length = 3 },
+    { name = 'fuzzy_buffer', --[[ keyword_length = 3 ]] },
     { name = 'nvim_lsp_document_symbol' },
   }
 })
@@ -85,7 +106,8 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     { name = 'path' },
-    { name = 'cmdline', keyword_length = 2 }
+    { name = 'cmdline', keyword_length=2, max_item_count=50 },
+    { name = 'cmdline_history', max_item_count=5 },
   })
 })
 
