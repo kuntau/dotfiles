@@ -11,7 +11,13 @@ _G.I = function (...)
     table.insert(objects, vim.inspect(v))
   end
 
-  print(table.concat(objects, '\n'))
+  -- print(table.concat(objects, '\n'))
+  return ...
+end
+
+_G.PP = function (...)
+  if fn.has('nvim-0.7') == 1 then vim.pretty_print(...)
+  else P(I(...)) end
   return ...
 end
 
@@ -159,7 +165,7 @@ end
 local autocmd = function (group, cmds, clear)
   clear = clear == nil and false or clear
   if type(cmds) == 'string' then cmds = {cmds} end
-  cmd('augroup ' .. group)
+  if type(group) == 'string' and #group > 0 then cmd('augroup ' .. group) end
   if clear then cmd [[autocmd!]] end
   for _, c in ipairs(cmds) do cmd('autocmd ' .. c) end
   cmd [[augroup END]]
