@@ -14,3 +14,6 @@ require('packer_compiled')
 require('ui')
 require('mappings')
 require('events')
+if vim.fn.has('nvim-0.7') == 1 then
+  require('commands')
+end
