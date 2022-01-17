@@ -11,28 +11,28 @@ autocmd('yank', [[TextYankPost * silent! lua vim.highlight.on_yank()]], true) --
 autocmd('term', [[TermOpen * startinsert! | setlocal nonu nornu signcolumn=no ft=terminal ]], true) -- Start terminal in insert mode
 
 -- Re-source configs on save!
-autocmd('nvim_compile', [[BufWritePost *nvim/lua/plugins.lua PackerCompile]], true)
 autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
 
 -- Show listchars on insert mode
-autocmd('i_list', [[InsertEnter * :setl list]], true)
-autocmd('n_list', [[InsertLeave * :setl nolist]], true)
+autocmd('i_list', { [[InsertEnter * setl list | IndentBlanklineEnable]],
+  [[InsertEnter * lua vim.diagnostic.hide()]] }, true)
+autocmd('n_list', { [[InsertLeave * setl nolist | IndentBlanklineDisable]],
+  [[InsertLeave * lua vim.diagnostic.show()]] }, true)
 
 --[[ Filetypes autocmds ]]--
 
-autocmd('ft_qc',[[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
-autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- Enhance `surround` for `lua`
+autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
+autocmd('ft_str', [[FileType startify setl laststatus=1 showtabline=1 ]], true) -- FIXME: This option is buggy
+autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
 autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent]], true) -- Disable `cindent` for `gitcommit`
 
--- TODO: Deal with this later
---[[
-" FileType autocommand {{{
-autocmd BufReadPre,FileReadPre *.nfo set ft=nfo
-autocmd FileType nfo :setlocal fileencodings=cp437,utf-8
-autocmd FileType nfo highlight clear ExtraWhitespace
+autocmd('ft_nfo', {
+  'BufReadPre,FileReadPre *.nfo set ft=nfo',
+  'FileType nfo setl fileencodings=cp437,utf-8 nonu nornu',
+  'FileType nfo highlight clear ExtraWhitespace',
+}, true)
 
-" autocmd FileType * setlocal colorcolumn=100
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+--[[ TODO: Deal with this later
 
 " Get rid of trailing whitespace highlighting in mutt.
 autocmd FileType mail highlight clear ExtraWhitespace
@@ -82,10 +82,4 @@ autocmd FileType python setlocal foldmethod=indent shiftwidth=4 expandtab tabsto
 " JSONc config
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-" Puppet configurations
-"""""""""""""""""""""""
-au FileType puppet setlocal noexpandtab
-
-" Get jinja filetype selection working correctly for *.jinja.html files.
-au BufNewFile,BufReadPost *.jinja.html setlocal filetype=htmljinja
 --]]
