@@ -8,7 +8,7 @@ local vmap = require('utils').vmap
 local tmap = require('utils').tmap
 local dbgi = require('utils.logger').dbgi
 local warn = require('utils.logger').warn
-local orientation = require('utils').getWinOrientation
+local orien = require('utils').getWinOrientation
 
 vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[\]]
@@ -26,9 +26,11 @@ nmap('<F5>','<cmd>lua require("specs").show_specs()<cr>')
 
 -- Terminal movements
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
-nmap('<Leader>oC', '<cmd>'..(orientation() == 'vertical' and 's' or 'vs')..'plit term://zsh<cr>')
+nmap('<Leader>oC', '<cmd>'..(orien() == 'vertical' and 's' or 'vs')..'plit term://nu<cr>')
 nmap('<Leader>oc', '<cmd>term<cr>')
 tmap('<Leader><Esc>', ts)
+tmap('<M-`>', [[<cmd>lua require('FTerm').toggle()<CR>]])
+map('<M-`>', [[<cmd>lua require('FTerm').toggle()<CR>]])
 
 -- Better arrow key
 nmap('<right>', '<cmd>bnext<cr>')
@@ -53,9 +55,9 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
 nmap('<LocalLeader>q', '<cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
-nmap('<LocalLeader>X', '<cmd>xa!<cr>')
+nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
-nmap('<Tab><Tab>',     '<cmd>Telescope buffers<cr>')
+nmap('<LocalLeader><Tab>',     '<cmd>Telescope buffers<cr>')
 nmap('<M-Tab>',        '<C-^>')
 
 -- Plugins
@@ -63,12 +65,22 @@ vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = false })
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
-nmap('<Leader>S',  '<cmd>Startify<cr>')
-nmap('<Leader>s',  '<cmd>Startify<cr>')
-nmap('<Leader>G',  '<cmd>Neogit kind='..(orientation() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
+nmap('gos',        '<cmd>Startify<cr>')
+nmap('<F1>',       '<cmd>Startify<cr>')
+nmap('<Leader>G',  '<cmd>Neogit kind='..(orien() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
+nmap('gog',        '<cmd>Neogit kind='..(orien() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
 nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
+nmap('goh',        '<cmd>Scratch<CR>')
+
+-- Packer
+nmap('<Leader>pi', '<cmd>Pac Install<cr>')
+nmap('<Leader>pc', '<cmd>Pac Compile<cr>')
+nmap('<Leader>ps', '<cmd>Pac Sync<cr>')
+nmap('<Leader>pt', '<cmd>Pac Status<cr>')
+nmap('<Leader>pn', '<cmd>Pac Clean<cr>')
+nmap('<Leader>pp', '<cmd>Pac Profile<cr>')
 
 -- Splitjoin
 nmap('gJ', '<cmd>SplitjoinJoin<cr>')
@@ -94,6 +106,12 @@ nmap('<Leader>ff', '<cmd>Telescope frecency<cr>')
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
+
+if vim.fn.has('nvim-0.7') == 1 then
+  vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end)
+  vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end)
+  vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like?"}, function (input) print(input) end) end)
+end
 
 ---@experimental
 nmap('<F23>', '<cmd>split<cr>')  -- S-F11
