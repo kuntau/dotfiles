@@ -4,10 +4,10 @@ local dbgi = require("utils.logger").dbgi
 local debug = true
 
 -- nvim_add_user_command({name}, {command}, {*opts})
-local add_cmd = vim.api.nvim_add_user_command
+local cmd = vim.api.nvim_add_user_command
 
 -- Packer commands
-add_cmd('Pac', function (cmd)
+cmd('Pac', function (cmd)
   vim.cmd 'packadd packer.nvim'
   -- local packer = require("packer")
   local plugin = require("plugins")
@@ -43,6 +43,9 @@ end, {
     end
 })
 
+cmd('G', function () require("FTerm").scratch({ cmd = 'gitui' }) end, { nargs = 0 })
+cmd('Top', function () require("FTerm").scratch({ cmd = 'btop' }) end, { nargs = 0 })
+cmd('TM', function () require("FTerm").scratch({ cmd = 'tm' }) end, { nargs = 0 })
 -- command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete  PackerInstall lua require('packer').install(<f-args>)
 -- command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerUpdate lua require('packer').update(<f-args>)
 -- command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerSync lua require('packer').sync(<f-args>)

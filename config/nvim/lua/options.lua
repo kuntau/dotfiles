@@ -34,7 +34,8 @@ opt.relativenumber  = true
 opt.scrolloff       = 5 -- Show 5 line above & below cursor
 opt.showcmd         = true  -- already in defaults
 opt.showmode        = false -- we already have mode in statusline
-opt.signcolumn      = 'yes' -- AKA the gutter, smallest size
+opt.sidescrolloff   = 5 -- Show 5 coulmn left & right cursor
+opt.signcolumn      = 'yes' -- AKA the gutter, smallest size = 'yes:1'
 opt.splitbelow      = true
 opt.splitright      = true
 opt.termguicolors   = true -- enable truecolor

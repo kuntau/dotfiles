@@ -9,8 +9,9 @@ end
 
 local compiled_ok, _ = pcall(require, 'packer_compiled')
 if not compiled_ok then
-  vim.api.nvim_command [[packadd packer.nvim | lua require('plugins').sync()]]
-  require('plugins')
+  vim.cmd [[autocmd User PackerCompileDone quitall]]
+  vim.cmd [[packadd packer.nvim | lua require('plugins').compile()]]
+  -- require('plugins')
 end
 
 require('options')

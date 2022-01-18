@@ -21,7 +21,7 @@ nmap('R',             ':help <c-r><c-w><cr>')
 nmap('<Leader><Tab>', '<C-^>')
 nmap('<Leader>ro',    '<cmd>up<cr><cmd>luafile %<cr>')
 nmap('<Leader>rm',    '<cmd>up<cr><cmd>lua require("utils").reloadModule()<cr>')
-nmap('<LocalLeader>s','<cmd>up!<cr>')
+nmap('<LocalLeader>w','<cmd>up!<cr>')
 nmap('<F5>','<cmd>lua require("specs").show_specs()<cr>')
 
 -- Terminal movements

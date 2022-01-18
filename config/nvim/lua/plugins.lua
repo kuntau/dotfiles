@@ -2,23 +2,22 @@
 
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
-local packer_bookstrap
-local load_cmds = true
+local disable_cmds = true
 
 if fn.empty(fn.glob(install_path)) > 0 then
   local packer_repo = 'https://github.com/wbthomason/packer.nvim'
-  packer_bookstrap = fn.system({'git', 'clone', '--depth', '1', packer_repo, install_path})
+  PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', packer_repo, install_path})
 end
 
 if fn.has('nvim-0.7') ~= 1 then
   vim.cmd 'packadd packer.nvim'
-  load_cmds = false
+  disable_cmds = false
 end
 
 local packer = require('packer')
 
 packer.init {
-  disable_commands = load_cmds,
+  disable_commands = disable_cmds,
   display = { open_fn = function ()
     return require('packer.util').float({ style = 'minimal', border = 'rounded'})
   end },
@@ -31,7 +30,7 @@ packer.init {
   }
 }
 
-return packer.startup({function(use)
+return packer.startup(function(use)
 
   -- dev
   if fn.isdirectory(fn.glob('~/coding/vim/unimpaired.nvim')) == 1 then
@@ -44,7 +43,8 @@ return packer.startup({function(use)
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
   use { 'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle' }
   use { 'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle' }
-  use { 'nvim-telescope/telescope.nvim', requires = {
+  -- use { 'nvim-telescope/telescope.nvim', requires = {
+  use { '~/coding/forks/telescope.nvim', requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim', },
       { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { 'tami5/sqlite.lua', event = 'BufReadPre' }, after = 'telescope.nvim' },
@@ -162,8 +162,8 @@ return packer.startup({function(use)
   -- use { 'LhKipp/nvim-nu', ft = 'nu', after = 'nvim-treesitter' } -- nu shell systax, TSInstall nu
 
   -- automatically setup configurations after cloning packer
-  if packer_bookstrap then
+  if PACKER_BOOTSTRAP then
     packer.sync()
   end
-end,
-})
+end
+)
