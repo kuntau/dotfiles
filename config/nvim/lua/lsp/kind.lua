@@ -1,5 +1,4 @@
 -- LSP & cmp kind
--- TODO: Accept `textwidth` option
 
 local DONE_SETUP = false
 
@@ -7,36 +6,38 @@ local DONE_SETUP = false
 local icons = {
   Class         = { icon = '', text = 'class' },
   Color         = { icon = '', text = 'color' },
-  Constant      = { icon = '', text = 'constant' },
-  Constructor   = { icon = '', text = 'constructor' },
+  Constant      = { icon = '', text = 'const' },
+  Constructor   = { icon = '', text = 'constr' },
   Folder        = { icon = '', text = 'dir' },
   Enum          = { icon = '', text = 'enum' },
-  EnumMember    = { icon = '', text = 'enum member' },
+  EnumMember    = { icon = '', text = 'enmbr' },
   Event         = { icon = '', text = 'event' },
   Field         = { icon = '⎵', text = 'field' },
   File          = { icon = '', text = 'file' },
-  Function      = { icon = '', text = 'function' },
-  Interface     = { icon = '', text = 'interface' },
+  Function      = { icon = '', text = 'func' },
+  Interface     = { icon = '', text = 'iface' },
   Keyword       = { icon = '', text = 'keyword' },
   Method        = { icon = '', text = 'method' },
   Module        = { icon = '', text = 'module' },
-  Operator      = { icon = '', text = 'operator' },
-  Property      = { icon = '', text = 'property' },
-  Reference     = { icon = '', text = 'reference' },
-  Snippet       = { icon = '', text = 'snippet' },
+  Operator      = { icon = '', text = 'oper' },
+  Property      = { icon = '', text = 'prop' },
+  Reference     = { icon = '', text = 'ref' },
+  Snippet       = { icon = '', text = 'snip' },
   Struct        = { icon = '', text = 'struct' },
   Text          = { icon = '', text = 'text' },
-  TypeParameter = { icon = '', text = 'type parameter' },
+  TypeParameter = { icon = '', text = 'tparam' },
   Unit          = { icon = '', text = 'unit' },
   Value         = { icon = '', text = 'value' },
-  Variable      = { icon = '', text = 'variable' },
+  Variable      = { icon = '', text = 'var' },
 }
 
+-- TODO: Accept `textwidth` option
 local format_kind = function(kind, opts)
   local text = opts.text or false
   local icon = opts.icon or false
-  if not text and not icon then icon = true end
-  return string.format('%s %s',(icon and icons[kind].icon or ''),(text and kind or ''))
+  if not text and not icon then return kind end
+  local lsp_text = text and string.format(' %s', icons[kind].text)
+  return string.format('[%s%s]',(icon and icons[kind].icon or ''),(text and lsp_text or ''))
 end
 
 local cmp_format = function(opts)

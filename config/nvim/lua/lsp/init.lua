@@ -7,81 +7,30 @@ if not lspconfig_ok then
 end
 
 local configs = require('lspconfig.configs')
-local nmap = require('utils').nmap
-local imap = require('utils').imap
-local autocmd = require('utils').autocmd
+local dbgi = require('utils.logger').dbgi
+local debug = false
 
--- require('lsp-colors').setup()
 require('lsp.kind').setup({text = false, icon = true})
+require('lsp.diagnostic').setup()
 
--- Change diagnostic signs.
-vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "!", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+-- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local handler = require('lsp.handler')
+  local mapping = require('lsp.mappings')
 
--- global config for diagnostic
-vim.diagnostic.config({
-  underline = true,
-  virtual_text = false,
-  signs = true,
-  severity_sort = true,
-  update_in_insert = false,
-  float = {
-    focusable = true,
-    style = "minimal",
-    border = "rounded",
-    source = "always",
-    header = "",
-    prefix = "",
-  },
-})
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  handler.setup(bufnr, client.resolved_capabilities)
+  mapping.setup(bufnr, client.resolved_capabilities)
 
-  -- Mappings.
-  local opts = { buffer = bufnr }
+  if debug then
+    -- dbgi(vim.lsp.get_active_clients())
+    -- dbgi(client.supports_method('textDocument/codeAction'))
+    dbgi(client.resolved_capabilities.code_action)
+  end
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  nmap('gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  nmap('<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  nmap('K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  nmap('<Leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  nmap('<Leader><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  imap('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  nmap('<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  nmap('<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  nmap('<Leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  nmap('<Leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  nmap('<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  nmap('<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  nmap('gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  nmap('<Leader>D', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  nmap('<Leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
-  nmap('<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-  -- FIXME: Disable for LSP server without CursorHold support
-  -- vim.cmd [[
-  --   autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-  --   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  -- ]]
-
-  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]], true)
-  autocmd('lsp', [[CursorMoved <buffer> lua vim.lsp.buf.clear_references()]], true)
-  autocmd('lsp', [[CursorHold,CursorHoldI <buffer> lua vim.diagnostic.open_float(0,{scope = 'cursor'})]], true)
-  -- autocmd('lsp', [[BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]], true)
-
-    -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-    -- autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-
+  -- handler.code_action(client)
 end
 
 -- Custom server ls_emmet.. must be above the main servers loop
@@ -100,13 +49,12 @@ if not configs.ls_emmet then
 end
 
 -- Setup lspconfig with snippet support
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local DEBOUNCE_TIME = 150
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'sumneko_lua', 'tsserver', 'vimls', 'volar' }
+-- Use a loop to conveniently call 'setup' on multiple servers and map buffer local keybindings when the language server attaches
+local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'tsserver', 'vimls', 'volar' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -116,6 +64,9 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities
   }
 end
+
+local luadev_ok, luadev = pcall(require, 'lua-dev')
+if luadev_ok then luadev.setup() end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
