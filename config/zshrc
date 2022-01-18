@@ -55,14 +55,10 @@ DOTFILES_HOME=$HOME/dotfiles
 
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
-  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
-  # export PATH=~/.local/bin:$PATH
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL='/home/kuntau/.deno'
   export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/Linux # Sumneko lua path
 elif [[ $OS_NAME == Darwin ]]; then
-  # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
-
   # set android dev path
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
@@ -72,19 +68,7 @@ elif [[ $OS_NAME == Darwin ]]; then
   fi
 
   # pip
-  export PATH=$PATH:$HOME/Library/Python/3.9/bin
-
-  # rust
-  # golang
-  # export GOROOT='/usr/local/Cellar/go/1.1.2'
-
-  # Ruby
-  # RUBYROOT='/usr/local/Cellar/ruby/2.1.1_1'
-  # USE RUBY GEM AS USER --user-install
-  # GEM_HOME=$HOME/.gem/ruby/2.6.0/
-  # export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
-  # GEMPATH='~/.gem/ruby/2.1.0'
-  # export PATH=$PATH:$RUBYROOT/bin:$GEMPATH
+  export PATH=$PATH:$HOME/Library/Python/3.8/bin
 
   # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
   # if [ -r ~/.zshrc ]; then echo 'export GPG_TTY=$(tty)' >> ~/.zshrc; fi
@@ -96,9 +80,9 @@ elif [[ $OS_NAME == Darwin ]]; then
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
   # One off binary
-  export PATH=~/.local/lsp/sumneko.lua-2.5.6/server/bin:$PATH # Sumneko lua path
-  export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH      # Neovim GUI in Go
-  export PATH=/usr/local/opt/sqlite/bin:$PATH                       # Homebrew's sqlite3
+  export PATH=~/.local/lsp/lua-language-server-2.6.0/bin:$PATH # Sumneko lua path
+  export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH # Neovim GUI in Go
+  export PATH=/usr/local/opt/sqlite/bin:$PATH                  # Homebrew's sqlite3
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
