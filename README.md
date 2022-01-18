@@ -11,6 +11,31 @@
 
 [![build status](https://img.shields.io/travis/kuntau/dotfiles.svg?style=flat-square)](https://travis-ci.org/kuntau/dotfiles)
 
+## Prerequisites
+
+- Git
+- Zsh
+- curl
+
+## Stacks
+
+| Category     | Software               |
+| :-------     | :---------:            |
+| shell        | zsh, nu                |
+| editor       | vim, neovim            |
+| player       | mpv, iina, vlc         |
+| terminal     | wezterm, kitty, iTerm2 |
+| multiplexer  | tmux                   |
+| finder       | fd                     |
+| fuzzy finder | fzf                    |
+| file manager | nnn                    |
+| grep         | ripgrep                |
+| previewer    | bat                    |
+| git helper   | delta                  |
+| ssh          | mosh                   |
+| fonts        | operator mono          |
+
+
 ## Installation
 
 `git clone git://github.com/kuntau/dotfiles.git ~/dotfiles`
@@ -61,7 +86,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 ```zsh
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+ ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
 
 ```
 
