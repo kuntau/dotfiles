@@ -7,11 +7,11 @@ if not lspconfig_ok then
 end
 
 local configs = require('lspconfig.configs')
+local dbgi = require('utils.logger').dbgi
+local debug = false
 
 require('lsp.kind').setup({text = false, icon = true})
 require('lsp.diagnostic').setup()
-local debug = false
-local dbgi = require('utils.logger').dbgi
 
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -21,18 +21,16 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
 
-  handler.setup()
-  if debug then dbgi(vim.lsp.get_active_clients()) end
-  -- if debug then dbgi(client) end
-  -- PP(vim.lsp.protocol.make_client_capabilities())
-
+  handler.setup(bufnr, client.resolved_capabilities)
   mapping.setup(bufnr, client.resolved_capabilities)
 
-  handler.document_highlight(client)
-  handler.code_action(client)
-  -- handler.check_capabilities(client, 'textDocument/declaration')
+  if debug then
+    -- dbgi(vim.lsp.get_active_clients())
+    -- dbgi(client.supports_method('textDocument/codeAction'))
+    dbgi(client.resolved_capabilities.code_action)
+  end
 
-  -- FIXME: Disable for LSP server without CursorHold support
+  -- handler.code_action(client)
 end
 
 -- Custom server ls_emmet.. must be above the main servers loop
