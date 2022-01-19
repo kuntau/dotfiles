@@ -64,14 +64,6 @@ require('nvim-treesitter.configs').setup({
         ["ib"] = "@block.inner",
         ["al"] = "@call.outer",
         ["il"] = "@call.inner",
-
-        -- Or you can define your own textobjects like this
-        ["iF"] = {
-          python = "(function_definition) @function",
-          cpp = "(function_definition) @function",
-          c = "(function_definition) @function",
-          java = "(method_declaration) @function",
-        },
       },
     },
     move = {
