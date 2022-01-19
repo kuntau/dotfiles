@@ -2,6 +2,15 @@ local wezterm = require 'wezterm';
 
 local hyper_key = 'SHIFT|ALT|CTRL|CMD'
 
+local basename = function(s) return string.gsub(s, "(.*[/\\])(.*)", "%2") end
+
+local is_vim = function(pane)
+  local proc = basename(pane:get_foreground_process_name())
+  wezterm.log_info('@is_vim, proc='..proc)
+  return proc ==  'nvim' or proc == 'vim'
+  -- return string.match(proc, 'nvim')
+end
+
 return {
   -- option = value , [default] comment
 
@@ -71,7 +80,7 @@ return {
   },
 
   -- define leader key, same as tmux
-  leader = { key='s', mods='CTRL', timeout_miliseconds=1000 },
+  leader = { key='s', mods='CTRL', timeout_milliseconds=1000 },
   -- mappings
   keys = {
     { key='t',   mods=hyper_key, action=wezterm.action{SpawnTab='CurrentPaneDomain'} },
@@ -89,6 +98,35 @@ return {
     { key="l", mods="LEADER", action=wezterm.action{ActivatePaneDirection="Right"} },
     { key="k", mods="LEADER", action=wezterm.action{ActivatePaneDirection="Up"} },
     { key="j", mods="LEADER", action=wezterm.action{ActivatePaneDirection="Down"} },
+
+    { key='h', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'h', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
+      end
+    end) },
+    { key='l', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'l', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Right' }, pane)
+      end
+    end) },
+    { key='j', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'j', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Down' }, pane)
+      end
+    end) },
+    { key='k', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'k', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Up' }, pane)
+      end
+    end) },
 
     -- { key="h", mods="CTRL", action=wezterm.action{ActivatePaneDirection="Left"} },
     -- { key="l", mods="CTRL", action=wezterm.action{ActivatePaneDirection="Right"} },
