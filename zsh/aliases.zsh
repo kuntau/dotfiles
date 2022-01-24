@@ -65,6 +65,8 @@ alias yta='noglob yt-dlp --extract-audio'
 alias ytav='noglob yt-dlp --extract-audio --keep-video'
 alias ytmp3='noglob yt-dlp --extract-audio --audio-format mp3'
 alias ytopus='noglob yt-dlp --extract-audio --audio-format opus'
+alias ytmkv='noglob yt-dlp --merge-output-format mkv'
+alias ytmp4='noglob yt-dlp --merge-output-format mp4'
 
 # aria2c -x = number of concurrent connections, -j = number of concurrent download
 alias a1='noglob aria2c -c -j1 -x8 --file-allocation=none --auto-file-renaming=false'

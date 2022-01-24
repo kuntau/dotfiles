@@ -51,36 +51,44 @@ zplug load
 # Set ENV VARIABLE {{{
 OS_NAME=$(uname)
 HOST_NAME=$(hostname)
-DOTFILES_HOME=$HOME/dotfiles
+DOTFILES=$HOME/dotfiles
 
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL='/home/kuntau/.deno'
   export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/Linux # Sumneko lua path
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'hqsvr' ]]; then
+    export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
+  fi
 elif [[ $OS_NAME == Darwin ]]; then
-  # set android dev path
+
+  # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
     export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
+    export NNN_BMS='d:~/dotfiles;D:/Volumes/HOME/Downloads;E:/Volumes/Entertainment;f:~/coding/forks;C:~/coding;c:~/.config;l:~/.local'
   elif [[ $HOST_NAME == 'rMBP' ]]; then
     export ANDROID_HOME=~/Library/Android/sdk
   fi
 
-  # pip
-  export PATH=$PATH:$HOME/Library/Python/3.8/bin
+  # python: https://docs.python.org/3/using/cmdline.html#environment-variables
+  export PYTHONUSERBASE=~/.local
+  export PATH=$PATH:$HOME/Library/Python/3.9/bin
 
   # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
-  # if [ -r ~/.zshrc ]; then echo 'export GPG_TTY=$(tty)' >> ~/.zshrc; fi
   export GPG_TTY=$(tty)
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
   export HOMEBREW_NO_AUTO_UPDATE=0
+  export HOMEBREW_NO_INSTALL_CLEANUP
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
   # One off binary
-  export PATH=~/.local/lsp/lua-language-server-2.6.0/bin:$PATH # Sumneko lua path
+  export PATH=~/.local/lsp/lua-language-server-2.6.1/bin:$PATH # Sumneko lua path
   export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH # Neovim GUI in Go
   export PATH=/usr/local/opt/sqlite/bin:$PATH                  # Homebrew's sqlite3
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
@@ -108,11 +116,6 @@ bindkey -M vicmd 'j' history-substring-search-down
 export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum;m:mediainf;z:fzz;k:pskill;n:nuke'
 export NNN_OPTS='acdEHFrxQU'
 export NNN_OPENER='nuke'
-if [[ $HOST_NAME == 'hqsvr' ]]; then
-  export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
-elif [[ $HOST_NAME == 'HQ' ]]; then
-  export NNN_BMS='d:~/dotfiles;D:/Volume/HOME/Downloads'
-fi
 
 # bat - https://github.com/sharkdp/bat
 export BAT_THEME="Monokai Extended"
@@ -141,24 +144,24 @@ fi
 # Update $PATH (platform *nix)) {{{
 hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
 hash npm      2>/dev/null && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
-[[ -f ~/.local/bin/pip ]] && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
+hash python3  2>/dev/null && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
 hash cargo    2>/dev/null && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
 hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # rust cargo binary path
 hash snap     2>/dev/null && export PATH=/snap/bin:$PATH                  # snap binary path
 export PATH=$PATH:$DENO_INSTALL/bin                                       # deno binary path
-export PATH=$DOTFILES_HOME/bin:$PATH
+export PATH=$DOTFILES/bin:$PATH
 # }}}
 
 # Extra sources {{{
 [[ -x rustup ]] && source $HOME/.cargo/env
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-[[ -d ~/.fzf ]] && source $DOTFILES_HOME/zsh/fzf.zsh
-hash nnn 2> /dev/null && source $DOTFILES_HOME/nnn/quitcd.zsh
+[[ -d ~/.fzf ]] && source $DOTFILES/zsh/fzf.zsh
+hash nnn 2> /dev/null && source $DOTFILES/nnn/quitcd.zsh
 hash hunter 2> /dev/null && source $HOME/.config/hunter/hunter_cd.sh
 
-source $DOTFILES_HOME/zsh/default.zsh # my aliases
-source $DOTFILES_HOME/zsh/aliases.zsh # my aliases
-source $HOME/.secret                  # don't commit this file
-typeset -U PATH                       # remove dups from $PATH
+source $DOTFILES/zsh/default.zsh # my aliases
+source $DOTFILES/zsh/aliases.zsh # my aliases
+source $HOME/.secret             # don't commit this file
+typeset -U PATH                  # remove dups from $PATH
 # }}}
