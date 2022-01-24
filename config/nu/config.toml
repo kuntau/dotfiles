@@ -2,7 +2,23 @@ complete_from_path = true
 ctrlc_exit = false
 disable_table_indexes = false
 nonzero_exit_errors = true
-path = ["/Users/kuntau/dotfiles/bin", "/Users/kuntau/.npm-global/bin", "/usr/local/opt/sqlite/bin", "/Users/kuntau/Applications/goneovim.app/Contents/MacOS", "/Users/kuntau/.local/lsp/sumneko.lua-2.5.6/server/bin", "/Users/kuntau/.zplug/bin", "/usr/local/bin", "/usr/bin", "/bin", "/usr/sbin", "/sbin", "/Volumes/HOME/Android/flutter/bin", "/Users/kuntau/Library/Python/3.9/bin", "/Users/kuntau/.fzf/bin"]
+path = [
+  "/Users/kuntau/dotfiles/bin",
+  "/Users/kuntau/.local/bin",
+  "/Users/kuntau/.npm-global/bin",
+  "/usr/local/opt/sqlite/bin",
+  "/Users/kuntau/Applications/goneovim.app/Contents/MacOS",
+  "/Users/kuntau/.local/lsp/lua-language-server-2.6.0/bin",
+  "/Users/kuntau/.zplug/bin",
+  "/usr/local/bin",
+  "/usr/bin",
+  "/bin",
+  "/usr/sbin",
+  "/sbin",
+  "/Volumes/HOME/Android/flutter/bin",
+  "/Users/kuntau/Library/Python/3.9/bin",
+  "/Users/kuntau/.fzf/bin"
+]
 pivot_mode = "auto"
 prompt = "starship prompt"
 rm_always_trash = true
