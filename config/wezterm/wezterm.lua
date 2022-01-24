@@ -17,13 +17,18 @@ return {
   -- default_prog = {'/usr/local/bin/zsh', '~/dotfiles/bin/tm'},
 
   -- Fonts
+  -- font = wezterm.font("Victor Mono", { weight = "SemiBold" })        , -- [IBM Plex Mono]
   -- font = wezterm.font("Ligalex Mono")                                , -- [IBM Plex Mono]
   -- font = wezterm.font("BlexMono Nerd Font Mono")                     , -- [IBM Plex Mono]
   -- font = wezterm.font("JetBrains Mono")                              , -- [JetBrains Mono]
   -- font = wezterm.font("JetBrains Mono", {weight="Bold",italic=true}) , -- [JetBrains Mono] Name with parameters
   -- font = wezterm.font("OperatorMonoLigaturized Nerd Font")           , -- [Operator Mono]
+
   font = wezterm.font_with_fallback({
-    "OperatorMonoLigaturized Nerd Font",
+    {
+      family = "LigaOperatorMono Nerd Font Mono",
+      weight = "Book",
+    },
     "BlexMono Nerd Font Mono"
   }),
 
