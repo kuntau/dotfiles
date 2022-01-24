@@ -18,7 +18,7 @@ if utils.isGui() then -- running in GUI
     vim.opt.guifont = 'Consolas:h10'
   elseif OS == 'macos' then
     -- if required we can check for has('gui_vimr')
-    vim.opt.guifont = 'OperatorMonoLigaturized Nerd Font:h13'
+    vim.opt.guifont = 'LigaOperatorMono Nerd Font Mono:h13'
     vim.opt.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
     vim.opt.linespace = 1 -- Linespacing for GUI, not all implement this option
   elseif OS == 'linux'  then

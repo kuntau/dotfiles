@@ -25,7 +25,8 @@ packer.init {
   git = {
     cmd = 'git',
     subcommands = {
-      update = 'pull --ff --progress --rebase=true',
+      update = 'pull --ff --progress',
+      -- update = 'pull --ff --progress --rebase=true',
     }
   }
 }
@@ -106,7 +107,7 @@ return packer.startup(function(use)
       { 'tzachar/cmp-fuzzy-buffer', requires = { 'tzachar/fuzzy.nvim' }, after = 'nvim-cmp' },
       { 'tzachar/cmp-tabnine', run = './install.sh', config = [[require('config.tabnine')]], after = 'nvim-cmp' }
     },
-    after = 'nvim-treesitter',
+    after = { 'nvim-treesitter', 'friendly-snippets' },
     config = [[require('config.cmp')]],
     event = 'InsertEnter *',
   }

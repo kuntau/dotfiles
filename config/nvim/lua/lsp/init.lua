@@ -7,6 +7,19 @@ if not lspconfig_ok then
 end
 
 local configs = require('lspconfig.configs')
+local servers = {
+  'bashls',
+  'cssls',
+  'eslint',
+  'html',
+  'intelephense',
+  'jsonls',
+  'ls_emmet',
+  'tsserver',
+  'vimls',
+  'volar',
+}
+local DEBOUNCE_TIME = 150
 local dbgi = require('utils.logger').dbgi
 local debug = false
 
@@ -52,9 +65,6 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local DEBOUNCE_TIME = 150
--- Use a loop to conveniently call 'setup' on multiple servers and map buffer local keybindings when the language server attaches
-local servers = { 'cssls', 'eslint', 'html', 'intelephense', 'jsonls', 'ls_emmet', 'tsserver', 'vimls', 'volar' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,

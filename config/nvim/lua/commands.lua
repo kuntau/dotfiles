@@ -1,7 +1,7 @@
 -- User commands
 
 local dbgi = require("utils.logger").dbgi
-local debug = true
+local debug = false
 
 -- nvim_add_user_command({name}, {command}, {*opts})
 local cmd = vim.api.nvim_add_user_command

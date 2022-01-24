@@ -24,13 +24,15 @@ autocmd('n_list', { [[InsertLeave * setl nolist | IndentBlanklineDisable]],
 autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
 autocmd('ft_str', [[FileType startify setl laststatus=1 showtabline=1 ]], true) -- FIXME: This option is buggy
 autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
-autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent]], true) -- Disable `cindent` for `gitcommit`
+autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell]], true) -- Disable `cindent` for `gitcommit`
 
 autocmd('ft_nfo', {
   'BufReadPre,FileReadPre *.nfo set ft=nfo',
   'FileType nfo setl fileencodings=cp437,utf-8 nonu nornu',
   'FileType nfo highlight clear ExtraWhitespace',
 }, true)
+
+autocmd('ft_mdx', [[FileType markdown setlocal spell]], true)
 
 --[[ TODO: Deal with this later
 

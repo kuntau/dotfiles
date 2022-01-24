@@ -37,7 +37,7 @@ local format_kind = function(kind, opts)
   local icon = opts.icon or false
   if not text and not icon then return kind end
   local lsp_text = text and string.format(' %s', icons[kind].text)
-  return string.format('[%s%s]',(icon and icons[kind].icon or ''),(text and lsp_text or ''))
+  return string.format('【%s%s】',(icon and icons[kind].icon or ''),(text and lsp_text or ''))
 end
 
 local cmp_format = function(opts)
