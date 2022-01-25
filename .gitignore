@@ -1,1 +1,3 @@
 config/nvim/lua/packer_compiled.lua
+*.log
+.scratch

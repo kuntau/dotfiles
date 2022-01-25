@@ -54,8 +54,8 @@
   added = yellow
   changed = green
   untracked = cyan
-[commit]
-  # template = /Volumes/Home/Users/kuntau/.stCommitMsg
+# [commit]
+#   template = /Volumes/Home/Users/kuntau/.gitmessage
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
