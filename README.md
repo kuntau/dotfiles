@@ -1,11 +1,13 @@
-```
-   ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗
-   ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝
-   ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗
-   ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║
-██╗██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║
-╚═╝╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝
-```
+
+                                █▀▀█ █▀▀ █▀▀█ █▀▀ █▀▀█ █▀▀▄ █▀▀█ █░░ 
+                                █░░█ █▀▀ █▄▄▀ ▀▀█ █░░█ █░░█ █▄▄█ █░░ 
+                                █▀▀▀ ▀▀▀ ▀░▀▀ ▀▀▀ ▀▀▀▀ ▀░░▀ ▀░░▀ ▀▀▀
+       ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗
+       ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝
+       ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗
+       ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║
+    ██╗██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║
+    ╚═╝╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝
 
 # Kuntau's dotfiles
 
@@ -13,27 +15,33 @@
 
 ## Prerequisites
 
-- Git
-- Zsh
+- git
+- zsh
 - curl
 
 ## Stacks
 
-| Category     | Software               |
-| :-------     | :---------:            |
-| shell        | zsh, nu                |
-| editor       | vim, neovim            |
-| player       | mpv, iina, vlc         |
-| terminal     | wezterm, kitty, iTerm2 |
-| multiplexer  | tmux                   |
-| finder       | fd                     |
-| fuzzy finder | fzf                    |
-| file manager | nnn                    |
-| grep         | ripgrep                |
-| previewer    | bat                    |
-| git helper   | delta                  |
-| ssh          | mosh                   |
-| fonts        | operator mono          |
+| Category        | Software                 |
+| :-------        | :---------:              |
+| shell           | zsh, nu                  |
+| tui editor      | vim, neovim              |
+| gui editor      | sublime, vscode          |
+| player          | mpv, iina, vlc           |
+| terminal        | wezterm, kitty, iTerm2   |
+| multiplexer     | tmux                     |
+| finder          | fd                       |
+| fuzzy finder    | fzf, skim                |
+| file manager    | nnn                      |
+| disk usage      | ncdu                     |
+| prompt          | powerlevel10k, starship  |
+| jumper          | zsh-z, zoxide            |
+| package manager | homebrew, pip, pnpm      |
+| grep            | ripgrep                  |
+| previewer       | bat                      |
+| git helper      | delta                    |
+| ssh             | mosh                     |
+| fonts           | operator mono, nerd font |
+| theme           | ayu, tokyonight          |
 
 
 ## Installation
@@ -42,7 +50,7 @@
 
 ### Make the install script executable
 
-```zsh
+```bash
 cd ~/dotfiles
 chmod a+x install.sh
 ./install.sh
@@ -50,7 +58,7 @@ chmod a+x install.sh
 
 Change to the `~/dotfiles` directory, and ***fetch*** submodules:
 
-```zsh
+```bash
 cd ~/dotfiles
 git submodule update --init --recursive
 
@@ -64,7 +72,7 @@ git submodule init && git submodule update
 
 ### Manage submodule
 
-```zsh
+```bash
 # UPDATE: Update submodules
 git submodule foreach git pull origin master --depth=1
 
@@ -77,14 +85,14 @@ git submodule foreach git gc --prune=all
 
 #### For Vim 8.x
 
-```zsh
+```bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 #### For Neovim
 
-```zsh
+```bash
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
 
@@ -94,7 +102,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 
 #### Delete submodule
 
-```zsh
+```bash
 submodule="folder/submodule"
 
 git rm "$submodule"
@@ -107,7 +115,7 @@ git commit -m "Remove submodule $submodule"
 
 #### Test terminal formatting
 
-```zsh
+```bash
 echo -e "\e[1mbold\e[0m"
 echo -e "\e[3mitalic\e[0m"
 echo -e "\e[3m\e[1mbold italic\e[0m"

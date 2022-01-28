@@ -1,15 +1,14 @@
-```
-████████╗░█████╗░██████╗░░█████╗░
-╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗
-░░░██║░░░██║░░██║██║░░██║██║░░██║
-░░░██║░░░██║░░██║██║░░██║██║░░██║
-░░░██║░░░╚█████╔╝██████╔╝╚█████╔╝
-░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
-```
+
+    ████████╗░█████╗░██████╗░░█████╗░
+    ╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗
+    ░░░██║░░░██║░░██║██║░░██║██║░░██║
+    ░░░██║░░░██║░░██║██║░░██║██║░░██║
+    ░░░██║░░░╚█████╔╝██████╔╝╚█████╔╝
+    ░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
 
 ## INSTALL SCRIPT
 - [x] Borrow code from ohmyzsh installer
-- [ ] OS detection in install script for BSD/Linux difference
+- [x] OS detection in install script for BSD/Linux difference
 
 ### AVAILABILITY FEATURE CHECKLIST
 - [x] ZSH
@@ -28,12 +27,12 @@
 - [x] .vimrc -> init.vim
 
 ## (Neo)ViM
-- [ ] Use `ale` as `coc.nvim` replacement when `nodejs` not avaiable
+- [x] Use `ale` as `coc.nvim` replacement when `nodejs` not avaiable
 
 ## Config file
-- [ ] Reorganize config files
-- [ ] Make separate config file for each OS
-- [ ] Update install script
+- [x] Reorganize config files
+- [x] Make separate config file for each OS
+- [x] Update install script
 
 ## NNN
-- [ ] Make unique bookmarks for each machine
+- [x] Make unique bookmarks for each machine
