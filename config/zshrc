@@ -13,7 +13,6 @@ zplug "lib/history",            from:oh-my-zsh
 zplug "lib/completion",         from:oh-my-zsh
 zplug "lib/key-bindings",       from:oh-my-zsh
 zplug "lib/directories",        from:oh-my-zsh
-zplug "plugins/vi-mode",        from:oh-my-zsh
 zplug "plugins/brew",           from:oh-my-zsh
 zplug "plugins/git",            from:oh-my-zsh
 zplug "plugins/git-extras",     from:oh-my-zsh
@@ -25,15 +24,13 @@ zplug "plugins/docker",         from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
 
 # from github
+zplug "jeffreytse/zsh-vi-mode", depth:1
 zplug "zsh-users/zsh-completions", depth:1
 zplug "zsh-users/zsh-autosuggestions", depth:1
 zplug "zsh-users/zsh-history-substring-search", depth:1
 zplug "zsh-users/zsh-syntax-highlighting", depth:1, defer:2
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
 zplug "agkozak/zsh-z", depth:1
-zplug "Vifon/zranger", depth:1
-# zplug "rupa/z", use:z.sh
-# zplug "clvv/fasd", use:fasd
 
 # theme
 zplug "romkatv/powerlevel10k", depth:1, use:powerlevel10k.zsh-theme
@@ -116,6 +113,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum;m:mediainf;z:fzz;k:pskill;n:nuke'
 export NNN_OPTS='acdEHFrxQU'
 export NNN_OPENER='nuke'
+export NNN_COLORS='#0a1b2c3d'
+export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
+export NNN_TRASH=1
 
 # bat - https://github.com/sharkdp/bat
 export BAT_THEME="Monokai Extended"
