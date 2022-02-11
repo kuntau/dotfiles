@@ -131,3 +131,8 @@
   email = kuntau17@gmail.com
   name = Nizamuddin Sulieman
   signingkey = DFBA935E336840CA
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
