@@ -9,7 +9,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', packer_repo, install_path})
 end
 
-if fn.has('nvim-0.7') ~= 1 then
+if fn.has('nvim-0.7') ~= 1 or PACKER_BOOTSTRAP then
   vim.cmd 'packadd packer.nvim'
   disable_cmds = false
 end
@@ -25,8 +25,7 @@ packer.init {
   git = {
     cmd = 'git',
     subcommands = {
-      update = 'pull --ff --progress',
-      -- update = 'pull --ff --progress --rebase=true',
+      update = 'pull --ff --progress --rebase=true',
     }
   }
 }
