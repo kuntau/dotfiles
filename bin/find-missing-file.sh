@@ -6,14 +6,15 @@
 # BASH REALLY HATE WHITESPACES
 # IT'S ALWAYS THE SOURCE OF MY MISSING HAIRS
 
-path='/Volumes/Entertainment/Manga/Naruto [complete]/'
+path='/Volumes/HQPOOL/Images/Manga/One Piece/'
 file='Chapter'
 ext='.zip'
+file_count=1011
 
-for ((i = 1; i <= 700; i++)); do
-  # printf -v name "%s%s %03d\n" $path $file $i
-  printf -v name "%s%s %03d%s" "$path" "$file" "$i" "$ext"
-  # echo "$name"
+for ((i = 1; i <= file_count; i++)); do
+  # %03d is the padding size
+  printf -v name "%s%s %04d%s" "$path" "$file" "$i" "$ext"
+
   if [[ ! -f $name ]]; then
     echo "$name missing!"
   fi
