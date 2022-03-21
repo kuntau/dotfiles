@@ -88,8 +88,8 @@ elif [[ $OS_NAME == Darwin ]]; then
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  export HOMEBREW_NO_AUTO_UPDATE=0
-  export HOMEBREW_NO_INSTALL_CLEANUP
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  export HOMEBREW_NO_INSTALL_CLEANUP=1
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
   # One off binary
@@ -162,8 +162,6 @@ function zvm_after_init() {
   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
   hash fzf 2> /dev/null && source $DOTFILES/zsh/fzf.zsh
   hash nnn 2> /dev/null && source $DOTFILES/nnn/quitcd.zsh
-  hash hunter 2> /dev/null && source $HOME/.config/hunter/hunter_cd.sh
-}
 
 source $DOTFILES/zsh/default.zsh # my aliases
 source $DOTFILES/zsh/aliases.zsh # my aliases
