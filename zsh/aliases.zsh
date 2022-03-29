@@ -55,7 +55,9 @@ else
 fi
 
 # youtube-dl
-alias yt='noglob yt-dlp'
+external_options='--downloader=aria2c --downloader-args "aria2c:--min-split-size=1M --max-connection-per-server=16 --max-concurrent-downloads=16 --split=16"'
+alias yt="noglob yt-dlp"
+alias yte="noglob yt-dlp $external_options"
 alias ytx='proxychains4 yt-dlp'
 alias yt3='noglob yt-dlp -f 43' # 320p
 alias yt4='noglob yt-dlp -f 44' # 480p
