@@ -55,6 +55,11 @@ DOTFILES=$HOME/dotfiles
 
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
+  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
+  # export PATH=~/.local/bin:$PATH
+  # rust
+  # golang
+  export PATH=$PATH:/usr/local/go/bin
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL='/home/kuntau/.deno'
   export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/Linux # Sumneko lua path
