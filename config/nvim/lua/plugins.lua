@@ -131,7 +131,7 @@ return packer.startup(function(use)
   use { 'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], opt = true }
   use { 'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', opt = true }
   use { 'folke/tokyonight.nvim' }
-  use { 'rebelot/kanagawa.nvim', config = [[require'kanagawa'.setup{dimInactive = true}]] } -- tokyonight + gruvbox
+  use { 'rebelot/kanagawa.nvim', config = [[require'kanagawa'.setup{dimInactive = true, globalStatus = true }]] } -- tokyonight + gruvbox
 
   -- Qualify of life
   use { 'junegunn/vim-easy-align', cmd = 'EasyAlign' }
