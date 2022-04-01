@@ -30,6 +30,8 @@ require('lualine').setup({
   options = {
     component_separators = { left = '', right = '·'},
     disabled_filetypes = {},
+    always_divide_middle = false,
+    globalstatus = true,
   },
   sections = {
     lualine_c = {{'filename', path=1}},

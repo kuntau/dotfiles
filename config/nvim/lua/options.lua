@@ -27,18 +27,19 @@ opt.visualbell      = false
 -- Looks & feels
 opt.cursorcolumn    = false
 opt.cursorline      = false -- horizontal highlight line with cursor
-opt.linebreak       = true   -- If we enable wrap at least wrap it at end of word
+opt.laststatus      = 3     -- global statusline, overrides by lualine *globalstatus*
+opt.linebreak       = true  -- If we enable wrap at least wrap it at end of word
 opt.number          = true
-opt.previewheight   = 25 --height of preview window
+opt.previewheight   = 25    --height of preview window
 opt.relativenumber  = true
-opt.scrolloff       = 5 -- Show 5 line above & below cursor
+opt.scrolloff       = 5     -- Show 5 line above & below cursor
 opt.showcmd         = true  -- already in defaults
 opt.showmode        = false -- we already have mode in statusline
-opt.sidescrolloff   = 5 -- Show 5 coulmn left & right cursor
+opt.sidescrolloff   = 5     -- Show 5 columns left & right cursor
 opt.signcolumn      = 'yes' -- AKA the gutter, smallest size = 'yes:1'
 opt.splitbelow      = true
 opt.splitright      = true
-opt.termguicolors   = true -- enable truecolor
+opt.termguicolors   = true  -- enable truecolor
 opt.title           = true
 opt.virtualedit     = 'all' -- move cursor anywhere
 opt.wrap            = false
@@ -73,7 +74,7 @@ opt.wildmode        = 'longest:full'
 -- Characters configs. Sample: eol:↓, eol:¬, eol:↲, eol:⏎, tab:␉·, trail:␠, nbsp:⎵
 opt.list            = false -- show special characters
 opt.listchars       = {eol='↲', tab='▸ ', trail='·', extends='»', precedes='«', nbsp='⎵', conceal='×'} -- Special characters for highlighting non-printing spaces/tabs/etc
-opt.fillchars       = { vert = ' ', eob = ' '} -- remove ugly vertical seperator & end of boundry char
+opt.fillchars       = { vert = ' ', eob = ' '} -- remove ugly vertical separator & end of boundary char
 
 -- Extend defaults
 opt.diffopt:append   'vertical' -- Diff always open in vsplit
