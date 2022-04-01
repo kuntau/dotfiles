@@ -93,7 +93,7 @@ elif [[ $OS_NAME == Darwin ]]; then
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
   # One off binary
-  export PATH=~/.local/lsp/lua-language-server-2.6.1/bin:$PATH # Sumneko lua path
+  export PATH=~/.local/lsp/lua-language-server/bin:$PATH # Sumneko lua path
   export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH # Neovim GUI in Go
   export PATH=/usr/local/opt/sqlite/bin:$PATH                  # Homebrew's sqlite3
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
@@ -131,9 +131,14 @@ export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
 # enhancd - https://github.com/b4b4r07/enhancd
-export ENHANCD_DISABLE_DOT=1
+export ENHANCD_FILTER=fzf
+export ENHANCD_DISABLE_DOT=0
 export ENHANCD_DISABLE_HYPHEN=0
-export ENHANCD_HYPHEN_ARG=':'
+export ENHANCD_HYPHEN_ARG=';'
+export ENHANCD_DOT_ARG='.'
+
+# zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
+export ZVM_CURSOR_STYLE_ENABLED=false
 
 # FIX the blinding green on green directory listing on external drive.
 # Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
@@ -163,8 +168,9 @@ function zvm_after_init() {
   hash fzf 2> /dev/null && source $DOTFILES/zsh/fzf.zsh
   hash nnn 2> /dev/null && source $DOTFILES/nnn/quitcd.zsh
 
-source $DOTFILES/zsh/default.zsh # my aliases
-source $DOTFILES/zsh/aliases.zsh # my aliases
-source $HOME/.secret             # don't commit this file
-typeset -U PATH                  # remove dups from $PATH
+  source $DOTFILES/zsh/default.zsh # my aliases
+  source $DOTFILES/zsh/aliases.zsh # my aliases
+  source $HOME/.secret             # don't commit this file
+  typeset -U PATH                  # remove dups from $PATH
+}
 # }}}
