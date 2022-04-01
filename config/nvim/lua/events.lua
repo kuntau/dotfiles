@@ -22,7 +22,6 @@ autocmd('n_list', { [[InsertLeave * setl nolist | IndentBlanklineDisable]],
 --[[ Filetypes autocmds ]]--
 
 autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
-autocmd('ft_str', [[FileType startify setl laststatus=1 showtabline=1 ]], true) -- FIXME: This option is buggy
 autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
 autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell]], true) -- Disable `cindent` for `gitcommit`
 

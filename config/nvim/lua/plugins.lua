@@ -5,7 +5,7 @@ local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 local disable_cmds = true
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  local packer_repo = 'https://github.com/wbthomason/packer.nvim'
+  local packer_repo = 'https://github.com/wbthomason/packer.nvim.git'
   PACKER_BOOTSTRAP = fn.system({'git', 'clone', '--depth', '1', packer_repo, install_path})
 end
 
