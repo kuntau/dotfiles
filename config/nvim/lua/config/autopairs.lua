@@ -58,7 +58,7 @@ local add_space_paren = {
 
 -- add space around =
 local add_space_equal = {
-  rule('=', '')
+  rule('=', '', { 'typescript', 'typescriptreact', 'javascript' })
     :with_pair(cond.not_inside_quote())
     :with_pair(function(opts)
       local last_char = opts.line:sub(opts.col - 1, opts.col - 1)
