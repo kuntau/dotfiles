@@ -216,6 +216,23 @@ on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h')
 on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
 on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
 
+local is_remote = function(pane)
+  local proc = basename(pane:get_foreground_process_name())
+  wezterm.log_info('@is_remote, proc='..proc)
+  return proc ==  'mosh' or proc == 'ssh'
+end
+
+local direction = {
+  h = 'Left',
+  l = 'Right',
+  j = 'Down',
+  k = 'Up'
+}
+
+local select_pane = function(win, pane, key)
+  -- code
+end
+
 return {
   default_prog = { '/opt/local/bin/zsh', '-li' },
 
@@ -342,6 +359,8 @@ return {
 
   -- define leader key, same as tmux
   leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
+  disable_default_key_bindings = false,
+
   -- mappings
   keys = {
     { key = 't', mods = hyper_key, action = action({ SpawnTab = 'CurrentPaneDomain' }) },
@@ -360,10 +379,35 @@ return {
     { key = 'k', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Up' }) },
     { key = 'j', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Down' }) },
 
-    { key = 'l', mods = 'CTRL', action = emit('ActivatePaneDirectionRight') },
-    { key = 'h', mods = 'CTRL', action = emit('ActivatePaneDirectionLeft') },
-    { key = 'k', mods = 'CTRL', action = emit('ActivatePaneDirectionUp') },
-    { key = 'j', mods = 'CTRL', action = emit('ActivatePaneDirectionDown') },
+    -- Pane movements
+    { key='h', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'h', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
+      end
+    end) },
+    { key='l', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'l', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Right' }, pane)
+      end
+    end) },
+    { key='j', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'j', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Down' }, pane)
+      end
+    end) },
+    { key='k', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        win:perform_action({ SendKey = { key = 'k', mods = 'CTRL' } }, pane)
+      else
+        win:perform_action({ ActivatePaneDirection = 'Up' }, pane)
+      end
+    end) },
 
     { key = 'H', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Left', 5 } }) },
     { key = 'J', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Down', 5 } }) },
@@ -371,6 +415,15 @@ return {
     { key = 'L', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Right', 5 } }) },
     { key = 'z', mods = 'LEADER', action = 'TogglePaneZoomState' },
     { key = 'l', mods = 'LEADER|CTRL', action = action({ ClearScrollback = 'ScrollbackAndViewport' }) },
+
+    { key='b', mods="LEADER", action=wezterm.action_callback(function(win, pane)
+      if is_remote(pane) then
+        win:perform_action({ SendKey = { key = 's', mods = 'CTRL' } }, pane)
+      else
+        wezterm.log_info('@is_remote, proc='..pane:get_foreground_process_name())
+        --   win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
+      end
+    end) },
 
     -- CTRL-SHIFT-l activates the debug overlay
     { key = 'L', mods = 'CTRL', action = action.ShowDebugOverlay },
