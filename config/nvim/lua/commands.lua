@@ -3,8 +3,8 @@
 local dbgi = require("utils.logger").dbgi
 local debug = false
 
--- nvim_add_user_command({name}, {command}, {*opts})
-local cmd = vim.api.nvim_add_user_command
+-- nvim_create_user_command({name}, {command}, {*opts})
+local cmd = vim.api.nvim_create_user_command
 
 -- Packer commands
 cmd('Pac', function (cmd)
