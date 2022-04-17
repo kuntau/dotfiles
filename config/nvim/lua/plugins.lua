@@ -22,6 +22,7 @@ packer.init {
     return require('packer.util').float({ style = 'minimal', border = 'rounded'})
   end },
   compile_path = fn.stdpath('config')..'/lua/packer_compiled.lua', -- Move to lua dir so impatient.nvim can cache it
+  max_jobs = 12,
   git = {
     cmd = 'git',
     subcommands = {
