@@ -6,6 +6,15 @@
     ░░░██║░░░╚█████╔╝██████╔╝╚█████╔╝
     ░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
 
+## Rust overlord takeover
+- [ ] `bottom` over `top`, `htop`, `btop` or `ctop`
+- [ ] `ripgrep` over `grep`
+- [ ] `fd` over `find`
+- [ ] `exa` or `lsd` over `ls`
+- [ ] `dust` over `du`
+- [ ] `nu` over `zsh`
+- [ ] `spotifyd` and `spotify-tui` or `Spotify`
+
 ## INSTALL SCRIPT
 - [x] Borrow code from ohmyzsh installer
 - [x] OS detection in install script for BSD/Linux difference
