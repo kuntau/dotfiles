@@ -59,6 +59,7 @@ require('telescope').setup ({
     find_files = {
       previewer = false,
       no_ignore = true,
+      follow = true,
     },
     oldfiles = {
       only_cwd = true,

@@ -74,7 +74,9 @@ opt.wildmode        = 'longest:full'
 -- Characters configs. Sample: eol:↓, eol:¬, eol:↲, eol:⏎, tab:␉·, trail:␠, nbsp:⎵
 opt.list            = false -- show special characters
 opt.listchars       = {eol='↲', tab='▸ ', trail='·', extends='»', precedes='«', nbsp='⎵', conceal='×'} -- Special characters for highlighting non-printing spaces/tabs/etc
-opt.fillchars       = {
+
+-- Extend defaults
+opt.fillchars:append {
   horiz = '━',
   horizup = '┻',
   horizdown = '┳',
@@ -82,9 +84,9 @@ opt.fillchars       = {
   vertleft = '┨',
   vertright = '┣',
   verthoriz = '╋',
-} -- remove ugly vertical separator & end of boundary char
-
--- Extend defaults
+  -- vert = ' ',
+  eob = ' '
+} -- remove ugly vertical seperator & end of boundry char
 opt.diffopt:append   'vertical' -- Diff always open in vsplit
 opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
 
