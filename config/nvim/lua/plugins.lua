@@ -43,7 +43,17 @@ return packer.startup(function(use)
   use { 'kuntau/vim-osc52', keys = '<c-c>' } -- Copy & paste across tmux & screen over mosh
   use { 'wbthomason/packer.nvim', opt = true } -- Packer can manage itself
   use { 'kyazdani42/nvim-tree.lua', config = [[require('config.nvimtree')]], cmd = 'NvimTreeToggle' }
-  use { 'mbbill/undotree', config = [[vim.g.undotree_SetFocusWhenToggle = 1]],  cmd = 'UndotreeToggle' }
+  use { 'mbbill/undotree', config = [[
+    vim.g.undotree_WindowLayout = 2
+    vim.g.undotree_HelpLine = 0
+    vim.g.undotree_ShortIndicators = 1
+    vim.g.undotree_TreeNodeShape = '⧂'
+    vim.g.undotree_TreeVertShape = '│'
+    vim.g.undotree_TreeSplitShape = '╱'
+    vim.g.undotree_TreeReturnShape = '╲'
+    vim.g.undotree_SetFocusWhenToggle = 1
+  ]],  cmd = 'UndotreeToggle' }
+    -- vim.g.undotree_TreeNodeShape = '●'
   -- use { 'nvim-telescope/telescope.nvim', requires = {
   use { '~/coding/forks/telescope.nvim', requires = {
       { 'nvim-lua/plenary.nvim' },
