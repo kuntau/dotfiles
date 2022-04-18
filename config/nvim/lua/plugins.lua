@@ -171,6 +171,7 @@ return packer.startup(function(use)
 
   -- Language specifics
   use { 'SidOfc/mkdx', ft = 'markdown', config = [[require('config.markdown')]] }
+  use { 'nvim-neorg/neorg', config = [[require('config.neorg')]] }
   -- use { 'LhKipp/nvim-nu', ft = 'nu', after = 'nvim-treesitter' } -- nu shell systax, TSInstall nu
 
   -- automatically setup configurations after cloning packer
