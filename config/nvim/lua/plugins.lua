@@ -154,6 +154,7 @@ return packer.startup(function(use)
   use { 'christoomey/vim-tmux-navigator', config = 'vim.g.tmux_navigator_disable_when_zoomed = 1', event = 'BufReadPost' }
   use { 'mtth/scratch.vim', config = [[vim.g.scratch_persistence_file = '.scratch']], cmd = { 'Scratch', 'ScratchSelection' } }
   use { 'mattn/vim-gist', config = [[vim.g.gist_clip_command=pbcopy vim.g.gist_detect_filetype=1]], cmd = { 'Gist' } }
+  use { 'lewis6991/spellsitter.nvim', config = [[require('spellsitter').setup()]] }
 
   -- UI & UX
   use { 'kyazdani42/nvim-web-devicons' } -- for file icons
