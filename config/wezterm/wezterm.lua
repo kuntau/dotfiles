@@ -19,6 +19,15 @@ if use_webgpu then
       break
     end
   end
+
+local basename = function(s) return string.gsub(s, "(.*[/\\])(.*)", "%2") end
+
+local is_vim = function(pane)
+  wezterm.log_info('@is_vim, pane='..pane:get_foreground_process_name())
+  local proc = basename(pane:get_foreground_process_name())
+  wezterm.log_info('@is_vim, proc='..proc)
+  return proc ==  'nvim' or proc == 'vim'
+  -- return string.match(proc, 'nvim')
 end
 
 local COLORS = {
@@ -219,7 +228,7 @@ on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j')
 local is_remote = function(pane)
   local proc = basename(pane:get_foreground_process_name())
   wezterm.log_info('@is_remote, proc='..proc)
-  return proc ==  'mosh' or proc == 'ssh'
+  return proc ==  'mosh-client' or proc == 'ssh'
 end
 
 local direction = {
