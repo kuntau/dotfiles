@@ -52,7 +52,7 @@ if not configs.ls_emmet then
     default_config = {
       cmd = { 'ls_emmet', '--stdio' };
       filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'haml',
-        'xml', 'xsl', 'pug', 'slim', 'sass', 'stylus', 'less', 'sss'};
+        'xml', 'xsl', 'pug', 'slim', 'sass', 'stylus', 'less', 'sss', 'vue'};
       root_dir = function(--[[ fname ]])
         return vim.loop.cwd()
       end;
