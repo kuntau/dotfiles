@@ -62,7 +62,7 @@ if [[ $OS_NAME == Linux ]]; then
   export PATH=$PATH:/usr/local/go/bin
   export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL='/home/kuntau/.deno'
-  export PATH=$PATH:~/.local/lsp/sumneko.lua-2.5.3/server/bin/Linux # Sumneko lua path
+  export PATH=~/.local/lsp/lua-language-server/bin:$PATH # Sumneko lua path
 
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'hqsvr' ]]; then
@@ -94,8 +94,7 @@ elif [[ $OS_NAME == Darwin ]]; then
 
   # One off binary
   export PATH=~/.local/lsp/lua-language-server/bin:$PATH # Sumneko lua path
-  export PATH=~/Applications/goneovim.app/Contents/MacOS:$PATH # Neovim GUI in Go
-  export PATH=/usr/local/opt/sqlite/bin:$PATH                  # Homebrew's sqlite3
+  export PATH=/usr/local/opt/sqlite/bin:$PATH            # Homebrew's sqlite3
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
