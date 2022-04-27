@@ -44,10 +44,6 @@ vmap('K', ":m '<-2<CR>gv=gv")
 imap('<m-j>', '<Esc>:m .+1<CR>==gi')
 imap('<m-k>', '<Esc>:m .-2<CR>==gi')
 
-if vim.fn.has('nvim-0.7') ~= 1 then
-  nmap('Q', '@q')
-end
-
 -- clear search highlight
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
@@ -67,8 +63,6 @@ nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
 nmap('gos',        '<cmd>Startify<cr>')
 nmap('<F1>',       '<cmd>Startify<cr>')
-nmap('<Leader>G',  '<cmd>Neogit kind='..(orien() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
-nmap('gog',        '<cmd>Neogit kind='..(orien() == 'horizontal' and 'vsplit' or 'split')..'<cr>')
 nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
@@ -110,7 +104,7 @@ nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 if vim.fn.has('nvim-0.7') == 1 then
   vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end)
   vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end)
-  vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like?"}, function (input) print(input) end) end)
+  vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like? "}, function (input) print(input) end) end)
 end
 
 ---@experimental
