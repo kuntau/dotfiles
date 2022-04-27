@@ -42,7 +42,7 @@ local getOS = function ()
 end
 
 local getWinOrientation = function ()
-  return vim.o.columns <= 152 and 'vertical' or 'horizontal'
+  return vim.o.columns <= 154 and 'vertical' or 'horizontal'
 end
 
 local isGui = function ()
