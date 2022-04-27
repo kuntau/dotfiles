@@ -1,0 +1,99 @@
+[aws]
+symbol = "  "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+# [git_state]
+# format = '[\($state( $progress_current of $progress_total)\)]($style) '
+# cherry_pick = "[🍒 PICKING](bold red)"
+
+# [git_commit]
+# commit_hash_length = 4
+# tag_symbol = "🔖 "
+
+[git_metrics]
+disabled = true
+added_style = "bold blue"
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+
+[git_status]
+style = 'bold dimmed white'
+format = '([ \[$ahead_behind\] $all_status]($style) )'
+ahead = "[⇡${count}](green)"
+behind = "[⇣${count}](yellow)"
+diverged = "[⇵](purple bold)[⇡${ahead_count}](green)[⇣${behind_count}](yellow)"
+up_to_date = "[✓](green)"
+conflicted = "[☀$count](yellow) "
+stashed = "[♦$count](purple) "
+deleted = "[✘$count](red) "
+renamed = "[»$count](blue) "
+modified = "[☂$count](cyan) "
+staged = "[๏${count}](green) "
+untracked = "✪$count"
+
+[golang]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[package]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[shlvl]
+symbol = " "
+
+[swift]
+symbol = "ﯣ "

@@ -1,0 +1,175 @@
+# vim: foldmethod=marker foldlevel=0 nomodeline:
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# start zplug {{{
+source ~/.zplug/init.zsh
+
+# zplug can manage itself
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# from oh-my-zsh
+zplug "lib/clipboard",          depth:1, from:oh-my-zsh
+zplug "lib/history",            from:oh-my-zsh
+zplug "lib/completion",         from:oh-my-zsh
+zplug "lib/key-bindings",       from:oh-my-zsh
+zplug "lib/directories",        from:oh-my-zsh
+zplug "plugins/brew",           from:oh-my-zsh
+zplug "plugins/git",            from:oh-my-zsh
+zplug "plugins/git-extras",     from:oh-my-zsh
+zplug "plugins/git-flow",       from:oh-my-zsh
+zplug "plugins/node",           from:oh-my-zsh
+zplug "plugins/npm",            from:oh-my-zsh
+zplug "plugins/tmux",           from:oh-my-zsh
+zplug "plugins/docker",         from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
+
+# from github
+zplug "jeffreytse/zsh-vi-mode", depth:1
+zplug "zsh-users/zsh-completions", depth:1
+zplug "zsh-users/zsh-autosuggestions", depth:1
+zplug "zsh-users/zsh-history-substring-search", depth:1
+zplug "zsh-users/zsh-syntax-highlighting", depth:1, defer:2
+zplug "b4b4r07/enhancd", depth:1, use:init.sh
+zplug "agkozak/zsh-z", depth:1
+
+# theme
+zplug "romkatv/powerlevel10k", depth:1, use:powerlevel10k.zsh-theme
+
+if ! zplug check; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+zplug load
+# }}}
+
+# Set ENV VARIABLE {{{
+OS_NAME=$(uname)
+HOST_NAME=$(hostname)
+DOTFILES=$HOME/dotfiles
+
+# OS specific ENVIRONMENT VARIABLE
+if [[ $OS_NAME == Linux ]]; then
+  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
+  # export PATH=~/.local/bin:$PATH
+  # rust
+  # golang
+  export PATH=$PATH:/usr/local/go/bin
+  export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+  export DENO_INSTALL='/home/kuntau/.deno'
+  export PATH=~/.local/lsp/lua-language-server/bin:$PATH # Sumneko lua path
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'hqsvr' ]]; then
+    export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
+  fi
+elif [[ $OS_NAME == Darwin ]]; then
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'HQ' ]]; then
+    export ANDROID_HOME=/Volumes/HOME/Android/SDK
+    export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
+    export NNN_BMS='d:~/dotfiles;D:/Volumes/HOME/Downloads;E:/Volumes/Entertainment;f:~/coding/forks;C:~/coding;c:~/.config;l:~/.local'
+  elif [[ $HOST_NAME == 'rMBP' ]]; then
+    export ANDROID_HOME=~/Library/Android/sdk
+  fi
+
+  # python: https://docs.python.org/3/using/cmdline.html#environment-variables
+  export PYTHONUSERBASE=~/.local
+  export PATH=$PATH:$HOME/Library/Python/3.9/bin
+
+  # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
+  export GPG_TTY=$(tty)
+
+  # Homebrew
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+  export HOMEBREW_NO_AUTO_UPDATE=1
+  export HOMEBREW_NO_INSTALL_CLEANUP=1
+  export HOMEBREW_AUTO_UPDATE_SECS=86400
+
+  # One off binary
+  export PATH=~/.local/lsp/lua-language-server/bin:$PATH # Sumneko lua path
+  export PATH=/usr/local/opt/sqlite/bin:$PATH            # Homebrew's sqlite3
+elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
+  export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
+  source ~/dotfiles/mintty/sol.dark
+fi
+
+# Fix locale
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+# }}}
+
+# Plugins config & ENV {{{
+# zsh-completions. https://github.com/zsh-users/zsh-completions/
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
+
+# zsh-history-substring-search. https://github.com/zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# nnn - https://github.com/jarun/nnn
+export NNN_PLUG='f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum;m:mediainf;z:fzz;k:pskill;n:nuke'
+export NNN_OPTS='acdEHFrxQU'
+export NNN_OPENER='nuke'
+export NNN_COLORS='#0a1b2c3d'
+export NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
+export NNN_TRASH=0
+
+# bat - https://github.com/sharkdp/bat
+export BAT_THEME="gruvbox-dark"
+export BAT_STYLE="plain"
+export BAT_PAGER="less -RS"
+
+# enhancd - https://github.com/b4b4r07/enhancd
+export ENHANCD_FILTER=fzf
+export ENHANCD_DISABLE_DOT=0
+export ENHANCD_DISABLE_HYPHEN=0
+export ENHANCD_HYPHEN_ARG=';'
+export ENHANCD_DOT_ARG='.'
+
+# zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
+export ZVM_CURSOR_STYLE_ENABLED=false
+
+# FIX the blinding green on green directory listing on external drive.
+# Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
+if [[ -f ~/.dircolors ]]; then
+  eval $(dircolors -b ~/.dircolors)
+elif [[ -f /etc/DIR_COLORS ]]; then
+  eval $(dircolors -b /etc/DIR_COLORS)
+fi
+# }}}
+
+# Update $PATH (platform *nix)) {{{
+hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
+hash npm      2>/dev/null && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
+hash python3  2>/dev/null && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
+hash cargo    2>/dev/null && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
+hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # rust cargo binary path
+hash snap     2>/dev/null && export PATH=/snap/bin:$PATH                  # snap binary path
+export PATH=$PATH:$DENO_INSTALL/bin                                       # deno binary path
+export PATH=$DOTFILES/bin:$PATH
+# }}}
+
+# Extra sources {{{
+function zvm_after_init() {
+  [[ -x rustup ]] && source $HOME/.cargo/env
+  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+  hash fzf 2> /dev/null && source $DOTFILES/zsh/fzf.zsh
+  hash nnn 2> /dev/null && source $DOTFILES/nnn/quitcd.zsh
+
+  source $DOTFILES/zsh/default.zsh # my aliases
+  source $DOTFILES/zsh/aliases.zsh # my aliases
+  source $HOME/.secret             # don't commit this file
+  typeset -U PATH                  # remove dups from $PATH
+}
+# }}}

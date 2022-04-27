@@ -1,15 +1,12 @@
-[submodule "zsh-syntax-highlighting"]
-	path = zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/plugins/zsh-syntax-highlighting"]
-	path = zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "fonts/powerlist-fonts"]
 	path = fonts/powerlist-fonts
 	url = https://github.com/Lokaltog/powerline-fonts.git
 [submodule "code/Dropbox-Uploader"]
 	path = code/Dropbox-Uploader
 	url = https://github.com/andreafabrizi/Dropbox-Uploader.git
-[submodule "fonts/codeface"]
-	path = fonts/codeface
-	url = https://github.com/chrissimpkins/codeface.git
+[submodule "fonts/ia-fonts"]
+	path = /Users/kuntau/dotfiles/fonts/ia-fonts
+	url = https://github.com/iaolo/iA-Fonts.git
+[submodule "fonts/operator-mono"]
+	path = fonts/operator-mono
+	url = https://github.com/kuntau/coding-fonts.git

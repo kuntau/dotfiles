@@ -1,0 +1,120 @@
+# vim:ft=sshconfig
+
+Host *
+ControlMaster auto
+ControlPath /tmp/%r@%h:%p
+TCPKeepAlive=yes
+ServerAliveInterval=15
+ServerAliveCountMax=6
+Compression=yes
+ControlPersist yes
+
+Host hq
+  User     kuntau
+  HostName 175.139.178.197
+  Port     2211
+  # HostName kuntau.asuscomm.com
+  # HostName kosx.duckdns.org
+
+Host hqrouter
+  User     kuntau
+  HostName kuntau.asuscomm.com
+  Port     21211
+
+Host vps
+  User     kuntau
+  Port     2211
+  HostName root.kuntau.org
+
+Host dh
+  User     nizsul1
+  Port     22
+  HostName nizamdesign.com
+
+Host pi
+  User     kuntau
+  Port     22111
+  HostName kuntau.asuscomm.com
+
+Host ocean
+  User     kuntau
+  Port     2211
+  HostName do.kuntau.org
+
+Host mudd
+  User    u543271172
+  Port     65002
+  HostName 156.67.222.106
+
+Host papweb
+  User     papadmin
+  HostName nizamdesign.com
+
+Host papcc
+  User     Nizam
+  port     2211
+  HostName paptt.asuscomm.com
+
+Host paprouter
+  User     admin
+  port     22111
+  HostName paptt.asuscomm.com
+
+Host hqsvr
+  User     kuntau
+  HostName kuntau.asuscomm.com
+  port     22122
+
+Host papsvr
+  User     kuntau
+  HostName 175.139.178.197
+  port     22122
+
+#
+# Local Network
+#
+
+Host hqlocal
+  User     kuntau
+  HostName 192.168.1.100
+
+Host pilocal
+  User     kuntau
+  HostName 192.168.1.5
+
+Host rtlocal
+  User     kuntau
+  HostName 192.168.1.2
+  Port     21211
+
+Host papcclocal
+  User     Nizam
+  HostName 192.168.1.109
+
+Host paprouterlocal
+  User     admin
+  HostName 192.168.1.2
+
+Host papsvrlocal
+  User     kuntau
+  HostName 192.168.1.4
+
+Host hqsvrlocal
+  User     kuntau
+  HostName 192.168.1.4
+
+#
+# JOB
+#
+
+Host donbarbershop
+  User u220026892
+  Port 65002
+  # HostName 156.67.222.106 # SERVER LAMA
+  # HostName 156.67.222.148 # DALAM SETTING SSH
+  HostName 156.67.222.167
+
+Host donlegacy
+  User u129696706
+  Port 65002
+  HostName 156.67.222.106

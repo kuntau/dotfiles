@@ -1,0 +1,199 @@
+complete_from_path = true
+ctrlc_exit = false
+disable_table_indexes = false
+nonzero_exit_errors = true
+path = [
+  "/Users/kuntau/dotfiles/bin",
+  "/Users/kuntau/.local/bin",
+  "/Users/kuntau/.npm-global/bin",
+  "/usr/local/opt/sqlite/bin",
+  "/Users/kuntau/Applications/goneovim.app/Contents/MacOS",
+  "/Users/kuntau/.local/lsp/lua-language-server-2.6.0/bin",
+  "/Users/kuntau/.zplug/bin",
+  "/usr/local/bin",
+  "/usr/bin",
+  "/bin",
+  "/usr/sbin",
+  "/sbin",
+  "/Volumes/HOME/Android/flutter/bin",
+  "/Users/kuntau/Library/Python/3.9/bin",
+  "/Users/kuntau/.fzf/bin"
+]
+pivot_mode = "auto"
+prompt = "starship prompt"
+rm_always_trash = true
+skip_welcome_message = true
+startup = [
+  "mkdir ~/.cache/starship",
+  "starship init nu | save ~/.cache/starship/init.nu",
+  "source ~/.cache/starship/init.nu",
+  "def nudown [] {fetch https://api.github.com/repos/nushell/nushell/releases | get assets | select name download_count}",
+  "def nuver [] {version | pivot key value}",
+  "alias ll = ls -l",
+  "alias lsd = (ls | where type == Dir)",
+  "alias lsf = (ls | where type == File)",
+  "alias la = ls -al",
+  "alias vi = nvim",
+  "alias n = nnn",
+  "alias h = help",
+  "alias yt     = yt-dlp",
+  "alias ytmp3  = yt-dlp --extract-audio --audio-format mp3",
+  "alias ytopus = yt-dlp --extract-audio --audio-format opus",
+  "alias yta    = yt-dlp --extract-audio",
+  "alias ytav   = yt-dlp --extract-audio --keep-video",
+  "alias ytx    = proxychains4 yt-dlp",
+  "alias ng = g",
+  "alias g = git",
+  "alias gu = gitui",
+  "alias gf = git fzf",
+  "alias gd = git diff",
+  "alias gn = git now",
+  "alias gl = git pull",
+  "alias gp = git push",
+  "alias gf = git fetch",
+  "alias gst = git status"
+]
+table_mode = "light"
+
+[env]
+ANDROID_HOME = "/Volumes/HOME/Android/SDK"
+BAT_PAGER = "less -RS"
+BAT_STYLE = "plain"
+BAT_THEME = "Monokai Extended"
+CMD_DURATION_MS = "13"
+COLORTERM = "truecolor"
+EDITOR = "nvim"
+ENHANCD_COMMAND = "cd"
+ENHANCD_COMPLETION_BEHAVIOR = "default"
+ENHANCD_COMPLETION_DEFAULT = "expand-or-complete"
+ENHANCD_COMPLETION_KEYBIND = "^I"
+ENHANCD_DIR = "/Users/kuntau/.enhancd"
+ENHANCD_DISABLE_DOT = "1"
+ENHANCD_DISABLE_HOME = "0"
+ENHANCD_DISABLE_HYPHEN = "0"
+ENHANCD_DOT_ARG = ".."
+ENHANCD_FILTER = "fzy:fzf-tmux:fzf:peco:percol:gof:pick:icepick:sentaku:selecta"
+ENHANCD_HOME_ARG = ""
+ENHANCD_HYPHEN_ARG = ":"
+ENHANCD_HYPHEN_NUM = "10"
+ENHANCD_ROOT = "/Users/kuntau/.zplug/repos/b4b4r07/enhancd"
+ENHANCD_USE_FUZZY_MATCH = "1"
+FPATH = "/Users/kuntau/.zplug/repos/agkozak/zsh-z:/Users/kuntau/.zplug/repos/robbyrussell/oh-my-zsh/plugins/docker:/Users/kuntau/.zplug/repos/robbyrussell/oh-my-zsh/plugins/docker-compose:/Users/kuntau/.zplug/misc/completions:/Users/kuntau/.zplug/base/sources:/Users/kuntau/.zplug/autoload:/Users/kuntau/.zplug/base/utils:/Users/kuntau/.zplug/base/job:/Users/kuntau/.zplug/base/log:/Users/kuntau/.zplug/base/io:/Users/kuntau/.zplug/base/core:/Users/kuntau/.zplug/base/base:/Users/kuntau/.zplug/autoload/commands:/Users/kuntau/.zplug/autoload/options:/Users/kuntau/.zplug/autoload/tags:/usr/local/share/zsh/site-functions:/usr/share/zsh/site-functions:/usr/share/zsh/5.7.1/functions:/Users/kuntau/.zplug/repos/zsh-users/zsh-completions/src"
+FZF_ALT_C_OPTS = "--preview '(bat --style plain --wrap never --color always {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
+FZF_COLOR_MIRAGE = "--color=fg:#cbccc6,bg:#1f2430,hl:#707a8c --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff"
+FZF_CTRL_R_OPTS = "--preview 'echo {}' --preview-window down:wrap --bind '?:toggle-preview'"
+FZF_CTRL_T_COMMAND = "fd --type f --hidden --follow --exclude .git"
+FZF_CTRL_T_OPTS = "--select-1 --exit-0 --preview '(bat --style plain --wrap never --color always {} || cat {} || tree -C {}) 2> /dev/null | head -200' --preview-window wrap --bind '?:toggle-preview'"
+FZF_DEFAULT_COMMAND = "fd --type f --hidden --follow --exclude .git"
+FZF_DEFAULT_OPTS = "--extended --reverse --inline-info --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff"
+FZF_PREVIEW_OPTS = "(bat --style plain --wrap never --color always {} || cat {} || tree -C {}) 2> /dev/null | head -200"
+FZF_PREVIEW_WINDOW_DOWN = "--preview-window down:wrap --bind '?:toggle-preview'"
+FZF_PREVIEW_WINDOW_HIDDEN = "--preview-window hidden:wrap --bind '?:toggle-preview'"
+FZF_PREVIEW_WINDOW_RIGHT = "--preview-window wrap --bind '?:toggle-preview'"
+FZF_TMUX = "1"
+FZF_TMUX_HEIGHT = "40%"
+GPG_TTY = "/dev/ttys002"
+HOME = "/Users/kuntau"
+HOMEBREW_AUTO_UPDATE_SECS = "86400"
+HOMEBREW_CASK_OPTS = "--appdir=~/Applications"
+HOMEBREW_NO_AUTO_UPDATE = "0"
+LANG = "en_US.UTF-8"
+LANGUAGE = "en_US.UTF-8"
+LC_ALL = "en_US.UTF-8"
+LIBGL_ALWAYS_SOFTWARE = "true"
+LOGNAME = "kuntau"
+LaunchInstanceID = "41480667-731A-484D-9D2E-44A413365872"
+MANPAGER = "sh -c 'col -bx | bat -l man -p'"
+NNN_BMS = "d:~/dotfiles;D:/Volume/HOME/Downloads"
+NNN_OPENER = "nuke"
+NNN_OPTS = "acdEHFrxQU"
+NNN_PLUG = "f:fzcd;o:fzopen;z:fzz;d:diffs;t:treeview;v:preview-tui;h:fzhist;c:chksum;m:mediainf;z:fzz;k:pskill;n:nuke"
+NPM_CONFIG_PREFIX = "/Users/kuntau/.npm-global"
+OLDPWD = "/Users/kuntau/dotfiles"
+OMDB_KEY = "d8d12345"
+OS_PASS = "J^cL&HA*VLR^VPsrC!ccwckz@z5UbtGU7LkXtas92AcbNSNe&*PSRrbfT6Uo5o!C"
+OS_USER = "kuntau"
+P9K_SSH = "0"
+P9K_TTY = "old"
+PAGER = "bat -p"
+PERIOD = "30"
+PWD = "/Users/kuntau/dotfiles"
+SECURITYSESSIONID = "186a8"
+SHELL = "/bin/zsh"
+SHLVL = "1"
+SSH_AUTH_SOCK = "/private/tmp/com.apple.launchd.BNSXjHkqFq/Listeners"
+STARSHIP_SESSION_KEY = "RloZJilAox3mDgdm"
+STARSHIP_SHELL = "nu"
+TERM = "wezterm"
+TERM_PROGRAM = "WezTerm"
+TERM_PROGRAM_VERSION = "20220101-133340-7edc5b5a"
+TMPDIR = "/var/folders/g0/lxl1h_c15js78384w83z9hgh0000gn/T/"
+USER = "kuntau"
+VISUAL = "nvim"
+WEZTERM_CONFIG_DIR = "/Users/kuntau/.config/wezterm"
+WEZTERM_CONFIG_FILE = "/Users/kuntau/.config/wezterm/wezterm.lua"
+WEZTERM_EXECUTABLE = "/Users/kuntau/Applications/WezTerm.app/Contents/MacOS/wezterm-gui"
+WEZTERM_EXECUTABLE_DIR = "/Users/kuntau/Applications/WezTerm.app/Contents/MacOS"
+WEZTERM_PANE = "1"
+WEZTERM_UNIX_SOCKET = "/Users/kuntau/.local/share/wezterm/gui-sock-3935"
+XPC_FLAGS = "0x0"
+XPC_SERVICE_NAME = "0"
+ZPLUG_BIN = "/Users/kuntau/.zplug/bin"
+ZPLUG_CACHE_DIR = "/Users/kuntau/.zplug/cache"
+ZPLUG_ERROR_LOG = "/Users/kuntau/.zplug/.error_log"
+ZPLUG_FILTER = "fzf-tmux:fzf:peco:percol:fzy:zaw"
+ZPLUG_HOME = "/Users/kuntau/.zplug"
+ZPLUG_LOADFILE = "/Users/kuntau/.zplug/packages.zsh"
+ZPLUG_LOG_LOAD_FAILURE = "false"
+ZPLUG_LOG_LOAD_SUCCESS = "false"
+ZPLUG_PROTOCOL = "HTTPS"
+ZPLUG_REPOS = "/Users/kuntau/.zplug/repos"
+ZPLUG_ROOT = "/Users/kuntau/.zplug"
+ZPLUG_THREADS = "16"
+ZPLUG_USE_CACHE = "true"
+ZSH = "/Users/kuntau/.zplug/repos/robbyrussell/oh-my-zsh"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=240"
+ZSH_CACHE_DIR = "/Users/kuntau/.zplug/repos/robbyrussell/oh-my-zsh/cache/"
+ZSH_TMUX_CONFIG = "/Users/kuntau/.tmux.conf"
+ZSH_TMUX_TERM = "screen-256color"
+_ = "/usr/local/bin/nu"
+_ENHANCD_VERSION = "2.2.4"
+_P9K_TTY = "/dev/ttys002"
+_ZPLUG_AWKPATH = "/Users/kuntau/.zplug/misc/contrib"
+_ZPLUG_CONFIG_SUBSHELL = ":"
+_ZPLUG_OHMYZSH = "robbyrussell/oh-my-zsh"
+_ZPLUG_PREZTO = "sorin-ionescu/prezto"
+_ZPLUG_URL = "https://github.com/zplug/zplug"
+_ZPLUG_VERSION = "2.4.2"
+_ZSH_TMUX_FIXED_CONFIG = "/Users/kuntau/.zplug/repos/robbyrussell/oh-my-zsh/plugins/tmux/tmux.extra.conf"
+__CF_USER_TEXT_ENCODING = "0x1F5:0x0:0x0"
+
+[line_editor]
+auto_add_history = true
+bell_style = "audible"
+color_mode = "enabled"
+completion_prompt_limit = 100
+completion_type = "list" # circular|list
+completion_match_method = "case-insensitive"
+edit_mode = "vi"
+history_duplicates = "ignoreconsecutive"
+history_ignore_space = false
+keyseq_timeout_ms = 500
+max_history_size = 100000
+tab_stop = 4
+
+[textview]
+colored_output = true
+grid = false
+header = true
+line_numbers = true
+pager = "less"
+paging_mode = "QuitIfOneScreen"
+snip = true
+tab_width = 4
+term_width = "default"
+theme = "TwoDark"
+true_color = true
+use_italics = true
+vcs_modification_markers = true
+wrapping_mode = "NoWrapping"

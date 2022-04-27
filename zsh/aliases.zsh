@@ -1,60 +1,146 @@
 # alias 'dus=du -sckx * | sort -nr'
-alias 'dus=du -hd 1'
-alias 'l=ls -l'
+alias dus='du -hd 1'
 
-# config file shortcut
-alias 'zshrc=$EDITOR ~/.zshrc'
-alias 'vimrc=$EDITOR ~/.vimrc'
-alias 'git-plugin=cat ~/.oh-my-zsh/plugins/git/git.plugin.zsh'
+# files listing with optional exa -- colorized  everything
+if command -v exa &> /dev/null; then
+  alias l='exa'
+  alias ll='exa --long --group-directories-first'
+  alias la='exa -alg --git --group-directories-first'
+  alias laa='exa -alg -a --group-directories-first'
+  alias lsd='exa --long --only-dirs' # List only directories
+  alias lst='exa --long --tree --level=2 --group-directories-first' # Tree view
+  alias lsr='exa --long --recurse --level=2 --group-directories-first' # Recurse directories
+else
+  alias l="ls ${colorflag}" # List all files colorized in long format
+  alias la="ls -laGh ${colorflag}" # List all files colorized in long format, including dot files
+  alias lsd='ls -l | grep "^d"' # List only directories
+fi
+
+# FZF aliases
+if command -v fzf &> /dev/null; then
+  alias f='fzf-tmux'
+  alias ft='fzf-tmux --preview "bat --style=numbers --color=always {}"'
+  alias fp='fzf --preview "bat --style=numbers --color=always {}"'
+fi
+
+# docker aliases
+if command -v docker &> /dev/null; then
+  alias d='docker'
+  alias ds='docker start'
+  alias dst='docker stop'
+  alias dps='docker ps'
+  alias drm='docker rm'
+fi
+
+if command -v docker-compose &> /dev/null; then
+  alias dc='docker-compose'
+fi
 
 # nvim 24 bit color; TUI ENABLE not needed anymore
 if command -v nvim &>/dev/null; then
-  alias 'vi=nvim'
+  alias vi='nvim'
 else
-  alias 'vi=vim'
+  alias vi='vim'
+fi
+
+# set default top btop -> gotop -> htop -> top
+if command -v btop &>/dev/null; then
+  alias top=btop
+elif command -v gotop &>/dev/null; then
+  alias top=gotop
+elif command -v htop &>/dev/null; then
+  alias top=htop
+else
+  alias top=top
 fi
 
 # youtube-dl
-alias 'ytx=proxychains4 youtube-dl'
-alias 'yt=noglob youtube-dl'
-alias 'yt3=noglob youtube-dl -f 43' # 320p
-alias 'yt4=noglob youtube-dl -f 44' # 480p
-alias 'yt7=noglob youtube-dl -f 45' # 720p hd
-alias 'yt1=noglob youtube-dl -f 46' # 1080p full hd
-alias 'yta=noglob youtube-dl --extract-audio'
-alias 'ytav=noglob youtube-dl --extract-audio --keep-video'
-alias 'ytmp3=noglob youtube-dl --extract-audio --audio-format mp3'
+external_options='--downloader=aria2c --downloader-args "aria2c:--min-split-size=1M --max-connection-per-server=16 --max-concurrent-downloads=16 --split=16"'
+alias yt="noglob yt-dlp"
+alias yte="noglob yt-dlp $external_options"
+alias ytx='proxychains4 yt-dlp'
+alias yt3='noglob yt-dlp -f 43' # 320p
+alias yt4='noglob yt-dlp -f 44' # 480p
+alias yt7='noglob yt-dlp -f 45' # 720p hd
+alias yt1='noglob yt-dlp -f 46' # 1080p full hd
+alias yta='noglob yt-dlp --extract-audio'
+alias ytav='noglob yt-dlp --extract-audio --keep-video'
+alias ytmp3='noglob yt-dlp --extract-audio --audio-format mp3'
+alias ytopus='noglob yt-dlp --extract-audio --audio-format opus'
+alias ytmkv='noglob yt-dlp --merge-output-format mkv'
+alias ytmp4='noglob yt-dlp --merge-output-format mp4'
 
-# aria2c -x = number of concurrent connections
-alias 'a2=noglob aria2c -x8 --file-allocation=none'
+# aria2c -x = number of concurrent connections, -j = number of concurrent download
+alias a1='noglob aria2c -c -j1 -x8 --file-allocation=none --auto-file-renaming=false'
+alias a2='noglob aria2c -c -j2 -x8 --file-allocation=none --auto-file-renaming=false'
+alias a2limit="noglob aria2c -c -j2 -x8 --file-allocation=none --max-overall-download-limit="
 
-alias 'sub=subliminal download -l en -l ms'
+alias sub='subliminal --opensubtitles $OS_USER $OS_PASS --omdb $OMDB_KEY download -l en -l ms'
+alias subn='subliminal download -l en -l ms'
 alias comic='open -a "Simple Comic" $@'
 
 # node workflow
-alias 'npml=npm list --depth=0'
+alias npml='npm list --depth=0'
 
-# mounted volumes shortcut
-multi='/mnt/multi'
-osx='/Volumes/Home'
-www='/var/zpanel/hostdata/zadmin/public_html/'
+# laravel workflow
+alias artisan='php artisan'
+alias tinker='php artisan tinker'
 
 # prettify json on command line
 if command -v jq &> /dev/null; then
-  alias 'json=jq'
+  alias json='jq'
 else
-  alias 'json=python -mjson.tool'
+  alias json='python -mjson.tool'
 fi
 
-# alias 'zsh-plugin=cat ~/.oh-my-zsh/plugins/$@/$@.plugin.zsh'
-zsh-plugin() {
-  cat ~\/\.oh-my-zsh\/plugins\/"$@"\/"$@"\.plugin\.zsh
+OMZ_PATH='~/.zplug/repos/robbyrussell/oh-my-zsh'
+omz-plugin() {
+  less -S "~/.oh-my-zsh/plugins/$1/$1.plugin.zsh"
+}
+omz-plug() {
+  less -S "~/.oh-my-zsh/plugins/$1/README.md"
+}
+omz-readme() {
+  $PAGER "~/.oh-my-zsh/plugins/$1/README.md"
 }
 
 # create directory and immedietly cd into it
 mkd() {
-  mkdir -p "$@" && cd "$@"
+  mkdir -p "$1" && cd "$1"
 }
+
+# wget crate mirror
+alias wgetm="wget \
+  --mirror \
+  --convert-links \
+  --adjust-extension \
+  --page-requisites \
+  --no-parent \
+  --no-clobber \
+  $1"
+
+# wget throttle
+alias wgett="wget \
+  --header='Accept: text/html' \
+  --user-agent='Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/84.0.4147.140 Safari/537.36' \
+  --mirror \
+  --convert-links \
+  --adjust-extension \
+  --page-requisites \
+  --no-parent \
+  --wait=1 \
+  --limit-rate=200K \
+  -q --show-progress --continue \
+  $1"
+
+# recursive wget download
+# --cut-dirs=1 \
+alias wgetr='wget \
+  --mirror \
+  --no-parent \
+  --no-clobber \
+  --no-host-directories \
+  --reject "index.html*"'
 
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases
@@ -62,8 +148,8 @@ mkd() {
 #===============================================================
 
 # osx programs
-alias vlc='open -a "VLC"'
-alias st='open -a "Sublime Text"'
+# alias vlc='open -a "VLC"'
+# alias st='open -a "Sublime Text"'
 # also/or do this:
 # ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 alias preview="open -a '$PREVIEW'"
@@ -71,13 +157,9 @@ alias xcode="open -a '/Developer/Applications/Xcode.app'"
 alias filemerge="open -a '/Developer/Applications/Utilities/FileMerge.app'"
 
 # navigation
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-
-# general shortcuts
-alias pro="cd ~/coding"
-alias gh="open -a google\ chrome 'http://github.com/kuntau'"
-alias bl="open -a google\ chrome 'http://browserling.com'"
+alias ..='cd ..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # be nice
 alias please=sudo
@@ -103,23 +185,6 @@ else # OS X `ls`
   colorflag="-G"
 fi
 
-# List all files colorized in long format
-alias l="ls ${colorflag}"
-
-# List all files colorized in long format, including dot files
-alias la="ls -laGh ${colorflag}"
-
-# List only directories
-alias lsd='ls -l | grep "^d"'
-
-# Always use color output for `ls`
-# if [[ "$OSTYPE" =~ ^darwin ]]; then
-#   alias ls="command ls -G"
-# else
-#   alias ls="command ls --color"
-#   export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
-# fi
-
 # `cat` with beautiful colors. requires Pygments installed.
 #                  sudo easy_install Pygments
 alias c='pygmentize -O style=monokai -f console256 -g'
@@ -138,7 +203,7 @@ alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 # Enhanced WHOIS lookups
-alias whois="whois -h whois-servers.net"
+# alias whois="whois -h whois-servers.net"
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache"
@@ -169,8 +234,8 @@ alias c="tr -d '\n' | pbcopy"
 alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
 
 # Shortcuts
-alias g="git"
-alias v="vim"
+# alias g="git"
+# alias v="vim"
 
 # File size
 alias fs="stat -f \"%z bytes\""
@@ -194,7 +259,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # URL-encode strings
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
@@ -234,3 +299,6 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Tmux Helper
+alias takeover="tmux detach -a"
