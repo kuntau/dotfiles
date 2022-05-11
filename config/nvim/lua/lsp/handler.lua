@@ -32,7 +32,7 @@ local check_capabilities = function (feature)
   local supported = false
 
   for _, client in pairs(clients) do
-    supported = client.resolved_capabilities[feature] and true
+    supported = client.server_capabilities[feature] and true
   end
 
   return supported
