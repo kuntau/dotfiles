@@ -56,10 +56,10 @@ return packer.startup(function(use)
     -- vim.g.undotree_TreeNodeShape = '●'
   -- use { 'nvim-telescope/telescope.nvim', requires = {
   use { '~/coding/forks/telescope.nvim', requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim', },
-      { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { 'tami5/sqlite.lua', event = 'BufReadPre' }, after = 'telescope.nvim' },
-      { 'ahmedkhalf/project.nvim', after = 'telescope.nvim', config = function () require('project_nvim').setup() require('telescope').load_extension('projects') end, },
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', config = [[require('telescope').load_extension('fzf')]], run = 'make', after = 'telescope.nvim', },
+        { 'nvim-telescope/telescope-frecency.nvim', config = [[require('telescope').load_extension('frecency')]], requires = { 'tami5/sqlite.lua', event = 'BufReadPre' }, after = 'telescope.nvim' },
+        { 'ahmedkhalf/project.nvim', after = 'telescope.nvim', config = function () require('project_nvim').setup() require('telescope').load_extension('projects') end, },
     },
     config = [[require('config._telescope')]],
     cmd = 'Telescope',
@@ -74,14 +74,14 @@ return packer.startup(function(use)
 
   -- Syntaxes and such
   use { 'nvim-treesitter/nvim-treesitter', requires = {
-      { 'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter' }, -- Refactor module for treesitter
-      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' }, -- text-objects module for treesitter
-      { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' }, -- Location and syntax aware text objects
-      { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim' }, -- context-commentstring module for treesitter
-      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
-      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', ft = {'fnl'} },
-      { 'romgrk/nvim-treesitter-context', after = 'nvim-treesitter' },
-      { 'abecodes/tabout.nvim', config = [[require('tabout').setup()]], after = 'nvim-treesitter' }
+        { 'nvim-treesitter/nvim-treesitter-refactor',    after = 'nvim-treesitter' }, -- Refactor module for treesitter
+        { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' }, -- text-objects module for treesitter
+        { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' }, -- Location and syntax aware text objects
+        { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'Comment.nvim' }, -- context-commentstring module for treesitter
+        { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
+        { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter', ft = {'fnl'} },
+        { 'romgrk/nvim-treesitter-context', after = 'nvim-treesitter' },
+        { 'abecodes/tabout.nvim', config = [[require('tabout').setup()]], after = 'nvim-treesitter' }
     },
     event = 'BufRead',
     config = [[require('config.treesitter')]],
@@ -103,19 +103,19 @@ return packer.startup(function(use)
 
   -- Completions
   use { 'hrsh7th/nvim-cmp', requires = {
-      { 'hrsh7th/cmp-nvim-lsp',     event = 'BufReadPre' },
-      { 'github/copilot.vim',       after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-cmdline',      after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-copilot',      after = 'nvim-cmp' },
-      { 'andersevenrud/cmp-tmux',   after = 'nvim-cmp' },
-      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
-      { 'dmitmel/cmp-cmdline-history', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
-      { 'tzachar/cmp-fuzzy-buffer', requires = { 'tzachar/fuzzy.nvim' }, after = 'nvim-cmp' },
-      { 'tzachar/cmp-tabnine', run = './install.sh', config = [[require('config.tabnine')]], after = 'nvim-cmp' }
+        { 'hrsh7th/cmp-nvim-lsp',     event = 'BufReadPre' },
+        { 'github/copilot.vim',       after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-cmdline',      after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-copilot',      after = 'nvim-cmp' },
+        { 'andersevenrud/cmp-tmux',   after = 'nvim-cmp' },
+        { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+        { 'dmitmel/cmp-cmdline-history', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
+        { 'tzachar/cmp-fuzzy-buffer', requires = { 'tzachar/fuzzy.nvim' }, after = 'nvim-cmp' },
+        { 'tzachar/cmp-tabnine', run = './install.sh', config = [[require('config.tabnine')]], after = 'nvim-cmp' }
     },
     after = { 'nvim-treesitter', 'friendly-snippets' },
     config = [[require('config.cmp')]],
