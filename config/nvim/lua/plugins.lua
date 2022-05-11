@@ -90,7 +90,7 @@ return packer.startup(function(use)
   use { 'tpope/vim-surround', keys = { {'v', 'S'}, 'y', 'c', 'd' } }
   use { 'tpope/vim-repeat', keys = '.' }
   use { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } } -- gS for splitting & gJ for joining
-  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]], keys = { 'gb', 'gc', {'v','gb'}, {'v','gc'} } } -- Comment plugins with treesitter support
+  use { 'numToStr/Comment.nvim', config = [[require('config.comment')]], keys = { 'gb', 'gc', {'v','gb'}, {'v','gc'} } } -- Comment plugins with treesitter support
   use { 'windwp/nvim-autopairs', config = [[require('config.autopairs')]], event = 'InsertEnter *' } -- autopairs plugin
   use { 'andymass/vim-matchup', config = [[require('config.matchup')]], event = 'BufReadPost' } -- Replace default `matchit` & `matchparen`
 
