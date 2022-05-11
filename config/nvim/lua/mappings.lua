@@ -103,6 +103,7 @@ nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 
 if vim.fn.has('nvim-0.7') == 1 then
   vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end)
+  vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end)
   vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end)
   vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like? "}, function (input) print(input) end) end)
 end
