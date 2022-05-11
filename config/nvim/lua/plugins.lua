@@ -93,11 +93,9 @@ return packer.startup(function(use)
   -- Completions
   use { 'hrsh7th/nvim-cmp', requires = {
         { 'hrsh7th/cmp-nvim-lsp',     event = 'BufReadPre' },
-        { 'github/copilot.vim',       after = 'nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lua',     after = 'nvim-cmp' },
         { 'hrsh7th/cmp-path',         after = 'nvim-cmp' },
         { 'hrsh7th/cmp-cmdline',      after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-copilot',      after = 'nvim-cmp' },
         { 'andersevenrud/cmp-tmux',   after = 'nvim-cmp' },
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
         { 'dmitmel/cmp-cmdline-history', after = 'nvim-cmp' },
