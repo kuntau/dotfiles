@@ -33,6 +33,16 @@ autocmd('ft_nfo', {
 
 autocmd('ft_mdx', [[FileType markdown setlocal spell]], true)
 
+-- auto close nvimtree if it's the last window
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+      vim.cmd "quit"
+    end
+  end
+})
+
 --[[ TODO: Deal with this later
 
 " Get rid of trailing whitespace highlighting in mutt.
