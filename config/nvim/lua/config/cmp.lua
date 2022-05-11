@@ -63,7 +63,6 @@ cmp.setup({
     { name = 'nvim_lsp', max_item_count = 50 },
     { name = 'nvim_lua', max_item_count = 50 },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'copilot' }, -- github copitlot
     { name = 'cmp_tabnine' }, -- tabnine
     { name = 'path' }, -- path completion
     { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
