@@ -151,6 +151,7 @@ fi
 # Update $PATH (platform *nix)) {{{
 hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
 hash npm      2>/dev/null && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
+hash pnpm     2>/dev/null && export PNPM_HOME=$HOME/.npm-global/bin
 hash python3  2>/dev/null && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
 hash cargo    2>/dev/null && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
 hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # rust cargo binary path
