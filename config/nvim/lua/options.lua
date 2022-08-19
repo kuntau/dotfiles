@@ -107,12 +107,6 @@ g.loaded_tarPlugin      = 1
 g.loaded_zip            = 1
 g.loaded_zipPlugin      = 1
 
--- EXPERIMENTAL: https://github.com/neovim/neovim/pull/16600
-if fn.has('nvim-0.7') == 1 then
-  g.do_filetype_lua = 1
-  g.did_load_filetypes = 0
-end
-
 -- References: {
 -- https://github.com/tarruda/dot-files
 -- https://github.com/junegunn/dotfiles
