@@ -7,10 +7,11 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = 'all',
   -- ensure_installed = { 'bash', 'cmake', 'comment', 'cpp', 'css', 'dart', 'dockerfile', 'go', 'graphql', 'html', 'javascript', 'json', 'jsonc', 'lua', 'php', 'python', 'regex', 'ruby', 'scss', 'svelte', 'toml', 'tsx', 'typescript', 'vim', 'vue', 'yaml' },
   sync_install = true,
+  auto_install = true,
   highlight = {
     enable = true,
     use_languagetree= true,
-    addtional_vim_regex_highlighting = true,
+    addtional_vim_regex_highlighting = false,
   },
   incremental_selection = {
     enable = true,
