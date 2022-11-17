@@ -4,11 +4,12 @@ require('nvim-tree').setup({
   open_on_setup = true,
   open_on_tab = true,
   update_cwd = true,
+  reload_on_bufenter = true,
   hijack_cursor = true,
   disable_netrw = true,
   hijack_netrw = true,
   ignore_ft_on_setup = { 'startify', 'help' },
-  update_to_buf_dir = {
+  hijack_directories = {
     enable = false,
     auto_open = true,
   },
