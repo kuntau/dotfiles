@@ -88,7 +88,7 @@ return packer.startup(function(use)
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' }
   use { 'folke/trouble.nvim', config = [[require('config.trouble')]], cmd = 'Trouble' }
-  use { 'folke/lua-dev.nvim', module = 'lsp' }
+  use { 'folke/neodev.nvim', module = 'lsp' }
 
   -- Completions
   use { 'hrsh7th/nvim-cmp', requires = {
