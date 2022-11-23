@@ -75,7 +75,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-local luadev_ok, luadev = pcall(require, 'lua-dev')
+local luadev_ok, luadev = pcall(require, 'luadev')
 if luadev_ok then luadev.setup() end
 
 local runtime_path = vim.split(package.path, ';')
