@@ -38,9 +38,9 @@ local on_attach = function(client, bufnr)
   mapping.setup(bufnr, client.server_capabilities)
 
   if debug then
-    -- dbgi(vim.lsp.get_active_clients())
-    -- dbgi(client.supports_method('textDocument/codeAction'))
-    dbgi(client.server_capabilities.code_action)
+    dbgi(vim.lsp.get_active_clients())
+    dbgi(client.supports_method('textDocument/codeAction'))
+    --[[ dbgi(client.server_capabilities.code_action) ]]
   end
 
   -- handler.code_action(client)
@@ -62,8 +62,7 @@ if not configs.ls_emmet then
 end
 
 -- Setup lspconfig with snippet support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
