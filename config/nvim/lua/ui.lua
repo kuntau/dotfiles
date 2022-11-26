@@ -26,7 +26,7 @@ if utils.isGui() then -- running in GUI
   end
   vim.cmd 'colo tokyonight'
 else -- running in terminal
-  vim.cmd 'colo tokyonight'
+  vim.cmd 'colo nightfox'
 end
 
 -- Colorscheme
