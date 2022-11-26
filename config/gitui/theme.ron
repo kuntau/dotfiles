@@ -1,12 +1,18 @@
 (
+    // command_fg: Rgb(0xb0, 0xbe, 0xc5), // 0xB0BEC5 light gray
+    // command_fg: Rgb(235, 203, 139), // yellow
+    // disabled_fg: Rgb(191, 97, 106), // Red
+    // selected_tab: Rgb(191, 97, 106), // Red
+    // selection_bg: Rgb(0x2c, 0x32, 0x3c), // 0x2C323C
+    // selection_bg: Rgb(67, 76, 94), // gray
+    branch_fg: LightYellow, // New 25/11/22
+    cmdbar_bg: Rgb(0x24, 0x28, 0x2c), // New 25/11/22
     cmdbar_extra_lines_bg: Rgb(46, 52, 64),
     command_bg: Rgb(0x24, 0x28, 0x2c), // 0x24282C not added yet
-    // command_fg: Rgb(235, 203, 139), // yellow
-    // command_fg: Rgb(0xb0, 0xbe, 0xc5), // 0xB0BEC5 light gray
     command_fg: Rgb(163, 190, 140), // green
+    commit_author: Rgb(0x94, 0x9b, 0xa5), // 0x949ba5
     commit_hash: Rgb(0xff, 0xca, 0x43), // 0xFFCA43
     commit_time: Rgb(0xb0, 0xbe, 0xc5), // 0xB0BEC5
-    commit_author: Rgb(0x94, 0x9b, 0xa5), // 0x949ba5
     danger_fg: Rgb(0xe1, 0x73, 0x73), // 0xe17373
     diff_file_added: Rgb(235, 203, 139),
     diff_file_modified: Rgb(180, 142, 173),
@@ -15,12 +21,10 @@
     diff_line_add: Rgb(136, 192, 208),
     diff_line_delete: Rgb(191, 97, 106),
     disabled_fg: Rgb(0x4b,0x52,0x63), // 0x4B5263 2a2a37
-    // disabled_fg: Rgb(191, 97, 106), // Red
     push_gauge_bg: Rgb(0x50, 0x79, 0xbe), //0x5079be
     push_gauge_fg: Reset,
-    // selected_tab: Rgb(191, 97, 106), // Red
     selected_tab: Rgb(163, 190, 140), // green
-    // selection_bg: Rgb(0x2c, 0x32, 0x3c), // 0x2C323C
     selection_bg: Rgb(0x2a,0x2a,0x37), // 2a2a37
-    // selection_bg: Rgb(67, 76, 94), // gray
+    selection_fg: White, // New 25/11/22
+    tag_fg: LightMagenta, // New 25/11/22
 )
