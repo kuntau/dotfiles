@@ -126,9 +126,9 @@ return packer.startup(function(use)
   use { 'sainnhe/everforest', config = 'vim.g.everforest_background = hard', opt = true }
   use { 'rakr/vim-one', opt = true }
   use { 'catppuccin/nvim', as = 'catppuccin', config = [[require('config.catppuccin')]], opt = true }
-  use { 'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]], opt = true }
+  use { 'EdenEast/nightfox.nvim', config = [[require('config.nightfox')]] }
   use { 'marko-cerovac/material.nvim', config = 'vim.g.material_style = "palenight"', opt = true }
-  use { 'folke/tokyonight.nvim' }
+  use { 'folke/tokyonight.nvim', opt = true }
   use { 'rebelot/kanagawa.nvim', config = [[require'kanagawa'.setup{dimInactive = true, globalStatus = true }]] } -- tokyonight + gruvbox
 
   -- Qualify of life
