@@ -66,6 +66,7 @@ require('nvim-treesitter.configs').setup({
         ["ib"] = "@block.inner",
         ["al"] = "@call.outer",
         ["il"] = "@call.inner",
+        ['uc'] = '@comment.outer', -- <-- This one does the magic
       },
     },
     move = {
