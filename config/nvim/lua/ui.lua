@@ -24,7 +24,7 @@ if utils.isGui() then -- running in GUI
   elseif OS == 'linux'  then
     vim.opt.guifont = 'Jetbrains Nerd Font:h13'
   end
-  vim.cmd 'colo tokyonight'
+  vim.cmd 'colo nightfox'
 else -- running in terminal
   vim.cmd 'colo nightfox'
 end
