@@ -58,7 +58,8 @@ return packer.startup(function(use)
   -- Movements
   use { 'tpope/vim-unimpaired', event = 'BufReadPost' }
   use { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }
-  use { 'ggandor/lightspeed.nvim', config = 'vunmap S', keys = { 's', 'S', 'f', 'F', 't', 'T' } }
+  use { 'ggandor/leap.nvim', config = [[require('leap').add_default_mappings()]], keys = { 's', 'S', 'f', 'F', 't', 'T' }, }
+  use { 'ggandor/flit.nvim', config = [[require('flit').setup({multiline=false})]], after = 'leap.nvim', requires = 'leap.nvim', }
   use { 'mg979/vim-visual-multi', keys = '<c-n>'  }
 
   -- Syntaxes and such
@@ -151,6 +152,7 @@ return packer.startup(function(use)
   use { 'norcalli/nvim-terminal.lua', config = [[require('terminal').setup()]], ft = 'terminal' }
   use { 'edluffy/specs.nvim', config = [[require('config.cursor')]], event = 'BufReadPre' }
   use { 'anuvyklack/pretty-fold.nvim', config = [[require('config.fold')]], event = 'BufReadPre' }
+  
 
   -- StatusLine, bufferline & tabline
   use { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' } -- Tmux statusline
