@@ -33,6 +33,9 @@ autocmd('ft_nfo', {
 
 autocmd('ft_mdx', [[FileType markdown setlocal spell]], true)
 
+-- PHP Configurations
+autocmd('ft_php', [[FileType php,blade setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
+
 -- auto close nvimtree if it's the last window
 vim.api.nvim_create_autocmd("BufEnter", {
   nested = true,
@@ -58,10 +61,6 @@ autocmd FileType crontab setlocal backupcopy=yes
 
 " Ruby Configurations
 autocmd filetype ruby setlocal noexpandtab shiftwidth=2 tabstop=2
-
-" PHP Configurations
-autocmd FileType php,blade setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab colorcolumn=80
-" autocmd FileType php,blade setlocal omnifunc=phpcomplete_extended#CompletePHP colorcolumn=80
 
 " HTML configurations
 " autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
