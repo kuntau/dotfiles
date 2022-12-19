@@ -135,7 +135,7 @@ return packer.startup(function(use)
   -- Qualify of life
   use { 'junegunn/vim-easy-align', cmd = 'EasyAlign' }
   use { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }
-  use { 'numToStr/FTerm.nvim', config = [[require('FTerm').setup({cmd='/usr/local/bin/nu'})]], event = 'BufReadPost' }
+  use { 'numToStr/FTerm.nvim', event = 'BufReadPost' }
   use { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }
   use { 'dstein64/vim-startuptime', config = 'vim.g.startuptime_tries = 5', cmd = 'StartupTime' } -- startup time benachmarking
   use { 'antoinemadec/FixCursorHold.nvim', config = 'vim.g.cursorhold_updatetime = 100', event = 'BufReadPre' } -- Fix CursorHold,CursorHoldI bug
