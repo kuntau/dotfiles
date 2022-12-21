@@ -7,13 +7,13 @@
     ░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
 
 ## Rust overlord takeover
-- [ ] `bottom` over `top`, `htop`, `btop` or `ctop`
-- [ ] `ripgrep` over `grep`
-- [ ] `fd` over `find`
-- [ ] `exa` or `lsd` over `ls`
-- [ ] `dust` over `du`
-- [ ] `nu` over `zsh`
-- [ ] `spotifyd` and `spotify-tui` or `Spotify`
+- [-] `bottom` over `top`, `htop`, `btop` or `ctop`
+- [x] `ripgrep` over `grep`
+- [x] `fd` over `find`
+- [x] `exa` or `lsd` over `ls`
+- [x] `dust` over `du`
+- [-] `nu` over `zsh`
+- [-] `spotifyd` and `spotify-tui` or `Spotify`
 
 ## INSTALL SCRIPT
 - [x] Borrow code from ohmyzsh installer
@@ -37,6 +37,8 @@
 
 ## (Neo)ViM
 - [x] Use `ale` as `coc.nvim` replacement when `nodejs` not avaiable
+- [ ] Install `mason.nvim` to automate installing LSP servers
+- [ ] Rewrite mappings
 
 ## Config file
 - [x] Reorganize config files
