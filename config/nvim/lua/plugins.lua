@@ -8,9 +8,7 @@ return {
   -- end
 
   -- Essentials
-  { 'lewis6991/impatient.nvim' },
   { 'kuntau/vim-osc52', keys = '<c-c>' }, -- Copy & paste across tmux & screen over mosh
-  { 'wbthomason/packer.nvim', lazy = true }, -- Packer can manage itself
   { 'kyazdani42/nvim-tree.lua', config = function() require('config.nvimtree') end, cmd = 'NvimTreeToggle' },
   { 'mbbill/undotree', config = function()
     vim.g.undotree_WindowLayout = 2
@@ -23,18 +21,18 @@ return {
     vim.g.undotree_SetFocusWhenToggle = 1
   end,  cmd = 'UndotreeToggle' },
     -- vim.g.undotree_TreeNodeShape = '●'
-  -- use { 'nvim-telescope/telescope.nvim', dependencies = {
-  { dir = '~/coding/forks/telescope.nvim', dependencies = {
+  { 'nvim-telescope/telescope.nvim', dependencies = {
+  -- { dir = '~/coding/forks/telescope.nvim', dependencies = {
         'nvim-lua/plenary.nvim',
         { 'nvim-telescope/telescope-fzf-native.nvim', config = function() require('telescope').load_extension('fzf') end, build = 'make' },
         { 'nvim-telescope/telescope-frecency.nvim', config = function() require('telescope').load_extension('frecency') end, dependencies = 'tami5/sqlite.lua' },
         { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup() require('telescope').load_extension('projects') end, },
     },
+    dev = true,
     config = function() require('config._telescope') end,
     cmd = 'Telescope',
   },
-  -- { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end },
-  { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end },
+  { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end, cmd = 'Startify' },
 
   -- Movements
   { 'tpope/vim-unimpaired', event = 'BufReadPost' },
@@ -100,15 +98,15 @@ return {
   { 'L3MON4D3/LuaSnip', dependencies = 'rafamadriz/friendly-snippets' },
 
   -- Colorschemes
-  { 'kuntau/ayu-vim', branch = 'italic', lazy = true },
-  { 'arcticicestudio/nord-vim', lazy = true },
-  { 'NLKNguyen/papercolor-theme', lazy = true },
-  { 'sainnhe/everforest', config = function() vim.g.everforest_background = hard end, lazy = true },
-  { 'rakr/vim-one', lazy = true },
-  { 'catppuccin/nvim', name = 'catppuccin', config = function() require('config.catppuccin') end, lazy = true },
+  { 'kuntau/ayu-vim', branch = 'italic' },
+  { 'arcticicestudio/nord-vim' },
+  { 'NLKNguyen/papercolor-theme' },
+  { 'sainnhe/everforest', config = function() vim.g.everforest_background = hard end },
+  { 'rakr/vim-one' },
+  { 'catppuccin/nvim', name = 'catppuccin', config = function() require('config.catppuccin') end },
   { 'EdenEast/nightfox.nvim', config = function() require('config.nightfox') end },
-  { 'marko-cerovac/material.nvim', config = function() vim.g.material_style = "palenight" end, lazy = true },
-  { 'folke/tokyonight.nvim', lazy = true },
+  { 'marko-cerovac/material.nvim', config = function() vim.g.material_style = "palenight" end },
+  { 'folke/tokyonight.nvim' },
   { 'rebelot/kanagawa.nvim', config = function() require'kanagawa'.setup{dimInactive = true, globalStatus = true } end }, -- tokyonight + gruvbox
 
   -- Qualify of life
