@@ -95,7 +95,8 @@ nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
 nmap('<Leader>fc', '<cmd>Telescope commands<cr>')
 nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
-nmap('<Leader>ff', '<cmd>Telescope frecency<cr>')
+nmap('<Leader>ff', '<cmd>Telescope frecency workspace=CWD<cr>')
+nmap('<Leader>fF', '<cmd>Telescope frecency<cr>')
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
