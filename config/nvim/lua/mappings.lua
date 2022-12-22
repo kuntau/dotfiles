@@ -28,7 +28,7 @@ nmap('<F5>','<cmd>lua require("specs").show_specs()<cr>')
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
 nmap('<Leader>oC', '<cmd>'..(orien() == 'vertical' and 's' or 'vs')..'plit term://nu<cr>')
 nmap('<Leader>oc', '<cmd>term<cr>')
-tmap('<Leader><Esc>', ts)
+tmap('<LocalLeader><Esc>', ts)
 tmap('<M-`>', [[<cmd>lua require('FTerm').toggle()<CR>]])
 map('<M-`>', [[<cmd>lua require('FTerm').toggle()<CR>]])
 
