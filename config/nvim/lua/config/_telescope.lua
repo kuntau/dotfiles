@@ -35,7 +35,7 @@ require('telescope').setup ({
         ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
       }
     },
-    file_ignore_patterns = { '^node_modules/', '^.git/' },
+    file_ignore_patterns = { '^node_modules/', '^.git/', '^vendor/' },
     layout_strategy      = (require("utils").getWinOrientation)(),
     path_display         = { 'smart' },
     selection_strategy   = 'closest',
@@ -60,6 +60,7 @@ require('telescope').setup ({
       previewer = false,
       no_ignore = true,
       follow = true,
+      hidden = true,
     },
     oldfiles = {
       only_cwd = true,
