@@ -68,14 +68,6 @@ nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
 nmap('goh',        '<cmd>Scratch<CR>')
 
--- Packer
-nmap('<Leader>pi', '<cmd>Pac Install<cr>')
-nmap('<Leader>pc', '<cmd>Pac Compile<cr>')
-nmap('<Leader>ps', '<cmd>Pac Sync<cr>')
-nmap('<Leader>pt', '<cmd>Pac Status<cr>')
-nmap('<Leader>pn', '<cmd>Pac Clean<cr>')
-nmap('<Leader>pp', '<cmd>Pac Profile<cr>')
-
 -- Splitjoin
 nmap('gJ', '<cmd>SplitjoinJoin<cr>')
 nmap('gS', '<cmd>SplitjoinSplit<cr>')
