@@ -1,8 +1,8 @@
 -- init.lua --
 
 require('options')
-require('ui')
 require('config.lazy')
+require('ui')
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
