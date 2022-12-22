@@ -70,10 +70,10 @@ local startify_config = function()
   vim.g.startify_commands = {
     { fp = { 'Projects',     'Telescope projects' }},
     { fo = { 'Old files',    'Telescope oldfiles' }},
-    { ff = { 'Frecency',    'Telescope frecency' }},
-    { go = { 'Neogit',   'Neogit' }},
-    { gc = { 'Git commits',  'Telescope git_commits' }},
-    { ps = { 'Pac Sync',     'Pac Sync' }},
+    { ff = { 'Frecency',     'Telescope frecency' }},
+    { fc = { 'Git commits',  'Telescope git_commits' }},
+    { og = { 'Neogit',       'Neogit' }},
+    { ol = { 'Lazy',         'Lazy' }},
     { st = { 'Startup Time', 'StartupTime' }},
     { ch = { 'Check Health', 'checkhealth' }},
   }
