@@ -15,11 +15,11 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- load lazy
 require("lazy").setup("plugins", {
-  defaults = { lazy = false },
-  install = { colorscheme = { "nightfox", "tokyonight", "kanagawa" } },
+  defaults = { lazy = true },
+  install = { colorscheme = { "nightfox", "habamax" } },
   checker = { enabled = true },
   performance = {
-    cache = false,
+    cache = { enabled = true },
     rtp = {
       disabled_plugins = {
         "gzip",
@@ -34,5 +34,8 @@ require("lazy").setup("plugins", {
     },
   },
   debug = false,
+  dev = {
+    path = "~/coding/forks"
+  }
 })
 -- vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
