@@ -8,10 +8,11 @@
 
 ## Building Neovim
 
-1. Clone neovim repo `https://github.com/neovim/neovim.git`
+1. Clone Neovim repo `https://github.com/neovim/neovim.git`
 2. Make with `make CMAKE_BUILD_TYPE=Release install`
 3. To change install directory add `CMAKE_INSTALL_PREFIX=$HOME/Example/Dir` to command above
 4. Try `rm -rf build` if build fails after pulling from _master_
+5. Even better, do `make distclean and make CMAKE_BUILD_TYPE=Release`
 
 ## Troubeshooting
 
@@ -23,7 +24,7 @@ If we got error `unknown terminal type` while setting up the `TERM` value, it's 
 3. Import with `tic -x _<FILENAME>_`
 4. Set our `TERM` env with new _<TERM_NAME>_
 
-### Error installing neovim **HEAD** with `homebrew`
+### Error installing Neovim **HEAD** with `homebrew`
 
 If we got the following error
 
@@ -43,3 +44,17 @@ static void buf_set_term_title(buf_T *buf, char *title)
 
 > This should be fixed in Homebrew for now. You need to do `brew unlink libvterm` (or `brew uninstall --force libvterm` if you don't otherwise need it) if you have Homebrew installed into `/usr/local`.
 > If that still doesn't work, do `brew update` first.
+
+## Neovim <3 Lua
+
+- To access `vim` function from lua, prefix the function with `vim.fn`. Ex. `vim.fn.fnameescape`
+- To access `vim` variable from lua, prefix the function with `vim.v`. Ex. `vim.v.oldfiles`
+- To access `vim` global settings from lua, prefix the function with `vim.g`. Ex. `vim.g.loaded_zip`
+- To access `vim` options from lua, prefix the function with `vim.opt`. Ex. `vim.opt.clipboard`
+
+### Tips
+
+1. Spelling
+- `]s` or `[s` to jump to misspelled words.
+- `zg` to add word under cursor to external dictionary.
+- `z=` to get suggestions for misspelled word under cursor.
