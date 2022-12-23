@@ -32,13 +32,13 @@ return {
     config = function() require('config._telescope') end,
     cmd = 'Telescope',
   },
-  { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end, cmd = 'Startify' },
+  { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end, cmd = 'Startify' }, -- TODO: Replace with mini.starter & mini.session
 
   -- Movements
   { 'tpope/vim-unimpaired', event = 'BufReadPost' },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } },
   { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings() end, keys = { 's', 'S', 'f', 'F', 't', 'T' } },
-  { 'ggandor/flit.nvim', config = function() require('flit').setup({multiline=false}) end },
+  -- { 'ggandor/flit.nvim', config = function() require('flit').setup({multiline=false}) end }, TODO: Replace with mini.jump
   { 'mg979/vim-visual-multi', keys = '<c-n>'  },
 
   -- Syntaxes and such
@@ -56,10 +56,10 @@ return {
     config = function() require('config.treesitter') end,
     build = ':TSUpdate' -- We recommend updating the parsers cmd update
   },
-  { 'tpope/vim-surround', keys = { {'v', 'S'}, 'y', 'c', 'd' } },
+  { 'tpope/vim-surround', keys = { 'y', 'c', 'd' } }, -- TOOD: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
   { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining
-  { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc', {'v','gb'}, {'v','gc'} } }, -- Comment plugins with treesitter support
+  { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc' } }, -- Comment plugins with treesitter support
   { 'windwp/nvim-autopairs', config = function() require('config.autopairs') end, event = 'InsertEnter *' }, -- autopairs plugin
   { 'andymass/vim-matchup', config = function() require('config.matchup') end, event = 'BufReadPost' }, -- Replace default `matchit` & `matchparen`
 
@@ -68,7 +68,7 @@ return {
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
   { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' },
   { 'folke/trouble.nvim', config = function() require('config.trouble') end, cmd = 'Trouble' },
-  'folke/neodev.nvim',
+  { 'folke/neodev.nvim', ft = 'lua' },
 
   -- Completions
   { 'hrsh7th/nvim-cmp', dependencies = {
@@ -101,7 +101,7 @@ return {
   { 'kuntau/ayu-vim', branch = 'italic' },
   { 'arcticicestudio/nord-vim' },
   { 'NLKNguyen/papercolor-theme' },
-  { 'sainnhe/everforest', config = function() vim.g.everforest_background = hard end },
+  { 'sainnhe/everforest', config = function() vim.g.everforest_background = 'hard' end },
   { 'rakr/vim-one' },
   { 'catppuccin/nvim', name = 'catppuccin', config = function() require('config.catppuccin') end },
   { 'EdenEast/nightfox.nvim', config = function() require('config.nightfox') end },
@@ -112,14 +112,14 @@ return {
   -- Qualify of life
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
   { 'gennaro-tedesco/nvim-peekup', keys = [[""]] },
-  { 'numToStr/FTerm.nvim', event = 'BufReadPost' },
-  { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } },
+  { 'numToStr/FTerm.nvim' },
+  { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking
   { 'antoinemadec/FixCursorHold.nvim', config = function() vim.g.cursorhold_updatetime = 100 end, event = 'BufReadPre' }, -- Fix CursorHold,CursorHoldI bug
   { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, event = 'BufReadPost' },
   { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
-  { 'mattn/vim-gist', config = function() vim.g.gist_clip_command=pbcopy vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
   { 'lewis6991/spellsitter.nvim', config = function() require('spellsitter').setup() end },
+  { 'mattn/vim-gist', config = function() vim.g.gist_clip_command='pbcopy' vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
 
   -- UI & UX
   { 'kyazdani42/nvim-web-devicons' }, -- for file icons
@@ -137,4 +137,3 @@ return {
   { 'SidOfc/mkdx', ft = 'markdown', config = function() require('config.markdown') end }
   -- use { 'LhKipp/nvim-nu', ft = 'nu', after = 'nvim-treesitter' } -- nu shell systax, TSInstall nu
 }
-
