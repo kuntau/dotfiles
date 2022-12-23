@@ -17,6 +17,7 @@
   "cmp-tabnine": { "branch": "main", "commit": "851fbcc8ee54bdb93f9482e13b5fc31b50012422" },
   "cmp-tmux": { "branch": "main", "commit": "984772716f66d8ee88535a6bf3f94c4b4e1301f5" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
+  "dial.nvim": { "branch": "master", "commit": "61afb28f61ba090a67a88186f7bc8a94212e509a" },
   "diffview.nvim": { "branch": "main", "commit": "3812e296d3977a24db62f7c18025755b40968d3a" },
   "everforest": { "branch": "master", "commit": "8c1f892e31d22a0d99876793788d323eed68f3cd" },
   "flit.nvim": { "branch": "main", "commit": "be110f9814a45788d10537fd59b3c76d956bb7ad" },
