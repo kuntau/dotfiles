@@ -50,7 +50,7 @@ return {
         { 'windwp/nvim-ts-autotag', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
         { 'p00f/nvim-ts-rainbow', ft = {'fnl'} },
         { 'romgrk/nvim-treesitter-context' },
-        { 'abecodes/tabout.nvim', config = function() require('tabout').setup() end }
+        { 'abecodes/tabout.nvim', config = true }
     },
     event = 'BufReadPost',
     config = function() require('config.treesitter') end,
@@ -107,7 +107,7 @@ return {
   { 'EdenEast/nightfox.nvim', config = function() require('config.nightfox') end },
   { 'marko-cerovac/material.nvim', config = function() vim.g.material_style = "palenight" end },
   { 'folke/tokyonight.nvim' },
-  { 'rebelot/kanagawa.nvim', config = function() require'kanagawa'.setup{dimInactive = true, globalStatus = true } end }, -- tokyonight + gruvbox
+  { 'rebelot/kanagawa.nvim', config = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
 
   -- Qualify of life
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
@@ -118,14 +118,14 @@ return {
   { 'antoinemadec/FixCursorHold.nvim', config = function() vim.g.cursorhold_updatetime = 100 end, event = 'BufReadPre' }, -- Fix CursorHold,CursorHoldI bug
   { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, event = 'BufReadPost' },
   { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
-  { 'lewis6991/spellsitter.nvim', config = function() require('spellsitter').setup() end },
+  { 'lewis6991/spellsitter.nvim', config = true },
   { 'mattn/vim-gist', config = function() vim.g.gist_clip_command='pbcopy' vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
 
   -- UI & UX
   { 'kyazdani42/nvim-web-devicons' }, -- for file icons
   { 'lukas-reineke/indent-blankline.nvim', config = function() require('config.indent') end, cmd = 'IndentBlanklineEnable' },
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' },
-  { 'norcalli/nvim-terminal.lua', config = function() require('terminal').setup() end, ft = 'terminal' },
+  { 'norcalli/nvim-terminal.lua', config = true, ft = 'terminal' },
   { 'edluffy/specs.nvim', config = function() require('config.cursor') end, event = 'BufReadPre' },
   { 'anuvyklack/pretty-fold.nvim', config = function() require('config.fold') end, event = 'BufReadPre' },
 
