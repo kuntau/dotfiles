@@ -17,7 +17,7 @@ vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[\]]
 
 -- load lazy
-require("lazy").setup("plugins", {
+require("lazy").setup("config.plugins", {
   defaults = { lazy = true },
   install = { colorscheme = { "nightfox", "habamax" } },
   checker = { enabled = true },
@@ -41,4 +41,4 @@ require("lazy").setup("plugins", {
     path = "~/coding/forks"
   }
 })
--- vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
+vim.keymap.set("n", "gol", "<cmd>:Lazy<cr>")

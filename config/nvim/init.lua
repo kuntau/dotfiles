@@ -1,14 +1,14 @@
 -- init.lua --
 
-require('options')
+require('config.options')
 require('config.lazy')
-require('ui')
+require('config.ui')
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    require('mappings')
-    require('events')
-    require('commands')
+    require('config.mappings')
+    require('config.events')
+    require('config.commands')
   end
 })
