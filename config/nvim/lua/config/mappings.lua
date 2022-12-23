@@ -99,6 +99,7 @@ if vim.fn.has('nvim-0.7') == 1 then
   vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end)
   vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end)
   vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like? "}, function (input) print(input) end) end)
+  vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end)
 end
 
 ---@experimental
