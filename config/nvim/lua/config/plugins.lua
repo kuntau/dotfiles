@@ -37,9 +37,6 @@ return {
   -- Movements
   { 'tpope/vim-unimpaired', event = 'BufReadPost' },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } },
-  { 'ggandor/leap.nvim', config = true, keys = { 's', 'S', 'f', 'F', 't', 'T' } },
-  -- { 'ggandor/leap.nvim', config = function() require('leap').add_default_mappings() end, keys = { 's', 'S', 'f', 'F', 't', 'T' } },
-  -- { 'ggandor/flit.nvim', config = function() require('flit').setup({multiline=false}) end }, TODO: Replace with mini.jump
   { 'mg979/vim-visual-multi', keys = '<c-n>'  },
 
   -- Syntaxes and such
@@ -57,13 +54,12 @@ return {
     config = function() require('config.treesitter') end,
     build = ':TSUpdate' -- We recommend updating the parsers cmd update
   },
-  -- { 'tpope/vim-surround', keys = { 'y', 'c', 'd' } }, -- TOOD: Replace with mini.surround
-  -- { 'tpope/vim-repeat', keys = '.' },
+  { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'y', 'c', 'd' } }, -- TOOD: Replace with mini.surround
+  { 'tpope/vim-repeat', keys = '.' },
   { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining
   { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc' } }, -- Comment plugins with treesitter support
   { 'windwp/nvim-autopairs', config = function() require('config.autopairs') end, event = 'InsertEnter *' }, -- autopairs plugin
   { 'andymass/vim-matchup', config = function() require('config.matchup') end, event = 'BufReadPost' }, -- Replace default `matchit` & `matchparen`
-  { 'echasnovski/mini.surround', keys = 's' },
 
   -- LSP & diagnostics
   { 'neovim/nvim-lspconfig', config = function() require('lsp') end, event = 'BufReadPre' },
@@ -133,7 +129,7 @@ return {
 
   -- StatusLine, bufferline & tabline
   { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' }, -- Tmux statusline
-  { 'nvim-lualine/lualine.nvim', config = function() require('config.statusline') end, event = 'User StartifyReady' }, -- statusline
+  { 'nvim-lualine/lualine.nvim', config = function() require('config.statusline') end, event = 'VeryLazy' }, -- statusline
 
   -- Language specifics
   { 'SidOfc/mkdx', ft = 'markdown', config = function() require('config.markdown') end }
