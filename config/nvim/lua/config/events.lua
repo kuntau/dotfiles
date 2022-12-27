@@ -36,11 +36,11 @@ autocmd('ft_mdx', [[FileType markdown setlocal spell]], true)
 -- PHP Configurations
 autocmd('ft_php', [[FileType php,blade setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
 
--- auto close nvimtree if it's the last window
+-- auto close nvimtree/neogit if it's the last window
 vim.api.nvim_create_autocmd("BufEnter", {
   nested = true,
   callback = function()
-    if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+    if #vim.api.nvim_list_wins() == 1 and (vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil or vim.api.nvim_buf_get_name(0):match("NeogitStatus") ~= nil) then
       vim.cmd "quit"
     end
   end
