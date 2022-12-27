@@ -15,8 +15,8 @@ nf.setup({
     },
     inverse = {
       match_paren = false, -- Enable/Disable inverse highlighting for match parens
-      visual = false, -- Enable/Disable inverse highlighting for visual selection
-      search = false, -- Enable/Disable inverse highlights for search highlights
+      visual = true, -- Enable/Disable inverse highlighting for visual selection
+      search = true, -- Enable/Disable inverse highlights for search highlights
     },
     -- colors = {}, -- Override default colors
     -- hlgroups = {}, -- Override highlight groups
