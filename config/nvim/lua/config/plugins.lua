@@ -21,7 +21,6 @@ return {
   { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TODO: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
   { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining. TODO: Replace with Wansmer/treesj
-  { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc' } }, -- Comment plugins with treesitter support
   { 'windwp/nvim-autopairs', config = function() require('config.autopairs') end, event = 'InsertEnter *.*' }, -- autopairs plugin
   { 'andymass/vim-matchup', config = function() require('config.matchup') end, event = 'BufReadPost' }, -- Replace default `matchit` & `matchparen`
 

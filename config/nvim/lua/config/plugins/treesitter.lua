@@ -145,8 +145,7 @@ return {
     init = init,
     build = ':TSUpdate' -- We recommend updating the parsers cmd update
   },
-  { 'JoosepAlviste/nvim-ts-context-commentstring' }, -- context-commentstring module for treesitter
   { 'windwp/nvim-ts-autotag', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
   { 'p00f/nvim-ts-rainbow' }, -- TS powered rainbow brackets
-  { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *' }, -- TS - easy exit in params
+  { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *.*' }, -- TS - easy exit in params
 }
