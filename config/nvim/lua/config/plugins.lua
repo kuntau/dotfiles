@@ -113,7 +113,6 @@ return {
   { 'numToStr/FTerm.nvim' },
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking
-  { 'antoinemadec/FixCursorHold.nvim', config = function() vim.g.cursorhold_updatetime = 100 end, event = 'BufReadPre' }, -- Fix CursorHold,CursorHoldI bug
   { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, event = 'BufReadPost' },
   { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
   { 'lewis6991/spellsitter.nvim', config = true },
