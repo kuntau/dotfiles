@@ -4,57 +4,13 @@ local dbgi = require("utils.logger").dbgi
 local debug = false
 
 -- nvim_create_user_command({name}, {command}, {*opts})
-local cmd = vim.api.nvim_create_user_command
+local add_cmd = vim.api.nvim_create_user_command
 
--- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation
-vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
-  group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
-  callback = function()
-    vim.opt.foldmethod     = 'expr'
-    vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
-  end
-})
-
--- Packer commands
-cmd('Pac', function (cmd)
-  vim.cmd 'packadd packer.nvim'
-  -- local packer = require("packer")
-  local plugin = require("plugins")
-  local arg   = string.lower(cmd.args) or nil
-
-  if cmd and debug then
-    dbgi(cmd, arg)
-  end
-
-  if arg == 'clean' then
-    plugin.clean()
-  elseif arg == 'update' then
-    plugin.update()
-  elseif arg == 'install' then
-    plugin.install()
-  elseif arg == 'sync' then
-    plugin.sync()
-  elseif arg == 'status' then
-    plugin.status()
-  elseif arg == 'profile' then
-    plugin.profile_output()
-  elseif arg == 'compile' then
-    plugin.compile()
-  elseif arg == 'compile+profile' then
-    plugin.compile('profile=true')
-  else
-    vim.notify('Packer Error: No command for '..arg, vim.log.levels.ERROR)
-  end
-end, {
-    nargs = '?',
-    complete = function ()
-      return { 'Clean', 'Compile', 'Update', 'Sync', 'Install', 'Profile', 'Status', 'Compile+Profile' }
-    end
-})
-
-cmd('G', function () require("FTerm").scratch({ cmd = 'gitui' }) end, { nargs = 0 })
-cmd('Top', function () require("FTerm").scratch({ cmd = 'btop' }) end, { nargs = 0 })
-cmd('TM', function () require("FTerm").scratch({ cmd = 'tm' }) end, { nargs = 0 })
+add_cmd('YankOSC52', '<Plug>(YankOSC52)', {nargs = 0})
+-- FTerm
+add_cmd('G', function () require("FTerm").scratch({ cmd = 'gitui' }) end, { nargs = 0 })
+add_cmd('Top', function () require("FTerm").scratch({ cmd = 'btop' }) end, { nargs = 0 })
+add_cmd('TM', function () require("FTerm").scratch({ cmd = 'tm' }) end, { nargs = 0 })
 -- command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete  PackerInstall lua require('packer').install(<f-args>)
 -- command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerUpdate lua require('packer').update(<f-args>)
 -- command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerSync lua require('packer').sync(<f-args>)

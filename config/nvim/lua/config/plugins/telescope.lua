@@ -1,6 +1,6 @@
--- telescope configs
+-- telescope and it's extensions configs
 
-require('telescope').setup ({
+local config = function() require('telescope').setup({
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -82,5 +82,56 @@ require('telescope').setup ({
       enable_preview = true,
     }
   },
-  extensions = {}
+  extensions = {
+    project = {
+      base_dirs = {
+        -- { '~/coding', max_depth = 2 },
+        -- { '~/coding/forks', max_depth = 2 }
+      }
+    }
+  }
 })
+end
+
+return {
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-fzy-native.nvim',
+        enabled = false,
+        config = function() require('telescope').load_extension('fzy_native') end,
+        build = 'cd "deps/fzy-lua-native" && make',
+      },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        -- enabled = false,
+        config = function() require('telescope').load_extension('fzf') end,
+        build = 'make',
+      },
+    },
+    dev = false,
+    cmd = 'Telescope',
+    config = config,
+  },
+  {
+    'nvim-telescope/telescope-frecency.nvim',
+    config = function() require('telescope').load_extension('frecency') end,
+    dependencies = 'tami5/sqlite.lua',
+  },
+  {
+    'nvim-telescope/telescope-project.nvim',
+    config = function()
+      require('telescope').load_extension('project')
+    end,
+  },
+  {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require('telescope').load_extension('projects')
+      require('project_nvim').setup()
+    end,
+    -- init = function() require('project_nvim').setup() end
+  },
+}

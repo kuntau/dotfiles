@@ -1,9 +1,7 @@
 -- treesitter.lua
 
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-
-require('nvim-treesitter.configs').setup({
+local config = function()
+  require('nvim-treesitter.configs').setup({
   ensure_installed = 'all',
   -- ensure_installed = { 'bash', 'cmake', 'comment', 'cpp', 'css', 'dart', 'dockerfile', 'go', 'graphql', 'html', 'javascript', 'json', 'jsonc', 'lua', 'php', 'python', 'regex', 'ruby', 'scss', 'svelte', 'toml', 'tsx', 'typescript', 'vim', 'vue', 'yaml' },
   sync_install = true,
@@ -92,7 +90,7 @@ require('nvim-treesitter.configs').setup({
     swap = {
       enable = true,
       swap_next = { ["<leader>a"] = "@parameter.inner" },
-      swap_previous = { ["<leader>A"] = "@parameter.inner" },
+swap_previous = { ["<leader>A"] = "@parameter.inner" },
     },
     lsp_interop = {
       enable = true,
@@ -107,7 +105,7 @@ require('nvim-treesitter.configs').setup({
     enable = true,
     prev_selection = ',',
     keymaps = {
-      ['.'] = 'textsubjects-smart',
+      ['.'] = 'textsubjects-smart', -- this keymaps only work in visual mode
       [';'] = 'textsubjects-container-outer',
       ['i;'] = 'textsubjects-container-inner',
     }
@@ -129,3 +127,25 @@ require('nvim-treesitter.configs').setup({
     max_file_lines = 500, -- Do not enable for files with more than n lines, int
   }
 })
+end
+
+local init = function()
+  vim.opt.foldmethod = 'expr'
+  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+end
+
+return {
+  { 'nvim-treesitter/nvim-treesitter', dependencies = {
+    { 'nvim-treesitter/nvim-treesitter-refactor' }, -- Refactor module for treesitter
+    { 'nvim-treesitter/nvim-treesitter-context' },
+    { 'RRethy/nvim-treesitter-textsubjects' }, -- Location and syntax aware text objects
+  },
+    event = 'BufReadPost',
+    config = config,
+    init = init,
+    build = ':TSUpdate' -- We recommend updating the parsers cmd update
+  },
+  { 'windwp/nvim-ts-autotag', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
+  { 'p00f/nvim-ts-rainbow' }, -- TS powered rainbow brackets
+  { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *.*' }, -- TS - easy exit in params
+}
