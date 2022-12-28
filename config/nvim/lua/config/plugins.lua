@@ -44,24 +44,6 @@ return {
   { 'folke/trouble.nvim', config = function() require('config.trouble') end, cmd = 'Trouble' },
   { 'folke/neodev.nvim', ft = 'lua' },
 
-  -- Completions
-  { 'hrsh7th/nvim-cmp', dependencies = {
-        { 'hrsh7th/cmp-nvim-lsp', event = 'BufReadPost' },
-        { 'hrsh7th/cmp-nvim-lua' },
-        { 'hrsh7th/cmp-path' },
-        { 'hrsh7th/cmp-cmdline' },
-        { 'andersevenrud/cmp-tmux' },
-        { 'saadparwaiz1/cmp_luasnip' },
-        { 'dmitmel/cmp-cmdline-history' },
-        { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-        { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
-        { 'tzachar/cmp-fuzzy-buffer', dependencies = { 'tzachar/fuzzy.nvim' }, },
-        { 'tzachar/cmp-tabnine', build = './install.sh', config = function() require('config.tabnine') end, }
-    },
-    config = function() require('config.cmp') end,
-    event = 'InsertEnter *',
-  },
-
   -- VCS
   { 'lewis6991/gitsigns.nvim', config = function() require('config.gitsigns') end, event = 'BufReadPost' },
   { 'TimUntersberger/neogit', config = function() require('config.neogit') end, dependencies = 'sindrets/diffview.nvim', cmd = 'Neogit' },
