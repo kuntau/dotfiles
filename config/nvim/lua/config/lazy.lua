@@ -21,9 +21,13 @@ require("lazy").setup("config.plugins", {
   defaults = { lazy = true },
   install = { colorscheme = { "nightfox", "habamax" } },
   checker = {
-    enabled = true,
-    concurrency = 1,
+    enabled = false,
+    concurrency = 5,
     frequency = 7200,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
   },
   performance = {
     cache = { enabled = true },
