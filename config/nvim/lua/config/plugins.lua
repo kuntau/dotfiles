@@ -2,11 +2,6 @@
 
 return {
 
-  -- dev
-  -- if fn.isdirectory(fn.glob('~/coding/vim/unimpaired.nvim')) == 1 then
-  --   use { '~/coding/vim/unimpaired.nvim', disable = true }
-  -- end
-
   -- Essentials
   { 'kuntau/vim-osc52', keys = '<c-c>' }, -- Copy & paste across tmux & screen over mosh
   { 'kyazdani42/nvim-tree.lua', config = function() require('config.nvimtree') end, cmd = 'NvimTreeToggle' },
