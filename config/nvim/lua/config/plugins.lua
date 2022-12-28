@@ -25,28 +25,27 @@ return {
 
   -- Movements
   { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
-  { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } },
+  { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }, -- TODO: Replace with linty-org/readline.nvim
   { 'mg979/vim-visual-multi', keys = '<c-n>'  },
 
   -- Syntaxes and such
-  { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'y', 'c', 'd' } }, -- TOOD: Replace with mini.surround
   { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TOOD: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
-  { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining
+  { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining. TODO: Replace with Wansmer/treesj
   { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc' } }, -- Comment plugins with treesitter support
-  { 'windwp/nvim-autopairs', config = function() require('config.autopairs') end, event = 'InsertEnter *' }, -- autopairs plugin
+  { 'windwp/nvim-autopairs', config = function() require('config.autopairs') end, event = 'InsertEnter *.*' }, -- autopairs plugin
   { 'andymass/vim-matchup', config = function() require('config.matchup') end, event = 'BufReadPost' }, -- Replace default `matchit` & `matchparen`
 
   -- LSP & diagnostics
   { 'neovim/nvim-lspconfig', config = function() require('lsp') end, event = 'BufReadPre' },
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
-  { 'simrat39/symbols-outline.nvim', cmd = 'SymbolsOutline' },
+  { 'simrat39/symbols-outline.nvim', config = true, cmd = 'SymbolsOutline' },
   { 'folke/trouble.nvim', config = function() require('config.trouble') end, cmd = 'Trouble' },
   { 'folke/neodev.nvim', ft = 'lua' },
 
   -- VCS
   { 'lewis6991/gitsigns.nvim', config = function() require('config.gitsigns') end, event = 'BufReadPost' },
-  { 'TimUntersberger/neogit', config = function() require('config.neogit') end, dependencies = 'sindrets/diffview.nvim', cmd = 'Neogit' },
+  { 'TimUntersberger/neogit', config = function() require('config.neogit') end, cmd = 'Neogit' },
   { 'sindrets/diffview.nvim', config = function() require('config.diffview') end, cmd = 'DiffviewOpen' },
   { 'rhysd/git-messenger.vim', cmd = 'GitMessenger' },
 
@@ -67,7 +66,7 @@ return {
 
   -- Qualify of life
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-  { 'gennaro-tedesco/nvim-peekup', keys = [[""]] },
+  { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }, -- TODO: Replace with AckslD/nvim-neoclip.lua
   { 'numToStr/FTerm.nvim' },
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking

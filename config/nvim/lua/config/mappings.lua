@@ -96,7 +96,7 @@ vim.keymap.set('n', '<leader>ff', function()
   require('telescope').extensions.frecency.frecency({ workspace='CWD' })
 end)
 nmap('<Leader>fF', '<cmd>Telescope frecency<cr>')
-vim.keymap.set('n', '<leader>fP', function() require('telescope').extensions.project.project{} end)
+vim.keymap.set('n', '<leader>fP', function() require('telescope').extensions.project.project{ display_type='full' } end)
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
