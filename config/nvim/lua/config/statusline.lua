@@ -34,8 +34,16 @@ require('lualine').setup({
     globalstatus = true,
   },
   sections = {
-    lualine_c = {{'filename', path=1}},
+    lualine_c = {{'filename', path = 1}},
     lualine_b = {'diff', 'diagnostics'},
+    lualine_x = {
+      {
+        require("lazy.status").updates,
+        cond = require("lazy.status").has_updates,
+        color = { fg = "#ff9e64" },
+      },
+      'encoding', 'fileformat', 'filetype',
+    },
   },
   inactive_sections = {
     lualine_c = {{'filename', path=1}},

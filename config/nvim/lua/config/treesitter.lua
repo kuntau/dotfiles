@@ -123,7 +123,9 @@ require('nvim-treesitter.configs').setup({
     enable = true,
   },
   rainbow = {
-    enable = false,
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
     extended_mode = true,
+    max_file_lines = 500, -- Do not enable for files with more than n lines, int
   }
 })
