@@ -10,17 +10,6 @@ return {
   -- Essentials
   { 'kuntau/vim-osc52', keys = '<c-c>' }, -- Copy & paste across tmux & screen over mosh
   { 'kyazdani42/nvim-tree.lua', config = function() require('config.nvimtree') end, cmd = 'NvimTreeToggle' },
-  { 'mbbill/undotree', config = function()
-    vim.g.undotree_WindowLayout = 2
-    vim.g.undotree_HelpLine = 0
-    vim.g.undotree_ShortIndicators = 1
-    vim.g.undotree_TreeNodeShape = '⧂'
-    vim.g.undotree_TreeVertShape = '│'
-    vim.g.undotree_TreeSplitShape = '╱'
-    vim.g.undotree_TreeReturnShape = '╲'
-    vim.g.undotree_SetFocusWhenToggle = 1
-  end,  cmd = 'UndotreeToggle' },
-    -- vim.g.undotree_TreeNodeShape = '●'
   { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end, cmd = 'Startify' }, -- TODO: Replace with mini.starter & mini.session
 
   -- Movements
@@ -29,7 +18,7 @@ return {
   { 'mg979/vim-visual-multi', keys = '<c-n>'  },
 
   -- Syntaxes and such
-  { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TOOD: Replace with mini.surround
+  { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TODO: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
   { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining. TODO: Replace with Wansmer/treesj
   { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc' } }, -- Comment plugins with treesitter support
