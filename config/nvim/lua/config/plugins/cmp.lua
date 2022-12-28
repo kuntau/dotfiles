@@ -132,5 +132,5 @@ return {
   },
   { 'hrsh7th/cmp-cmdline', event = 'CmdlineEnter' },
   { 'dmitmel/cmp-cmdline-history', event = 'CmdlineEnter' },
-  { 'tzachar/cmp-fuzzy-buffer', dependencies = 'tzachar/fuzzy.nvim' },
+  { 'tzachar/cmp-fuzzy-buffer', event = 'CmdlineEnter', dependencies = 'tzachar/fuzzy.nvim' },
 }
