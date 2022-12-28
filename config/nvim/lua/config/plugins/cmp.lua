@@ -1,5 +1,21 @@
 -- nvim-cmp
 
+-- tabnine configs
+local config_tabnine = function()
+  local tabnine = require('cmp_tabnine.config')
+
+  tabnine:setup({
+    max_lines = 1000;
+    max_num_results = 20;
+    sort = true;
+    run_on_every_keystroke = true;
+    snippet_placeholder = '..';
+    ignored_file_types = {
+      -- lua = true
+    };
+  })
+end
+
 local config = function()
   local cmp = require('cmp')
   local luasnip = require('luasnip')
@@ -27,7 +43,7 @@ local config = function()
     mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-Space>'] = cmp.mapping.complete({}),
       -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
       ['<C-e>'] = cmp.mapping.abort(),
       ['<S-CR>'] = cmp.mapping.confirm({ select = false }),
@@ -125,7 +141,7 @@ return {
     { 'saadparwaiz1/cmp_luasnip' },
     { 'hrsh7th/cmp-nvim-lsp-signature-help' },
     { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
-    { 'tzachar/cmp-tabnine', build = './install.sh', config = function() require('config.tabnine') end, }
+    { 'tzachar/cmp-tabnine', build = './install.sh', config = config_tabnine }
   },
     config = config,
     event = 'InsertEnter *.*',
