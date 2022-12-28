@@ -29,20 +29,6 @@ return {
   { 'mg979/vim-visual-multi', keys = '<c-n>'  },
 
   -- Syntaxes and such
-  { 'nvim-treesitter/nvim-treesitter', dependencies = {
-        { 'nvim-treesitter/nvim-treesitter-refactor' }, -- Refactor module for treesitter
-        { 'nvim-treesitter/nvim-treesitter-textobjects' }, -- text-objects module for treesitter
-        { 'RRethy/nvim-treesitter-textsubjects' }, -- Location and syntax aware text objects
-        { 'JoosepAlviste/nvim-ts-context-commentstring' }, -- context-commentstring module for treesitter
-        { 'windwp/nvim-ts-autotag', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
-        { 'p00f/nvim-ts-rainbow', ft = {'fnl'} },
-        { 'romgrk/nvim-treesitter-context' },
-        { 'abecodes/tabout.nvim', config = true }
-    },
-    event = 'BufReadPost',
-    config = function() require('config.treesitter') end,
-    build = ':TSUpdate' -- We recommend updating the parsers cmd update
-  },
   { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'y', 'c', 'd' } }, -- TOOD: Replace with mini.surround
   { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TOOD: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
