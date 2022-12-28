@@ -35,7 +35,7 @@ return {
   { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end, cmd = 'Startify' }, -- TODO: Replace with mini.starter & mini.session
 
   -- Movements
-  { 'tpope/vim-unimpaired', event = 'BufReadPost' },
+  { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } },
   { 'mg979/vim-visual-multi', keys = '<c-n>'  },
 
@@ -55,6 +55,7 @@ return {
     build = ':TSUpdate' -- We recommend updating the parsers cmd update
   },
   { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'y', 'c', 'd' } }, -- TOOD: Replace with mini.surround
+  { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TOOD: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
   { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining
   { 'numToStr/Comment.nvim', config = function() require('config.comment') end, keys = { 'gb', 'gc' } }, -- Comment plugins with treesitter support
@@ -113,7 +114,7 @@ return {
   { 'numToStr/FTerm.nvim' },
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking
-  { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, event = 'BufReadPost' },
+  { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, keys = { '<c-k>', '<c-j>', '<c-h>', '<c-l>' } },
   { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
   { 'lewis6991/spellsitter.nvim', config = true },
   { 'mattn/vim-gist', config = function() vim.g.gist_clip_command='pbcopy' vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
@@ -123,14 +124,14 @@ return {
   { 'lukas-reineke/indent-blankline.nvim', config = function() require('config.indent') end, cmd = 'IndentBlanklineEnable' },
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' },
   { 'norcalli/nvim-terminal.lua', config = true, ft = 'terminal' },
-  { 'edluffy/specs.nvim', config = function() require('config.cursor') end, event = 'BufReadPre' },
-  { 'anuvyklack/pretty-fold.nvim', config = function() require('config.fold') end, event = 'BufReadPre' },
+  { 'edluffy/specs.nvim', config = function() require('config.cursor') end, event = 'BufReadPost' },
+  { 'anuvyklack/pretty-fold.nvim', config = function() require('config.fold') end, keys = { 'zc' } },
 
   -- StatusLine, bufferline & tabline
   { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' }, -- Tmux statusline
-  { 'nvim-lualine/lualine.nvim', config = function() require('config.statusline') end, event = 'VeryLazy' }, -- statusline
+  { 'nvim-lualine/lualine.nvim', config = function() require('config.statusline') end, event = 'BufReadPost' }, -- statusline
 
   -- Language specifics
-  { 'SidOfc/mkdx', ft = 'markdown', config = function() require('config.markdown') end }
-  -- use { 'LhKipp/nvim-nu', ft = 'nu', after = 'nvim-treesitter' } -- nu shell systax, TSInstall nu
+  { 'SidOfc/mkdx', ft = 'markdown', config = function() require('config.markdown') end },
+  { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup() end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
 }
