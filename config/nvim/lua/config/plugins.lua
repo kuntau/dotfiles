@@ -21,17 +21,6 @@ return {
     vim.g.undotree_SetFocusWhenToggle = 1
   end,  cmd = 'UndotreeToggle' },
     -- vim.g.undotree_TreeNodeShape = '●'
-  { 'nvim-telescope/telescope.nvim', dependencies = {
-  -- { dir = '~/coding/forks/telescope.nvim', dependencies = {
-        'nvim-lua/plenary.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', config = function() require('telescope').load_extension('fzf') end, build = 'make' },
-        { 'nvim-telescope/telescope-frecency.nvim', config = function() require('telescope').load_extension('frecency') end, dependencies = 'tami5/sqlite.lua' },
-        { 'ahmedkhalf/project.nvim', config = function() require('project_nvim').setup() require('telescope').load_extension('projects') end, },
-    },
-    dev = true,
-    config = function() require('config._telescope') end,
-    cmd = 'Telescope',
-  },
   { 'mhinz/vim-startify', config = function() require('config.homepage').startify() end, cmd = 'Startify' }, -- TODO: Replace with mini.starter & mini.session
 
   -- Movements
