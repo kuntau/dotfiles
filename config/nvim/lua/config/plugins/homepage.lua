@@ -93,5 +93,7 @@ local startify_config = function()
 end
 
 return {
-  startify = startify_config
+  'mhinz/vim-startify',
+  config = startify_config,
+  cmd = 'Startify',
 }
