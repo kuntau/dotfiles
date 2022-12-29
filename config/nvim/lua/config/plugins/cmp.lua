@@ -144,7 +144,7 @@ return {
     { 'tzachar/cmp-tabnine', build = './install.sh', config = config_tabnine }
   },
     config = config,
-    event = 'InsertEnter *.*',
+    event = 'InsertEnter *',
   },
   { 'hrsh7th/cmp-cmdline', event = 'CmdlineEnter' },
   { 'dmitmel/cmp-cmdline-history', event = 'CmdlineEnter' },
