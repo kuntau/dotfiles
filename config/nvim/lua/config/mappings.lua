@@ -110,6 +110,9 @@ if vim.fn.has('nvim-0.7') == 1 then
   vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end)
 end
 
+---@abbreviations
+vim.cmd [[ia <expr> ddate strftime('%d/%m/%Y')]]
+
 ---@experimental
 nmap('<F23>', '<cmd>split<cr>')  -- S-F11
 nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
