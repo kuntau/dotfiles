@@ -50,4 +50,40 @@ return {
 
   -- Language specifics
   { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup() end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
+
+  -- LSP/Debugging
+  'williamboman/mason.nvim', -- Auto/manage LSP
+  'williamboman/mason-lspconfig.nvim', -- Bridge for mason-LSP config
+  'jose-elias-alvarez/null-ls.nvim', -- Bridge LSP
+  'mfussenegger/nvim-dap', -- Debugging
+  'rcarriga/nvim-dap-ui', -- Debugging
+  'michaelb/sniprun', -- Run line/block in multiple language
+
+  -- UI/UX
+  'MunifTanjim/nui.nvim', -- UI library
+  'rcarriga/nvim-notify', -- Noice dependency
+  'folke/noice.nvim', -- Default UI replacement
+  'folke/styler.nvim', -- Different Colorschemes per filetype
+  'folke/twilight.nvim', -- Zen mode
+  'folke/zen-mode.nvim', -- Zen mode
+  'folke/which-key.nvim', -- Give key hint
+
+  -- Refactor
+  'ThePrimeagen/refactoring.nvim', -- Refactoring library
+  'm-demare/hlargs.nvim', -- Highlight arguments async
+  'cshuaimin/ssr.nvim', -- Structural Search and replace
+  'nvim-pack/nvim-spectre', -- Search and replace workflow
+  'Wansmer/treesj', -- Splitjoin lua replacement, require treesitter
+
+  -- Misc
+  'pwntester/octo.nvim', -- Manage github issues in Neovim
+  'rlch/github-notifications.nvim', -- As the name suggest
+  'toppair/peek.nvim', -- Markdown preview
+  'gbprod/yanky.nvim', -- Kill-ring like feature, maybe neoclip is better
+  'kevinhwang91/nvim-ufo', -- Folding
+  'kevinhwang91/nvim-hlslens', -- Hl Search lens
+  'anuvyklack/windows.nvim', -- Auto expand current window with animation
+
+  -- Colorscheme
+  'nyoom-engineering/oxocarbon.nvim', -- IBM carbon inspired
 }
