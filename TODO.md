@@ -12,8 +12,8 @@
 - [x] `fd` over `find`
 - [x] `exa` or `lsd` over `ls`
 - [x] `dust` over `du`
-- [-] `nu` over `zsh`
-- [-] `spotifyd` and `spotify-tui` or `Spotify`
+- [x] `nu` over `zsh`
+- [ ] `spotifyd` and `spotify-tui` or `Spotify`
 
 ## INSTALL SCRIPT
 - [x] Borrow code from ohmyzsh installer
@@ -28,6 +28,7 @@
 - [x] Vim & version
 - [x] FZF
 - [x] Go
+- [ ] PHP
 
 ### Symlinks on install
 - [x] Symlink zshrc
