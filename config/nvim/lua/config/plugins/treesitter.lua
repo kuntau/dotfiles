@@ -136,10 +136,10 @@ end
 
 return {
   { 'nvim-treesitter/nvim-treesitter', dependencies = {
-    { 'nvim-treesitter/nvim-treesitter-refactor' }, -- Refactor module for treesitter
-    { 'nvim-treesitter/nvim-treesitter-context' }, -- Show code context
-    { 'nvim-treesitter/nvim-treesitter-textobjects' }, -- Syntax aware text-objects, select, move, swap
-    { 'RRethy/nvim-treesitter-textsubjects' }, -- Location and syntax aware text objects
+    'nvim-treesitter/nvim-treesitter-refactor', -- Refactor module for treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects', -- Syntax aware text-objects, select, move, swap
+    'RRethy/nvim-treesitter-textsubjects', -- Location and syntax aware text objects
+    { 'nvim-treesitter/nvim-treesitter-context', config = true }, -- Show code context
   },
     event = 'BufReadPost',
     config = config,
