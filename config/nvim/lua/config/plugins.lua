@@ -1,4 +1,5 @@
--- Plugins with packer.nvim
+-- Lazy.nvim main plugins spec
+-- Other plugins will be under `config/plugins/`
 
 return {
 
