@@ -84,7 +84,4 @@ return {
   'kevinhwang91/nvim-ufo', -- Folding
   'kevinhwang91/nvim-hlslens', -- Hl Search lens
   'anuvyklack/windows.nvim', -- Auto expand current window with animation
-
-  -- Colorscheme
-  'nyoom-engineering/oxocarbon.nvim', -- IBM carbon inspired
 }
