@@ -14,7 +14,7 @@ return {
   -- Syntaxes and such
   { 'tpope/vim-surround', keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- TODO: Replace with mini.surround
   { 'tpope/vim-repeat', keys = '.' },
-  { 'AndrewRadev/splitjoin.vim', cmd = { 'SplitjoinJoin', 'SplitjoinSplit' } }, -- gS for splitting & gJ for joining. TODO: Replace with Wansmer/treesj
+  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = true }, -- Splitjoin successor, require TS.
 
   -- LSP & diagnostics
   { 'neovim/nvim-lspconfig', config = function() require('lsp') end, event = 'BufReadPre' },
@@ -71,7 +71,6 @@ return {
   'm-demare/hlargs.nvim', -- Highlight arguments async
   'cshuaimin/ssr.nvim', -- Structural Search and replace
   'nvim-pack/nvim-spectre', -- Search and replace workflow
-  'Wansmer/treesj', -- Splitjoin lua replacement, require treesitter
 
   -- Misc
   'pwntester/octo.nvim', -- Manage github issues in Neovim
