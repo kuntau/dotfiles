@@ -2,6 +2,7 @@
 
 local config = function()
   require('neogit').setup({
+    auto_refresh = true,
     integrations = {
       diffview = true
     },
