@@ -1,4 +1,4 @@
--- neovim status line configs
+-- StatusLine, bufferline & tabline configs
 -- could be any of powerline, windline, lualine, airline or lightline
 
 local ft_extension = {
@@ -67,7 +67,6 @@ local config = function()
 end
 
 return {
-  'nvim-lualine/lualine.nvim',
-  config = config,
-  event = 'BufReadPost',
+  { 'nvim-lualine/lualine.nvim', event = 'BufReadPost', config = config },
+  { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' }, -- Tmux statusline
 }
