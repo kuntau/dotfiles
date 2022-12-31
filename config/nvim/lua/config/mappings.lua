@@ -68,9 +68,10 @@ nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
 nmap('goh',        '<cmd>Scratch<CR>')
 
--- Splitjoin
-nmap('gJ', '<cmd>SplitjoinJoin<cr>')
-nmap('gS', '<cmd>SplitjoinSplit<cr>')
+-- Splitjoin/treesj
+nmap('gJ', '<cmd>TSJJoin<cr>')
+nmap('gS', '<cmd>TSJSplit<cr>')
+nmap('gT', '<cmd>TSJToggle<cr>')
 
 -- Telescope bindings
 nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
