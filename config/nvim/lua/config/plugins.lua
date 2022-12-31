@@ -30,9 +30,9 @@ return {
   { 'L3MON4D3/LuaSnip', dependencies = 'rafamadriz/friendly-snippets' },
 
   -- Qualify of life
+  'numToStr/FTerm.nvim',
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
   { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }, -- TODO: Replace with AckslD/nvim-neoclip.lua
-  { 'numToStr/FTerm.nvim' },
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking
   { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, keys = { '<c-k>', '<c-j>', '<c-h>', '<c-l>' } },
@@ -41,8 +41,10 @@ return {
   { 'mattn/vim-gist', config = function() vim.g.gist_clip_command='pbcopy' vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
 
   -- UI & UX
-  { 'kyazdani42/nvim-web-devicons' }, -- for file icons
-  { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' },
+  'MunifTanjim/nui.nvim', -- UI library
+  'kyazdani42/nvim-web-devicons', -- for file icons
+  'rcarriga/nvim-notify', -- Beautiful notifications
+  { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
   { 'norcalli/nvim-terminal.lua', config = true, ft = 'terminal' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
 
@@ -58,9 +60,6 @@ return {
   'michaelb/sniprun', -- Run line/block in multiple language
 
   -- UI/UX
-  'MunifTanjim/nui.nvim', -- UI library
-  'rcarriga/nvim-notify', -- Noice dependency
-  'folke/noice.nvim', -- Default UI replacement
   'folke/styler.nvim', -- Different Colorschemes per filetype
   'folke/twilight.nvim', -- Zen mode
   'folke/zen-mode.nvim', -- Zen mode
