@@ -47,6 +47,7 @@ return {
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
   { 'norcalli/nvim-terminal.lua', config = true, ft = 'terminal' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
+  { 'folke/which-key.nvim', config = true, event = 'BufReadPost' } , -- Give key hint
 
   -- Language specifics
   { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup() end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
@@ -63,7 +64,6 @@ return {
   'folke/styler.nvim', -- Different Colorschemes per filetype
   'folke/twilight.nvim', -- Zen mode
   'folke/zen-mode.nvim', -- Zen mode
-  'folke/which-key.nvim', -- Give key hint
 
   -- Refactor
   'ThePrimeagen/refactoring.nvim', -- Refactoring library

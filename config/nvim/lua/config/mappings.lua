@@ -104,15 +104,15 @@ vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 
 if vim.fn.has('nvim-0.7') == 1 then
-  vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end)
-  vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end)
-  vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end)
-  vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like? "}, function (input) print(input) end) end)
-  vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end)
+  vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end, {desc="Open neogit in split"})
+  vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
+  vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
+  vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like? "}, function (input) print(input) end) end, {desc="Gantz"})
+  vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open latest file in v:oldfiles"})
 end
 
 ---@abbreviations
-vim.cmd [[ia <expr> ddate strftime('%d/%m/%Y')]]
+vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
 
 ---@experimental
 nmap('<F23>', '<cmd>split<cr>')  -- S-F11
