@@ -1,13 +1,13 @@
 -- Neovim internal option configs
 -- Try not to repeat many of neovim defaults `:help nvim-defaults`
 local opt = vim.opt
-local fn  = vim.fn
+local o   = vim.o
 local g   = vim.g
 
 -- Operations
 opt.autochdir       = false
 opt.autowriteall    = true
-opt.backup          = false
+opt.backup          = true
 opt.clipboard       = 'unnamed,unnamedplus' -- better safe than sorry
 opt.cursorbind      = false -- Like scrollbind for cursor, let we edit same file in 2 split
 opt.errorbells      = false
@@ -16,8 +16,9 @@ opt.inccommand      = 'split' -- cmdline search & replace open in split
 opt.lazyredraw      = false -- better ui performance
 opt.modelines       = 2
 opt.mouse           = 'a'
-opt.sessionoptions  = { 'blank', 'buffers', 'curdir', 'folds', 'help', 'tabpages', 'winsize', 'winpos', 'terminal' }
-opt.shada           = { '!', '\'1000', '<50', 's10', 'h' }
+opt.sessionoptions  = { 'buffers', 'curdir', 'folds', 'tabpages', 'winsize', 'winpos', 'terminal' }
+-- use default shada value, better performance.
+-- opt.shada           = { '!', '\'1000', '<50', 's10', 'h' }
 opt.smartcase       = true
 opt.swapfile        = false
 opt.undofile        = true
@@ -25,6 +26,7 @@ opt.updatetime      = 2000
 opt.visualbell      = false
 
 -- Looks & feels
+opt.conceallevel    = 2     -- Hide * markup for bold & italic
 opt.cursorcolumn    = false
 opt.cursorline      = false -- horizontal highlight line with cursor
 opt.laststatus      = 3     -- global statusline, overrides by lualine *globalstatus*
@@ -57,6 +59,12 @@ opt.shiftround      = true
 opt.smartindent     = true  -- already in defaults
 opt.smarttab        = true  -- already in defaults
 
+-- User
+opt.spelllang = { 'en' }
+opt.grepprg = "rg --vimgrep"
+opt.grepformat = "%f:%l:%c:%m"
+o.formatoptions = "jcroqlnt" -- default=jcroql
+
 -- Folding: managed by treesitter
 opt.foldenable      = false
 opt.foldlevel       = 20
@@ -69,13 +77,22 @@ opt.wildignore      = {} -- add file type to ignore completions
 
 -- Cool floating window popup menu for completion on command line
 opt.pumblend        = 10
-opt.wildmode        = 'longest:full'
+opt.wildmode        = 'longest:full,full'
 
+-- Special characters for highlighting non-printing spaces/tabs/etc
 -- Characters configs. Sample: eol:↓, eol:¬, eol:↲, eol:⏎, tab:␉·, trail:␠, nbsp:⎵
 opt.list            = false -- show special characters
-opt.listchars       = {eol='↲', tab='▸ ', trail='·', extends='»', precedes='«', nbsp='⎵', conceal='×'} -- Special characters for highlighting non-printing spaces/tabs/etc
+opt.listchars       = {
+  eol='↲',
+  tab='▸ ',
+  trail='·',
+  extends='»',
+  precedes='«',
+  nbsp='⎵',
+  conceal='×',
+}
 
--- Extend defaults
+-- Extend defaults, remove ugly vertical seperator & end of boundry char
 opt.fillchars:append {
   horiz = '━',
   horizup = '┻',
@@ -85,8 +102,12 @@ opt.fillchars:append {
   vertright = '┣',
   verthoriz = '╋',
   -- vert = ' ',
-  eob = ' '
-} -- remove ugly vertical seperator & end of boundry char
+  eob = ' ',
+  -- fold = " ",
+  foldopen = "",
+  -- foldsep = " ",
+  foldclose = "",
+}
 opt.diffopt:append   'vertical' -- Diff always open in vsplit
 opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
 
@@ -107,8 +128,19 @@ g.loaded_tarPlugin      = 1
 g.loaded_zip            = 1
 g.loaded_zipPlugin      = 1
 
+if vim.fn.has("nvim-0.8") == 1 then
+  vim.opt.cmdheight = 0
+  vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
+end
+
+if vim.fn.has("nvim-0.9.0") == 1 then
+  vim.opt.splitkeep = "screen"
+  vim.o.shortmess = "filnxtToOFWIcC"
+end
+
 -- References: {
 -- https://github.com/tarruda/dot-files
 -- https://github.com/junegunn/dotfiles
 -- https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/plugin/options.lua
+-- https://github.com/folke/dot/blob/master/config/nvim/lua/config/options.lua
 -- }
