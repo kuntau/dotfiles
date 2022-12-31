@@ -46,9 +46,6 @@ return {
   { 'norcalli/nvim-terminal.lua', config = true, ft = 'terminal' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
 
-  -- StatusLine, bufferline & tabline
-  { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' }, -- Tmux statusline
-
   -- Language specifics
   { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup() end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
 
