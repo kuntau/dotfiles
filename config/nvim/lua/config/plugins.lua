@@ -16,8 +16,15 @@ return {
   { 'tpope/vim-repeat', keys = '.' },
   { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = true }, -- Splitjoin successor, require TS.
 
-  -- LSP & diagnostics
+  -- LSP
   { 'neovim/nvim-lspconfig', config = function() require('lsp') end, event = 'BufReadPre' },
+  { 'williamboman/mason.nvim',
+    cmd = 'Mason',
+    config = true,
+    dependencies = { 'williamboman/mason-lspconfig.nvim', config = { automatic_installation = true } }, -- Bridge for mason-LSP config
+  }, -- Auto/manage LSP
+
+  -- Diagnostics
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
   { 'simrat39/symbols-outline.nvim', config = true, cmd = 'SymbolsOutline' },
   { 'folke/trouble.nvim', config = true, cmd = 'Trouble' },
@@ -59,8 +66,6 @@ return {
   -- TODO: Configure the following plugins
 
   -- LSP/Debugging
-  'williamboman/mason.nvim', -- Auto/manage LSP
-  'williamboman/mason-lspconfig.nvim', -- Bridge for mason-LSP config
   'jose-elias-alvarez/null-ls.nvim', -- Bridge LSP
   'mfussenegger/nvim-dap', -- Debugging
   'rcarriga/nvim-dap-ui', -- Debugging
