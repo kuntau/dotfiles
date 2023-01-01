@@ -54,7 +54,7 @@ return {
   { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = true }, -- Zen mode
 
   -- Language specifics
-  { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup() end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
+  { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup({}) end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
 
   -- TODO: Configure the following plugins
 
@@ -77,6 +77,7 @@ return {
   'rlch/github-notifications.nvim', -- As the name suggest
   'toppair/peek.nvim', -- Markdown preview
   'gbprod/yanky.nvim', -- Kill-ring like feature, maybe neoclip is better
+  'AckslD/nvim-neoclip.lua', -- sqlite powered clipboard manager
   'kevinhwang91/nvim-ufo', -- Folding
   'kevinhwang91/nvim-hlslens', -- Hl Search lens
   'anuvyklack/windows.nvim', -- Auto expand current window with animation
