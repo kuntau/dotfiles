@@ -36,7 +36,10 @@ local config = function()
       globalstatus = true,
     },
     sections = {
-      lualine_c = {{'filename', path = 1}},
+      lualine_c = {
+        {'filename', path = 1},
+        { require("nvim-navic").get_location, cond = require("nvim-navic").is_available }
+      },
       lualine_b = {'diff', 'diagnostics'},
       lualine_x = {
         {
