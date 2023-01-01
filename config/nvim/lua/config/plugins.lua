@@ -48,8 +48,15 @@ return {
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
   { 'folke/which-key.nvim', config = true, event = 'BufReadPost' } , -- Give key hint
 
+  -- DX
+  { 'folke/todo-comments.nvim', cmd = { 'TodoTrouble', 'TodoTelescope', 'TodoQuickFix' }, config = true }, -- Highlight & find TODO
+  { 'folke/twilight.nvim', cmd = 'Twilight', config = true }, -- Zen mode
+  { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = true }, -- Zen mode
+
   -- Language specifics
   { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup() end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
+
+  -- TODO: Configure the following plugins
 
   -- LSP/Debugging
   'williamboman/mason.nvim', -- Auto/manage LSP
@@ -58,11 +65,6 @@ return {
   'mfussenegger/nvim-dap', -- Debugging
   'rcarriga/nvim-dap-ui', -- Debugging
   'michaelb/sniprun', -- Run line/block in multiple language
-
-  -- UI/UX
-  'folke/styler.nvim', -- Different Colorschemes per filetype
-  'folke/twilight.nvim', -- Zen mode
-  'folke/zen-mode.nvim', -- Zen mode
 
   -- Refactor
   'ThePrimeagen/refactoring.nvim', -- Refactoring library
