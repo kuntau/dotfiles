@@ -23,6 +23,7 @@ return {
     config = true,
     dependencies = { 'williamboman/mason-lspconfig.nvim', config = { automatic_installation = true } }, -- Bridge for mason-LSP config
   }, -- Auto/manage LSP
+  { 'SmiteshP/nvim-navic', config = { highlight = true } },
 
   -- Diagnostics
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
