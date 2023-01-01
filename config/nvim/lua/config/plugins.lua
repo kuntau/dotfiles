@@ -66,11 +66,10 @@ return {
 
   -- TODO: Configure the following plugins
 
-  -- LSP/Debugging
+  -- LSP
   'jose-elias-alvarez/null-ls.nvim', -- Bridge LSP
-  'mfussenegger/nvim-dap', -- Debugging
-  'rcarriga/nvim-dap-ui', -- Debugging
-  'michaelb/sniprun', -- Run line/block in multiple language
+  'mfussenegger/nvim-lint', -- Linter
+  'mhartington/formatter.nvim', -- Formatter
 
   -- Refactor
   'ThePrimeagen/refactoring.nvim', -- Refactoring library
