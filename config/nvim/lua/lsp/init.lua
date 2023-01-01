@@ -1,5 +1,6 @@
 -- Neovim LSP configs
 
+require('mason')
 local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
 if not lspconfig_ok then
   print('LSP: Error requiring lspconfig')
@@ -31,8 +32,8 @@ local on_attach = function(client, bufnr)
   local handler = require('lsp.handler')
   local mapping = require('lsp.mappings')
 
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
+  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
 
   handler.setup(bufnr, client.server_capabilities)
   mapping.setup(bufnr, client.server_capabilities)
