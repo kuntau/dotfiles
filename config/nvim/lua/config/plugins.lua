@@ -38,14 +38,14 @@ return {
   { 'L3MON4D3/LuaSnip', dependencies = 'rafamadriz/friendly-snippets' },
 
   -- Qualify of life
-  'numToStr/FTerm.nvim',
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
   { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }, -- TODO: Replace with AckslD/nvim-neoclip.lua
-  { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
+
+  -- Utilities
+  'numToStr/FTerm.nvim',
   { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking
-  { 'christoomey/vim-tmux-navigator', config = function() vim.g.tmux_navigator_disable_when_zoomed = 1 end, keys = { '<c-k>', '<c-j>', '<c-h>', '<c-l>' } },
-  { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
   { 'mattn/vim-gist', config = function() vim.g.gist_clip_command='pbcopy' vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
+  { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
 
   -- UI & UX
   'MunifTanjim/nui.nvim', -- UI library
@@ -85,5 +85,4 @@ return {
   'AckslD/nvim-neoclip.lua', -- sqlite powered clipboard manager
   'kevinhwang91/nvim-ufo', -- Folding
   'kevinhwang91/nvim-hlslens', -- Hl Search lens
-  'anuvyklack/windows.nvim', -- Auto expand current window with animation
 }
