@@ -19,15 +19,16 @@ vim.g.maplocalleader = [[\]]
 -- load lazy
 require("lazy").setup("config.plugins", {
   defaults = { lazy = true },
-  install = { colorscheme = { "nightfox", "habamax" } },
+  install = { colorscheme = { "habamax" } },
   checker = {
-    enabled = false,
     concurrency = 5,
+    enabled = false,
     frequency = 7200,
     notify = false,
   },
   change_detection = {
-    notify = false,
+    enabled = true,
+    notify = true,
   },
   performance = {
     cache = { enabled = true },
@@ -44,6 +45,8 @@ require("lazy").setup("config.plugins", {
       },
     },
   },
+  diff = { cmd = 'diffview.nvim' },
+  ui = { border = 'rounded' },
   debug = false,
   dev = {
     path = "~/coding/forks"

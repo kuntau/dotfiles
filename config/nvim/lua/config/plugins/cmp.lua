@@ -99,7 +99,15 @@ local config = function()
         cmp.config.compare.order,
       }
     },
+    window = {
+      completion = {
+        -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+        col_offset = -5,
+        side_padding = 0,
+      },
+    },
     formatting = {
+      fields = { 'kind', 'abbr', 'menu' },
       format = require('lsp.kind').cmp_format({
         icon = true,
         text = false,
@@ -127,6 +135,14 @@ local config = function()
     })
   })
 
+  -- If you want insert `(` after select function or method item
+  -- https://github.com/hrsh7th/nvim-cmp/wiki/Advanced-techniques
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+  )
+
   -- Setting up cmp sources by FileType
   -- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
 end
@@ -144,7 +160,7 @@ return {
     { 'tzachar/cmp-tabnine', build = './install.sh', config = config_tabnine }
   },
     config = config,
-    event = 'InsertEnter *.*',
+    event = 'InsertEnter *',
   },
   { 'hrsh7th/cmp-cmdline', event = 'CmdlineEnter' },
   { 'dmitmel/cmp-cmdline-history', event = 'CmdlineEnter' },

@@ -146,7 +146,7 @@ return {
     init = init,
     build = ':TSUpdate' -- We recommend updating the parsers cmd update
   },
-  { 'windwp/nvim-ts-autotag', ft = {'md','vue','html','jsx','tsx'} }, -- auto complete HTML tags
+  { 'windwp/nvim-ts-autotag', ft = {'markdown','vue','html','jsx','tsx'} }, -- auto complete HTML tags
   { 'p00f/nvim-ts-rainbow' }, -- TS powered rainbow brackets
   { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *.*' }, -- TS - easy exit in params
 }
