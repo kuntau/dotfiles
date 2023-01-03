@@ -5,7 +5,7 @@ local utils = require('utils')
 local auto_darkmode = false
 local diff_gui_theme = true
 local gui_theme = 'nightfox'
-local tui_theme = 'oxocarbon'
+local tui_theme = 'material'
 
 if utils.isDay() and auto_darkmode then
   vim.g.ayucolor = 'light'

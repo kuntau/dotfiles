@@ -21,13 +21,14 @@ require("lazy").setup("config.plugins", {
   defaults = { lazy = true },
   install = { colorscheme = { "habamax" } },
   checker = {
-    enabled = true,
     concurrency = 5,
+    enabled = false,
     frequency = 7200,
     notify = false,
   },
   change_detection = {
-    notify = false,
+    enabled = true,
+    notify = true,
   },
   performance = {
     cache = { enabled = true },
@@ -44,6 +45,8 @@ require("lazy").setup("config.plugins", {
       },
     },
   },
+  diff = { cmd = 'diffview.nvim' },
+  ui = { border = 'rounded' },
   debug = false,
   dev = {
     path = "~/coding/forks"

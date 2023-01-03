@@ -135,7 +135,7 @@ end
 
 if vim.fn.has("nvim-0.9.0") == 1 then
   vim.opt.splitkeep = "screen"
-  vim.o.shortmess = "filnxtToOFWIcC"
+  vim.o.shortmess = "filnxtToOFWIcC" -- default: icxTFlotOnf. Rm `I` to have :intro
 end
 
 -- References: {
