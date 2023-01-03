@@ -92,6 +92,39 @@ local config_nightfox = function()
   nf.load()
 end
 
+local config_material = function()
+  vim.g.material_style = "darker"
+  require('material').setup({
+    contrast = {
+      sidebar = true,
+      filetypes = {
+        "qf",
+        "packer",
+        "dapui_breakpoints",
+      }
+    },
+    styles = {
+      comments = { italic = true },
+      functions = { italic = true },
+    },
+    -- lualine_style = 'stealth',
+    plugins = {
+      'dap',
+      'gitsigns',
+      'indent-blankline',
+      'mini',
+      'neogit',
+      'nvim-cmp',
+      'nvim-navic',
+      'nvim-web-devicons',
+      'nvim-tree',
+      'telescope',
+      'trouble',
+      'which-key',
+    }
+  })
+end
+
 return {
   -- Colorschemes
   'NLKNguyen/papercolor-theme',
@@ -103,7 +136,7 @@ return {
   { 'NTBBloodbath/doom-one.nvim', config = true },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
   { 'kuntau/ayu-vim', branch = 'italic' },
-  { 'marko-cerovac/material.nvim', config = function() vim.g.material_style = "palenight" end },
+  { 'marko-cerovac/material.nvim', config = config_material },
   { 'rebelot/kanagawa.nvim', config = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
   { 'sainnhe/everforest', config = function() vim.g.everforest_background = 'hard' end },
 }
