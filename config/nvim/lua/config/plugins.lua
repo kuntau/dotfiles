@@ -52,7 +52,7 @@ return {
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
-  { 'folke/which-key.nvim', config = true, event = 'BufReadPost' } , -- Give key hint
+  { 'folke/which-key.nvim', config = { show_help=false, show_keys=false }, event = 'BufReadPost' } , -- Give key hint
 
   -- DX
   { 'folke/todo-comments.nvim', cmd = { 'TodoTrouble', 'TodoTelescope', 'TodoQuickFix' }, config = true }, -- Highlight & find TODO
