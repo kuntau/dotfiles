@@ -7,7 +7,7 @@ local config_windows = function()
   require('windows').setup({
     autowidth = {
       enable = true,
-      winwidth = .5,
+      winwidth = .4,
     },
     ignore = {
       buftype = { 'quickfix', 'nofile' },

@@ -8,10 +8,8 @@ local gui_theme = 'nightfox'
 local tui_theme = 'material'
 
 if utils.isDay() and auto_darkmode then
-  vim.g.ayucolor = 'light'
   vim.opt.background = 'light'
 else
-  vim.g.ayucolor = 'mirage'
   vim.opt.background = 'dark'
 end
 
@@ -32,10 +30,3 @@ if utils.isGui() then -- running in GUI
 else -- running in terminal
   vim.cmd.colorscheme (tui_theme)
 end
-
--- Colorscheme
-vim.g.ayu_comment_italic     = 1
-vim.g.gruvbox_italic         = 1
-vim.g.gruvbox_contrast_dark  = 'soft'
-vim.g.gruvbox_contrast_light = 'soft'
-vim.g.one_allow_italics      = 1

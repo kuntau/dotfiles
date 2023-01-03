@@ -93,7 +93,9 @@ local config_nightfox = function()
 end
 
 local config_material = function()
-  vim.g.material_style = "darker"
+
+  vim.g.material_style = "oceanic" -- oceanic|palenight|darker|lighter|deep ocean
+
   require('material').setup({
     contrast = {
       sidebar = true,
@@ -105,7 +107,8 @@ local config_material = function()
     },
     styles = {
       comments = { italic = true },
-      functions = { italic = true },
+      functions = { bold = true, italic = true },
+      keywords = { bold = true },
     },
     -- lualine_style = 'stealth',
     plugins = {
@@ -125,17 +128,29 @@ local config_material = function()
   })
 end
 
+local config_ayu = function()
+  vim.g.ayu_comment_italic = 1
+
+  local is_day = require('utils').isDay()
+
+  if is_day then
+    vim.g.ayucolor = 'light'
+  else
+    vim.g.ayucolor = 'mirage'
+  end
+end
+
 return {
   -- Colorschemes
   'NLKNguyen/papercolor-theme',
   'arcticicestudio/nord-vim',
   'folke/tokyonight.nvim',
   'nyoom-engineering/oxocarbon.nvim', -- IBM carbon inspired
-  'rakr/vim-one',
+  { 'rakr/vim-one', config = function() vim.g.one_allow_italics = 1 end },
   { 'EdenEast/nightfox.nvim', config = config_nightfox },
   { 'NTBBloodbath/doom-one.nvim', config = true },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
-  { 'kuntau/ayu-vim', branch = 'italic' },
+  { 'kuntau/ayu-vim', branch = 'italic', config = config_ayu },
   { 'marko-cerovac/material.nvim', config = config_material },
   { 'rebelot/kanagawa.nvim', config = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
   { 'sainnhe/everforest', config = function() vim.g.everforest_background = 'hard' end },
