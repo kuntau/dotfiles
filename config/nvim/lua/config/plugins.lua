@@ -51,8 +51,6 @@ return {
   'MunifTanjim/nui.nvim', -- UI library
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
-  { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
-  { 'norcalli/nvim-terminal.lua', config = true, ft = 'terminal' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
   { 'folke/which-key.nvim', config = true, event = 'BufReadPost' } , -- Give key hint
 
@@ -62,6 +60,8 @@ return {
   { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = true }, -- Zen mode
 
   -- Language specifics
+  { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
+  { 'norcalli/nvim-terminal.lua', config = true, event = 'TermOpen' },
   { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup({}) end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
 
   -- TODO: Configure the following plugins
