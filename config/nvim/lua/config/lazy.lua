@@ -19,9 +19,9 @@ vim.g.maplocalleader = [[\]]
 -- load lazy
 require("lazy").setup("config.plugins", {
   defaults = { lazy = true },
-  install = { colorscheme = { "nightfox", "habamax" } },
+  install = { colorscheme = { "habamax" } },
   checker = {
-    enabled = false,
+    enabled = true,
     concurrency = 5,
     frequency = 7200,
     notify = false,
