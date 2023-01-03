@@ -9,6 +9,10 @@ local config_windows = function()
       enable = true,
       winwidth = .5,
     },
+    ignore = {
+      buftype = { 'quickfix', 'nofile' },
+      filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'gundo' }
+    },
     animation = {
       enable = true,
       duration = 150,
