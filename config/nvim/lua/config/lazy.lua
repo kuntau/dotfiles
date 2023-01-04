@@ -45,7 +45,7 @@ require("lazy").setup("config.plugins", {
       },
     },
   },
-  diff = { cmd = 'diffview.nvim' },
+  diff = { cmd = 'terminal_git' },
   ui = { border = 'rounded' },
   debug = false,
   dev = {
