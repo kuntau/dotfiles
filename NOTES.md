@@ -14,7 +14,7 @@
 4. Try `rm -rf build` if build fails after pulling from _master_
 5. Even better, do `make distclean and make CMAKE_BUILD_TYPE=Release`
 
-## Troubeshooting
+## Troubleshooting
 
 ### `unknown terminal type` = missing `terminfo`
 
