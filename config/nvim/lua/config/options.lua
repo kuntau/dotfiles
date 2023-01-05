@@ -60,7 +60,7 @@ opt.smartindent     = true  -- already in defaults
 opt.smarttab        = true  -- already in defaults
 
 -- User
-opt.spelllang = { 'en', 'my' }
+opt.spelllang = { 'en', 'ms' }
 opt.grepprg = "rg --vimgrep"
 opt.grepformat = "%f:%l:%c:%m"
 o.formatoptions = "jcroqlnt" -- default=jcroql
