@@ -39,7 +39,6 @@ return {
 
   -- Qualify of life
   { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-  { 'gennaro-tedesco/nvim-peekup', keys = [[""]] }, -- TODO: Replace with AckslD/nvim-neoclip.lua
 
   -- Utilities
   'numToStr/FTerm.nvim',
@@ -81,8 +80,6 @@ return {
   'pwntester/octo.nvim', -- Manage github issues in Neovim
   'rlch/github-notifications.nvim', -- As the name suggest
   'toppair/peek.nvim', -- Markdown preview
-  'gbprod/yanky.nvim', -- Kill-ring like feature, maybe neoclip is better
-  'AckslD/nvim-neoclip.lua', -- sqlite powered clipboard manager
   'kevinhwang91/nvim-ufo', -- Folding
   'kevinhwang91/nvim-hlslens', -- Hl Search lens
 }
