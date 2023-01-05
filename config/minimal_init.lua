@@ -1,36 +1,46 @@
-vim.cmd [[set runtimepath=$VIMRUNTIME]]
-vim.cmd [[set packpath=/tmp/nvim/site]]
-local package_root = '/tmp/nvim/site/pack'
-local install_path = package_root .. '/packer/start/packer.nvim'
-local function load_plugins()
-  require('packer').startup {
-    {
-      'wbthomason/packer.nvim',
-      {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-          'nvim-lua/plenary.nvim',
-          { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        },
-      },
-      -- ADD PLUGINS THAT ARE _NECESSARY_ FOR REPRODUCING THE ISSUE
-    },
-    config = {
-      package_root = package_root,
-      compile_path = install_path .. '/plugin/packer_compiled.lua',
-      display = { non_interactive = true },
-    },
-  }
+-- DO NOT change the paths and don't remove the colorscheme
+local root = vim.fn.fnamemodify("./.repro", ":p")
+
+-- set stdpaths to use .repro
+for _, name in ipairs({ "config", "data", "state", "cache" }) do
+  vim.env[("XDG_%s_HOME"):format(name:upper())] = root .. "/" .. name
 end
-_G.load_config = function()
-  require('telescope').setup()
-  require('telescope').load_extension('fzf')
-  -- ADD INIT.LUA SETTINGS THAT ARE _NECESSARY_ FOR REPRODUCING THE ISSUE
+
+-- bootstrap lazy
+local lazypath = root .. "/plugins/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
-if vim.fn.isdirectory(install_path) == 0 then
-  print("Installing Telescope and dependencies.")
-  vim.fn.system { 'git', 'clone', '--depth=1', 'https://github.com/wbthomason/packer.nvim', install_path }
-end
-load_plugins()
-require('packer').sync()
-vim.cmd [[autocmd User PackerComplete ++once echo "Ready!" | lua load_config()]]
+vim.opt.runtimepath:prepend(lazypath)
+
+-- install plugins
+local plugins = {
+  "folke/tokyonight.nvim",
+  "sindrets/diffview.nvim",
+  "nvim-lua/plenary.nvim"
+  -- add any other plugins here
+}
+require("lazy").setup(plugins, {
+  root = root .. "/plugins",
+  checker = {
+	-- automatically check for plugin updates
+	enabled = false,
+	concurrency = 1, ---@type number? set to 1 to check for updates very slowly
+	notify = true, -- get a notification when new updates are found
+	frequency = 3600*2, -- check for updates every hour
+  },
+  diff = { cmd = "diffview.nvim" },
+})
+
+vim.cmd.colorscheme("tokyonight")
+vim.g.mapleader = [[ ]]
+vim.keymap.set('n','gol','<cmd>Lazy<cr>')
+vim.o.rnu = 1
+-- add anything else here

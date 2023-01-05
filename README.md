@@ -92,11 +92,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 #### For Neovim
 
-```bash
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/opt/packer.nvim
-
-```
+***Not needed anymore since neovim plugins manager can bootstrap themselves.***
 
 ### NOTES
 

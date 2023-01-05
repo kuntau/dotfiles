@@ -3,7 +3,7 @@
 
 local ft_extension = {
   sections = {lualine_a = {'filetype'}},
-  filetypes = {'startify', 'Trouble', 'undotree', 'DiffviewFiles', 'startuptime', 'packer'}
+  filetypes = {'startify', 'Trouble', 'undotree', 'DiffviewFiles', 'startuptime'}
 }
 
 local help_extension = {
@@ -17,7 +17,6 @@ local neogit_extension = {
 }
 
 local filetype_names = {
-  packer = 'Packer',
   undotree = 'Undo Tree',
   NeogitStatus = 'Neogit',
   startuptime = 'Startup Time',

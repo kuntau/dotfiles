@@ -16,8 +16,8 @@ local config_catpuccin = function()
     styles = {
       comments    = { "italic" },
       conditional = { "italic" },
-      functions   = { "italic" },
-      keywords    = { "italic" },
+      functions   = { 'bold', "italic" },
+      keywords    = { "bold" },
       strings     = {},
       variables   = {},
     },
@@ -101,7 +101,7 @@ local config_material = function()
       sidebar = true,
       filetypes = {
         "qf",
-        "packer",
+        "lazy",
         "dapui_breakpoints",
       }
     },
