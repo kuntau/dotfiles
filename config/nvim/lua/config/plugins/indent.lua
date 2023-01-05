@@ -4,6 +4,7 @@ local config = function()
 
   require('indent_blankline').setup({
     show_current_context = true,
+    space_char_blankline = ' ',
     show_end_of_line = true,
     show_first_indent_level = false,
     indent_blankline_use_treesitter = true,
@@ -17,7 +18,7 @@ local config = function()
     'startify',
     'startuptime',
     'checkhealth',
-    'packer',
+    'lazy',
     'peek',
     'alpha',
     'Outline',
@@ -28,7 +29,9 @@ local config = function()
 
   vim.g.indent_blankline_bufname_exclude = {
     'terminal',
-    'nofile'
+    'nofile',
+    'quickfix',
+    'prompt',
   }
 
 end
