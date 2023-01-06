@@ -14,7 +14,7 @@ return {
   -- Syntaxes and such
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = '.' },
-  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = true }, -- Splitjoin successor, require TS.
+  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = { use_default_keymaps=false, max_join_length=500 } }, -- Splitjoin successor, require TS.
 
   -- LSP
   { 'neovim/nvim-lspconfig', config = function() require('lsp') end, event = 'BufReadPre' },

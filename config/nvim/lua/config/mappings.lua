@@ -80,7 +80,7 @@ nmap('gS', '<cmd>TSJSplit<cr>')
 nmap('gT', '<cmd>TSJToggle<cr>')
 
 -- Telescope bindings
-nmap('<c-p>',      '<cmd>Telescope find_files<cr>')
+nmap('<c-p>',      '<cmd>Telescope fd<cr>')
 -- nmap('<leader>fp', '<cmd>Telescope projects<cr>')
 vim.keymap.set('n', '<leader>fp', function()
   require('telescope').extensions.projects.projects()
