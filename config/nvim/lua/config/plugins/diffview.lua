@@ -122,6 +122,6 @@ end
 
 return {
   'sindrets/diffview.nvim',
-  config = config,
+  config = true,
   cmd = 'DiffviewOpen'
 }

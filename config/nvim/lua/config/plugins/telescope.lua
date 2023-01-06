@@ -56,10 +56,13 @@ local config = function() require('telescope').setup({
       previewer = false,
       layout_config = { width = 0.5 },
     },
+    fd = {
+      previewer = false,
+    },
     find_files = {
       previewer = false,
-      no_ignore = true,
-      follow = true,
+      no_ignore = false,
+      follow = false,
       hidden = true,
     },
     oldfiles = {
