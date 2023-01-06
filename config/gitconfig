@@ -62,6 +62,8 @@
   pager = delta
 [credential]
 	helper = osxkeychain
+	credentialStore = gpg
+	helper = /usr/local/share/gcm-core/git-credential-manager-core
 [credential "https://github.com"]
 	helper = cache --timeout=3600
   username = kuntau
@@ -136,3 +138,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[credential "https://dev.azure.com"]
+	useHttpPath = true
