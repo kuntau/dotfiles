@@ -36,6 +36,10 @@ if command -v docker-compose &> /dev/null; then
   alias dc='docker-compose'
 fi
 
+if command -v laravel &> /dev/null; then
+  alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+fi
+
 # nvim 24 bit color; TUI ENABLE not needed anymore
 if command -v nvim &>/dev/null; then
   alias vi='nvim'
