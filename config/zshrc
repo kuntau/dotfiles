@@ -66,6 +66,7 @@ if [[ $OS_NAME == Linux ]]; then
 
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'hqsvr' ]]; then
+    export COMPOSER_HOME=$HOME/.composer
     export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
   fi
 elif [[ $OS_NAME == Darwin ]]; then
@@ -154,7 +155,7 @@ hash npm      2>/dev/null && export PATH=$HOME/.npm-global/bin:$PATH      # npm 
 hash pnpm     2>/dev/null && export PNPM_HOME=$HOME/.npm-global/bin
 hash python3  2>/dev/null && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
 hash cargo    2>/dev/null && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
-hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # rust cargo binary path
+hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
 hash snap     2>/dev/null && export PATH=/snap/bin:$PATH                  # snap binary path
 export PATH=$PATH:$DENO_INSTALL/bin                                       # deno binary path
 export PATH=$DOTFILES/bin:$PATH
