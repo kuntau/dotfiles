@@ -15,6 +15,7 @@ return {
   -- option = value , [default] comment
 
   -- default_prog = {'/usr/local/bin/zsh', '~/dotfiles/bin/tm'},
+  -- default_cwd = "~/dotfiles/",
 
   -- Fonts
   -- font = wezterm.font("Victor Mono", { weight = "SemiBold" })        , -- [IBM Plex Mono]
@@ -43,6 +44,9 @@ return {
 
   -- Advanced options
   enable_kitty_graphics = true,
+  enable_kitty_keyboard = true,
+  send_composed_key_when_left_alt_is_pressed = false,
+  send_composed_key_when_right_alt_is_pressed = false,
 
   -- Colors
   color_scheme      = 'tokyonight_moon'    , -- full list @ wezfurlong.org/wezterm/colorschemes/index.html
@@ -71,16 +75,17 @@ return {
   },
 
   -- define leader key, same as tmux
-  leader = { key='s', mods='CTRL', timeout_milliseconds=1000 },
+  leader = { key='s', mods='CMD', timeout_milliseconds=1000 },
   -- mappings
   keys = {
     { key='t',   mods=hyper_key, action=wezterm.action{SpawnTab='CurrentPaneDomain'} },
     { key='r',   mods=hyper_key, action='ReloadConfiguration' },
     { key='q',   mods=hyper_key, action='QuitApplication' },
     { key='Enter', mods='CMD', action="ToggleFullScreen" },
+    { key='Enter', mods='ALT', action="ToggleFullScreen" },
 
     -- { key="a", mods="LEADER|CTRL", action=wezterm.action{SendString="\x01"} }, -- can be used with tmux
-    { key="s", mods="LEADER|CTRL", action={SendKey={ key='s', mods='CTRL' }} }, -- more friendly way to send
+    -- { key="s", mods="LEADER|CTRL", action={SendKey={ key='s', mods='CTRL' }} }, -- more friendly way to send
     { key='v', mods='LEADER', action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}} },
     { key='s', mods='LEADER', action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}} },
     { key='x', mods='LEADER', action=wezterm.action{CloseCurrentPane={confirm=true}} },
