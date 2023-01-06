@@ -66,30 +66,58 @@ local config_catpuccin = function()
 end
 
 local config_nightfox = function()
-  local nf = require("nightfox")
-
-  nf.setup({
+  require("nightfox").setup({
     options = {
-      dim_inactive    = true, -- Non current window bg to alt color see `hl-NormalNC`
+      dim_inactive    = false, -- Non current window bg to alt color see `hl-NormalNC`
       terminal_colors = true, -- Configure the colors used when opening :terminal
       styles = {
-        comments  = "italic", -- Style that is applied to comments: see `highlight-args` for options
-        functions = "bold,italic", -- Style that is applied to functions: see `highlight-args` for options
-        keywords  = "bold", -- Style that is applied to keywords: see `highlight-args` for options
-        -- strings = "NONE", -- Style that is applied to strings: see `highlight-args` for options
-        -- variables = "NONE", -- Style that is applied to variables: see `highlight-args` for options
+        comments  = "italic",
+        functions = "bold,italic",
+        keywords  = "bold",
+        strings   = "NONE",
+        variables = "NONE",
       },
       inverse = {
         match_paren = false, -- Enable/Disable inverse highlighting for match parens
-        visual = true, -- Enable/Disable inverse highlighting for visual selection
-        search = true, -- Enable/Disable inverse highlights for search highlights
+        visual      = true, -- Enable/Disable inverse highlighting for visual selection
+        search      = true, -- Enable/Disable inverse highlights for search highlights
+      },
+      module_default = false,
+      modules = {
+        cmp            = true,
+        dap_ui         = true,
+        diagnostic     = true,
+        gitsigns       = true,
+        lightspeed     = true,
+        modes          = true,
+        native_lsp     = true,
+        navic          = true,
+        neogit         = true,
+        notify         = true,
+        nvimtree       = true,
+        symbol_outline = true,
+        telescope      = true,
+        treesitter     = true,
+        tsrainbow      = true,
+        whichkey       = true,
+      },
+      specs = { all = { syntax = { operator = "orange" } } },
+      groups = {
+        all = {
+          TelescopeBorder = { fg = "bg4" },
+          TelescopeTitle = { fg = "fg2", bg = "bg4" },
+
+          CmpItemKindFunction = { fg = "palette.pink" },
+          CmpItemKindMethod = { fg = "palette.pink" },
+          CmpWindowBorder = { fg = "bg0", bg = "bg0" },
+        },
       },
       -- colors = {}, -- Override default colors
       -- hlgroups = {}, -- Override highlight groups
     }
   })
 
-  nf.load()
+  -- nf.load()
 end
 
 local config_material = function()
@@ -146,9 +174,9 @@ return {
   'arcticicestudio/nord-vim',
   'folke/tokyonight.nvim',
   'nyoom-engineering/oxocarbon.nvim', -- IBM carbon inspired
+  'NTBBloodbath/doom-one.nvim',
   { 'rakr/vim-one', config = function() vim.g.one_allow_italics = 1 end },
   { 'EdenEast/nightfox.nvim', config = config_nightfox },
-  { 'NTBBloodbath/doom-one.nvim', config = true },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
   { 'kuntau/ayu-vim', branch = 'italic', config = config_ayu },
   { 'marko-cerovac/material.nvim', config = config_material },
