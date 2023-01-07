@@ -16,15 +16,6 @@ return {
   { 'tpope/vim-repeat', keys = '.' },
   { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = { use_default_keymaps=false, max_join_length=500 } }, -- Splitjoin successor, require TS.
 
-  -- LSP
-  { 'neovim/nvim-lspconfig', config = function() require('lsp') end, event = 'BufReadPre' },
-  { 'williamboman/mason.nvim',
-    cmd = 'Mason',
-    config = true,
-    dependencies = { 'williamboman/mason-lspconfig.nvim', config = { automatic_installation = true } }, -- Bridge for mason-LSP config
-  }, -- Auto/manage LSP
-  { 'SmiteshP/nvim-navic', config = { highlight = true } },
-
   -- Diagnostics
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
   { 'simrat39/symbols-outline.nvim', config = true, cmd = 'SymbolsOutline' },
@@ -65,11 +56,6 @@ return {
   { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg' }, config = true },
 
   -- TODO: Configure the following plugins
-
-  -- LSP
-  'jose-elias-alvarez/null-ls.nvim', -- Bridge LSP
-  'mfussenegger/nvim-lint', -- Linter
-  'mhartington/formatter.nvim', -- Formatter
 
   -- Refactor
   'ThePrimeagen/refactoring.nvim', -- Refactoring library
