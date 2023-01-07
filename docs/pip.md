@@ -1,0 +1,78 @@
+
+    ██████╗░██╗██████╗░
+    ██╔══██╗██║██╔══██╗
+    ██████╔╝██║██████╔╝
+    ██╔═══╝░██║██╔═══╝░
+    ██║░░░░░██║██║░░░░░
+    ╚═╝░░░░░╚═╝╚═╝░░░░░
+
+## PIP Freeze
+
+```
+appdirs==1.4.4
+astroid==2.9.0
+babelfish==0.6.0
+beautifulsoup4==4.10.0
+certifi==2020.12.5
+cffi==1.14.4
+chardet==4.0.0
+charset-normalizer==2.0.7
+click==7.1.2
+cloudscraper==1.2.58
+colorama==0.4.4
+colorlog==4.7.2
+cryptography==36.0.1
+decorator==4.4.2
+dogpile.cache==1.1.1
+enzyme==0.4.1
+fonttools==4.28.5
+future==0.18.2
+gallery-dl==1.20.1
+greenlet==1.1.2
+guessit==3.2.0
+idna==3.3
+iso-639==0.4.5
+iso3166==1.0.1
+isodate==0.6.0
+isort==5.7.0
+lazy-object-proxy==1.4.3
+lxml==4.6.4
+mccabe==0.6.1
+msgpack==1.0.2
+mutagen==1.45.1
+neovim==0.3.1
+pbr==5.5.1
+platformdirs==2.4.0
+protobuf==3.19.3
+pycountry==20.7.3
+pycparser==2.20
+pycryptodome==3.9.9
+pycryptodomex==3.12.0
+pylint==2.12.2
+pynvim==0.4.3
+pyOpenSSL==21.0.0
+pyparsing==2.4.7
+PySocks==1.7.1
+pysrt==1.1.2
+python-dateutil==2.8.1
+pytz==2020.5
+rarfile==4.0
+rebulk==3.0.1
+requests==2.26.0
+requests-toolbelt==0.9.1
+six==1.16.0
+soupsieve==2.3.1
+stevedore==3.3.0
+streamlink==3.0.3
+subliminal==2.1.0
+toml==0.10.2
+typing-extensions==3.10.0.2
+unicode-slugify==0.1.3
+Unidecode==1.1.2
+urllib3==1.26.8
+websocket-client==1.2.3
+websockets==10.1
+wrapt==1.12.1
+youtube-dl==2021.12.17
+yt-dlp==2021.12.27
+```
