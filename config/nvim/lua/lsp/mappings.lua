@@ -1,6 +1,9 @@
 -- LSP mappings
 local mappings_table = {
-  codeActionProvider = { 'n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' }, -- 1
+  codeActionProvider = {
+    { 'n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
+    { 'v', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
+  }, -- 1
   declarationProvider = { 'n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
   documentFormattingProvider = { 'n', '<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
   documentSymbolProvider = { 'n', '<Leader>ds', '<cmd>Telescope lsp_document_symbols<CR>' }, -- 2
