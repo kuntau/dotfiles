@@ -15,6 +15,8 @@ add_cmd('YankOSC52', '<Plug>(YankOSC52)', {nargs = 0})
 
 add_cmd('MaterialSwitchStyle', function() require("material.functions").find_style() end, {nargs = 0, desc='Switch Material style'})
 
+add_cmd('Format', function() vim.lsp.buf.format() end, {nargs = 0, desc='Format current buffer'})
+
 -- FTerm
 add_cmd('G', function () require("FTerm").scratch({ cmd = 'gitui' }) end, { nargs = 0, desc = "Open `gitui` in floating terminal" })
 add_cmd('Top', function () require("FTerm").scratch({ cmd = 'btop' }) end, { nargs = 0, desc = "Open `top` in floating terminal" })
