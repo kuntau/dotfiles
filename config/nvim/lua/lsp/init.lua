@@ -1,6 +1,9 @@
 -- Neovim LSP configs
 
+-- This need to require manually because we lazy load them
 require('mason')
+require('null-ls')
+
 local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
 if not lspconfig_ok then
   print('LSP: Error requiring lspconfig')
@@ -10,21 +13,23 @@ end
 local configs = require('lspconfig.configs')
 local servers = {
   'bashls',
-  'cssls',
-  'eslint',
-  'html',
   'intelephense',
-  'jsonls',
   'ls_emmet',
   'tsserver',
   'vimls',
   'volar',
+  -- 'sumneko_lua' -- configured manually
+  -- 'cssls',
+  -- 'eslint',
+  -- 'html',
+  -- 'jsonls',
+  -- 'denols',
 }
 local DEBOUNCE_TIME = 150
 local dbgi = require('utils.logger').dbgi
 local debug = false
 
-require('lsp.kind').setup({text = false, icon = true})
+require('lsp.kind').setup({ text = false, icon = true })
 require('lsp.diagnostic').setup()
 
 -- Use an on_attach function to only map the following keys after the language server attaches to the current buffer
@@ -35,7 +40,7 @@ local on_attach = function(client, bufnr)
   -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
 
-  require('nvim-navic').attach(client, bufnr)  -- Show code context
+  require('nvim-navic').attach(client, bufnr) -- Show code context
   handler.setup(bufnr, client.server_capabilities)
   mapping.setup(bufnr, client.server_capabilities)
 
@@ -52,41 +57,32 @@ end
 if not configs.ls_emmet then
   configs.ls_emmet = {
     default_config = {
-      cmd = { 'ls_emmet', '--stdio' };
-      filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'haml',
-        'xml', 'xsl', 'pug', 'slim', 'sass', 'stylus', 'less', 'sss', 'vue'};
+      cmd = { 'ls_emmet', '--stdio' },
+      filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'sass', 'stylus', 'vue' },
       root_dir = function(--[[ fname ]])
         return vim.loop.cwd()
-      end;
-      settings = {};
-    }
+      end,
+      settings = {},
+    },
   }
 end
 
 -- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = DEBOUNCE_TIME,
-    },
-    capabilities = capabilities
-  }
+local luadev_ok, luadev = pcall(require, 'luadev')
+if luadev_ok then
+  luadev.setup()
 end
 
-local luadev_ok, luadev = pcall(require, 'luadev')
-if luadev_ok then luadev.setup() end
-
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
 
-lspconfig.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup({
   capabilities = capabilities,
   on_attach = on_attach,
-  flags = { debounce_text_changes = DEBOUNCE_TIME, },
+  flags = { debounce_text_changes = DEBOUNCE_TIME },
   settings = {
     Lua = {
       runtime = {
@@ -94,16 +90,26 @@ lspconfig.sumneko_lua.setup {
         path = runtime_path, -- Setup your lua path
       },
       diagnostics = {
-        globals = {'vim'}, -- Get the language server to recognize the `vim` global
+        globals = { 'vim' }, -- Get the language server to recognize the `vim` global
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true), -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files
         checkThirdParty = false,
       },
-      telemetry = { enable = false, },
+      telemetry = { enable = false },
     },
   },
-}
+})
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup({
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = DEBOUNCE_TIME,
+    },
+    capabilities = capabilities,
+  })
+end
 
 -- vim.cmd [[autocmd FileType lua lua require('cmp').setup.buffer { sources = { { name = 'nvim_lua' }, { name = 'buffer' } } }]]
 -- References = {
