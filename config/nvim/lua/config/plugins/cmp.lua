@@ -83,7 +83,22 @@ local config = function()
       { name = 'cmp_tabnine' }, -- tabnine
       { name = 'path' }, -- path completion
       { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
-      { name = 'fuzzy_buffer', keyword_length = 5, max_item_count = 10 }, -- buffer
+      { name = 'fuzzy_buffer',
+        keyword_length = 5,
+        max_item_count = 10,
+        option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+              local buftype = vim.api.nvim_buf_get_option(buf, 'buftype')
+              if buftype ~= 'nofile' and buftype ~= 'prompt' then
+                bufs[#bufs + 1] = buf
+              end
+            end
+            return bufs
+          end
+        }
+      }, -- buffer
     }),
     sorting = {
       priority_weight = 2,
