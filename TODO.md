@@ -38,8 +38,11 @@
 
 ## (Neo)ViM
 - [x] Use `ale` as `coc.nvim` replacement when `nodejs` not avaiable
-- [ ] Install `mason.nvim` to automate installing LSP servers
-- [ ] Rewrite mappings
+- [x] Install `mason.nvim` to automate installing LSP servers
+- [ ] Rewrite regular mappings/use lua API
+- [ ] Rewrite LSP mappings
+- [ ] Make mapping have `desc` for `which_key` support
+- [ ] Write proper handler for LSP capabilities
 
 ## Config file
 - [x] Reorganize config files
