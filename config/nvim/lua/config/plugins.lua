@@ -9,12 +9,12 @@ return {
   -- Movements
   { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }, -- TODO: Replace with linty-org/readline.nvim
-  { 'mg979/vim-visual-multi', keys = '<c-n>'  },
+  { 'mg979/vim-visual-multi', keys = '<c-n>' },
 
   -- Syntaxes and such
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = '.' },
-  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = { use_default_keymaps=false, max_join_length=500 } }, -- Splitjoin successor, require TS.
+  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, config = { use_default_keymaps = false, max_join_length = 500 }, }, -- Splitjoin successor, require TS.
 
   -- Diagnostics
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
@@ -28,21 +28,20 @@ return {
   -- Snippets
   { 'L3MON4D3/LuaSnip', dependencies = 'rafamadriz/friendly-snippets' },
 
-  -- Qualify of life
-  { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-
   -- Utilities
   'numToStr/FTerm.nvim',
-  { 'dstein64/vim-startuptime', config = function() vim.g.startuptime_tries = 5 end, cmd = 'StartupTime' }, -- startup time benachmarking
-  { 'mattn/vim-gist', config = function() vim.g.gist_clip_command='pbcopy' vim.g.gist_detect_filetype=1 end, cmd = { 'Gist' } },
-  { 'mtth/scratch.vim', config = function() vim.g.scratch_persistence_file = '.scratch' end, cmd = { 'Scratch', 'ScratchSelection' } },
+  { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
+  { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = function() vim.g.startuptime_tries = 5 end, }, -- startup time benachmarking
+  { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
+  { 'mtth/scratch.vim', cmd = { 'Scratch', 'ScratchSelection' }, config = function() vim.g.scratch_persistence_file = '.scratch' end },
 
   -- UI & UX
   'MunifTanjim/nui.nvim', -- UI library
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
-  { 'folke/which-key.nvim', config = { show_help=false, show_keys=false }, event = 'BufReadPost' } , -- Give key hint
+  { 'folke/which-key.nvim', config = { show_help = false, show_keys = false }, event = 'BufReadPost' }, -- Give key hint
+  -- { 'stevearc/dressing.nvim', config = true, event = 'BufReadPost' }, -- use telescope-ui-select for now
 
   -- DX
   { 'folke/todo-comments.nvim', cmd = { 'TodoTrouble', 'TodoTelescope', 'TodoQuickFix' }, config = true }, -- Highlight & find TODO
@@ -52,7 +51,7 @@ return {
   -- Language specifics
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
   { 'norcalli/nvim-terminal.lua', config = true, event = 'TermOpen' },
-  { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup({}) end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
+  { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup({ }) end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg' }, config = true },
 
   -- TODO: Configure the following plugins

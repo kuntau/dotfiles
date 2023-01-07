@@ -48,13 +48,19 @@ imap('<m-k>', '<Esc>:m .-2<CR>==gi')
 nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
 -- buffer management
+nmap('<M-Tab>',        '<C-^>')
 nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
 nmap('<LocalLeader>q', '<cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
 nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
-nmap('<LocalLeader><Tab>',     '<cmd>Telescope buffers<cr>')
-nmap('<M-Tab>',        '<C-^>')
+nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>')
+
+-- tab management
+nmap('gtt', '<cmd>tabnext<cr>',     {desc='Switch to next tab'})
+nmap('gtT', '<cmd>tabprevious<cr>', {desc='Switch to previous tab'})
+nmap('gtc', '<cmd>tabclose<cr>',    {desc='Close current tab'})
+nmap('gtn', '<cmd>tabnew<cr>',      {desc='Open new tab'})
 
 -- Plugins
 vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = false })
@@ -77,7 +83,7 @@ vim.keymap.set('n', '<C-w>=', '<cmd>WindowsEqualize<cr>', {desc="Windows Equaliz
 -- Splitjoin/treesj
 nmap('gJ', '<cmd>TSJJoin<cr>')
 nmap('gS', '<cmd>TSJSplit<cr>')
-nmap('gT', '<cmd>TSJToggle<cr>')
+nmap('gG', '<cmd>TSJToggle<cr>')
 
 -- Telescope bindings
 nmap('<c-p>',      '<cmd>Telescope fd<cr>')

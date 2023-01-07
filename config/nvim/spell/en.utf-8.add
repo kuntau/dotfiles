@@ -25,3 +25,8 @@ Lua
 lua
 sqlite
 lockfile
+linter
+lsp
+feat
+docs
+todo
