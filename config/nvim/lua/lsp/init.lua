@@ -1,9 +1,5 @@
 -- Neovim LSP configs
 
--- This need to require manually because we lazy load them
-require('mason')
-require('null-ls')
-
 local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
 if not lspconfig_ok then
   print('LSP: Error requiring lspconfig')
