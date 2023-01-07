@@ -30,7 +30,6 @@ local config = function()
     luasnip         = "〈S〉",
     cmdline         = "〈:〉",
     cmdline_history = "〈:/〉",
-    nvim_lsp_signature_help = '〈SIG〉'
   }
   require('luasnip.loaders.from_vscode').lazy_load()
 
@@ -79,7 +78,6 @@ local config = function()
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'nvim_lsp', max_item_count = 50 },
       { name = 'nvim_lua', max_item_count = 50 },
-      { name = 'nvim_lsp_signature_help' },
       { name = 'cmp_tabnine' }, -- tabnine
       { name = 'path' }, -- path completion
       { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
@@ -165,17 +163,16 @@ end
 return {
   -- Completions
   { 'hrsh7th/nvim-cmp', dependencies = {
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-path',
+    'andersevenrud/cmp-tmux',
+    'saadparwaiz1/cmp_luasnip',
+    'hrsh7th/cmp-nvim-lsp-document-symbol',
     { 'hrsh7th/cmp-nvim-lsp', event = 'BufReadPost' },
-    { 'hrsh7th/cmp-nvim-lua' },
-    { 'hrsh7th/cmp-path' },
-    { 'andersevenrud/cmp-tmux' },
-    { 'saadparwaiz1/cmp_luasnip' },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-    { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
     { 'tzachar/cmp-tabnine', build = './install.sh', config = config_tabnine }
   },
     config = config,
-    event = 'InsertEnter *',
+    event = 'VeryLazy',
   },
   { 'hrsh7th/cmp-cmdline', event = 'CmdlineEnter' },
   { 'dmitmel/cmp-cmdline-history', event = 'CmdlineEnter' },
