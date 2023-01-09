@@ -14,7 +14,7 @@ local config_windows = function()
       filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'gundo', 'Outline' }
     },
     animation = {
-      enable = true,
+      enable = false, -- BROKEN: broke term, neogit
       duration = 150,
     }
   })
@@ -30,7 +30,7 @@ return {
     config = config_windows,
     dependencies = {
       "anuvyklack/middleclass",
-      "anuvyklack/animation.nvim"
+      -- "anuvyklack/animation.nvim"
     },
   }, -- Auto expand current window with animation
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
