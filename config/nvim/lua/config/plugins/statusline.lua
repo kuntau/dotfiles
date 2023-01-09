@@ -13,7 +13,7 @@ local help_extension = {
 
 local neogit_extension = {
   sections = { lualine_a = {'filetype'}, lualine_b = {'branch'} },
-  filetypes = {'NeogitStatus', 'NeogitCommitMessage', 'NeogitPopup', 'NeogitLogView', 'NeogitGitCommandHistory'}
+  filetypes = {'NeogitStatus', 'NeogitCommitMessage', 'NeogitPopup', 'NeogitLogView', 'NeogitGitCommandHistory', 'gitcommit'}
 }
 
 local filetype_names = {
