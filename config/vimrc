@@ -38,7 +38,7 @@ Plug 'junegunn/gv.vim', { 'on': 'GV' }
 " if executable('fzf') && has('nvim') && !has('gui_running')
 if executable('fzf') && (has('nvim') || (v:version >= 800))
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-  " Plug 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf.vim'
 endif
 Plug 'kuntau/vim-osc52'
 vmap <c-c> <Plug>(YankOSC52)
@@ -455,7 +455,7 @@ nnoremap <space><space> :
 nnoremap <leader>ei :e ~/.vimrc<CR>
 nnoremap <leader>so :up!<cr> :source %<CR>
 nnoremap <leader>S :Startify<CR>
-nnoremap \\ :FzfPreviewGitFilesRpc<CR>
+nnoremap \\ :GFiles<CR>
 
 nnoremap <F4> :up!<CR>
 inoremap <F4> <c-o>:up!<CR>
@@ -705,7 +705,7 @@ if executable('fzf') && (has('nvim') || v:version >= 800)
   xmap <space>f [fzf-p]
 
   " nnoremap <silent> <C-p>        :<C-u>FzfPreviewDirectoryFilesRpc<CR>
-  nnoremap <silent> <C-p>        :<C-u>CocCommand fzf-preview.DirectoryFiles<CR>
+  nnoremap <silent> <C-p>        :<C-u>Files<CR>
   nnoremap <silent> [fzf-p]p     :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
   nnoremap <silent> [fzf-p]gs    :<C-u>CocCommand fzf-preview.GitStatus<CR>
   nnoremap <silent> [fzf-p]ga    :<C-u>CocCommand fzf-preview.GitActions<CR>
@@ -887,7 +887,6 @@ let g:markdown_fenced_languages = [ 'vim', 'help' ] " coc-vimlsp config
 " CoC Extensions list: {{{
 let g:coc_global_extensions = [
     \'coc-explorer',
-    \'coc-fzf-preview',
     \'coc-snippets',
     \'coc-lists',
     \'coc-highlight',
@@ -895,31 +894,32 @@ let g:coc_global_extensions = [
     \'coc-yank',
     \'coc-git',
     \'coc-pairs',
-    \'coc-tabnine',
     \'coc-prettier',
     \'coc-eslint',
-    \'coc-stylelint',
-    \'coc-markdownlint',
     \'coc-tsserver',
     \'coc-denoland',
     \'coc-json',
-    \'coc-vetur',
     \'coc-html',
-    \'coc-css',
-    \'coc-cssmodules',
     \'coc-tailwindcss',
-    \'coc-xml',
-    \'coc-go',
-    \'coc-phpls',
-    \'coc-clangd',
-    \'coc-flutter',
     \'coc-python',
-    \'coc-rls',
-    \'coc-sh',
     \'coc-yaml',
     \'coc-vimlsp'
     \]
     " DISABLED
+    " \'coc-volar',
+    " \'coc-rls',
+    " \'coc-sh',
+    " \'coc-stylelint',
+    " \'coc-markdownlint',
+    " \'coc-fzf-preview',
+    " \'coc-css',
+    " \'coc-cssmodules',
+    " \'coc-tabnine',
+    " \'coc-xml',
+    " \'coc-go',
+    " \'coc-phpls',
+    " \'coc-clangd',
+    " \'coc-flutter',
     " \'coc-smartf',
 " }}}
 
