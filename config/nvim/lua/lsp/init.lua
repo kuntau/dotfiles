@@ -14,6 +14,7 @@ local servers = {
   'tsserver',
   'vimls',
   'volar',
+  'pylsp',
   -- 'sumneko_lua' -- configured manually
   -- 'cssls',
   -- 'eslint',
