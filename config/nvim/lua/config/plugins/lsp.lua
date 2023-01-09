@@ -9,9 +9,10 @@ local ensure_installed = {
 
 -- This is here to format on save
 -- you can reuse a shared lspconfig on_attach callback here
+local enable_format_on_save = false
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local format_on_save = function(client, bufnr)
-  if client.supports_method('textDocument/formatting') then
+  if client.supports_method('textDocument/formatting') and enable_format_on_save then
     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
@@ -34,7 +35,7 @@ local config_null = function()
   nls.setup({
     debounce = 150,
     save_after_format = false,
-    -- on_attach = format_on_save,
+    on_attach = format_on_save,
     sources = {
       -- Formatter
       -- nls.builtins.formatting.deno_fmt, -- deno
@@ -45,6 +46,7 @@ local config_null = function()
       -- nls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
       -- nls.builtins.formatting.eslint_d,
       nls.builtins.formatting.shfmt, -- Shell
+      nls.builtins.formatting.black, -- Python
       -- nls.builtins.formatting.prettierd.with({
       --   filetypes = { "markdown" }, -- only runs `prettierd` for markdown
       -- }),
@@ -52,6 +54,8 @@ local config_null = function()
       -- Linter
       nls.builtins.diagnostics.eslint_d, -- JS/TS
       nls.builtins.diagnostics.phpstan, -- PHP
+      nls.builtins.diagnostics.pylint, -- Python
+      -- nls.builtins.diagnostics.mypy, -- Python
       -- nls.builtins.diagnostics.selene.with({
       --   condition = function(utils)
       --     return utils.root_has_file({ "selene.toml" })
