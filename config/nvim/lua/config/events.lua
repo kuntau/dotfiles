@@ -11,13 +11,13 @@ autocmd('yank', [[TextYankPost * silent! lua vim.highlight.on_yank()]], true) --
 autocmd('term', [[TermOpen term://* startinsert! | setl nonu nornu signcolumn=no]], true) -- Start terminal in insert mode
 
 -- Re-source configs on save!
-autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
+-- autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
 
--- Show listchars on insert mode
-autocmd('i_list', { [[InsertEnter * setl list | IndentBlanklineEnable]],
-  [[InsertEnter * lua vim.diagnostic.hide()]] }, true)
-autocmd('n_list', { [[InsertLeave * setl nolist | IndentBlanklineDisable]],
-  [[InsertLeave * lua vim.diagnostic.show()]] }, true)
+-- Show listchars in insert mode only only ft with extensions
+autocmd('i_list', { [[InsertEnter *.* setl list | IndentBlanklineEnable]],
+  [[InsertEnter *.* lua vim.diagnostic.hide()]] }, true)
+autocmd('n_list', { [[InsertLeave *.* setl nolist | IndentBlanklineDisable]],
+  [[InsertLeave *.* lua vim.diagnostic.show()]] }, true)
 
 --[[ Filetypes autocmds ]]--
 
@@ -31,23 +31,25 @@ autocmd('ft_nfo', {
   'FileType nfo highlight clear ExtraWhitespace',
 }, true)
 
-autocmd('ft_mdx', [[FileType markdown setlocal spell]], true)
+autocmd('ft_mdx', [[FileType markdown setl spell]], true)
 
 -- PHP Configurations
-autocmd('ft_php', [[FileType php,blade setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
+autocmd('ft_php', [[FileType php,blade setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
 
 -- auto close nvimtree/neogit if it's the last window
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd('BufEnter', {
   nested = true,
   callback = function()
-    local buf_to_check = { 'NvimTree_', 'NeogitStatus', 'NeogitCommitMessage', 'OUTLINE' }
+    local buf_to_check = { 'NvimTree_', 'NeogitStatus', 'NeogitCommitMessage', 'Outline' }
     if #vim.api.nvim_list_wins() == 1
-      and (vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil
-      or vim.api.nvim_buf_get_name(0):match("NeogitStatus") ~= nil)
+        and (
+        vim.api.nvim_buf_get_name(0):match('NvimTree_') ~= nil
+            or vim.api.nvim_buf_get_name(0):match('NeogitStatus') ~= nil
+        )
     then
-      vim.cmd "quit"
+      vim.cmd('quit')
     end
-  end
+  end,
 })
 
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation
@@ -63,41 +65,41 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 " Get rid of trailing whitespace highlighting in mutt.
 autocmd FileType mail highlight clear ExtraWhitespace
-autocmd FileType mail setlocal listchars=
+autocmd FileType mail setl listchars=
 
 " Reformat XML files
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType xml setl omnifunc=xmlcomplete#CompleteTags
 au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 " Crontab auto-commands
-autocmd FileType crontab setlocal backupcopy=yes
+autocmd FileType crontab setl backupcopy=yes
 
 " Ruby Configurations
-autocmd filetype ruby setlocal noexpandtab shiftwidth=2 tabstop=2
+autocmd filetype ruby setl noexpandtab shiftwidth=2 tabstop=2
 
 " HTML configurations
-" autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+" autocmd FileType html setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 autocmd FileType html,markdown set omnifunc=htmlcomplete#CompleteTags
-au BufNewFile,BufReadPost *.html setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+au BufNewFile,BufReadPost *.html setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " CSS configurations
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-au BufNewFile,BufReadPost *.css setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType css setl omnifunc=csscomplete#CompleteCSS
+au BufNewFile,BufReadPost *.css setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " Javascript configurations
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType javascript setlocal omnifunc=tern#Complete
-" autocmd FileType javascript setlocal colorcolumn=80
-au BufNewFile,BufReadPost *.js setlocal shiftwidth=2 expandtab
+autocmd FileType javascript setl omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript setl omnifunc=tern#Complete
+" autocmd FileType javascript setl colorcolumn=80
+au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab
 " autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " Coffeescript configurations
-" autocmd FileType coffeescript setlocal colorcolumn=100
-au BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent shiftwidth=2 expandtab
+" autocmd FileType coffeescript setl colorcolumn=100
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent shiftwidth=2 expandtab
 
 " Python configurations
-autocmd FileType python setlocal foldmethod=indent shiftwidth=4 expandtab tabstop=4 softtabstop=4
-" autocmd FileType python setlocal colorcolumn=80
+autocmd FileType python setl foldmethod=indent shiftwidth=4 expandtab tabstop=4 softtabstop=4
+" autocmd FileType python setl colorcolumn=80
 " autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
 " autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
 " autocmd FileType python set omnifunc=pythoncomplete#Complete
