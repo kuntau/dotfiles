@@ -15,7 +15,7 @@ local config = function()
     disable_signs = false,
     disable_hint = true,
     disable_commit_confirmation = true,
-    disable_builtin_notifications = false,
+    disable_builtin_notifications = true,
     disable_insert_on_commit = false,
     sections = {
       untracked = { folded = true },

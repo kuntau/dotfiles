@@ -8,7 +8,7 @@ autocmd('nvimStartup', [[BufReadPost * if line("'\"") >= 1 && line("'\"") <= lin
 autocmd('focus_lost', [[FocusLost * silent! noautocmd up]], true) -- Save when lose focus
 autocmd('focus_gain', [[FocusGained * silent! noautocmd checktime]], true) -- Check if file changed outside vim & re-read file
 autocmd('yank', [[TextYankPost * silent! lua vim.highlight.on_yank()]], true) -- Highlight on yank
-autocmd('term', [[TermOpen * startinsert! | setlocal nonu nornu signcolumn=no ft=terminal ]], true) -- Start terminal in insert mode
+autocmd('term', [[TermOpen term://* startinsert! | setl nonu nornu signcolumn=no]], true) -- Start terminal in insert mode
 
 -- Re-source configs on save!
 autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
@@ -23,7 +23,7 @@ autocmd('n_list', { [[InsertLeave * setl nolist | IndentBlanklineDisable]],
 
 autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
 autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
-autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell]], true) -- Disable `cindent` for `gitcommit`
+autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell ft=gitcommit]], true) -- Disable `cindent` for `gitcommit`
 
 autocmd('ft_nfo', {
   'BufReadPre,FileReadPre *.nfo set ft=nfo',
