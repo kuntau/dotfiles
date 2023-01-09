@@ -1,21 +1,22 @@
 return {
   {
-  'ggandor/leap.nvim',
-  keys = { 's', 'S' },
-  config = function()
-    local leap = require('leap')
-    leap.setup({})
-    leap.leap({ target_windows = { vim.fn.win_getid() } })
-    leap.add_default_mappings()
-  end,
+    'ggandor/leap.nvim',
+    event = 'BufReadPost',
+    -- keys = { 's', 'S' },
+    config = function()
+      local leap = require('leap')
+      -- leap.setup({})
+      leap.leap({ target_windows = { vim.fn.win_getid() } })
+      leap.add_default_mappings()
+    end,
+    opts = {},
   },
   {
     'ggandor/flit.nvim',
     keys = { 'f', 'F', 't', 'T' },
-    config = { multiline = false }
-  }
+    opts = { multiline = false },
+  },
 }
-
 
 --[[ init = function()
   -- The below settings make Leap's highlighting a bit closer to what you've been used to in Lightspeed.

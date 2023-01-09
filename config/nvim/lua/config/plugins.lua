@@ -51,7 +51,7 @@ return {
   -- Language specifics
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
   { 'norcalli/nvim-terminal.lua', config = true, event = 'TermOpen' },
-  { 'LhKipp/nvim-nu', ft = 'nu', config = function() require('nu').setup({ }) end, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
+  { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg' }, config = true },
 
   -- TODO: Configure the following plugins

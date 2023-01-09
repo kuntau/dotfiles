@@ -74,6 +74,13 @@ nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
 nmap('goh',        '<cmd>Scratch<CR>')
 
+-- windows movements
+nmap('<c-l>', '<cmd>TmuxNavigateRight<cr>')
+nmap('<c-h>', '<cmd>TmuxNavigateLeft<cr>')
+nmap('<c-j>', '<cmd>TmuxNavigateDown<cr>')
+nmap('<c-k>', '<cmd>TmuxNavigateUp<cr>')
+nmap('<c-`>', '<cmd>TmuxNavigatePrevious<cr>')
+
 -- windows.nvim
 vim.keymap.set('n', '<C-w>z', '<cmd>WindowsMaximize<cr>', {desc="Windows Maximize"})
 vim.keymap.set('n', '<C-w>_', '<cmd>WindowsMaximizeVertically<cr>', {desc="Windows Maximize Vertically"})
