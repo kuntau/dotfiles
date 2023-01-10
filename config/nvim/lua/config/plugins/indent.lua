@@ -1,7 +1,6 @@
 -- indent_blankline.nvim configs
 
 local config = function()
-
   require('indent_blankline').setup({
     show_current_context = true,
     space_char_blankline = ' ',
@@ -24,7 +23,9 @@ local config = function()
     'Outline',
     'DiffviewFiles',
     'FTerm',
-    'nfo'
+    'nfo',
+    'TelescopePrompt',
+    '',
   }
 
   vim.g.indent_blankline_bufname_exclude = {
@@ -33,11 +34,10 @@ local config = function()
     'quickfix',
     'prompt',
   }
-
 end
 
 return {
   'lukas-reineke/indent-blankline.nvim',
-  cmd = 'IndentBlanklineEnable',
+  cmd = { 'IndentBlanklineEnable', 'IndentBlanklineDisable' },
   config = config,
 }
