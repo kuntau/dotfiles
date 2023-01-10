@@ -1,20 +1,9 @@
 return {
   {
     'ggandor/leap.nvim',
-    event = 'BufReadPost',
-    -- keys = { 's', 'S' },
-    config = function()
-      local leap = require('leap')
-      -- leap.setup({})
-      leap.leap({ target_windows = { vim.fn.win_getid() } })
-      leap.add_default_mappings()
-    end,
+    event = 'VeryLazy',
+    config = function() require('leap').add_default_mappings() end,
     opts = {},
-  },
-  {
-    'ggandor/flit.nvim',
-    keys = { 'f', 'F', 't', 'T' },
-    opts = { multiline = false },
   },
 }
 
