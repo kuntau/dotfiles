@@ -40,7 +40,7 @@ return {
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
-  { 'folke/which-key.nvim', config = { show_help = false, show_keys = false }, event = 'BufReadPost' }, -- Give key hint
+  { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, event = 'BufReadPost' }, -- Give key hint
   -- { 'stevearc/dressing.nvim', config = true, event = 'BufReadPost' }, -- use telescope-ui-select for now
 
   -- DX
