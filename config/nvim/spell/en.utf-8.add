@@ -30,3 +30,11 @@ lsp
 feat
 docs
 todo
+BufReadPost
+yanky
+VeryLazy
+keymaps
+popup
+Neogit
+async
+init
