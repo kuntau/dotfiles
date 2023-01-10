@@ -14,10 +14,10 @@ local config_catpuccin = function()
       perccentage = 0.15,
     },
     styles = {
-      comments    = { "italic" },
-      conditional = { "italic" },
-      functions   = { 'bold', "italic" },
-      keywords    = { "bold" },
+      comments    = { 'italic' },
+      conditional = { 'italic' },
+      functions   = { 'bold', 'italic' },
+      keywords    = { 'bold' },
       strings     = {},
       variables   = {},
     },
@@ -50,32 +50,32 @@ local config_catpuccin = function()
     native_lsp = {
       enabled = true,
       virtual_text = {
-        errors      = { "italic" },
-        hints       = { "italic" },
-        warnings    = { "italic" },
-        information = { "italic" },
+        errors      = { 'italic' },
+        hints       = { 'italic' },
+        warnings    = { 'italic' },
+        information = { 'italic' },
       },
       underlines = {
-        errors      = { "underline" },
-        hints       = { "underline" },
-        warnings    = { "underline" },
-        information = { "underline" },
+        errors      = { 'underline' },
+        hints       = { 'underline' },
+        warnings    = { 'underline' },
+        information = { 'underline' },
       },
     },
   })
 end
 
 local config_nightfox = function()
-  require("nightfox").setup({
+  require('nightfox').setup({
     options = {
-      dim_inactive    = false, -- Non current window bg to alt color see `hl-NormalNC`
+      dim_inactive = false, -- Non current window bg to alt color see `hl-NormalNC`
       terminal_colors = true, -- Configure the colors used when opening :terminal
       styles = {
-        comments  = "italic",
-        functions = "bold,italic",
-        keywords  = "bold",
-        strings   = "NONE",
-        variables = "NONE",
+        comments  = 'italic',
+        functions = 'bold,italic',
+        keywords  = 'bold',
+        strings   = 'NONE',
+        variables = 'NONE',
       },
       inverse = {
         match_paren = false, -- Enable/Disable inverse highlighting for match parens
@@ -101,37 +101,36 @@ local config_nightfox = function()
         tsrainbow      = true,
         whichkey       = true,
       },
-      specs = { all = { syntax = { operator = "orange" } } },
+      specs = { all = { syntax = { operator = 'orange' } } },
       groups = {
         all = {
-          TelescopeBorder = { fg = "bg4" },
-          TelescopeTitle = { fg = "fg2", bg = "bg4" },
+          TelescopeBorder = { fg = 'bg4' },
+          TelescopeTitle = { fg = 'fg2', bg = 'bg4' },
 
-          CmpItemKindFunction = { fg = "palette.pink" },
-          CmpItemKindMethod = { fg = "palette.pink" },
-          CmpWindowBorder = { fg = "bg0", bg = "bg0" },
+          CmpItemKindFunction = { fg = 'palette.pink' },
+          CmpItemKindMethod = { fg = 'palette.pink' },
+          CmpWindowBorder = { fg = 'bg0', bg = 'bg0' },
         },
       },
       -- colors = {}, -- Override default colors
       -- hlgroups = {}, -- Override highlight groups
-    }
+    },
   })
 
   -- nf.load()
 end
 
 local config_material = function()
-
-  vim.g.material_style = "oceanic" -- oceanic|palenight|darker|lighter|deep ocean
+  vim.g.material_style = 'darker' -- oceanic|palenight|darker|lighter|deep ocean
 
   require('material').setup({
     contrast = {
       sidebar = true,
       filetypes = {
-        "qf",
-        "lazy",
-        "dapui_breakpoints",
-      }
+        'qf',
+        'lazy',
+        'dapui_breakpoints',
+      },
     },
     styles = {
       comments = { italic = true },
@@ -143,6 +142,7 @@ local config_material = function()
       'dap',
       'gitsigns',
       'indent-blankline',
+      'leap',
       'mini',
       'neogit',
       'nvim-cmp',
@@ -152,7 +152,7 @@ local config_material = function()
       'telescope',
       'trouble',
       'which-key',
-    }
+    },
   })
 end
 
@@ -179,7 +179,7 @@ return {
   { 'EdenEast/nightfox.nvim', config = config_nightfox },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
   { 'kuntau/ayu-vim', branch = 'italic', config = config_ayu },
-  { 'marko-cerovac/material.nvim', config = config_material },
+  { 'marko-cerovac/material.nvim', config = config_material, dev = true },
   { 'rebelot/kanagawa.nvim', config = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
   { 'sainnhe/everforest', config = function() vim.g.everforest_background = 'hard' end },
 }
