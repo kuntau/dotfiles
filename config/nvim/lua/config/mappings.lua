@@ -55,6 +55,7 @@ nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
 nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
 nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>')
+vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open latest file in v:oldfiles"})
 
 -- tab management
 nmap('gtt', '<cmd>tabnext<cr>',     {desc='Switch to next tab'})
@@ -94,12 +95,7 @@ nmap('gG', '<cmd>TSJToggle<cr>')
 
 -- Telescope bindings
 nmap('<c-p>',      '<cmd>Telescope fd<cr>')
--- nmap('<leader>fp', '<cmd>Telescope projects<cr>')
-vim.keymap.set('n', '<leader>fp', function()
-  require('telescope').extensions.projects.projects()
-end)
--- nmap('<leader>fo', '<cmd>Telescope oldfiles<cr>')
-vim.keymap.set('n','<leader>fo',function () require('telescope.builtin').oldfiles() end)
+nmap('<leader>fo', '<cmd>Telescope oldfiles<cr>')
 nmap('<leader>fO', '<cmd>Telescope oldfiles only_cwd=false<cr>')
 nmap('<leader>f;', '<cmd>Telescope command_history<cr>')
 nmap('<leader>f/', '<cmd>Telescope search_history<cr>')
@@ -111,24 +107,18 @@ nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
 nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
 nmap('<Leader>fc', '<cmd>Telescope commands<cr>')
 nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
--- nmap('<Leader>ff', '<cmd>Telescope frecency workspace=CWD<cr>')
-vim.keymap.set('n', '<leader>ff', function()
-  require('telescope').extensions.frecency.frecency({ workspace='CWD' })
-end)
-nmap('<Leader>fF', '<cmd>Telescope frecency<cr>')
-vim.keymap.set('n', '<leader>fP', function() require('telescope').extensions.project.project{ display_type='full' } end)
+vim.keymap.set('n', '<leader>ff', function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, {desc="Open Frecency CWD"})
+vim.keymap.set('n', '<leader>fF', function() require('telescope').extensions.frecency.frecency() end, {desc="Open Frecency ALL"})
+vim.keymap.set('n', '<leader>fp', function() require('telescope').extensions.project.project{ display_type='full' } end, {desc="Open Project ext"})
+vim.keymap.set('n', '<leader>fP', function() require('telescope').extensions.projects.projects() end, {desc="Open Projects"})
+
+vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end, {desc="Open neogit in split"})
+vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
+vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
 
 -- junegunn easy-align
 vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
-
-if vim.fn.has('nvim-0.7') == 1 then
-  vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end, {desc="Open neogit in split"})
-  vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
-  vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
-  vim.keymap.set('n', '<F2>', function () vim.ui.input({ prompt="Waht do you like? "}, function (input) print(input) end) end, {desc="Gantz"})
-  vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open latest file in v:oldfiles"})
-end
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]

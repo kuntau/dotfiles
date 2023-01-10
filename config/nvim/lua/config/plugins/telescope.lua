@@ -45,12 +45,8 @@ local config = function()
       -- layout_strategy      = 'bottom_pane',
       -- dynamic_preview_title= true,
       layout_config = {
-        horizontal = {
-          prompt_position = 'top',
-        },
-        vertical = {
-          prompt_position = 'top',
-        },
+        horizontal = { prompt_position = 'top', },
+        vertical = { prompt_position = 'top', },
       },
       history = {
         path = vim.fn.stdpath('data') .. '/databases/telescope_history.db',
@@ -62,9 +58,7 @@ local config = function()
         previewer = false,
         layout_config = { width = 0.5 },
       },
-      fd = {
-        initial_mode = 'insert',
-      },
+      fd = { initial_mode = 'insert', },
       find_files = {
         initial_mode = 'insert',
         previewer = false,
@@ -72,6 +66,7 @@ local config = function()
         follow = true,
         hidden = true,
       },
+      live_grep = { initial_mode = 'insert' },
       oldfiles = {
         only_cwd = true,
       },
@@ -87,13 +82,20 @@ local config = function()
       },
     },
     extensions = {
-      ['frecency'] = { initial_mode = 'insert' },
-      ['projects'] = {
+      frecency = {
+        initial_mode = 'insert',
+        enable_preview = false,
+        require('telescope.themes').get_dropdown({
+          theme = 'ivy',
+          layout_config = { width = 0.4, height = 0.5 },
+        }),
+      },
+      projects = {
         require('telescope.themes').get_dropdown({
           layout_config = { width = 0.4, height = 0.5 },
         }),
       },
-      ['project'] = {
+      project = {
         require('telescope.themes').get_dropdown({
           layout_config = { width = 0.4, height = 0.5 },
         }),
@@ -118,7 +120,6 @@ return {
       'nvim-lua/plenary.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        -- enabled = false,
         config = function() require('telescope').load_extension('fzf') end,
         build = 'make',
       },
@@ -148,7 +149,6 @@ return {
   {
     'ahmedkhalf/project.nvim',
     -- init = function() require('project_nvim').setup() end,
-    -- event = 'VeryLazy',
     config = function()
       require('project_nvim').setup()
       require('telescope').load_extension('projects')
