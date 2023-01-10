@@ -19,7 +19,6 @@
   "diffview.nvim": { "branch": "main", "commit": "18d88c86a1d7b5256f96694bd41aaee7037a6cc1" },
   "doom-one.nvim": { "branch": "main", "commit": "a43528cbd7908ccec7af4587ec8e18be149095bd" },
   "everforest": { "branch": "master", "commit": "62408f6cb189606bc4b16832ada29be3ae33515f" },
-  "flit.nvim": { "branch": "main", "commit": "be110f9814a45788d10537fd59b3c76d956bb7ad" },
   "friendly-snippets": { "branch": "main", "commit": "484fb38b8f493ceeebf4e6fc499ebe41e10aae25" },
   "fuzzy.nvim": { "branch": "master", "commit": "04b3d969002b5fd2db23a33aaf33a13a533cbdbd" },
   "git-messenger.vim": { "branch": "master", "commit": "8a61bdfa351d4df9a9118ee1d3f45edbed617072" },
