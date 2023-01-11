@@ -54,7 +54,7 @@ local config_null = function()
       -- Linter
       nls.builtins.diagnostics.eslint_d, -- JS/TS
       nls.builtins.diagnostics.phpstan, -- PHP
-      nls.builtins.diagnostics.pylint, -- Python
+      -- nls.builtins.diagnostics.pylint, -- Python
       -- nls.builtins.diagnostics.mypy, -- Python
       -- nls.builtins.diagnostics.selene.with({
       --   condition = function(utils)
@@ -85,7 +85,7 @@ return {
         config = true,
         dependencies = {
           'williamboman/mason-lspconfig.nvim',
-          config = {
+          opts = {
             automatic_installation = true,
             ensure_installed = ensure_installed,
           },

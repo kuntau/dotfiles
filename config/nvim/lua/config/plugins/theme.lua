@@ -179,7 +179,7 @@ return {
   { 'EdenEast/nightfox.nvim', config = config_nightfox },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
   { 'kuntau/ayu-vim', branch = 'italic', config = config_ayu },
-  { 'marko-cerovac/material.nvim', config = config_material, dev = true },
-  { 'rebelot/kanagawa.nvim', config = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
+  { 'marko-cerovac/material.nvim', config = config_material, dev = false },
+  { 'rebelot/kanagawa.nvim', opts = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
   { 'sainnhe/everforest', config = function() vim.g.everforest_background = 'hard' end },
 }
