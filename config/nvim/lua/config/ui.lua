@@ -7,15 +7,15 @@ local diff_gui_theme = true
 local gui_theme = 'nightfox'
 local tui_theme = 'nightfox'
 
-if utils.isDay() and auto_darkmode then
+if utils.is_day() and auto_darkmode then
   vim.o.background = 'light'
 else
   vim.o.background = 'dark'
 end
 
 -- so many neovim gui doesn't have this option it's headache
-if utils.isGui() then -- running in GUI
-  local OS = utils.getOS() -- @value 'macos|windows|linxu|wsl'
+if utils.is_gui() then -- running in GUI
+  local OS = utils.get_os() -- @value 'macos|windows|linxu|wsl'
   if OS == 'windows' then
     vim.o.guifont = 'Consolas:h10'
   elseif OS == 'macos' then

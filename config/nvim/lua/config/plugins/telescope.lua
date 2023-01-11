@@ -37,7 +37,7 @@ local config = function()
         },
       },
       -- file_ignore_patterns = { '^node_modules/', '^.git/' },
-      layout_strategy = (require('utils').getWinOrientation)(),
+      layout_strategy = (require('utils').get_win_orientation)(),
       path_display = { 'truncate' },
       selection_strategy = 'closest',
       sorting_strategy = 'ascending',

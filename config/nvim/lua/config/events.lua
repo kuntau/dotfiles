@@ -41,7 +41,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 -- █▀▀ █ █░░ █▀▀ ▀█▀ █▄█ █▀█ █▀▀
 -- █▀░ █ █▄▄ ██▄ ░█░ ░█░ █▀▀ ██▄
 
-autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
+autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quick_close_pane()]], true) -- Add `q` to quickly close this filetypes
 autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
 autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell ft=gitcommit]], true) -- Disable `cindent` for `gitcommit`
 
