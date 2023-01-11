@@ -67,11 +67,11 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local neodev_ok, neodev = pcall(require, 'neodev')
-if neodev_ok then neodev.setup() end
+if neodev_ok then neodev.setup({ library = { runtime = true, plugins = false } }) end
 
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
+-- local runtime_path = vim.split(package.path, ';')
+-- table.insert(runtime_path, 'lua/?.lua')
+-- table.insert(runtime_path, 'lua/?/init.lua')
 
 lspconfig.sumneko_lua.setup({
   capabilities = capabilities,
@@ -80,17 +80,18 @@ lspconfig.sumneko_lua.setup({
   settings = {
     Lua = {
       completion = {
-        callSnippet = 'Replace',
+        workspaceWord = true,
+        callSnippet = 'Replace', -- 'Both'
       },
       runtime = {
         version = 'LuaJIT', -- Tell the language server we're using LuaJIT
-        path = runtime_path, -- Setup your lua path
+        -- path = runtime_path, -- Setup your lua path. SLOW: Use neodev
       },
       diagnostics = {
         globals = { 'vim' }, -- Get the language server to recognize the `vim` global
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files
+        -- library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files. SLOW: Use neodev
         checkThirdParty = false,
       },
       telemetry = { enable = false },
