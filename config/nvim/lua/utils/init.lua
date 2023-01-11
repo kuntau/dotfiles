@@ -1,20 +1,10 @@
--- utils.lua
+-- █░█ ▀█▀ █ █░░ █▀
+-- █▄█ ░█░ █ █▄▄ ▄█
 
 local fn = vim.fn
 local cmd = vim.cmd
 
 -- Global helpers
-_G.I = function(...)
-  local objects = {}
-  for i = 1, select('#', ...) do
-    local v = select(i, ...)
-    table.insert(objects, vim.inspect(v))
-  end
-
-  -- print(table.concat(objects, '\n'))
-  return ...
-end
-
 _G.PP = function(...)
   if fn.has('nvim-0.7') == 1 then
     vim.pretty_print(...)
@@ -23,17 +13,12 @@ _G.PP = function(...)
   end
   return ...
 end
-
-_G.P = function(...)
-  print(...)
-  return ...
-end
 -- end global helpers
 
-local isDay = function() return tonumber(fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19 end
+local is_day = function() return tonumber(fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19 end
 
 ---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
-local getOS = function()
+local get_os = function()
   if fn.has('mac') == 1 then
     return 'macos'
   elseif fn.has('wsl') == 1 then
@@ -47,9 +32,9 @@ local getOS = function()
   end
 end
 
-local getWinOrientation = function() return vim.o.columns <= 154 and 'vertical' or 'horizontal' end
+local get_win_orientation = function() return vim.o.columns <= 154 and 'vertical' or 'horizontal' end
 
-local isGui = function()
+local is_gui = function()
   if fn.has('gui_running') == 1 or vim.g.gonvim_running == 1 or vim.g.neoray == 1 then return true end
   return false
 end
@@ -87,8 +72,8 @@ local xmap = function(lhs, rhs, opts) mapper('x', lhs, rhs, opts) end
 local omap = function(lhs, rhs, opts) mapper('x', lhs, rhs, opts) end
 
 -- Quickclose some pane
-local quickClosePane = function()
-  local orientation = getWinOrientation()
+local quick_close_pane = function()
+  local orientation = get_win_orientation()
   if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
     if orientation == 'vertical' then
       cmd('wincmd J') -- Move to bottom most split
@@ -101,7 +86,7 @@ local quickClosePane = function()
   nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
-local reloadModule = function()
+local reload_module = function()
   local module = fn.expand('%:t:r')
   if pcall(require, 'plenary') then require('plenary.reload').reload_module(module) end
   print(module .. ' module reloaded!')
@@ -125,13 +110,13 @@ end
 
 -- What function to exposed
 return {
-  isDay = isDay,
-  isGui = isGui,
+  is_day = is_day,
+  is_gui = is_gui,
   feedkey = feedkey,
-  getOS = getOS,
-  getWinOrientation = getWinOrientation,
-  quickClosePane = quickClosePane,
-  reloadModule = reloadModule,
+  get_os = get_os,
+  get_win_orientation = get_win_orientation,
+  quick_close_pane = quick_close_pane,
+  reload_module = reload_module,
   autocmd = autocmd,
   map = map,
   tmap = tmap,
