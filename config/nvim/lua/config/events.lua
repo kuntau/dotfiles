@@ -1,40 +1,26 @@
--- Autocmd events configs
+-- ▄▀█ █░█ ▀█▀ █▀█ █▀▀ █▀▄▀█ █▀▄ █▀
+-- █▀█ █▄█ ░█░ █▄█ █▄▄ █░▀░█ █▄▀ ▄█
 
 local autocmd = require('utils').autocmd
 
 -- Restore cursor position https://github.com/vim/vim/blob/18f4740f043b353abe47b7a00131317052457686/runtime/defaults.vim#L100-L112
 autocmd('nvimStartup', [[BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]], true)
-
-autocmd('focus_lost', [[FocusLost * silent! noautocmd up]], true) -- Save when lose focus
 autocmd('focus_gain', [[FocusGained * silent! noautocmd checktime]], true) -- Check if file changed outside vim & re-read file
+autocmd('focus_lost', [[FocusLost * silent! noautocmd up]], true) -- Save when lose focus
 autocmd('yank', [[TextYankPost * silent! lua vim.highlight.on_yank()]], true) -- Highlight on yank
 autocmd('term', [[TermOpen term://* startinsert! | setl nonu nornu signcolumn=no]], true) -- Start terminal in insert mode
+autocmd('remember_folds', {
+  [[BufWinLeave *.* mkview]],
+  [[BufWinEnter *.* silent! loadview]],
+}, true)
 
--- Re-source configs on save!
--- autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true)
+-- autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true) -- Re-source configs on save!
 
 -- Show listchars in insert mode only only ft with extensions
 autocmd('i_list', { [[InsertEnter *.* setl list | IndentBlanklineEnable]],
   [[InsertEnter *.* lua vim.diagnostic.hide()]] }, true)
 autocmd('n_list', { [[InsertLeave *.* setl nolist | IndentBlanklineDisable]],
   [[InsertLeave *.* lua vim.diagnostic.show()]] }, true)
-
---[[ Filetypes autocmds ]]--
-
-autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
-autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
-autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell ft=gitcommit]], true) -- Disable `cindent` for `gitcommit`
-
-autocmd('ft_nfo', {
-  'BufReadPre,FileReadPre *.nfo set ft=nfo',
-  'FileType nfo setl fileencodings=cp437,utf-8 nonu nornu',
-  'FileType nfo highlight clear ExtraWhitespace',
-}, true)
-
-autocmd('ft_mdx', [[FileType markdown setl spell]], true)
-
--- PHP Configurations
-autocmd('ft_php', [[FileType php,blade setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
 
 -- auto close nvimtree/neogit if it's the last window
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -51,6 +37,31 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
   end,
 })
+
+-- █▀▀ █ █░░ █▀▀ ▀█▀ █▄█ █▀█ █▀▀
+-- █▀░ █ █▄▄ ██▄ ░█░ ░█░ █▀▀ ██▄
+
+autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quickClosePane()]], true) -- Add `q` to quickly close this filetypes
+autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
+autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell ft=gitcommit]], true) -- Disable `cindent` for `gitcommit`
+
+autocmd('ft_nfo', {
+  'BufReadPre,FileReadPre *.nfo set ft=nfo',
+  'FileType nfo setl fileencodings=cp437,utf-8 nonu nornu',
+  'FileType nfo highlight clear ExtraWhitespace',
+}, true)
+
+autocmd('ft_mdx', [[FileType markdown setl spell]], true)
+
+-- PHP Configurations
+autocmd('ft_php', [[FileType php,blade setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
+
+-- Python configurations
+autocmd('ft_python', {
+  [[FileType python setl foldmethod=indent shiftwidth=4 expandtab tabstop=4 softtabstop=4]],
+  [[FileType python setl colorcolumn=120]],
+  [[FileType python map <buffer> <F4> <cmd>Format<cr>]],
+}, true)
 
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation
 -- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
@@ -96,13 +107,6 @@ au BufNewFile,BufReadPost *.js setl shiftwidth=2 expandtab
 " Coffeescript configurations
 " autocmd FileType coffeescript setl colorcolumn=100
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent shiftwidth=2 expandtab
-
-" Python configurations
-autocmd FileType python setl foldmethod=indent shiftwidth=4 expandtab tabstop=4 softtabstop=4
-" autocmd FileType python setl colorcolumn=80
-" autocmd FileType python map <buffer> <F4> :call Flake8()<CR>
-" autocmd FileType python autocmd BufWritePre * :%s/\s\+$//e
-" autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " JSONc config
 autocmd FileType json syntax match Comment +\/\/.\+$+
