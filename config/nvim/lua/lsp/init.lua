@@ -55,10 +55,9 @@ if not configs.ls_emmet then
   configs.ls_emmet = {
     default_config = {
       cmd = { 'ls_emmet', '--stdio' },
-      filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'sass', 'stylus', 'vue' },
-      root_dir = function(--[[ fname ]])
-        return vim.loop.cwd()
-      end,
+      filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact',
+        'typescript', 'typescriptreact', 'sass', 'stylus', 'vue' },
+      root_dir = function(--[[ fname ]]) return vim.loop.cwd() end,
       settings = {},
     },
   }
@@ -67,10 +66,8 @@ end
 -- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local luadev_ok, luadev = pcall(require, 'luadev')
-if luadev_ok then
-  luadev.setup()
-end
+local neodev_ok, neodev = pcall(require, 'neodev')
+if neodev_ok then neodev.setup() end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
@@ -82,6 +79,9 @@ lspconfig.sumneko_lua.setup({
   flags = { debounce_text_changes = DEBOUNCE_TIME },
   settings = {
     Lua = {
+      completion = {
+        callSnippet = 'Replace',
+      },
       runtime = {
         version = 'LuaJIT', -- Tell the language server we're using LuaJIT
         path = runtime_path, -- Setup your lua path

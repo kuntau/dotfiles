@@ -77,9 +77,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = 'BufReadPre',
-    config = function()
-      require('lsp')
-    end,
+    config = function() require('lsp') end,
     dependencies = {
       {
         'williamboman/mason.nvim',
