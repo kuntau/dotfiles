@@ -1,6 +1,6 @@
 -- vim-startify configs
 
-local utils = require('utils')
+local git = require('utils.git')
 local a     = require('utils.async')
 local ms    = vim.fn.matchstr
 local fnm   = vim.fn.fnamemodify
@@ -30,20 +30,20 @@ local formatter = function (files)
   return results
 end
 
-local gitModified = function ()
+local git_modified = function ()
   return a.sync(function ()
-    return a.wait(formatter(utils.gitModified()))
+    return a.wait(formatter(git.get_modified()))
   end)
 end
 
-local gitUntracked = function ()
-  return formatter(utils.gitUntracked())
+local git_untracked = function ()
+  return formatter(git.get_untracked())
 end
 
-local gitCommit = function ()
+local git_commit = function ()
   -- local files = formatter(utils.gitListCommit())
   local results = {}
-  for _, file in ipairs(utils.gitListCommit()) do
+  for _, file in ipairs(git.get_commit_list()) do
     table.insert(results, { line = ms(file, '\\s\\zs.*'), cmd = '!git show ' .. ms(file, '^\\x\\+') })
   end
   return results
@@ -53,14 +53,14 @@ local cwd = function ()
   return fnm(gcwd(), ':t')
 end
 
-local startify_config = function()
+local config_startify = function()
   vim.g.startify_lists = {
     { header = {('   MRU: ' .. cwd())}, type = 'dir' },
     -- { header = {'   MRU: Global'},      type = 'files' },
     { header = {'   Sessions'},         type = 'sessions' },
-    -- { header = {'   Git modified'},     type = async.gitModified },
-    -- { header = {'   Git untracked'},    type = gitUntracked },
-    -- { header = {'   Git commits'},      type = gitCommit },
+    -- { header = {'   Git modified'},     type = async.git_modified },
+    -- { header = {'   Git untracked'},    type = git_utracked },
+    -- { header = {'   Git commits'},      type = git_commit },
     -- { header = {'   Bookmarks'},        type = 'bookmarks' },
     { header = {'   Commands'},         type = 'commands' },
   }
@@ -94,6 +94,6 @@ end
 
 return {
   'mhinz/vim-startify',
-  config = startify_config,
+  config = config_startify,
   cmd = 'Startify',
 }
