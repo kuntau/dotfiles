@@ -77,7 +77,7 @@ local config = function()
       -- this order = priority
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'nvim_lsp', max_item_count = 50 },
-      { name = 'nvim_lua', max_item_count = 50 },
+      -- { name = 'nvim_lua', max_item_count = 50 },
       { name = 'cmp_tabnine' }, -- tabnine
       { name = 'path' }, -- path completion
       { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
@@ -163,7 +163,7 @@ end
 return {
   -- Completions
   { 'hrsh7th/nvim-cmp', dependencies = {
-    'hrsh7th/cmp-nvim-lua',
+    -- 'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
     'andersevenrud/cmp-tmux',
     'saadparwaiz1/cmp_luasnip',
