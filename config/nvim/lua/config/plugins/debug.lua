@@ -47,6 +47,6 @@ return {
     'michaelb/sniprun',
     build = 'bash ./install.sh',
     cmd = { 'SnipRun', 'SnipInfo' },
-    config = { display = 'NvimNotify' },
+    opts = { display = 'NvimNotify' },
   }, -- Run line/block in multiple language TODO: Configure
 }

@@ -26,7 +26,7 @@ autocmd('n_list', { [[InsertLeave *.* setl nolist | IndentBlanklineDisable]],
 vim.api.nvim_create_autocmd('BufEnter', {
   nested = true,
   callback = function()
-    local buf_to_check = { 'NvimTree_', 'NeogitStatus', 'NeogitCommitMessage', 'Outline' }
+    -- local buf_to_check = { 'NvimTree_', 'NeogitStatus', 'NeogitCommitMessage', 'Outline' }
     if #vim.api.nvim_list_wins() == 1
         and (
         vim.api.nvim_buf_get_name(0):match('NvimTree_') ~= nil
