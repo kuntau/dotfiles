@@ -1,6 +1,14 @@
 -- telescope and it's extensions configs
 
 local config = function()
+  local actions = require('telescope.actions')
+  local stopinsert = function(callback)
+    return function(prompt_bufnr)
+      vim.cmd.stopinsert()
+      vim.schedule(function() callback(prompt_bufnr) end)
+    end
+  end
+
   require('telescope').setup({
     defaults = {
       vimgrep_arguments = {
@@ -23,6 +31,10 @@ local config = function()
           ['<C-d>'] = require('telescope.actions').results_scrolling_down,
           ['<PageUp>'] = require('telescope.actions').preview_scrolling_up,
           ['<PageDown>'] = require('telescope.actions').preview_scrolling_down,
+          ['<CR>'] = stopinsert(actions.select_default),
+          ['<C-x>'] = stopinsert(actions.select_horizontal),
+          ['<C-v>'] = stopinsert(actions.select_vertical),
+          ['<C-t>'] = stopinsert(actions.select_tab),
         },
         n = {
           ['q'] = require('telescope.actions').close,
@@ -41,12 +53,11 @@ local config = function()
       path_display = { 'truncate' },
       selection_strategy = 'closest',
       sorting_strategy = 'ascending',
-      initial_mode = 'normal',
       -- layout_strategy      = 'bottom_pane',
       -- dynamic_preview_title= true,
       layout_config = {
-        horizontal = { prompt_position = 'top', },
-        vertical = { prompt_position = 'top', },
+        horizontal = { prompt_position = 'top' },
+        vertical = { prompt_position = 'top' },
       },
       history = {
         path = vim.fn.stdpath('data') .. '/databases/telescope_history.db',
@@ -58,32 +69,31 @@ local config = function()
         previewer = false,
         layout_config = { width = 0.5 },
       },
-      fd = { initial_mode = 'insert', },
       find_files = {
-        initial_mode = 'insert',
         previewer = false,
         no_ignore = true,
         follow = true,
         hidden = true,
       },
-      live_grep = { initial_mode = 'insert' },
       oldfiles = {
+        initial_mode = 'normal',
         only_cwd = true,
       },
       buffers = {
+        initial_mode = 'normal',
         previewer = false,
         sort_lastused = true,
         sort_mru = true,
         layout_config = { width = 0.4, height = 0.5 },
       },
       colorscheme = {
+        initial_mode = 'normal',
         theme = 'ivy',
         enable_preview = true,
       },
     },
     extensions = {
       frecency = {
-        initial_mode = 'insert',
         enable_preview = false,
         require('telescope.themes').get_dropdown({
           theme = 'ivy',
