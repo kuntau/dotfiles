@@ -49,6 +49,7 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
 -- buffer management
 nmap('<M-Tab>',        '<C-^>')
+nmap('<LocalLeader>W','<cmd>xall<cr>')
 nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
 nmap('<LocalLeader>q', '<cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
@@ -76,24 +77,15 @@ nmap('U',          '<cmd>UndotreeToggle<CR>')
 nmap('goh',        '<cmd>Scratch<CR>')
 
 -- windows movements
-local rtc = vim.api.nvim_replace_termcodes
-local rtx = vim.api.nvim_replace_termcodes('<c-w>',true,true,true)
 nmap('<c-`>', '<cmd>TmuxNavigatePrevious<cr>')
-vim.keymap.set('n', '<c-1>', function() vim.api.nvim_command('normal! '..'1'..rtx..rtx) end)
--- vim.keymap.set('n', '<c-1>', function() vim.api.nvim_command([[normal! 2\<c-w>\<c-w>]]) end)
--- vim.keymap.set('n', '', function() vim.api.nvim_cmd({cmd=rtc([[normal! 2<c-w><c-w>]],true,true,true)},{output=false}) end)
-vim.keymap.set('n', '<M-0>', function() vim.api.nvim_exec(rtc([[normal! 100<c-w><c-w>]], true, true, true), false) end)
-for i=1,9 do
+for i=9,0,-1 do
   vim.keymap.set('n', '<M-'..i..'>', function()
+    if i == 0 then i = 100 end -- HACK: so we can do Alt-0 to go to last window
     local code = vim.api.nvim_replace_termcodes('<c-w>', true, true, true)
     local cmd = string.format('normal! %s%s%s', i, code, code)
-    -- vim.api.nvim_exec(cmd, false)
-    vim.api.nvim_command(cmd)
-    -- vim.api.nvim_exec('normal! '..i..code..code, false)
+    vim.api.nvim_command(cmd) -- nvim_exec also work
   end, {desc='Go to windows '..i})
 end
-nmap('<c-2>', [[<cmd>exe "normal! 2\<c-w>\<c-w>"<cr>]])
-nmap('<c-3>', [[<cmd>exe "normal! 3\<c-w>\<c-w>"<cr>]])
 nmap('<c-l>', '<cmd>TmuxNavigateRight<cr>')
 nmap('<c-h>', '<cmd>TmuxNavigateLeft<cr>')
 nmap('<c-j>', '<cmd>TmuxNavigateDown<cr>')
@@ -140,21 +132,21 @@ nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
 
----@experimental
-nmap('<F23>', '<cmd>split<cr>')  -- S-F11
-nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
-nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
-nmap('<F24>', '<cmd>split<cr>')  -- S-F12
-nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
-nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
-nmap('<S-F11>', '<cmd>split<cr>')
-nmap('<C-F11>', '<cmd>split<cr>')
-nmap('<C-S-F11>', '<cmd>vsplit<cr>')
-nmap('<S-F12>', '<cmd>split<cr>')
-nmap('<C-F12>', '<cmd>split<cr>')
-nmap('<C-S-F12>', '<cmd>vsplit<cr>')
-nmap('<M-@>', '<cmd>split<cr>')
-nmap('<S-M-@>', '<cmd>split<cr>')
+-- NEXT: Experimental
+-- nmap('<F23>', '<cmd>split<cr>')  -- S-F11
+-- nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
+-- nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
+-- nmap('<F24>', '<cmd>split<cr>')  -- S-F12
+-- nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
+-- nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
+-- nmap('<S-F11>', '<cmd>split<cr>')
+-- nmap('<C-F11>', '<cmd>split<cr>')
+-- nmap('<C-S-F11>', '<cmd>vsplit<cr>')
+-- nmap('<S-F12>', '<cmd>split<cr>')
+-- nmap('<C-F12>', '<cmd>split<cr>')
+-- nmap('<C-S-F12>', '<cmd>vsplit<cr>')
+-- nmap('<M-@>', '<cmd>split<cr>')
+-- nmap('<S-M-@>', '<cmd>split<cr>')
 -- <F23><F22><F21><F20><F19><F35><F23><F34><S-F11><C-S-F11><S-F9>
 -- nmap('<S-CR>', '<cmd>vsplit<cr>')
 -- nmap('<C-CR>', '<cmd>vsplit<cr>')
