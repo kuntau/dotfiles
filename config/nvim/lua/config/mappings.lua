@@ -76,11 +76,28 @@ nmap('U',          '<cmd>UndotreeToggle<CR>')
 nmap('goh',        '<cmd>Scratch<CR>')
 
 -- windows movements
+local rtc = vim.api.nvim_replace_termcodes
+local rtx = vim.api.nvim_replace_termcodes('<c-w>',true,true,true)
+nmap('<c-`>', '<cmd>TmuxNavigatePrevious<cr>')
+vim.keymap.set('n', '<c-1>', function() vim.api.nvim_command('normal! '..'1'..rtx..rtx) end)
+-- vim.keymap.set('n', '<c-1>', function() vim.api.nvim_command([[normal! 2\<c-w>\<c-w>]]) end)
+-- vim.keymap.set('n', '', function() vim.api.nvim_cmd({cmd=rtc([[normal! 2<c-w><c-w>]],true,true,true)},{output=false}) end)
+vim.keymap.set('n', '<M-0>', function() vim.api.nvim_exec(rtc([[normal! 100<c-w><c-w>]], true, true, true), false) end)
+for i=1,9 do
+  vim.keymap.set('n', '<M-'..i..'>', function()
+    local code = vim.api.nvim_replace_termcodes('<c-w>', true, true, true)
+    local cmd = string.format('normal! %s%s%s', i, code, code)
+    -- vim.api.nvim_exec(cmd, false)
+    vim.api.nvim_command(cmd)
+    -- vim.api.nvim_exec('normal! '..i..code..code, false)
+  end, {desc='Go to windows '..i})
+end
+nmap('<c-2>', [[<cmd>exe "normal! 2\<c-w>\<c-w>"<cr>]])
+nmap('<c-3>', [[<cmd>exe "normal! 3\<c-w>\<c-w>"<cr>]])
 nmap('<c-l>', '<cmd>TmuxNavigateRight<cr>')
 nmap('<c-h>', '<cmd>TmuxNavigateLeft<cr>')
 nmap('<c-j>', '<cmd>TmuxNavigateDown<cr>')
 nmap('<c-k>', '<cmd>TmuxNavigateUp<cr>')
-nmap('<c-`>', '<cmd>TmuxNavigatePrevious<cr>')
 
 -- windows.nvim
 vim.keymap.set('n', '<C-w>z', '<cmd>WindowsMaximize<cr>', {desc="Windows Maximize"})
