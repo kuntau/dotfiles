@@ -77,7 +77,6 @@ nmap('U',          '<cmd>UndotreeToggle<CR>')
 nmap('goh',        '<cmd>Scratch<CR>')
 
 -- windows movements
-nmap('<c-`>', '<cmd>TmuxNavigatePrevious<cr>')
 for i=9,0,-1 do
   vim.keymap.set('n', '<M-'..i..'>', function()
     if i == 0 then i = 100 end -- HACK: so we can do Alt-0 to go to last window
@@ -86,10 +85,6 @@ for i=9,0,-1 do
     vim.api.nvim_command(cmd) -- nvim_exec also work
   end, {desc='Go to windows '..i})
 end
-nmap('<c-l>', '<cmd>TmuxNavigateRight<cr>')
-nmap('<c-h>', '<cmd>TmuxNavigateLeft<cr>')
-nmap('<c-j>', '<cmd>TmuxNavigateDown<cr>')
-nmap('<c-k>', '<cmd>TmuxNavigateUp<cr>')
 
 -- windows.nvim
 vim.keymap.set('n', '<C-w>z', '<cmd>WindowsMaximize<cr>', {desc="Windows Maximize"})

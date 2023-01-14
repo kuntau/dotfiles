@@ -38,12 +38,12 @@ return {
   }, -- Auto expand current window with animation
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   { 'christoomey/vim-tmux-navigator',
-    cmd = {
-      'TmuxNavigateRight',
-      'TmuxNavigateLeft',
-      'TmuxNavigateDown',
-      'TmuxNavigateUp',
-      'TmuxNavigatePrevious',
+    keys = {
+      { '<c-l>', '<cmd>TmuxNavigateRight<cr>', desc='Tmux navigate right' } ,
+      { '<c-h>', '<cmd>TmuxNavigateLeft<cr>', desc='Tmux navigate left' } ,
+      { '<c-j>', '<cmd>TmuxNavigateDown<cr>', desc='Tmux navigate down' } ,
+      { '<c-k>', '<cmd>TmuxNavigateUp<cr>', desc='Tmux navigate up' } ,
+      { '<c-`>', '<cmd>TmuxNavigatePrevious<cr>', desc='Tmux navigate previous' } ,
     },
     config = config_tmux_navigator,
   },
