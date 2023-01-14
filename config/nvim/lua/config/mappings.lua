@@ -86,11 +86,6 @@ for i=9,0,-1 do
   end, {desc='Go to windows '..i})
 end
 
--- Splitjoin/treesj
-nmap('gJ', '<cmd>TSJJoin<cr>')
-nmap('gS', '<cmd>TSJSplit<cr>')
-nmap('gG', '<cmd>TSJToggle<cr>')
-
 -- Telescope bindings
 nmap('<c-p>',      '<cmd>Telescope fd<cr>')
 nmap('<leader>fo', '<cmd>Telescope oldfiles<cr>')
