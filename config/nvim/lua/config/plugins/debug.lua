@@ -40,13 +40,33 @@ return {
     config = config,
     dependencies = {
       { 'mfussenegger/nvim-dap' },
-      { 'jbyuki/one-small-step-for-vimkind', ft = 'lua' },
+      { 'jbyuki/one-small-step-for-vimkind', ft = 'lua' }, -- lua debugger
     },
   },
   {
-    'michaelb/sniprun',
+    'michaelb/sniprun', -- Run line/block in multiple language
     build = 'bash ./install.sh',
-    cmd = { 'SnipRun', 'SnipInfo' },
-    opts = { display = 'NvimNotify' },
-  }, -- Run line/block in multiple language TODO: Configure
+    init = function()
+      -- F14 = S-F2, F26 = C-F2
+      vim.keymap.set('n', '<F14>', function() local pos = vim.fn.winsaveview() require('sniprun').run('w') vim.fn.winrestview(pos) end, { desc = 'SnipRun the whole file' })
+      vim.keymap.set('v', '<F2>', function() require('sniprun').run('v') end, { desc = 'SnipRun highlighted region' })
+      vim.keymap.set('n', '<F2>', function() require('sniprun').run() end, { desc = 'SnipRun current line' })
+      vim.keymap.set('n', '<F26>', function() require('sniprun.display').close_all() end, { desc = 'SnipRun close all' })
+    end,
+    opts = {
+      selected_interpreters = {
+        'Python3_original',
+        'Lua_nvim',
+        'GFM_original',
+        'Rust_original',
+        'JS_TS_deno',
+        'Go_original',
+        'C_original',
+      },
+      repl_enable = { 'Python3_original', 'Lua_nvim', 'JS_TS_deno' },
+      repl_disable = { 'Lua_original' },
+      live_mode_toggle = 'enable',
+      display = { 'VirtualText', 'NvimNotify' },
+    },
+  },
 }
