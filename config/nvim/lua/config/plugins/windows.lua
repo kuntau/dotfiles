@@ -7,16 +7,16 @@ local config_windows = function()
   require('windows').setup({
     autowidth = {
       enable = true,
-      winwidth = .4,
+      winwidth = 0.4,
     },
     ignore = {
       -- buftype = { 'quickfix', 'nofile' },
-      filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'gundo', 'Outline' }
+      filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'gundo', 'Outline' },
     },
     animation = {
       enable = false, -- BROKEN: broke term, neogit
       duration = 150,
-    }
+    },
   })
 end
 
@@ -28,22 +28,30 @@ local config_tmux_navigator = function()
 end
 
 return {
-  { 'anuvyklack/windows.nvim',
+  {
+    'anuvyklack/windows.nvim',
     event = 'WinNew',
+    keys = {
+      { '<C-w>z', '<cmd>WindowsMaximize<cr>', desc = 'Windows Maximize' },
+      { '<C-w>_', '<cmd>WindowsMaximizeVertically<cr>', desc = 'Windows Maximize Vertically' },
+      { '<C-w>|', '<cmd>WindowsMaximizeHorizontally<cr>', desc = 'Windows Maximize Horizontally' },
+      { '<C-w>=', '<cmd>WindowsEqualize<cr>', desc = 'Windows Equalize' },
+    },
     config = config_windows,
     dependencies = {
-      "anuvyklack/middleclass",
+      'anuvyklack/middleclass',
       -- "anuvyklack/animation.nvim"
     },
   }, -- Auto expand current window with animation
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
-  { 'christoomey/vim-tmux-navigator',
+  {
+    'christoomey/vim-tmux-navigator',
     keys = {
-      { '<c-l>', '<cmd>TmuxNavigateRight<cr>', desc='Tmux navigate right' } ,
-      { '<c-h>', '<cmd>TmuxNavigateLeft<cr>', desc='Tmux navigate left' } ,
-      { '<c-j>', '<cmd>TmuxNavigateDown<cr>', desc='Tmux navigate down' } ,
-      { '<c-k>', '<cmd>TmuxNavigateUp<cr>', desc='Tmux navigate up' } ,
-      { '<c-`>', '<cmd>TmuxNavigatePrevious<cr>', desc='Tmux navigate previous' } ,
+      { '<c-l>', '<cmd>TmuxNavigateRight<cr>', desc = 'Tmux navigate right' },
+      { '<c-h>', '<cmd>TmuxNavigateLeft<cr>', desc = 'Tmux navigate left' },
+      { '<c-j>', '<cmd>TmuxNavigateDown<cr>', desc = 'Tmux navigate down' },
+      { '<c-k>', '<cmd>TmuxNavigateUp<cr>', desc = 'Tmux navigate up' },
+      { '<c-`>', '<cmd>TmuxNavigatePrevious<cr>', desc = 'Tmux navigate previous' },
     },
     config = config_tmux_navigator,
   },

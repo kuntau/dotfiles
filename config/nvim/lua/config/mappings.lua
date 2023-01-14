@@ -86,12 +86,6 @@ for i=9,0,-1 do
   end, {desc='Go to windows '..i})
 end
 
--- windows.nvim
-vim.keymap.set('n', '<C-w>z', '<cmd>WindowsMaximize<cr>', {desc="Windows Maximize"})
-vim.keymap.set('n', '<C-w>_', '<cmd>WindowsMaximizeVertically<cr>', {desc="Windows Maximize Vertically"})
-vim.keymap.set('n', '<C-w>|', '<cmd>WindowsMaximizeHorizontally<cr>', {desc="Windows Maximize Horizontally"})
-vim.keymap.set('n', '<C-w>=', '<cmd>WindowsEqualize<cr>', {desc="Windows Equalize"})
-
 -- Splitjoin/treesj
 nmap('gJ', '<cmd>TSJJoin<cr>')
 nmap('gS', '<cmd>TSJSplit<cr>')
