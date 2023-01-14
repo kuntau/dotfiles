@@ -14,7 +14,14 @@ return {
   -- Syntaxes and such
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = '.' },
-  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, opts = { use_default_keymaps = false, max_join_length = 500 }, }, -- Splitjoin successor, require TS.
+  { 'Wansmer/treesj', -- Splitjoin successor, require TS.
+    keys = {
+      { 'gJ', 'TSJJoin', desc = 'TSJ join line' },
+      { 'gS', 'TSJSplit', desc = 'TSJ split line' },
+      { 'gG', 'TSJToggle', desc = 'TSJ toggle line' },
+    },
+    opts = { use_default_keymaps = false, max_join_length = 500 },
+  },
 
   -- Diagnostics
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
