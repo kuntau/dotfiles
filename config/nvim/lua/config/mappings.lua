@@ -6,12 +6,8 @@ local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
 local tmap = require('utils').tmap
-local dbgi = require('utils.logger').dbgi
-local warn = require('utils.logger').warn
 local orien = require('utils').get_win_orientation
-
-vim.g.mapleader = [[ ]]
-vim.g.maplocalleader = [[\]]
+local wk = require("which-key")
 
 -- Basic
 map('<D-s>',          '<cmd>up!<cr>')
@@ -87,31 +83,36 @@ for i=9,0,-1 do
 end
 
 -- Telescope bindings
-nmap('<c-p>',      '<cmd>Telescope fd<cr>')
-nmap('<leader>fo', '<cmd>Telescope oldfiles<cr>')
-nmap('<leader>fO', '<cmd>Telescope oldfiles only_cwd=false<cr>')
-nmap('<leader>f;', '<cmd>Telescope command_history<cr>')
-nmap('<leader>f/', '<cmd>Telescope search_history<cr>')
-nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
-nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
-nmap('<Leader>ft', '<cmd>Telescope filetypes<cr>')
-nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
-nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
-nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
-nmap('<Leader>fc', '<cmd>Telescope commands<cr>')
-nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
-vim.keymap.set('n', '<leader>ff', function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, {desc="Open Frecency CWD"})
-vim.keymap.set('n', '<leader>fF', function() require('telescope').extensions.frecency.frecency() end, {desc="Open Frecency ALL"})
-vim.keymap.set('n', '<leader>fp', function() require('telescope').extensions.project.project{ display_type='full' } end, {desc="Open Project ext"})
-vim.keymap.set('n', '<leader>fP', function() require('telescope').extensions.projects.projects() end, {desc="Open Projects"})
+wk.register({
+  ['<c-p>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
+  ['<Leader>f'] = {
+    name = 'Telescope',
+    f = { function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, 'Frecency in CWD' },
+    F = { function() require('telescope').extensions.frecency.frecency() end, 'Frecency' },
+    p = { function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project' },
+    P = { function() require('telescope').extensions.projects.projects() end, 'Project' },
+    o = { '<cmd>Telescope oldfiles<cr>', 'Recent files in CWD' },
+    O = { '<cmd>Telescope oldfiles only_cwd=false<cr>', 'Recent files' },
+    a = { '<cmd>Telescope builtin<cr>', 'Show builtin modules' },
+    i = { '<cmd>Telescope git_files<cr>', 'Git files' },
+    t = { '<cmd>Telescope filetypes<cr>', 'Filetypes' },
+    g = { '<cmd>Telescope live_grep<cr>', 'Live grep' },
+    l = { '<cmd>Telescope buffers<cr>', 'List open buffers' },
+    h = { '<cmd>Telescope help_tags<cr>', 'Help tags' },
+    c = { '<cmd>Telescope commands<cr>', 'Commands' },
+    r = { '<cmd>Telescope resume<cr>', 'Resume last action' },
+    [';'] = { '<cmd>Telescope command_history<cr>', 'Command history' },
+    ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
+  }
+})
 
 vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end, {desc="Open neogit in split"})
 vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
 vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
 
 -- junegunn easy-align
-vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
-nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
+-- vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
+-- nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
