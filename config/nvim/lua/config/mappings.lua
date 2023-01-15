@@ -110,10 +110,6 @@ vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 
 vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
 vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
 
--- junegunn easy-align
--- vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
--- nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
-
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
 

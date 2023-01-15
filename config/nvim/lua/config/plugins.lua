@@ -37,8 +37,8 @@ return {
 
   -- Utilities
   'numToStr/FTerm.nvim',
-  { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-  { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = function() vim.g.startuptime_tries = 5 end, }, -- startup time benachmarking
+  { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
+  { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = function() vim.g.startuptime_tries = 5 end }, -- startup time benachmarking
   { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
   { 'mtth/scratch.vim', cmd = { 'Scratch', 'ScratchSelection' }, config = function() vim.g.scratch_persistence_file = '.scratch' end },
 
