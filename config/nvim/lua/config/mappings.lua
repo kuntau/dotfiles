@@ -70,7 +70,7 @@ nmap('<F1>',       '<cmd>Startify<cr>')
 nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
 nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
 nmap('U',          '<cmd>UndotreeToggle<CR>')
-nmap('goh',        '<cmd>Scratch<CR>')
+nmap('gol', '<cmd>Lazy<cr>')
 
 -- windows movements
 for i=9,0,-1 do

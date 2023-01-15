@@ -1,6 +1,10 @@
 -- Neovim internal option configs
 -- Try not to repeat many of neovim defaults `:help nvim-defaults`
 
+-- Leaders
+vim.g.mapleader = [[ ]]
+vim.g.maplocalleader = [[\]]
+
 -- Operations
 vim.o.autochdir       = false
 vim.o.autowriteall    = true
