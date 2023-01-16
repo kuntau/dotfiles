@@ -61,7 +61,6 @@ nmap('gtc', '<cmd>tabclose<cr>',    {desc='Close current tab'})
 nmap('gtn', '<cmd>tabnew<cr>',      {desc='Open new tab'})
 
 -- Plugins
-vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = false })
 nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
@@ -74,7 +73,7 @@ nmap('gol', '<cmd>Lazy<cr>')
 
 -- windows movements
 for i=9,0,-1 do
-  vim.keymap.set('n', '<M-'..i..'>', function()
+  nmap('<M-'..i..'>', function()
     if i == 0 then i = 100 end -- HACK: so we can do Alt-0 to go to last window
     local code = vim.api.nvim_replace_termcodes('<c-w>', true, true, true)
     local cmd = string.format('normal! %s%s%s', i, code, code)
