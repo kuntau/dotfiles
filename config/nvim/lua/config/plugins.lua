@@ -40,15 +40,26 @@ return {
   { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
   { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
-  { 'mtth/scratch.vim', cmd = { 'Scratch', 'ScratchSelection' }, config = function() vim.g.scratch_persistence_file = '.scratch' end },
+  { 'mtth/scratch.vim',
+    keys = {
+      { 'gos', '<cmd>Scratch<cr>', desc = 'Open Scratch' },
+      { 'gos', '<cmd>ScratchSelection<cr>', mode = 'v', desc = 'Open Scratch with selections' }, -- BUG: didn't work
+    },
+    init = function()
+      vim.g.scratch_persistence_file = '.scratch'
+      vim.g.scratch_filetype = 'markdown'
+      vim.g.scratch_height = 0.4
+      vim.g.scratch_no_mappings = 1
+    end,
+  },
 
   -- UI & UX
   'MunifTanjim/nui.nvim', -- UI library
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
-  -- { 'stevearc/dressing.nvim', config = true, event = 'BufReadPost' }, -- use telescope-ui-select for now
   { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, event = 'VeryLazy' }, -- Give key hint
+  { 'stevearc/dressing.nvim', config = true, event = 'VeryLazy' }, -- PERF: Dressing is faster than telescope-ui-select
 
   -- DX
   { 'folke/todo-comments.nvim', cmd = { 'TodoTrouble', 'TodoTelescope', 'TodoQuickFix' }, config = true }, -- Highlight & find TODO
