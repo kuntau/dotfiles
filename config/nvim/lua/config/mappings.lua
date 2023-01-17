@@ -6,12 +6,8 @@ local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
 local tmap = require('utils').tmap
-local dbgi = require('utils.logger').dbgi
-local warn = require('utils.logger').warn
 local orien = require('utils').get_win_orientation
-
-vim.g.mapleader = [[ ]]
-vim.g.maplocalleader = [[\]]
+local wk = require("which-key")
 
 -- Basic
 map('<D-s>',          '<cmd>up!<cr>')
@@ -49,95 +45,100 @@ nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
 
 -- buffer management
 nmap('<M-Tab>',        '<C-^>')
+nmap('<LocalLeader>W','<cmd>xall<cr>')
 nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
 nmap('<LocalLeader>q', '<cmd>q!<cr>')
 nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
 nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
 nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>')
-vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open latest file in v:oldfiles"})
-
--- tab management
-nmap('gtt', '<cmd>tabnext<cr>',     {desc='Switch to next tab'})
-nmap('gtT', '<cmd>tabprevious<cr>', {desc='Switch to previous tab'})
-nmap('gtc', '<cmd>tabclose<cr>',    {desc='Close current tab'})
-nmap('gtn', '<cmd>tabnew<cr>',      {desc='Open new tab'})
-
--- Plugins
-vmap('<c-c>',      '<Plug>(YankOSC52)', { noremap = false })
-nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
-nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
-nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
-nmap('gos',        '<cmd>Startify<cr>')
-nmap('<F1>',       '<cmd>Startify<cr>')
-nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
-nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
-nmap('U',          '<cmd>UndotreeToggle<CR>')
-nmap('goh',        '<cmd>Scratch<CR>')
+nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open last edited"})
 
 -- windows movements
-nmap('<c-l>', '<cmd>TmuxNavigateRight<cr>')
-nmap('<c-h>', '<cmd>TmuxNavigateLeft<cr>')
-nmap('<c-j>', '<cmd>TmuxNavigateDown<cr>')
-nmap('<c-k>', '<cmd>TmuxNavigateUp<cr>')
-nmap('<c-`>', '<cmd>TmuxNavigatePrevious<cr>')
+for i=9,0,-1 do
+  nmap('<M-'..i..'>', function()
+    if i == 0 then i = 100 end -- HACK: so we can do Alt-0 to go to last window
+    local code = vim.api.nvim_replace_termcodes('<c-w>', true, true, true)
+    local cmd = string.format('normal! %s%s%s', i, code, code)
+    vim.api.nvim_command(cmd) -- nvim_exec also work
+  end, {desc='Go to windows '..i})
+end
 
--- windows.nvim
-vim.keymap.set('n', '<C-w>z', '<cmd>WindowsMaximize<cr>', {desc="Windows Maximize"})
-vim.keymap.set('n', '<C-w>_', '<cmd>WindowsMaximizeVertically<cr>', {desc="Windows Maximize Vertically"})
-vim.keymap.set('n', '<C-w>|', '<cmd>WindowsMaximizeHorizontally<cr>', {desc="Windows Maximize Horizontally"})
-vim.keymap.set('n', '<C-w>=', '<cmd>WindowsEqualize<cr>', {desc="Windows Equalize"})
+-- Plugins
+nmap('<F1>', '<cmd>Startify<cr>')
+nmap('<F3>', '<cmd>NvimTreeToggle<cr>')
 
--- Splitjoin/treesj
-nmap('gJ', '<cmd>TSJJoin<cr>')
-nmap('gS', '<cmd>TSJSplit<cr>')
-nmap('gG', '<cmd>TSJToggle<cr>')
+-- Register which-key
+wk.register({
+  -- Improve defaults
+  gh = { '^', 'Goto first non-blank char' },
+  gl = { '$', 'Goto last non-blank char' },
 
--- Telescope bindings
-nmap('<c-p>',      '<cmd>Telescope fd<cr>')
-nmap('<leader>fo', '<cmd>Telescope oldfiles<cr>')
-nmap('<leader>fO', '<cmd>Telescope oldfiles only_cwd=false<cr>')
-nmap('<leader>f;', '<cmd>Telescope command_history<cr>')
-nmap('<leader>f/', '<cmd>Telescope search_history<cr>')
-nmap('<Leader>fa', '<cmd>Telescope builtin<cr>')
-nmap('<Leader>fi', '<cmd>Telescope git_files<cr>')
-nmap('<Leader>ft', '<cmd>Telescope filetypes<cr>')
-nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>')
-nmap('<Leader>fl', '<cmd>Telescope buffers<cr>')
-nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>')
-nmap('<Leader>fc', '<cmd>Telescope commands<cr>')
-nmap('<Leader>fr', '<cmd>Telescope resume<cr>')
-vim.keymap.set('n', '<leader>ff', function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, {desc="Open Frecency CWD"})
-vim.keymap.set('n', '<leader>fF', function() require('telescope').extensions.frecency.frecency() end, {desc="Open Frecency ALL"})
-vim.keymap.set('n', '<leader>fp', function() require('telescope').extensions.project.project{ display_type='full' } end, {desc="Open Project ext"})
-vim.keymap.set('n', '<leader>fP', function() require('telescope').extensions.projects.projects() end, {desc="Open Projects"})
+  -- Telescope bindings
+  ['<c-p>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
+  ['<Leader>f'] = {
+    name = 'Telescope',
+    f = { function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, 'Frecency in CWD' },
+    F = { function() require('telescope').extensions.frecency.frecency() end, 'Frecency' },
+    p = { function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project' },
+    P = { function() require('telescope').extensions.projects.projects() end, 'Project' },
+    o = { '<cmd>Telescope oldfiles<cr>', 'Recent files in CWD' },
+    O = { '<cmd>Telescope oldfiles only_cwd=false<cr>', 'Recent files' },
+    a = { '<cmd>Telescope builtin<cr>', 'Show builtin modules' },
+    i = { '<cmd>Telescope git_files<cr>', 'Git files' },
+    t = { '<cmd>Telescope filetypes<cr>', 'Filetypes' },
+    g = { '<cmd>Telescope live_grep<cr>', 'Live grep' },
+    l = { '<cmd>Telescope buffers<cr>', 'List open buffers' },
+    h = { '<cmd>Telescope help_tags<cr>', 'Help tags' },
+    c = { '<cmd>Telescope commands<cr>', 'Commands' },
+    r = { '<cmd>Telescope resume<cr>', 'Resume last action' },
+    [';'] = { '<cmd>Telescope command_history<cr>', 'Command history' },
+    ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
+  },
 
-vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end, {desc="Open neogit in split"})
-vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
-vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
-
--- junegunn easy-align
-vmap('ga', '<Plug>(EasyAlign)', { noremap = false })
-nmap('ga', '<Plug>(EasyAlign)', { noremap = false })
+  -- Register +prefix
+  ['gt'] = {
+    name = 'Tabs',
+    t = { '<cmd>tabnext<cr>',     'Switch to next tab' },
+    T = { '<cmd>tabprevious<cr>', 'Switch to previous tab' },
+    c = { '<cmd>tabclose<cr>',    'Close current tab' },
+    n = { '<cmd>tabnew<cr>',      'Open new tab' },
+  },
+  ['go'] = {
+    name = 'Plugins',
+    g = { function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split' },
+    G = { function() require('neogit').open({ kind = 'replace' }) end, 'Open neogit in current window' },
+    c = { function() vim.cmd((orien() == 'vertical' and 's' or 'vs') .. 'plit') vim.cmd('term') end, 'Open terminal in split' },
+    C = { function() vim.cmd('term') end, 'Open terminal in current window' },
+    e = { function() require('nvim-tree.api').tree.toggle() end, 'Toggle FileTree' },
+    E = { function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window' },
+    h = { '<cmd>Startify<cr>', 'Open Startify' },
+    l = { '<cmd>Lazy<cr>', 'Open Lazy' },
+    i = { '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline' },
+    t = { '<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle Trouble document diagnostics' },
+    d = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
+    u = { '<cmd>UndotreeToggle<CR>', 'Toggle Undotree' },
+  },
+})
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
 
----@experimental
-nmap('<F23>', '<cmd>split<cr>')  -- S-F11
-nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
-nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
-nmap('<F24>', '<cmd>split<cr>')  -- S-F12
-nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
-nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
-nmap('<S-F11>', '<cmd>split<cr>')
-nmap('<C-F11>', '<cmd>split<cr>')
-nmap('<C-S-F11>', '<cmd>vsplit<cr>')
-nmap('<S-F12>', '<cmd>split<cr>')
-nmap('<C-F12>', '<cmd>split<cr>')
-nmap('<C-S-F12>', '<cmd>vsplit<cr>')
-nmap('<M-@>', '<cmd>split<cr>')
-nmap('<S-M-@>', '<cmd>split<cr>')
+-- NEXT: Experimental
+-- nmap('<F23>', '<cmd>split<cr>')  -- S-F11
+-- nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
+-- nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
+-- nmap('<F24>', '<cmd>split<cr>')  -- S-F12
+-- nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
+-- nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
+-- nmap('<S-F11>', '<cmd>split<cr>')
+-- nmap('<C-F11>', '<cmd>split<cr>')
+-- nmap('<C-S-F11>', '<cmd>vsplit<cr>')
+-- nmap('<S-F12>', '<cmd>split<cr>')
+-- nmap('<C-F12>', '<cmd>split<cr>')
+-- nmap('<C-S-F12>', '<cmd>vsplit<cr>')
+-- nmap('<M-@>', '<cmd>split<cr>')
+-- nmap('<S-M-@>', '<cmd>split<cr>')
 -- <F23><F22><F21><F20><F19><F35><F23><F34><S-F11><C-S-F11><S-F9>
 -- nmap('<S-CR>', '<cmd>vsplit<cr>')
 -- nmap('<C-CR>', '<cmd>vsplit<cr>')

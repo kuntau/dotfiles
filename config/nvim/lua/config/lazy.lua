@@ -13,9 +13,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
-vim.g.mapleader = [[ ]]
-vim.g.maplocalleader = [[\]]
-
 -- load lazy
 require("lazy").setup("config.plugins", {
   defaults = { lazy = true },
@@ -52,4 +49,3 @@ require("lazy").setup("config.plugins", {
     path = "~/coding/forks"
   }
 })
-vim.keymap.set("n", "gol", "<cmd>:Lazy<cr>")

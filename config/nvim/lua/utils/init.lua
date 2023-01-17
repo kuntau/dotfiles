@@ -1,31 +1,31 @@
 -- █░█ ▀█▀ █ █░░ █▀
 -- █▄█ ░█░ █ █▄▄ ▄█
 
-local fn = vim.fn
-local cmd = vim.cmd
+local mapper = require('utils.mapper')
+mapper.setup()
 
 -- Global helpers
 _G.PP = function(...)
-  if fn.has('nvim-0.7') == 1 then
+  if vim.fn.has('nvim-0.7') == 1 then
     vim.pretty_print(...)
   else
-    P(I(...))
+    print(vim.inspect(...))
   end
   return ...
 end
 -- end global helpers
 
-local is_day = function() return tonumber(fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19 end
+local is_day = function() return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19 end
 
 ---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
 local get_os = function()
-  if fn.has('mac') == 1 then
+  if vim.fn.has('mac') == 1 then
     return 'macos'
-  elseif fn.has('wsl') == 1 then
+  elseif vim.fn.has('wsl') == 1 then
     return 'wsl'
-  elseif fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
+  elseif vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1 then
     return 'windows'
-  elseif fn.has('unix') == 1 then
+  elseif vim.fn.has('unix') == 1 then
     return 'linux'
   else
     return 'unknown'
@@ -35,59 +35,27 @@ end
 local get_win_orientation = function() return vim.o.columns <= 154 and 'vertical' or 'horizontal' end
 
 local is_gui = function()
-  if fn.has('gui_running') == 1 or vim.g.gonvim_running == 1 or vim.g.neoray == 1 then return true end
+  if vim.fn.has('gui_running') == 1 or vim.g.gonvim_running == 1 or vim.g.neoray == 1 then return true end
   return false
 end
-
-local feedkey =
-function(key, mode) vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true) end
-
----@param mode string enum of ""|n|v|i|o|x
----@param opts table Mapping options.
-local mapper = function(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts and type(opts) == 'table' then
-    for key, value in pairs(opts) do
-      options[key] = value
-    end
-  end
-
-  local bufo = options.buffer
-  local bufnr = (type(bufo) == 'number' and bufo) or (bufo == true and vim.api.nvim_get_current_buf())
-  options.buffer = nil
-
-  if bufnr then
-    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options)
-  else
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-  end
-end
-
-local map = function(lhs, rhs, opts) mapper('', lhs, rhs, opts) end
-local tmap = function(lhs, rhs, opts) mapper('t', lhs, rhs, opts) end
-local nmap = function(lhs, rhs, opts) mapper('n', lhs, rhs, opts) end
-local vmap = function(lhs, rhs, opts) mapper('v', lhs, rhs, opts) end
-local imap = function(lhs, rhs, opts) mapper('i', lhs, rhs, opts) end
-local xmap = function(lhs, rhs, opts) mapper('x', lhs, rhs, opts) end
-local omap = function(lhs, rhs, opts) mapper('x', lhs, rhs, opts) end
 
 -- Quickclose some pane
 local quick_close_pane = function()
   local orientation = get_win_orientation()
   if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
     if orientation == 'vertical' then
-      cmd('wincmd J') -- Move to bottom most split
+      vim.cmd('wincmd J') -- Move to bottom most split
     else
-      cmd('wincmd L') -- Move to right most vsplit
+      vim.cmd('wincmd L') -- Move to right most vsplit
     end
   end
-  -- cmd('resize') -- resize help buffer to maximum (CTRL-W__)
-  -- cmd('wincmd T') -- move current buffer to new tab
-  nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
+  -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
+  -- vim.cmd('wincmd T') -- move current buffer to new tab
+  mapper.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
 local reload_module = function()
-  local module = fn.expand('%:t:r')
+  local module = vim.fn.expand('%:t:r')
   if pcall(require, 'plenary') then require('plenary.reload').reload_module(module) end
   print(module .. ' module reloaded!')
   return require(module)
@@ -100,29 +68,29 @@ end
 local autocmd = function(group, cmds, clear)
   clear = clear == nil and false or clear
   if type(cmds) == 'string' then cmds = { cmds } end
-  if type(group) == 'string' and #group > 0 then cmd('augroup ' .. group) end
-  if clear then cmd([[autocmd!]]) end
+  if type(group) == 'string' and #group > 0 then vim.cmd('augroup ' .. group) end
+  if clear then vim.cmd([[autocmd!]]) end
   for _, c in ipairs(cmds) do
-    cmd('autocmd ' .. c)
+    vim.cmd('autocmd ' .. c)
   end
-  cmd([[augroup END]])
+  vim.cmd([[augroup END]])
 end
 
 -- What function to exposed
 return {
   is_day = is_day,
   is_gui = is_gui,
-  feedkey = feedkey,
   get_os = get_os,
   get_win_orientation = get_win_orientation,
   quick_close_pane = quick_close_pane,
   reload_module = reload_module,
   autocmd = autocmd,
-  map = map,
-  tmap = tmap,
-  nmap = nmap,
-  vmap = vmap,
-  imap = imap,
-  xmap = xmap,
-  omap = omap,
+  mapper = mapper,
+  map  = mapper.map,
+  tmap = mapper.tmap,
+  nmap = mapper.nmap,
+  vmap = mapper.vmap,
+  imap = mapper.imap,
+  xmap = mapper.xmap,
+  omap = mapper.omap,
 }

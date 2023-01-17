@@ -4,7 +4,7 @@
 return {
 
   -- Essentials
-  { 'kuntau/vim-osc52', keys = '<c-c>' }, -- Copy & paste across tmux & screen over mosh
+  { 'kuntau/vim-osc52', keys = { { '<c-c>', '<Plug>(YankOSC52)', mode='v', desc='Yank OSC52' } } }, -- Copy & paste across tmux & screen over mosh
 
   -- Movements
   { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
@@ -14,7 +14,14 @@ return {
   -- Syntaxes and such
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = '.' },
-  { 'Wansmer/treesj', cmd = { 'TSJJoin', 'TSJSplit', 'TSJToggle' }, opts = { use_default_keymaps = false, max_join_length = 500 }, }, -- Splitjoin successor, require TS.
+  { 'Wansmer/treesj', -- Splitjoin successor, require TS.
+    keys = {
+      { 'gJ', '<cmd>TSJJoin<cr>', desc = 'TSJ join line' },
+      { 'gS', '<cmd>TSJSplit<cr>', desc = 'TSJ split line' },
+      { 'gG', '<cmd>TSJToggle<cr>', desc = 'TSJ toggle line' },
+    },
+    opts = { use_default_keymaps = false, max_join_length = 500 },
+  },
 
   -- Diagnostics
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
@@ -30,8 +37,8 @@ return {
 
   -- Utilities
   'numToStr/FTerm.nvim',
-  { 'junegunn/vim-easy-align', cmd = 'EasyAlign' },
-  { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = function() vim.g.startuptime_tries = 5 end, }, -- startup time benachmarking
+  { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
+  { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
   { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
   { 'mtth/scratch.vim', cmd = { 'Scratch', 'ScratchSelection' }, config = function() vim.g.scratch_persistence_file = '.scratch' end },
 

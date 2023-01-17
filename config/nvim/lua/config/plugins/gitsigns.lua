@@ -2,42 +2,12 @@
 -- Gutter git signs
 
 local config = function()
-
-  local make_signs = function()
-    local base = 'GitSigns'
-    local result = {}
-    local signs = {
-      add          = { sign = '│', text = 'Add' },
-      change       = { sign = '│', text = 'Change' },
-      changedelete = { sign = '~', text = 'Change' },
-      delete       = { sign = '_', text = 'Delete' },
-      topdelete    = { sign = '‾', text = 'Delete' },
-    }
-
-    for type, sign in pairs(signs) do
-      result[type] = {
-        hl     = base..sign.text,
-        text   = sign.sign,
-        numhl  = base..sign.text..'Nr',
-        linehl = base..sign.text..'Ln',
-      }
-    end
-    return result
-  end
-
-  require('gitsigns').setup {
-    signs = {
-      add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-      change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-      delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-      topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-      changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    },
+  require('gitsigns').setup({
     signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
     numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
     linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-    current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
     current_line_blame_opts = {
       virt_text = true,
       virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
@@ -47,44 +17,38 @@ local config = function()
     current_line_blame_formatter_opts = {
       relative_time = true,
     },
-    preview_config = {
-      -- Options passed to nvim_open_win
-      border = 'rounded',
-      style = 'minimal',
-      relative = 'cursor',
-      row = 0,
-      col = 1
-    },
     on_attach = function(bufnr)
-      local function map(mode, lhs, rhs, opts)
-        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-      end
+      local wk = require('which-key')
+      local gs = package.loaded.gitsigns
 
-      -- Navigation
-      map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-      map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-
-      -- Actions
-      map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-      map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-      map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-      map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-      map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
-      map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-      map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
-      map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-      map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-      map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-      map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-      map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-      map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
-
-      -- Text object
-      map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-      map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-    end
-  }
+      wk.register({
+        [']c'] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", 'Next hunk', expr = true },
+        ['[c'] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", 'Previous hunk', expr = true },
+        ['<Leader>h'] = {
+          name = 'GitSigns',
+          s = { gs.stage_hunk, 'Stage hunk', mode = { 'n', 'v' } },
+          r = { gs.reset_hunk, 'Reset hunk', mode = { 'n', 'v' } },
+          S = { gs.stage_buffer, 'Stage buffer' },
+          u = { gs.undo_stage_hunk, 'Undo stage hunk' },
+          R = { gs.reset_buffer, 'Reset buffer' },
+          p = { gs.preview_hunk, 'Preview hunk' },
+          d = { gs.diffthis, 'Diff this' },
+          D = { function() gs.diffthis('~') end, 'Diff this' },
+          b = { function() gs.blame_line({ full = true }) end, 'Git blame full' },
+        },
+        ['<Leader>ht'] = {
+          name = 'Toggle',
+          b = { gs.toggle_current_line_blame, 'Toggle current line blame' },
+          d = { gs.toggle_deleted, 'Toggle deleted' },
+          n = { gs.toggle_numhl, 'Toggle number highlight' },
+          s = { gs.toggle_signs, 'Toggle gutter signs' },
+          w = { gs.toggle_word_diff, 'Toggle word diff' },
+          l = { gs.toggle_linehl, 'Toggle line highlight' },
+        },
+        ih = { '<cmd>Gitsigns select_hunk<cr>', 'Select hunk', mode = { 'x', 'o' } },
+      }, { buffer = bufnr })
+    end,
+  })
 end
 
 return {
