@@ -1,9 +1,11 @@
 -- Windows management plugins
 
 local config_windows = function()
-  vim.o.winwidth = 10
-  vim.o.winminwidth = 10
+  local min_width = 5
+  vim.o.winwidth = min_width
+  vim.o.winminwidth = min_width
   vim.o.equalalways = false
+
   require('windows').setup({
     autowidth = {
       enable = true,
@@ -14,8 +16,9 @@ local config_windows = function()
       filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'gundo', 'Outline' },
     },
     animation = {
-      enable = false, -- BROKEN: broke term, neogit
+      enable = true, -- BROKEN: broke term, neogit
       duration = 150,
+      easing = 'line',
     },
   })
 end
@@ -40,7 +43,7 @@ return {
     config = config_windows,
     dependencies = {
       'anuvyklack/middleclass',
-      -- "anuvyklack/animation.nvim"
+      "anuvyklack/animation.nvim"
     },
   }, -- Auto expand current window with animation
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove

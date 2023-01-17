@@ -65,8 +65,8 @@ for i=9,0,-1 do
 end
 
 -- Plugins
-nmap('<F1>', '<cmd>Startify<cr>')
-nmap('<F3>', '<cmd>NvimTreeToggle<cr>')
+nmap('<F1>', '<cmd>Startify<cr>', 'Open Startify')
+nmap('<F3>', '<cmd>NvimTreeToggle<cr>', 'Toggle file explorer')
 
 -- Register which-key
 wk.register({

@@ -91,7 +91,7 @@ return {
           },
         }, -- Bridge for mason-LSP config
       }, -- Auto/manage LSP
-      { 'SmiteshP/nvim-navic', config = { highlight = true } }, -- Show LSP context on statusline
+      { 'SmiteshP/nvim-navic', opts = { highlight = true } }, -- Show LSP context on statusline
       { 'jose-elias-alvarez/null-ls.nvim', config = config_null }, -- Bridge LSP
     },
   },
