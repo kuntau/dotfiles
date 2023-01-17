@@ -1,0 +1,31 @@
+theme = "ayu_mirage"
+
+[editor]
+line-number = "relative"
+mouse = false
+auto-format = true
+auto-pairs = true
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.lsp]
+display-messages = true
+auto-signature-help = true
+display-signature-help-docs = true
+
+[keys.normal]
+g = { a = "code_action" }
+C-s = ":update"
+C-p = "file_picker"
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
+G = "goto_last_line"
