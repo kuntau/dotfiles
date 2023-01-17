@@ -52,7 +52,7 @@ nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
 nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>')
 nmap('<LocalLeader>c', '<cmd>close!<cr>')
 nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>')
-vim.keymap.set('n', 'g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open latest file in v:oldfiles"})
+nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open last edited"})
 
 -- tab management
 nmap('gtt', '<cmd>tabnext<cr>',     {desc='Switch to next tab'})
@@ -61,7 +61,7 @@ nmap('gtc', '<cmd>tabclose<cr>',    {desc='Close current tab'})
 nmap('gtn', '<cmd>tabnew<cr>',      {desc='Open new tab'})
 
 -- Plugins
-nmap('<Leader>ee', '<cmd>NvimTreeToggle<cr>')
+nmap('<Leader>ee', function() require('nvim-tree').open_replacing_current_buffer() end, { desc = 'Open Tree in place' })
 nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
 nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
 nmap('gos',        '<cmd>Startify<cr>')
@@ -105,9 +105,10 @@ wk.register({
   }
 })
 
-vim.keymap.set('n', 'gog', function () require('neogit').open({kind=(orien() == 'vertical' and 'split' or 'vsplit')}) end, {desc="Open neogit in split"})
-vim.keymap.set('n', 'goG', function () require('neogit').open({kind='replace'}) end, {desc="Open neogit in current window"})
-vim.keymap.set('n', 'goc', function () vim.cmd((orien() == 'vertical' and 's' or 'vs')..'plit') vim.cmd 'term' end, {desc="Open terminal in split"})
+nmap('gog', function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, { desc = "Open neogit in split" })
+nmap('goG', function() require('neogit').open({ kind = 'replace' }) end, { desc = 'Open neogit in current window' })
+nmap('goc', function() vim.cmd((orien() == 'vertical' and 's' or 'vs') .. 'plit') vim.cmd('term') end, { desc = 'Open terminal in split' })
+nmap('goC', function() vim.cmd('term') end, {desc="Open terminal in split"})
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
