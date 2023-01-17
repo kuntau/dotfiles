@@ -1,5 +1,8 @@
 -- mapper utils
 
+local dbgi = require('utils.logger').dbgi
+local debug = false
+
 ---@class mapper
 local M = {}
 
@@ -38,10 +41,28 @@ local function mapper(mode, lhs, rhs, opts)
   end
 end
 
+local function make_opts(...)
+  local args = ...
+  local opts = {}
+  if type(args) == 'string' then
+    opts.desc = args
+  elseif type(args) == 'table' then
+    for k, v in pairs(args) do
+      if type(v) == 'table' then return make_opts(v) end
+      opts[k] = v
+    end
+  end
+  if debug then dbgi('Results: ', vim.pretty_print(opts)) end
+  return opts
+end
+
 M.setup = function()
   local modes = { map = '', nmap = 'n', vmap = 'v', imap = 'i', tmap = 't', xmap = 'x', omap = 'o', cmap = 'c' }
   for map, mode in pairs(modes) do
-    M[map] = function(...) mapper(mode, ...) end
+    M[map] = function(lhs, rhs, ...)
+      local opts = make_opts(...)
+      mapper(mode, lhs, rhs, opts)
+    end
   end
 end
 
