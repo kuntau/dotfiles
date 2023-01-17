@@ -47,8 +47,8 @@ return {
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
-  { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, event = 'BufReadPost' }, -- Give key hint
   -- { 'stevearc/dressing.nvim', config = true, event = 'BufReadPost' }, -- use telescope-ui-select for now
+  { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, event = 'VeryLazy' }, -- Give key hint
 
   -- DX
   { 'folke/todo-comments.nvim', cmd = { 'TodoTrouble', 'TodoTelescope', 'TodoQuickFix' }, config = true }, -- Highlight & find TODO
@@ -73,6 +73,6 @@ return {
   'pwntester/octo.nvim', -- Manage github issues in Neovim
   'rlch/github-notifications.nvim', -- As the name suggest
   'toppair/peek.nvim', -- Markdown preview
-  'kevinhwang91/nvim-ufo', -- Folding
-  'kevinhwang91/nvim-hlslens', -- Hl Search lens
+  'kevinhwang91/nvim-ufo', -- Folding. NOTE: What's the different with `pretty-fold`?
+  'kevinhwang91/nvim-hlslens', -- Hl Search lens. NOTE: `Noice` already have this functionality built in
 }

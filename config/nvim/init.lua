@@ -1,7 +1,7 @@
 -- init.lua --
 
-require('config.lazy')
 require('config.options')
+require('config.lazy')
 require('config.ui')
 require('config.events')
 

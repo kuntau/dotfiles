@@ -11,7 +11,7 @@ local config = function()
     hijack_netrw = true,
     ignore_ft_on_setup = { 'startify', 'help' },
     hijack_directories = {
-      enable = false,
+      enable = true,
       auto_open = true,
     },
     diagnostics = {

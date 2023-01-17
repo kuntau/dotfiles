@@ -74,10 +74,10 @@ local config_startify = function()
     { fc = { 'Git commits',  'Telescope git_commits' }},
     { og = { 'Neogit',       'Neogit' }},
     { ol = { 'Lazy',         'Lazy' }},
-    { st = { 'Startup Time', 'StartupTime' }},
+    { st = { 'Startup Time', 'StartupTime --tries 5' }},
     { ch = { 'Check Health', 'checkhealth' }},
   }
-  vim.g.startify_disable_at_vimenter = 1
+  vim.g.startify_disable_at_vimenter = 0
   vim.g.startify_chnage_to_vcs_root = 1
   vim.g.startify_relative_path = 1
   vim.g.startify_session_sort = 1
@@ -96,4 +96,5 @@ return {
   'mhinz/vim-startify',
   config = config_startify,
   cmd = 'Startify',
+  lazy = false,
 }
