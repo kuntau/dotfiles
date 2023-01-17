@@ -61,10 +61,6 @@ local config = function()
         horizontal = { prompt_position = 'top' },
         vertical = { prompt_position = 'top' },
       },
-      history = {
-        path = vim.fn.stdpath('data') .. '/databases/telescope_history.db',
-        limit = 100,
-      },
     },
     pickers = {
       builtin = {
@@ -96,7 +92,7 @@ local config = function()
     },
     extensions = {
       frecency = {
-        enable_preview = false,
+        previewer = false,
         require('telescope.themes').get_dropdown({
           theme = 'ivy',
           layout_config = { width = 0.4, height = 0.5 },
@@ -135,10 +131,6 @@ return {
         config = function() require('telescope').load_extension('fzf') end,
         build = 'make',
       },
-      {
-        'nvim-telescope/telescope-smart-history.nvim',
-        config = function() require('telescope').load_extension('smart_history') end,
-      },
     },
     dev = false,
     cmd = 'Telescope',
@@ -148,11 +140,6 @@ return {
     'nvim-telescope/telescope-frecency.nvim',
     config = function() require('telescope').load_extension('frecency') end,
     dependencies = 'tami5/sqlite.lua',
-  },
-  {
-    'nvim-telescope/telescope-ui-select.nvim',
-    event = 'VeryLazy',
-    config = function() require('telescope').load_extension('ui-select') end,
   },
   {
     'nvim-telescope/telescope-project.nvim',
