@@ -5,10 +5,10 @@ local config_tabnine = function()
   local tabnine = require('cmp_tabnine.config')
 
   tabnine:setup({
-    max_lines = 1000;
-    max_num_results = 20;
+    max_lines = 200;
+    max_num_results = 10;
     sort = true;
-    run_on_every_keystroke = true;
+    run_on_every_keystroke = false;
     snippet_placeholder = '..';
     ignored_file_types = {
       -- lua = true
@@ -78,7 +78,7 @@ local config = function()
       { name = 'luasnip' }, -- For luasnip users.
       { name = 'nvim_lsp', max_item_count = 50 },
       -- { name = 'nvim_lua', max_item_count = 50 },
-      { name = 'cmp_tabnine' }, -- tabnine
+      -- { name = 'cmp_tabnine' }, -- tabnine
       { name = 'path' }, -- path completion
       { name = 'tmux', keyword_length = 5, max_item_count = 5 }, -- tmux
       { name = 'fuzzy_buffer',
@@ -169,7 +169,7 @@ return {
     'saadparwaiz1/cmp_luasnip',
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     { 'hrsh7th/cmp-nvim-lsp', event = 'BufReadPost' },
-    { 'tzachar/cmp-tabnine', build = './install.sh', config = config_tabnine }
+    -- { 'tzachar/cmp-tabnine', build = './install.sh', config = config_tabnine }
   },
     config = config,
     event = 'InsertEnter',
