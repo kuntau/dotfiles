@@ -54,23 +54,6 @@ nmap('<LocalLeader>c', '<cmd>close!<cr>')
 nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>')
 nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open last edited"})
 
--- tab management
-nmap('gtt', '<cmd>tabnext<cr>',     {desc='Switch to next tab'})
-nmap('gtT', '<cmd>tabprevious<cr>', {desc='Switch to previous tab'})
-nmap('gtc', '<cmd>tabclose<cr>',    {desc='Close current tab'})
-nmap('gtn', '<cmd>tabnew<cr>',      {desc='Open new tab'})
-
--- Plugins
-nmap('<Leader>ee', function() require('nvim-tree').open_replacing_current_buffer() end, { desc = 'Open Tree in place' })
-nmap('<F3>',       '<cmd>NvimTreeToggle<cr>')
-nmap('<Leader>ei', '<cmd>IndentBlanklineToggle<cr>')
-nmap('gos',        '<cmd>Startify<cr>')
-nmap('<F1>',       '<cmd>Startify<cr>')
-nmap('<Leader>oT', '<cmd>TroubleToggle document_diagnostics<cr>')
-nmap('<Leader>oD', '<cmd>DiffviewOpen<cr>')
-nmap('U',          '<cmd>UndotreeToggle<CR>')
-nmap('gol', '<cmd>Lazy<cr>')
-
 -- windows movements
 for i=9,0,-1 do
   nmap('<M-'..i..'>', function()
@@ -81,8 +64,17 @@ for i=9,0,-1 do
   end, {desc='Go to windows '..i})
 end
 
--- Telescope bindings
+-- Plugins
+nmap('<F1>', '<cmd>Startify<cr>')
+nmap('<F3>', '<cmd>NvimTreeToggle<cr>')
+
+-- Register which-key
 wk.register({
+  -- Improve defaults
+  gh = { '^', 'Goto first non-blank char' },
+  gl = { '$', 'Goto last non-blank char' },
+
+  -- Telescope bindings
   ['<c-p>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
   ['<Leader>f'] = {
     name = 'Telescope',
@@ -102,13 +94,32 @@ wk.register({
     r = { '<cmd>Telescope resume<cr>', 'Resume last action' },
     [';'] = { '<cmd>Telescope command_history<cr>', 'Command history' },
     ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
-  }
-})
+  },
 
-nmap('gog', function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, { desc = "Open neogit in split" })
-nmap('goG', function() require('neogit').open({ kind = 'replace' }) end, { desc = 'Open neogit in current window' })
-nmap('goc', function() vim.cmd((orien() == 'vertical' and 's' or 'vs') .. 'plit') vim.cmd('term') end, { desc = 'Open terminal in split' })
-nmap('goC', function() vim.cmd('term') end, {desc="Open terminal in split"})
+  -- Register +prefix
+  ['gt'] = {
+    name = 'Tabs',
+    t = { '<cmd>tabnext<cr>',     'Switch to next tab' },
+    T = { '<cmd>tabprevious<cr>', 'Switch to previous tab' },
+    c = { '<cmd>tabclose<cr>',    'Close current tab' },
+    n = { '<cmd>tabnew<cr>',      'Open new tab' },
+  },
+  ['go'] = {
+    name = 'Plugins',
+    g = { function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split' },
+    G = { function() require('neogit').open({ kind = 'replace' }) end, 'Open neogit in current window' },
+    c = { function() vim.cmd((orien() == 'vertical' and 's' or 'vs') .. 'plit') vim.cmd('term') end, 'Open terminal in split' },
+    C = { function() vim.cmd('term') end, 'Open terminal in current window' },
+    e = { function() require('nvim-tree.api').tree.toggle() end, 'Toggle FileTree' },
+    E = { function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window' },
+    h = { '<cmd>Startify<cr>', 'Open Startify' },
+    l = { '<cmd>Lazy<cr>', 'Open Lazy' },
+    i = { '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline' },
+    t = { '<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle Trouble document diagnostics' },
+    d = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
+    u = { '<cmd>UndotreeToggle<CR>', 'Toggle Undotree' },
+  },
+})
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
