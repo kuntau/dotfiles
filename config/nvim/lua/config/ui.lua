@@ -1,21 +1,22 @@
 -- ui.lua
 
-local utils = require('utils')
+local Utils = require('utils')
 
-local auto_darkmode = false
-local diff_gui_theme = true
-local gui_theme = 'nightfox'
-local tui_theme = 'nightfox'
+local auto_switch = true -- should theme switch between day and night
+local same_theme = true -- should GUI & TUI have the same theme? GUI use TUI
+local background = (Utils.is_day() and auto_switch) and 'light' or 'dark'
+local gui_light_theme = 'dayfox'
+local gui_dark_theme = 'nightfox'
+local tui_light_theme = 'catppuccin-latte'
+local tui_dark_theme = 'carbonfox'
 
-if utils.is_day() and auto_darkmode then
-  vim.o.background = 'light'
-else
-  vim.o.background = 'dark'
-end
+vim.o.background = background
+local tui_theme = background == 'dark' and tui_dark_theme or tui_light_theme
+local gui_theme = same_theme and tui_theme or background == 'dark' and gui_dark_theme or gui_light_theme
 
 -- so many neovim gui doesn't have this option it's headache
-if utils.is_gui() then -- running in GUI
-  local OS = utils.get_os() -- @value 'macos|windows|linxu|wsl'
+if Utils.is_gui() then -- running in GUI
+  local OS = Utils.get_os() ---@value 'macos|windows|linxu|wsl'
   if OS == 'windows' then
     vim.o.guifont = 'Consolas:h10'
   elseif OS == 'macos' then
@@ -26,7 +27,7 @@ if utils.is_gui() then -- running in GUI
   elseif OS == 'linux'  then
     vim.o.guifont = 'Jetbrains Nerd Font:h13'
   end
-  vim.cmd.colorscheme (diff_gui_theme and gui_theme or tui_theme)
+  vim.cmd.colorscheme(gui_theme)
 else -- running in terminal
-  vim.cmd.colorscheme (tui_theme)
+  vim.cmd.colorscheme(tui_theme)
 end
