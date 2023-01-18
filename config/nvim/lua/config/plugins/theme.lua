@@ -9,7 +9,7 @@ local config_catpuccin = function()
       dark  = 'macchiato',
     },
     dim_inactive = {
-      enabled     = true,
+      enabled     = false,
       shade       = 'dark',
       perccentage = 0.15,
     },
@@ -22,6 +22,7 @@ local config_catpuccin = function()
       variables   = {},
     },
     integrations = {
+      aerial             = true,
       cmp                = true,
       gitsigns           = true,
       leap               = true,
@@ -84,6 +85,7 @@ local config_nightfox = function()
       },
       module_default = false,
       modules = {
+        aerial            = true,
         cmp            = true,
         dap_ui         = true,
         diagnostic     = true,
@@ -91,7 +93,6 @@ local config_nightfox = function()
         lightspeed     = true,
         modes          = true,
         native_lsp     = true,
-        navic          = true,
         neogit         = true,
         notify         = true,
         nvimtree       = true,
@@ -116,8 +117,6 @@ local config_nightfox = function()
       -- hlgroups = {}, -- Override highlight groups
     },
   })
-
-  -- nf.load()
 end
 
 local config_material = function()
@@ -142,11 +141,9 @@ local config_material = function()
       'dap',
       'gitsigns',
       'indent-blankline',
-      'leap',
       'mini',
       'neogit',
       'nvim-cmp',
-      'nvim-navic',
       'nvim-web-devicons',
       'nvim-tree',
       'telescope',
@@ -158,9 +155,7 @@ end
 
 local config_ayu = function()
   vim.g.ayu_comment_italic = 1
-
-  local is_day = require('utils').isDay()
-
+  local is_day = require('utils').is_day()
   if is_day then
     vim.g.ayucolor = 'light'
   else

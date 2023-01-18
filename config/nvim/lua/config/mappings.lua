@@ -78,6 +78,7 @@ wk.register({
   ['<c-p>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
   ['<Leader>f'] = {
     name = 'Telescope',
+    A = { function() require('telescope').extensions.aerial.aerial() end, 'Aerial' },
     f = { function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, 'Frecency in CWD' },
     F = { function() require('telescope').extensions.frecency.frecency() end, 'Frecency' },
     p = { function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project' },
@@ -112,6 +113,7 @@ wk.register({
     C = { function() vim.cmd('term') end, 'Open terminal in current window' },
     e = { function() require('nvim-tree.api').tree.toggle() end, 'Toggle FileTree' },
     E = { function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window' },
+    a = { '<cmd>AerialToggle!<cr>', 'Toggle Aerial' },
     h = { '<cmd>Startify<cr>', 'Open Startify' },
     l = { '<cmd>Lazy<cr>', 'Open Lazy' },
     i = { '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline' },

@@ -73,6 +73,16 @@ local config_null = function()
   })
 end
 
+local function config_aerial()
+  require('aerial').setup({
+    on_attach = function(bufnr)
+      local nmap = require('utils').nmap
+      nmap('}', '<cmd>AerialNext<cr>', { buffer = bufnr, desc = 'Aerial Next' })
+      nmap('{', '<cmd>AerialPrev<cr>', { buffer = bufnr, desc = 'Aerial Prev' })
+    end,
+  })
+end
+
 return {
   {
     'neovim/nvim-lspconfig',
@@ -91,7 +101,7 @@ return {
           },
         }, -- Bridge for mason-LSP config
       }, -- Auto/manage LSP
-      { 'SmiteshP/nvim-navic', opts = { highlight = true } }, -- Show LSP context on statusline
+      { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },
       { 'jose-elias-alvarez/null-ls.nvim', config = config_null }, -- Bridge LSP
     },
   },

@@ -13,7 +13,7 @@ local config_windows = function()
     },
     ignore = {
       -- buftype = { 'quickfix', 'nofile' },
-      filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'gundo', 'Outline' },
+      filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'aerial', 'Outline' },
     },
     animation = {
       enable = true, -- BROKEN: broke term, neogit
