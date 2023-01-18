@@ -57,6 +57,7 @@ return {
   'MunifTanjim/nui.nvim', -- UI library
   'kyazdani42/nvim-web-devicons', -- for file icons
   'rcarriga/nvim-notify', -- Beautiful notifications
+  { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
   { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, event = 'VeryLazy' }, -- Give key hint
   { 'stevearc/dressing.nvim', config = true, event = 'VeryLazy' }, -- PERF: Dressing is faster than telescope-ui-select
