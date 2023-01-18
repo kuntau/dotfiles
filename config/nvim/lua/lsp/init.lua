@@ -37,7 +37,6 @@ local on_attach = function(client, bufnr)
   -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
 
-  require('nvim-navic').attach(client, bufnr) -- Show code context
   handler.setup(bufnr, client.server_capabilities)
   mapping.setup(bufnr, client.server_capabilities)
 

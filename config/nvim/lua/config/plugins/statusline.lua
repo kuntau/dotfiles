@@ -37,7 +37,7 @@ local config = function()
     sections = {
       lualine_c = {
         {'filename', path = 1},
-        { require("nvim-navic").get_location, cond = require("nvim-navic").is_available }
+        { 'aerial' }
       },
       lualine_b = {'diff', 'diagnostics'},
       lualine_x = {
@@ -73,7 +73,9 @@ local config = function()
       lualine_y = {'branch'},
     },
     extensions = {
+      'aerial',
       'nvim-tree',
+      'nvim-dap-ui',
       'quickfix',
       'symbols-outline',
       ft_extension,
