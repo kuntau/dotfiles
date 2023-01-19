@@ -124,8 +124,9 @@ local config = function()
     rainbow = {
       enable = true,
       -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-      extended_mode = true,
-      max_file_lines = 500, -- Do not enable for files with more than n lines, int
+      query = 'rainbow-parens', -- Which query to use for finding delimiters
+      -- strategy = require 'ts-rainbow.strategy.global', -- Highlight the entire buffer all at once
+      max_file_lines = 1000, -- Do not enable for files with more than n lines, int
     },
   })
 end
@@ -150,6 +151,6 @@ return {
     build = ':TSUpdate', -- We recommend updating the parsers cmd update
   },
   { 'windwp/nvim-ts-autotag', ft = { 'markdown', 'vue', 'html', 'jsx', 'tsx' } }, -- auto complete HTML tags
-  { 'p00f/nvim-ts-rainbow' }, -- TS powered rainbow brackets
   { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *.*' }, -- TS - easy exit in params
+  { 'https://gitlab.com/HiPhish/nvim-ts-rainbow2.git' }, -- TS powered rainbow brackets
 }
