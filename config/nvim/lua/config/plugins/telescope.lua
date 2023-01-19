@@ -125,7 +125,6 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
-      'nvim-lua/plenary.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         config = function() require('telescope').load_extension('fzf') end,
@@ -139,7 +138,6 @@ return {
   {
     'nvim-telescope/telescope-frecency.nvim',
     config = function() require('telescope').load_extension('frecency') end,
-    dependencies = 'tami5/sqlite.lua',
   },
   {
     'nvim-telescope/telescope-project.nvim',
