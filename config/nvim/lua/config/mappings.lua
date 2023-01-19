@@ -10,48 +10,48 @@ local orien = require('utils').get_win_orientation
 local wk = require("which-key")
 
 -- Basic
-map('<D-s>',          '<cmd>up!<cr>')
-map('<M-C-S>',        '<cmd>up!<cr>') -- hyper_key
-imap('<D-v>',         '<c-r>+')
-nmap('R',             ':help <c-r><c-w><cr>')
-nmap('<Leader><Tab>', '<C-^>')
-nmap('<Leader>ro',    '<cmd>up<cr><cmd>luafile %<cr>')
-nmap('<Leader>rm',    '<cmd>up<cr><cmd>lua require("utils").reload_module()<cr>')
-nmap('<LocalLeader>w','<cmd>up!<cr>')
-nmap('<F5>','<cmd>lua require("specs").show_specs()<cr>')
+map('<D-s>',   '<cmd>up!<cr>', 'Save')
+map('<M-C-S>', '<cmd>up!<cr>', 'Save') -- hyper_key
+imap('<D-v>',  '<c-r>+', 'Paste')
+nmap('R',      ':help <c-r><c-w><cr>', 'Open help for word under cursor')
+nmap('<F5>',   function() require("specs").show_specs() end, 'Show cursor location')
+nmap('<Leader>rm',     function() vim.cmd('up') require("utils").reload_module() end, 'Save & reload module')
+nmap('<Leader>ro',     '<cmd>up<cr><cmd>luafile %<cr>', 'Save & re-source current file')
+nmap('<Leader><Tab>',  '<C-^>', 'Toggle alternate file')
+nmap('<LocalLeader>w', '<cmd>up!<cr>', 'Save')
 
 -- Terminal movements
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
 nmap('<Leader>oC', '<cmd>'..(orien() == 'vertical' and 's' or 'vs')..'plit term://nu<cr>')
 nmap('<Leader>oc', '<cmd>term<cr>')
-tmap('<LocalLeader><Esc>', ts)
-tmap('<M-`>', [[<cmd>lua require('FTerm').toggle()<CR>]])
-map('<M-`>', [[<cmd>lua require('FTerm').toggle()<CR>]])
+tmap('<LocalLeader><Esc>', ts, 'Escape terminal')
+tmap('<M-`>', function() require('FTerm').toggle() end, 'Toggle FTerm')
+map('<M-`>',  function() require('FTerm').toggle() end, 'Toggle FTerm')
 
 -- Better arrow key
-nmap('<right>', '<cmd>bnext<cr>')
-nmap('<left>',  '<cmd>bprevious<cr>')
+nmap('<right>', '<cmd>bnext<cr>', 'Next buffer')
+nmap('<left>',  '<cmd>bprevious<cr>', 'Prev buffer')
 
 -- Moving block of codes
-nmap('<m-j>', ':m .+1<CR>==')
-nmap('<m-k>', ':m .-2<CR>==')
-vmap('J', ":m '>+1<CR>gv=gv")
-vmap('K', ":m '<-2<CR>gv=gv")
-imap('<m-j>', '<Esc>:m .+1<CR>==gi')
-imap('<m-k>', '<Esc>:m .-2<CR>==gi')
+nmap('<m-j>', ':m .+1<CR>==', 'Move current line down')
+nmap('<m-k>', ':m .-2<CR>==', 'Move current line up')
+vmap('J', ":m '>+1<CR>gv=gv", 'Move selected line down')
+vmap('K', ":m '<-2<CR>gv=gv", 'Move selected line up')
+imap('<m-j>', '<Esc>:m .+1<CR>==gi', 'Move current line down')
+imap('<m-k>', '<Esc>:m .-2<CR>==gi', 'Move current line up')
 
 -- clear search highlight
-nmap('<Leader><c-l>', '<cmd>nohlsearch<Bar>diffupdate<cr><c-l>')
+nmap('<Leader><c-l>', '<cmd>noh<Bar>diffupdate<cr><c-l>', 'Clear search highlight')
 
 -- buffer management
-nmap('<M-Tab>',        '<C-^>')
-nmap('<LocalLeader>W','<cmd>xall<cr>')
-nmap('<LocalLeader>Q', '<cmd>qa!<cr>')
-nmap('<LocalLeader>q', '<cmd>q!<cr>')
-nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>')
-nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>')
-nmap('<LocalLeader>c', '<cmd>close!<cr>')
-nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>')
+nmap('<M-Tab>',        '<C-^>', 'Toggle alternate file')
+nmap('<LocalLeader>W','<cmd>xall<cr>', 'Save & Quit all')
+nmap('<LocalLeader>Q', '<cmd>qa!<cr>', 'Quit all')
+nmap('<LocalLeader>q', '<cmd>q!<cr>', 'Quit window')
+nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>', 'Delete this buffer')
+nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>', 'Delete other buffer')
+nmap('<LocalLeader>c', '<cmd>close!<cr>', 'Close window')
+nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>', 'Select open buffers')
 nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open last edited"})
 
 -- windows movements
@@ -97,7 +97,6 @@ wk.register({
     ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
   },
 
-  -- Register +prefix
   ['gt'] = {
     name = 'Tabs',
     t = { '<cmd>tabnext<cr>',     'Switch to next tab' },
@@ -105,6 +104,7 @@ wk.register({
     c = { '<cmd>tabclose<cr>',    'Close current tab' },
     n = { '<cmd>tabnew<cr>',      'Open new tab' },
   },
+
   ['go'] = {
     name = 'Plugins',
     g = { function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split' },
@@ -113,6 +113,7 @@ wk.register({
     C = { function() vim.cmd('term') end, 'Open terminal in current window' },
     e = { function() require('nvim-tree.api').tree.toggle() end, 'Toggle FileTree' },
     E = { function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window' },
+    r = { function() require('hlargs').toggle() end, 'Toggle hlargs' },
     a = { '<cmd>AerialToggle!<cr>', 'Toggle Aerial' },
     h = { '<cmd>Startify<cr>', 'Open Startify' },
     l = { '<cmd>Lazy<cr>', 'Open Lazy' },
@@ -121,6 +122,11 @@ wk.register({
     d = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
     u = { '<cmd>UndotreeToggle<CR>', 'Toggle Undotree' },
   },
+
+  -- Register empty desc
+  ['g'] = { name = 'Go' },
+  [']'] = 'Unimpaired',
+  ['['] = 'Unimpaired',
 })
 
 ---@abbreviations

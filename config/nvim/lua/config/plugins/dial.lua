@@ -1,23 +1,44 @@
 return {
   'monaqa/dial.nvim',
-  keys = { '<c-a>', '<c-x>' },
+  keys =  {
+      { '<C-a>', '<Plug>(dial-increment)', mode = {'n','v'}, desc = 'Increment (Dial)' },
+      { '<C-x>', '<Plug>(dial-decrement)', mode = {'n','v'}, desc = 'Decrement (Dial)' },
+      { 'g<C-a>', 'g<Plug>(dial-increment)', desc = 'Increment (Dial)' },
+      { 'g<C-x>', 'g<Plug>(dial-decrement)', desc = 'Decrement (Dial)' },
+    },
   config = function()
     local augend = require('dial.augend')
-    require("dial.config").augends:register_group({
+    require('dial.config').augends:register_group({
       default = {
         augend.integer.alias.decimal,
+        augend.integer.alias.binary,
         augend.integer.alias.hex,
-        augend.date.alias['%Y/%m/%d'],
+        augend.integer.alias.octal,
+        augend.date.alias['%d/%m/%Y'],
         augend.constant.alias.bool,
         augend.semver.alias.semver,
+        augend.misc.alias.markdown_header,
+        augend.paren.alias.quote,
+        -- augend.paren.alias.brackets,
+        -- augend.paren.alias.lua_str_literal,
+        augend.constant.new({
+          elements = { 'and', 'or' },
+          word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+          cyclic = true, -- "or" is incremented into "and".
+        }),
+        augend.constant.new({
+          elements = { '&&', '||' },
+          word = false,
+          cyclic = true,
+        }),
+        augend.hexcolor.new({
+          case = 'lower',
+        }),
+        augend.case.new({
+          types = { 'camelCase', 'snake_case' },
+          cyclic = true,
+        }),
       },
     })
-
-    vim.keymap.set('n', '<C-a>', require('dial.map').inc_normal(), { noremap = true, desc = "Dial: Increment" })
-    vim.keymap.set('n', '<C-x>', require('dial.map').dec_normal(), { noremap = true, desc = "Dial: Decrement" })
-    vim.keymap.set('v', '<C-a>', require('dial.map').inc_visual(), { noremap = true, desc = "Dial: Increment" })
-    vim.keymap.set('v', '<C-x>', require('dial.map').dec_visual(), { noremap = true, desc = "Dial: Decrement" })
-    vim.keymap.set('v', 'g<C-a>', require('dial.map').inc_gvisual(), { noremap = true, desc = "Dial: Increment" })
-    vim.keymap.set('v', 'g<C-x>', require('dial.map').dec_gvisual(), { noremap = true, desc = "Dial: Decrement" })
-  end
+  end,
 }

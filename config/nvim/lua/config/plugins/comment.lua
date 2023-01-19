@@ -9,7 +9,11 @@ end
 
 return {
   'numToStr/Comment.nvim',
-  keys = { 'gb', 'gc', { 'gc', mode='v' } },
+  keys = {
+    { 'gb', desc = 'Toggle comment block' },
+    { 'gc', desc = 'Toggle comment line' },
+    { 'gc', desc = 'Toggle comment line', mode='v' },
+  },
   dependencies = 'JoosepAlviste/nvim-ts-context-commentstring', -- context-commentstring module for treesitter
   config = config,
 }
