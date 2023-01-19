@@ -1,42 +1,43 @@
 -- All about the YANK. So far Yanky is the best
 
-local init = function()
-  vim.keymap.set('n', [[""]], function() require('telescope').extensions.yank_history.yank_history() end)
-
-  -- restore cursor after yank
-  vim.keymap.set({ 'n', 'x' }, 'y', '<Plug>(YankyYank)') -- restore cursor after yank
-
-  -- Standard pasting
-  vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
-  vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
-  vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
-  vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
-
-  -- Yank-ring
-  vim.keymap.set('n', '<A-n>', '<Plug>(YankyCycleForward)')
-  vim.keymap.set('n', '<A-p>', '<Plug>(YankyCycleBackward)')
-
-  -- unimpaired like, don't need this if we have vim-unimpaired
-  vim.keymap.set('n', ']p', '<Plug>(YankyPutIndentAfterLinewise)')
-  vim.keymap.set('n', '[p', '<Plug>(YankyPutIndentBeforeLinewise)')
-  vim.keymap.set('n', ']P', '<Plug>(YankyPutIndentAfterLinewise)')
-  vim.keymap.set('n', '[P', '<Plug>(YankyPutIndentBeforeLinewise)')
-
-  vim.keymap.set('n', '>p', '<Plug>(YankyPutIndentAfterShiftRight)')
-  vim.keymap.set('n', '<p', '<Plug>(YankyPutIndentAfterShiftLeft)')
-  vim.keymap.set('n', '>P', '<Plug>(YankyPutIndentBeforeShiftRight)')
-  vim.keymap.set('n', '<P', '<Plug>(YankyPutIndentBeforeShiftLeft)')
-
-  -- Special
-  vim.keymap.set({ 'n', 'x' }, '=p', '<Plug>(YankyPutAfterFilter)')
-  vim.keymap.set({ 'n', 'x' }, '=P', '<Plug>(YankyPutBeforeFilter)')
-  vim.keymap.set({ 'n', 'x' }, '=gp', '<Plug>(YankyGPutAfterFilter)')
-  vim.keymap.set({ 'n', 'x' }, '=gP', '<Plug>(YankyGPutBeforeFilter)')
-end
-
 local config = function()
   local utils = require('yanky.utils')
   local mapping = require('yanky.telescope.mapping')
+  local wk = require('which-key')
+
+  wk.register({
+    ['""'] = { function() require('telescope').extensions.yank_history.yank_history() end, 'Open yanky history' },
+
+    -- restore cursor after yank
+    ['y'] = { '<Plug>(YankyYank)', 'Yank & restore cursor', mode = { 'n', 'x' } },
+
+    -- Standard pasting
+    ['p'] =  { '<Plug>(YankyPutAfter)',   'Yanky Put After',   mode = { 'n', 'x' } },
+    ['P'] =  { '<Plug>(YankyPutBefore)',  'Yanky Put Before',  mode = { 'n', 'x' } },
+    ['gp'] = { '<Plug>(YankyGPutAfter)',  'Yanky GPut After',  mode = { 'n', 'x' } },
+    ['gP'] = { '<Plug>(YankyGPutBefore)', 'Yanky GPut Before', mode = { 'n', 'x' } },
+
+    -- Yank-ring
+    ['<A-n>'] = { '<Plug>(YankyCycleForward)',  'YankRing cycle forward' },
+    ['<A-p>'] = { '<Plug>(YankyCycleBackward)', 'YankRing cycle backward' },
+
+    -- unimpaired like, don't need this if we have vim-unimpaired
+    [']p'] = { '<Plug>(YankyPutIndentAfterLinewise)',  'Yanky PutIndent after Linewise' },
+    ['[p'] = { '<Plug>(YankyPutIndentBeforeLinewise)', 'Yanky PutIndent before Linewise' },
+    [']P'] = { '<Plug>(YankyPutIndentAfterLinewise)',  'Yanky PutIndent after Linewise' },
+    ['[P'] = { '<Plug>(YankyPutIndentBeforeLinewise)', 'Yanky PutIndent before Linewise' },
+
+    ['>p'] = { '<Plug>(YankyPutIndentAfterShiftRight)',  'Yanky PutIndent after shift right' },
+    ['<p'] = { '<Plug>(YankyPutIndentAfterShiftLeft)',   'Yanky PutIndent after shift left' },
+    ['>P'] = { '<Plug>(YankyPutIndentBeforeShiftRight)', 'Yanky PutIndent before shift right' },
+    ['<P'] = { '<Plug>(YankyPutIndentBeforeShiftLeft)',  'Yanky PutIndent before shift left' },
+
+    -- Special
+    ['=p'] =  { '<Plug>(YankyPutAfterFilter)',   'Yanky Put After', mode = { 'n', 'x' } },
+    ['=P'] =  { '<Plug>(YankyPutBeforeFilter)',  'Yanky Put After', mode = { 'n', 'x' } },
+    ['=gp'] = { '<Plug>(YankyGPutAfterFilter)',  'Yanky Put After', mode = { 'n', 'x' } },
+    ['=gP'] = { '<Plug>(YankyGPutBeforeFilter)', 'Yanky Put After', mode = { 'n', 'x' } },
+  })
 
   require('telescope').load_extension('yank_history')
   require('yanky').setup({
@@ -66,7 +67,6 @@ end
 return {
   {
     'gbprod/yanky.nvim',
-    init = init,
     event = 'BufReadPost',
     config = config,
   },

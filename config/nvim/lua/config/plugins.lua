@@ -15,13 +15,13 @@ return {
   -- Movements
   { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }, -- TODO: Replace with linty-org/readline.nvim
-  { 'mg979/vim-visual-multi', keys = '<c-n>' },
+  { 'mg979/vim-visual-multi', keys = { { '<c-n>', mode = {'n','v'}, desc = 'Start multi-cursor' } } },
 
   -- Syntaxes and such
   'ThePrimeagen/refactoring.nvim', -- Refactoring library
   { 'm-demare/hlargs.nvim', opts = {} }, -- Highlight arguments async
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
-  { 'tpope/vim-repeat', keys = '.' },
+  { 'tpope/vim-repeat', keys = { { '.', desc = 'REPEAT' } } },
   { 'Wansmer/treesj', -- Splitjoin successor, require TS.
     keys = {
       { 'gJ', '<cmd>TSJJoin<cr>', desc = 'TSJ join line' },
