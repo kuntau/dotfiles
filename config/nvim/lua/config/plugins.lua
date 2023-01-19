@@ -3,8 +3,14 @@
 
 return {
 
-  -- Essentials
-  { 'kuntau/vim-osc52', keys = { { '<c-c>', '<Plug>(YankOSC52)', mode='v', desc='Yank OSC52' } } }, -- Copy & paste across tmux & screen over mosh
+  -- Essentials/Library
+  { 'kuntau/vim-osc52', keys = { { '<c-c>', '<Plug>(YankOSC52)', mode='v', desc='Yank (OSC52)' } } }, -- Copy & paste across tmux & screen over mosh
+  { 'stevearc/dressing.nvim', config = true, event = 'VeryLazy' }, -- Input library
+  'MunifTanjim/nui.nvim', -- UI library
+  'nvim-tree/nvim-web-devicons', -- for file icons
+  'rcarriga/nvim-notify', -- Notifications library
+  'nvim-lua/plenary.nvim', -- Utils/async library
+  'tami5/sqlite.lua', -- SQLite library
 
   -- Movements
   { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
@@ -12,6 +18,8 @@ return {
   { 'mg979/vim-visual-multi', keys = '<c-n>' },
 
   -- Syntaxes and such
+  'ThePrimeagen/refactoring.nvim', -- Refactoring library
+  { 'm-demare/hlargs.nvim', opts = {} }, -- Highlight arguments async
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = '.' },
   { 'Wansmer/treesj', -- Splitjoin successor, require TS.
@@ -54,13 +62,9 @@ return {
   },
 
   -- UI & UX
-  'MunifTanjim/nui.nvim', -- UI library
-  'kyazdani42/nvim-web-devicons', -- for file icons
-  'rcarriga/nvim-notify', -- Beautiful notifications
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
-  { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, event = 'VeryLazy' }, -- Give key hint
-  { 'stevearc/dressing.nvim', config = true, event = 'VeryLazy' }, -- PERF: Dressing is faster than telescope-ui-select
+  { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, }, -- Give key hint
 
   -- DX
   { 'folke/todo-comments.nvim', cmd = { 'TodoTrouble', 'TodoTelescope', 'TodoQuickFix' }, config = true }, -- Highlight & find TODO
@@ -76,15 +80,10 @@ return {
   -- TODO: Configure the following plugins
 
   -- Refactor
-  'ThePrimeagen/refactoring.nvim', -- Refactoring library
-  'm-demare/hlargs.nvim', -- Highlight arguments async
   'cshuaimin/ssr.nvim', -- Structural Search and replace
   'nvim-pack/nvim-spectre', -- Search and replace workflow
 
   -- Misc
-  'pwntester/octo.nvim', -- Manage github issues in Neovim
-  'rlch/github-notifications.nvim', -- As the name suggest
   'toppair/peek.nvim', -- Markdown preview
   'kevinhwang91/nvim-ufo', -- Folding. NOTE: What's the different with `pretty-fold`?
-  'kevinhwang91/nvim-hlslens', -- Hl Search lens. NOTE: `Noice` already have this functionality built in
 }
