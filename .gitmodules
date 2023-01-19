@@ -5,7 +5,7 @@
 	path = code/Dropbox-Uploader
 	url = https://github.com/andreafabrizi/Dropbox-Uploader.git
 [submodule "fonts/ia-fonts"]
-	path = /Users/kuntau/dotfiles/fonts/ia-fonts
+	path = fonts/ia-fonts
 	url = https://github.com/iaolo/iA-Fonts.git
 [submodule "fonts/operator-mono"]
 	path = fonts/operator-mono
