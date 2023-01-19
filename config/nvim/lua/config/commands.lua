@@ -13,6 +13,7 @@ add_cmd('DebugStop', function() require('dapui').stop('tray') end, { nargs = 0, 
 
 add_cmd('MaterialSwitchStyle', function() require('material.functions').find_style() end, { nargs = 0, desc = 'Switch Material style' })
 add_cmd('Format', function() vim.lsp.buf.format() end, { nargs = 0, desc = 'Format current buffer' }) -- LSP Format
+add_cmd('TSRainbowEnable', function() require('ts-rainbow') end, { nargs = 0 })
 
 -- FTerm
 add_cmd('G', function() require('FTerm').scratch({ cmd = 'gitui' }) end, { nargs = 0, desc = 'Open `gitui` in floating terminal' })

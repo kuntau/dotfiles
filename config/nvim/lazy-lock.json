@@ -63,7 +63,7 @@
   "nvim-treesitter-textsubjects": { "branch": "master", "commit": "bc047b20768845fd54340eb76272b2cf2f6fa3f3" },
   "nvim-ts-autotag": { "branch": "main", "commit": "fdefe46c6807441460f11f11a167a2baf8e4534b" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "a0f89563ba36b3bacd62cf967b46beb4c2c29e52" },
-  "nvim-ts-rainbow": { "branch": "master", "commit": "ef95c15a935f97c65a80e48e12fe72d49aacf9b9" },
+  "nvim-ts-rainbow2": { "branch": "master", "commit": "7d4570e1a5b46883c510e43f53e1f2bec8f533cd" },
   "nvim-ufo": { "branch": "main", "commit": "e3528c9b7ca20e9e0d69d588037f484257f0d652" },
   "nvim-web-devicons": { "branch": "master", "commit": "6c38926351372ea87034dec26182b62c835ff3bc" },
   "one-small-step-for-vimkind": { "branch": "main", "commit": "233c8940488d4072f9f8058798984cb68a49a319" },
