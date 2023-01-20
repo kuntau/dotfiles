@@ -16,9 +16,9 @@ autocmd('remember_folds', {
 -- autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true) -- Re-source configs on save!
 
 -- Show listchars in insert mode only only ft with extensions
-autocmd('i_list', { [[InsertEnter *.* setl list | IndentBlanklineEnable]],
+autocmd('i_list', { [[InsertEnter *.* setl list nornu | IndentBlanklineEnable]],
   [[InsertEnter *.* lua vim.diagnostic.hide()]] }, true)
-autocmd('n_list', { [[InsertLeave *.* setl nolist | IndentBlanklineDisable]],
+autocmd('n_list', { [[InsertLeave *.* setl nolist rnu | IndentBlanklineDisable]],
   [[InsertLeave *.* lua vim.diagnostic.show()]] }, true)
 
 -- auto close nvimtree/neogit if it's the last window
