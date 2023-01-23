@@ -39,6 +39,20 @@ local is_gui = function()
   return false
 end
 
+---Check if a table contains only table
+---@param tbl table
+---@return boolean
+local is_tbl_only = function(tbl)
+  if type(tbl) ~= 'table' then
+    return false
+  else
+    for _, v in pairs(tbl) do
+      if type(v) ~= 'table' then return false end
+    end
+  end
+  return true
+end
+
 -- Quickclose some pane
 local quick_close_pane = function()
   local orientation = get_win_orientation()
@@ -65,7 +79,7 @@ end
 ---@param group string augroup
 ---@param cmds string|table autocmd
 ---@param clear boolean clear augroup
-local autocmd = function(group, cmds, clear)
+local autocmd_legacy = function(group, cmds, clear)
   clear = clear == nil and false or clear
   if type(cmds) == 'string' then cmds = { cmds } end
   if type(group) == 'string' and #group > 0 then vim.cmd('augroup ' .. group) end
@@ -76,7 +90,62 @@ local autocmd = function(group, cmds, clear)
   vim.cmd([[augroup END]])
 end
 
--- What function to exposed
+---@param group string Group name
+---@param autocmds table|table[] Autocommands
+---@param desc? string Group description
+---@param clear? boolean Should we clear the group? Default true
+local autocmd = function(group, autocmds, desc, clear)
+  local opts, group_opts = {}, {}
+
+  if type(clear) == 'boolean' then
+    group_opts.clear = clear
+  end
+
+  if type(desc) == 'string' and #desc > 0 then
+    opts.desc = desc
+  end
+
+  opts.group = (type(group) == 'string' and #group > 0) and vim.api.nvim_create_augroup(group, group_opts) or nil
+
+  ---@param event string|string[]
+  ---@param pttrn_or_bufnr string|string[]|integer
+  ---@param cmds string|fun(_)|table
+  ---@param cmd_opts? table autocmd options
+  local process_cmds = function(event, pttrn_or_bufnr, cmds, cmd_opts)
+    cmd_opts = type(cmd_opts) == 'table' and cmd_opts or {}
+    cmds = type(cmds) == 'table' and cmds or { cmds }
+    for _, cmd in pairs(cmds) do
+
+      if type(pttrn_or_bufnr) == 'number' then
+        opts.buffer = pttrn_or_bufnr
+      elseif pttrn_or_bufnr == nil then
+        opts.pattern = '*' -- set to catch all if pattern is nil
+      else
+        opts.pattern = pttrn_or_bufnr
+      end
+
+      opts.command, opts.callback = nil, nil -- reset command & callback
+      if type(cmd) == 'string' and #cmd > 0 then
+        opts.command = cmd
+      elseif type(cmd) == 'function' then
+        opts.callback = cmd
+      end
+
+      cmd_opts = vim.tbl_deep_extend('force', opts, cmd_opts) -- force any extra options
+      vim.api.nvim_create_autocmd(event, cmd_opts)
+      -- opts = {}
+    end
+  end
+
+  -- check if we have only single table
+  autocmds = is_tbl_only(autocmds) and autocmds or { autocmds }
+  for _, autocmdx in pairs(autocmds) do
+    process_cmds(unpack(autocmdx))
+  end
+
+end
+
+---@class Utils
 return {
   is_day = is_day,
   is_gui = is_gui,
@@ -85,6 +154,7 @@ return {
   quick_close_pane = quick_close_pane,
   reload_module = reload_module,
   autocmd = autocmd,
+  autocmd_legacy = autocmd_legacy,
   mapper = mapper,
   map  = mapper.map,
   tmap = mapper.tmap,
