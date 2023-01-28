@@ -86,6 +86,6 @@ local config = function()
 end
 
 return {
-  { 'nvim-lualine/lualine.nvim', event = 'BufReadPost', config = config },
+  { 'nvim-lualine/lualine.nvim', event = 'VeryLazy', config = config },
   { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' }, -- Tmux statusline
 }

@@ -25,5 +25,5 @@ end
 return {
   'edluffy/specs.nvim',
   config = config,
-  event = 'BufReadPost',
+  event = 'WinNew',
 }

@@ -67,7 +67,7 @@ end
 return {
   {
     'gbprod/yanky.nvim',
-    event = 'BufReadPost',
+    event = 'VeryLazy',
     config = config,
   },
 }
