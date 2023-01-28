@@ -45,6 +45,7 @@ return {
 
   -- Utilities
   'numToStr/FTerm.nvim',
+  { 'sedm0784/vim-resize-mode', event = 'WinNew' },
   { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
   { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
@@ -62,6 +63,7 @@ return {
   },
 
   -- UI & UX
+  { 'luukvbaal/statuscol.nvim', opts = { setopt = true }, enabled = false },
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
   { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
   { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, }, -- Give key hint
@@ -73,7 +75,8 @@ return {
 
   -- Language specifics
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
-  { 'norcalli/nvim-terminal.lua', config = true, event = 'TermOpen' },
+  { 'norcalli/nvim-terminal.lua', event = 'TermOpen', enabled = false },
+  { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = 'TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg' }, config = true },
 
@@ -85,5 +88,9 @@ return {
 
   -- Misc
   'toppair/peek.nvim', -- Markdown preview
-  'kevinhwang91/nvim-ufo', -- Folding. NOTE: What's the different with `pretty-fold`?
+  -- gen740/SmoothCursor.nvim
+  -- rktjmp/paperplanes.nvim
+  -- danielfalk/smart-open.nvim
+  -- ThePrimeagen/harpoon
+  -- LeonHeidelbach/trailblazer.nvim
 }
