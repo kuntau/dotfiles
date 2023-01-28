@@ -1,11 +1,11 @@
-theme = "ayu_mirage"
+theme = "nightfox"
 
 [editor]
 line-number = "relative"
-mouse = false
+mouse       = true
 auto-format = true
-auto-pairs = true
-true-color = true
+auto-pairs  = true
+true-color  = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -21,11 +21,16 @@ auto-signature-help = true
 display-signature-help-docs = true
 
 [keys.normal]
-g = { a = "code_action" }
+g   = { a = "code_action" }
 C-s = ":update"
 C-p = "file_picker"
 C-h = "jump_view_left"
 C-l = "jump_view_right"
 C-j = "jump_view_down"
 C-k = "jump_view_up"
-G = "goto_last_line"
+G   = "goto_last_line"
+Z   = { Z = ":write-quit!" }
+H   = "goto_window_top"
+M   = "goto_window_center"
+L   = "goto_window_bottom"
+X   = "extend_line_above"
