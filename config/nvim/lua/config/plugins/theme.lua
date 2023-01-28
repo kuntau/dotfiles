@@ -153,28 +153,19 @@ local config_material = function()
   })
 end
 
-local config_ayu = function()
-  vim.g.ayu_comment_italic = 1
-  local is_day = require('utils').is_day()
-  if is_day then
-    vim.g.ayucolor = 'light'
-  else
-    vim.g.ayucolor = 'mirage'
-  end
-end
-
 return {
   -- Colorschemes
   'NLKNguyen/papercolor-theme',
-  'arcticicestudio/nord-vim',
   'folke/tokyonight.nvim',
   'nyoom-engineering/oxocarbon.nvim', -- IBM carbon inspired
   'NTBBloodbath/doom-one.nvim',
-  { 'rakr/vim-one', config = function() vim.g.one_allow_italics = 1 end },
+  { 'AlexvZyl/nordic.nvim', dev = false, opts = { telescope = { style = 'flat' } } },
   { 'EdenEast/nightfox.nvim', config = config_nightfox },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
-  { 'kuntau/ayu-vim', branch = 'italic', config = config_ayu },
   { 'marko-cerovac/material.nvim', config = config_material, dev = false },
   { 'rebelot/kanagawa.nvim', opts = { dimInactive = true, globalStatus = true } }, -- tokyonight + gruvbox
-  { 'sainnhe/everforest', config = function() vim.g.everforest_background = 'hard' end },
+  { 'sainnhe/everforest', config = function() vim.g.everforest_better_performance = 1 vim.g.everforest_background = 'hard' end },
+  { 'sainnhe/gruvbox-material', config = function() vim.g.gruvbox_material_better_performance = 1 vim.g.gruvbox_material_background = 'hard' end },
+  { 'sainnhe/sonokai', config = function() vim.g.sonokai_better_performance = 1 vim.g.sonokai_style = 'andromeda' end },
+  { 'sainnhe/edge', config = function() vim.g.edge_better_performance = 1 vim.g.edge_style = 'neon' end },
 }
