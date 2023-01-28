@@ -3,7 +3,7 @@
 local dbgi = require('utils.logger').dbgi
 local debug = false
 
----@class mapper
+---@class Mapper
 local M = {}
 
 -- local function replace_termcodes(key, part, lt, special)

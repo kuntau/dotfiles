@@ -72,7 +72,7 @@ local config_startify = function()
     { fo = { 'Old files',    'Telescope oldfiles' }},
     { ff = { 'Frecency',     'Telescope frecency' }},
     { fc = { 'Git commits',  'Telescope git_commits' }},
-    { og = { 'Neogit',       'Neogit' }},
+    { og = { 'Neogit',       'Neogit kind=tab' }},
     { ol = { 'Lazy',         'Lazy' }},
     { st = { 'Startup Time', 'StartupTime --tries 5' }},
     { ch = { 'Check Health', 'checkhealth' }},
