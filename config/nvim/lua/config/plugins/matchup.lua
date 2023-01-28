@@ -13,5 +13,5 @@ end
 return {
   'andymass/vim-matchup',
   config = config,
-  event = 'BufReadPost'
+  event = 'VeryLazy'
 }
