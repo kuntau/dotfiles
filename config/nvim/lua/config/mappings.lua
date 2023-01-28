@@ -10,10 +10,11 @@ local orien = require('utils').get_win_orientation
 local wk = require("which-key")
 
 -- Basic
+nmap('<cr>',   ':', { silent = false, desc = 'Enter command line' })
 map('<D-s>',   '<cmd>up!<cr>', 'Save')
 map('<M-C-S>', '<cmd>up!<cr>', 'Save') -- hyper_key
 imap('<D-v>',  '<c-r>+', 'Paste')
-nmap('R',      ':help <c-r><c-w><cr>', 'Open help for word under cursor')
+nmap('gK',      ':help <c-r><c-w><cr>', 'Open help for word under cursor')
 nmap('<F5>',   function() require("specs").show_specs() end, 'Show cursor location')
 nmap('<Leader>rm',     function() vim.cmd('up') require("utils").reload_module() end, 'Save & reload module')
 nmap('<Leader>ro',     '<cmd>up<cr><cmd>luafile %<cr>', 'Save & re-source current file')
@@ -70,7 +71,7 @@ nmap('<F3>', '<cmd>NvimTreeToggle<cr>', 'Toggle file explorer')
 
 -- Register which-key
 wk.register({
-  -- Improve defaults
+  -- Some goodies from helix
   gh = { '^', 'Goto first non-blank char' },
   gl = { '$', 'Goto last non-blank char' },
 
@@ -97,14 +98,6 @@ wk.register({
     ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
   },
 
-  ['gt'] = {
-    name = 'Tabs',
-    t = { '<cmd>tabnext<cr>',     'Switch to next tab' },
-    T = { '<cmd>tabprevious<cr>', 'Switch to previous tab' },
-    c = { '<cmd>tabclose<cr>',    'Close current tab' },
-    n = { '<cmd>tabnew<cr>',      'Open new tab' },
-  },
-
   ['go'] = {
     name = 'Plugins',
     g = { function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split' },
@@ -115,6 +108,7 @@ wk.register({
     E = { function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window' },
     r = { function() require('hlargs').toggle() end, 'Toggle hlargs' },
     a = { '<cmd>AerialToggle!<cr>', 'Toggle Aerial' },
+    y = { '<cmd>SymbolsOutline<cr>', 'Toggle Symbols Outline' },
     h = { '<cmd>Startify<cr>', 'Open Startify' },
     l = { '<cmd>Lazy<cr>', 'Open Lazy' },
     i = { '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline' },
