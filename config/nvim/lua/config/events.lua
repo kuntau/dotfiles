@@ -4,62 +4,61 @@
 local autocmd = require('utils').autocmd
 
 -- Restore cursor position https://github.com/vim/vim/blob/18f4740f043b353abe47b7a00131317052457686/runtime/defaults.vim#L100-L112
-autocmd('nvimStartup', [[BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]], true)
-autocmd('focus_gain', [[FocusGained * silent! noautocmd checktime]], true) -- Check if file changed outside vim & re-read file
-autocmd('focus_lost', [[FocusLost * silent! noautocmd up]], true) -- Save when lose focus
-autocmd('term', [[TermOpen term://* startinsert! | setl nonu nornu scl=no ft=terminal]], true) -- Start terminal in insert mode
+autocmd('nvim_start', { 'BufReadPost', nil, [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif ]] }, 'Restore cursor position')
+autocmd('focus_gain', { 'FocusGained', nil, 'silent! noautocmd checktime' }, 'Reload file if changed outside of vim')
+autocmd('focus_lost', { 'FocusLost', nil, 'silent! noautocmd up' }, 'Save on focus lost')
 autocmd('remember_folds', {
-  [[BufWinLeave *.* mkview]],
-  [[BufWinEnter *.* silent! loadview]],
-}, true)
+  { 'BufWinLeave', '*.*', 'mkview' },
+  { 'BufWinEnter', '*.*', 'silent! loadview' },
+})
 
--- autocmd('nvim_configs', [[BufWritePost *nvim/**.lua :source <afile>]], true) -- Re-source configs on save!
+-- autocmd('set_terminal', { 'TermOpen', 'term://*', 'startinsert! | setl nonu nornu scl=no ft=terminal' }, 'Setting terminal buffer') -- NOTE: set by `BufTerm` for now
+-- autocmd('nvim_configs', { 'BufWritePost', '*nvim/**.lua', ':source <afile>' }) -- Re-source configs on save! NOTE: not compatible with Lazy
 
 -- Show listchars in insert mode only only ft with extensions
-autocmd('i_list', { [[InsertEnter *.* setl list nornu | IndentBlanklineEnable]],
-  [[InsertEnter *.* lua vim.diagnostic.hide()]] }, true)
-autocmd('n_list', { [[InsertLeave *.* setl nolist rnu | IndentBlanklineDisable]],
-  [[InsertLeave *.* lua vim.diagnostic.show()]] }, true)
+autocmd('insert_enter', {
+  { 'InsertEnter', '*.*', function()
+    vim.cmd('setl list nornu | IndentBlanklineEnable')
+    vim.diagnostic.hide()
+  end },
+  { 'InsertLeave', '*.*', function()
+    vim.cmd('setl nolist rnu | IndentBlanklineDisable')
+    vim.diagnostic.show()
+  end }
+})
 
 -- auto close nvimtree/neogit if it's the last window
-vim.api.nvim_create_autocmd('BufEnter', {
-  nested = true,
-  callback = function()
-    local buf_to_check = { 'NvimTree_', 'NeogitStatus', 'NeogitCommitMessage', 'OUTLINE', 'aerial' }
-    if #vim.api.nvim_list_wins() == 1 then
-      for _, buf_name in ipairs(buf_to_check) do
-        if vim.api.nvim_buf_get_name(0):match(buf_name) ~= nil then
-      vim.cmd('quit')
-        end
+autocmd('autoclose_last_window', { 'BufEnter', nil, function(res)
+  local buf_to_check = { 'NvimTree_', 'NeogitStatus', 'NeogitCommitMessage', 'OUTLINE', 'aerial' }
+  if #vim.api.nvim_list_wins() == 1 then
+    for _, buf_name in ipairs(buf_to_check) do
+      if res.match:match(buf_name) ~= nil then
+        vim.cmd('quit')
       end
     end
-  end,
+  end
+end, { nested = true }
 })
 
 -- █▀▀ █ █░░ █▀▀ ▀█▀ █▄█ █▀█ █▀▀
 -- █▀░ █ █▄▄ ██▄ ░█░ ░█░ █▀▀ ██▄
 
-autocmd('ft_qfx', [[FileType help,qf,startuptime,checkhealth,lspinfo lua require('utils').quick_close_pane()]], true) -- Add `q` to quickly close this filetypes
-autocmd('ft_lua', [[FileType lua let b:surround_70 = "function () \r end"]], true) -- add inline function surround in lua
-autocmd('ft_git', [[FileType gitcommit,NeogitCommitMessage setl nocindent spell ft=gitcommit]], true) -- Disable `cindent` for `gitcommit`
-
-autocmd('ft_nfo', {
-  'BufReadPre,FileReadPre *.nfo set ft=nfo',
-  'FileType nfo setl fileencodings=cp437,utf-8 nonu nornu',
-  'FileType nfo highlight clear ExtraWhitespace',
-}, true)
-
-autocmd('ft_mdx', [[FileType markdown setl spell]], true)
-
--- PHP Configurations
-autocmd('ft_php', [[FileType php,blade setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab]], true)
-
--- Python configurations
-autocmd('ft_python', {
-  [[FileType python setl foldmethod=indent shiftwidth=4 expandtab tabstop=4 softtabstop=4]],
-  [[FileType python setl colorcolumn=120]],
-  [[FileType python map <buffer> <F4> <cmd>Format<cr>]],
-}, true)
+autocmd('ft_nfo', { { 'BufReadPre', 'FileReadPre' }, '*.nfo', 'setl ft=nfo' })
+autocmd('ft_settings', {
+  { 'FileType', { 'help', 'qf', 'startuptime', 'checkhealth', 'lspinfo' }, function() require('utils').quick_close_pane() end },
+  { 'FileType', 'nfo', {
+    'setl fileencodings=cp437,utf-8 nonu nornu',
+    'hi clear ExtraWhitespace',
+  } },
+  { 'FileType', 'python', {
+    'setl foldmethod=indent shiftwidth=4 tabstop=4 softtabstop=4 expandtab',
+    'setl colorcolumn=120',
+  } },
+  { 'FileType', { 'php', 'blade' }, 'setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab' },
+  { 'FileType', { 'gitcommit', 'NeogitCommitMessage' }, 'setl nocindent spell ft=gitcommit' },
+  { 'FileType', { 'FTerm', 'BufTerm' }, 'setl nonu nornu scl=no' },
+  { 'FileType', 'markdown', 'setl spell' },
+})
 
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation
 -- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {

@@ -12,8 +12,10 @@ local setup = function(bufnr, server_capabilities)
   end
 
   if server_capabilities.documentHighlightProvider then
-    autocmd('lsp_high', [[CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]], true)
-    autocmd('lsp_cref', [[CursorMoved <buffer> lua vim.lsp.buf.clear_references()]], true)
+    autocmd('lsp_highlight', {
+      { { 'CursorHold','CursorHoldI' }, bufnr, function() vim.lsp.buf.document_highlight() end },
+      { 'CursorMoved', bufnr, function() vim.lsp.buf.clear_references() end }
+    })
   end
 
   if server_capabilities.codeActionProvider then
@@ -21,7 +23,16 @@ local setup = function(bufnr, server_capabilities)
     -- autocmd('lsp_coda', [[CursorHold,CursorHoldI <buffer> lua require('lsp.handler').code_action_listener(bufnr)]], true)
   end
 
-  autocmd('lsp_diag', [[CursorHold <buffer> lua vim.diagnostic.open_float({focusable=false, close_events={'InsertEnter', 'CursorMoved'}})]], true)
+  -- autocmd('lsp_float', { 'CursorHold', bufnr,
+  --   function()
+  --     vim.diagnostic.open_float({
+  --       focusable = false,
+  --       close_events = { 'InsertEnter', 'CursorMoved' },
+  --     })
+  --   end,
+  -- })
+
+  -- autocmd('lsp_diag', [[CursorHold <buffer> lua vim.diagnostic.open_float({focusable=false, close_events={'InsertEnter', 'CursorMoved'}})]], true)
   -- autocmd CursorHold,CursorHoldI * lua require('code_action_utils').code_action_listener()
   -- autocmd('lsp', [[BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()]], true)
   -- autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
