@@ -227,7 +227,7 @@ if !has("gui_running")
   " set background=dark
   set visualbell
   set t_vb=
-  colorscheme ayu
+  colorscheme one
   " fix terminal timeout when pressing escape
   " set ttimeout
   " set ttimeoutlen=50
