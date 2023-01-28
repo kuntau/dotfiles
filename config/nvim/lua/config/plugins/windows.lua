@@ -12,11 +12,18 @@ local config_windows = function()
       winwidth = 0.4,
     },
     ignore = {
-      -- buftype = { 'quickfix', 'nofile' },
-      filetype = { 'NvimTree', 'DiffviewFiles', 'undotree', 'aerial', 'Outline' },
+      -- buftype = { 'quickfix', 'nofile', 'terminal' },
+      filetype = {
+        'NvimTree',
+        'DiffviewFiles',
+        'undotree',
+        'aerial',
+        'Outline',
+        'gitcommit',
+      },
     },
     animation = {
-      enable = true, -- BROKEN: broke term, neogit
+      enable = false, -- BROKEN: broke term, neogit
       duration = 150,
       easing = 'line',
     },

@@ -1,6 +1,7 @@
 -- Diagnostic setup
 
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' } -- Alternative signs
+-- local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
 local setup = function()
 

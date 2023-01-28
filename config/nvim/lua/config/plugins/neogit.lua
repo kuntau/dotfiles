@@ -33,4 +33,5 @@ return {
   'TimUntersberger/neogit',
   config = config,
   cmd = 'Neogit',
+  dev = false,
 }
