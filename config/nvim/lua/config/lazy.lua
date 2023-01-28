@@ -19,8 +19,8 @@ require("lazy").setup("config.plugins", {
   install = { colorscheme = { "habamax" } },
   checker = {
     concurrency = 5,
-    enabled = false,
-    frequency = 7200,
+    enabled = true,
+    frequency = 7200, -- 2 hours
     notify = false,
   },
   change_detection = {
