@@ -60,6 +60,14 @@ autocmd('ft_settings', {
   { 'FileType', 'markdown', 'setl spell' },
 })
 
+autocmd('class_conceal', {
+  { 'BufEnter', 'BufWritePost', 'TextChanged', 'InsertLeave' },
+  { '*.html', '*.vue' },
+  function(args)
+    require('utils.conceal').html_class(args.buf)
+  end,
+})
+
 -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation
 -- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
 --   group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
