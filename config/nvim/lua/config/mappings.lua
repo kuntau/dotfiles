@@ -69,6 +69,13 @@ end
 nmap('<F1>', '<cmd>Startify<cr>', 'Open Startify')
 nmap('<F3>', '<cmd>NvimTreeToggle<cr>', 'Toggle file explorer')
 
+-- ufo
+nmap('zR', function() require('ufo').openAllFolds() end)
+nmap('zM', function() require('ufo').closeAllFolds() end)
+nmap('zr', function() require('ufo').openFoldsExceptKinds() end)
+nmap('zm', function() require('ufo').closeFoldsWith() end)
+nmap('K', function() require('ufo').peekFoldedLinesUnderCursor() end)
+
 -- Register which-key
 wk.register({
   -- Some goodies from helix

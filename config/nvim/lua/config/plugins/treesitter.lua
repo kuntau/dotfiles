@@ -131,11 +131,6 @@ local config = function()
   })
 end
 
-local init = function()
-  vim.opt.foldmethod = 'expr'
-  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-end
-
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -147,7 +142,6 @@ return {
     },
     event = 'BufReadPost',
     config = config,
-    init = init,
     build = ':TSUpdate', -- We recommend updating the parsers cmd update
   },
   { 'windwp/nvim-ts-autotag', ft = { 'markdown', 'vue', 'html', 'jsx', 'tsx' } }, -- auto complete HTML tags
