@@ -65,6 +65,10 @@ end
 
 -- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 
 local neodev_ok, neodev = pcall(require, 'neodev')
 if neodev_ok then neodev.setup({ library = { runtime = true, plugins = false } }) end

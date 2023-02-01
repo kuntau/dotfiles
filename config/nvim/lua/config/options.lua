@@ -17,6 +17,7 @@ vim.o.inccommand      = 'split' -- cmdline search & replace open in split
 vim.o.lazyredraw      = false -- better ui performance
 vim.o.modelines       = 2
 vim.o.mouse           = 'a'
+vim.o.mousemodel      = 'extend'
 vim.o.smartcase       = true
 vim.o.swapfile        = false
 vim.o.undofile        = true
@@ -47,7 +48,7 @@ vim.o.scrolloff       = 5     -- Show 5 line above & below cursor
 vim.o.showcmd         = true  -- already in defaults
 vim.o.showmode        = false -- we already have mode in statusline
 vim.o.sidescrolloff   = 5     -- Show 5 columns left & right cursor
-vim.o.signcolumn      = 'yes:1' -- AKA the gutter, smallest size = 'yes:1'
+vim.o.signcolumn      = 'auto' -- AKA the gutter, smallest size = 'yes:1'
 vim.o.splitbelow      = true
 vim.o.splitright      = true
 vim.o.termguicolors   = true  -- enable truecolor
@@ -74,11 +75,13 @@ vim.opt.spelllang     = { 'en', 'ms' }
 vim.opt.grepprg       = "rg --vimgrep"
 vim.opt.grepformat    = "%f:%l:%c:%m"
 
--- Folding: managed by treesitter
-vim.o.foldenable      = false
-vim.o.foldlevel       = 20
-vim.o.foldnestmax     = 5
+-- Folding: managed by _ufo_
+vim.o.foldenable      = true
+vim.o.foldcolumn      = 'auto'
+vim.o.foldlevel       = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart  = 99 -- ""
 vim.o.foldminlines    = 3
+vim.o.foldnestmax     = 5
 
 -- completion
 vim.opt.completeopt   = { 'menu', 'menuone', 'noselect' }
@@ -110,12 +113,11 @@ vim.opt.fillchars:append {
   vertleft = '┨',
   vertright = '┣',
   verthoriz = '╋',
-  -- vert = ' ',
   eob = ' ',
-  -- fold = " ",
-  foldopen = "",
-  -- foldsep = " ",
-  foldclose = "",
+  -- fold = ' ',
+  foldopen = '',
+  foldsep = ' ',
+  foldclose = '',
 }
 vim.opt.diffopt:append   'vertical' -- Diff always open in vsplit
 vim.opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
@@ -143,9 +145,10 @@ if vim.fn.has("nvim-0.8") == 1 then
 end
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-  vim.opt.splitkeep = "screen"
-  vim.o.shortmess = "filnxtToOFWIcC" -- default: icxTFlotOnf. Rm `I` to have :intro
-  vim.o.statuscolumn    = '%=%{&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . "  " : v:lnum) : &nu && v:virtnum < 1 ? v:lnum : ""}%=%s%C'
+  vim.opt.splitkeep  = "screen"
+  vim.o.shortmess    = "filnxtToOFWIcC" -- default: icxTFlotOnf. Rm `I` to have :intro
+  -- vim.o.statuscolumn = '%=%{&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . "  " : v:lnum) : &nu && v:virtnum < 1 ? v:lnum : ""}'
+  -- ..'%=%s%{foldlevel(v:lnum) > 0 ? (foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " ") : " " }'
 end
 
 -- References: {

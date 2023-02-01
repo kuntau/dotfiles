@@ -63,9 +63,9 @@ return {
   },
 
   -- UI & UX
-  { 'luukvbaal/statuscol.nvim', opts = { setopt = true }, enabled = false },
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
-  { 'anuvyklack/pretty-fold.nvim', config = true, keys = { 'zc' } },
+  { 'luukvbaal/statuscol.nvim', opts = { setopt = true, relculright = true, foldfunc = 'builtin', order = 'NSF' }, event = 'VeryLazy' },
+  { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', opts = {}, },
   { 'folke/which-key.nvim', opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true }, }, -- Give key hint
 
   -- DX
