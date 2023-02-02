@@ -2,14 +2,12 @@
 
 local config = function()
   require('nvim-tree').setup({
-    open_on_setup = true,
     open_on_tab = true,
     update_cwd = true,
     reload_on_bufenter = true,
     hijack_cursor = true,
     disable_netrw = true,
     hijack_netrw = true,
-    ignore_ft_on_setup = { 'startify', 'help' },
     hijack_directories = {
       enable = true,
       auto_open = true,
@@ -49,7 +47,7 @@ local config = function()
 end
 
 return {
-  'kyazdani42/nvim-tree.lua',
+  'nvim-tree/nvim-tree.lua',
   cmd = 'NvimTreeToggle',
   config = config,
 }
