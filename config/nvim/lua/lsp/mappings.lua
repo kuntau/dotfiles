@@ -1,57 +1,59 @@
 -- LSP mappings
+
+-- stylua: ignore
 local mappings_table = {
-  codeActionProvider = {
-    { 'n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
-    { 'v', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
-  }, -- 1
-  declarationProvider = { 'n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
-  documentFormattingProvider = { 'n', '<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
-  documentSymbolProvider = { 'n', '<Leader>ds', '<cmd>Telescope lsp_document_symbols<CR>' }, -- 2
-  documentRangeFormattingProvider = { 'x', '<Leader>bf', '<cmd>lua vim.lsp.buf.range_formatting()<CR>' },
-  referencesProvider = { 'n', 'gr', '<cmd>Telescope lsp_references<CR>' }, -- 3
-  definitionProvider = { 'n', '<c-]>', '<cmd>Telescope lsp_definitions<CR>' }, -- 4
-  hoverProvider = { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>' }, -- 5
-  implementationProvider = { 'n', 'gi', '<cmd>Telescope lsp_implementations<CR>' },
-  renameProvider = { 'n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' }, --6
-  signatureHelpProvider = {
-    { 'n', 'g<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' }, -- 7
-    { 'i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
+  codeActionProvider              =  { 'm', '<Leader>la', function() vim.lsp.buf.code_action() end, 'Code action' },
+  declarationProvider             =  { 'n', '<Leader>ld', function() vim.lsp.buf.declaration() end, 'Goto declaration'  },
+  documentFormattingProvider      =  { 'n', '<Leader>lf', function() vim.lsp.buf.format() end, 'LSP format buffer' },
+  renameProvider                  =  { 'n', '<Leader>lr', function() vim.lsp.buf.rename() end, 'LSP rename' },
+  documentRangeFormattingProvider =  { 'm', '<F4>',       function() vim.lsp.buf.format() end, 'LSP format range' },
+  hoverProvider                   =  { 'n', 'K',          function() if not require('ufo').peekFoldedLinesUnderCursor() then vim.lsp.buf.hover() end end, 'Hover' },
+  signatureHelpProvider           =  {
+                                     { 'n', '<Leader>ls', function() vim.lsp.buf.signature_help() end, 'LSP signature' },
+                                     { 'i', '<C-k>',      function() vim.lsp.buf.signature_help() end, 'LSP signature' },
   },
-  typeDefinitionProvider = { 'n', '<Leader>D', '<cmd>Telescope lsp_type_definitions<CR>' }, -- 8
-  workspaceSymbolProvider = { 'n', '<Leader>bd', '<cmd>Telescope diagnostics<CR>' }, -- 9
+  definitionProvider              =  { 'n', '<c-]>',      '<cmd>Telescope lsp_definitions<CR>', 'LSP definitions (Telescope)' },
+  documentSymbolProvider          =  { 'n', '<Leader>lS', '<cmd>Telescope lsp_document_symbols<CR>', 'LSP document symbols (Telescope)' },
+  implementationProvider          =  { 'n', '<Leader>li', '<cmd>Telescope lsp_implementations<CR>', 'LSP implementation (Telescope)' },
+  referencesProvider              =  { 'n', '<Leader>le', '<cmd>Telescope lsp_references<CR>', 'LSP references (Telescope)' },
+  typeDefinitionProvider          =  { 'n', '<Leader>lt', '<cmd>Telescope lsp_type_definitions<CR>', 'LSP type definitions (Telescope)' },
+  workspaceSymbolProvider         =  { 'n', '<Leader>lD', '<cmd>Telescope diagnostics<CR>', 'LSP diagnostics (Telescope)' },
 }
 
+-- These three words
 local setup = function(bufnr, server_capabilities)
-  local nmap = require('utils').nmap
-  local imap = require('utils').imap
+  local is_tbl_only = require('utils').is_tbl_only
   local dbgi = require('utils.logger').dbgi
+  local map = { m = require('utils').map, n = require('utils').nmap, v = require('utils').vmap, i = require('utils').imap }
   local opts = { buffer = bufnr }
+  local debug = false
 
-  for cap, key in pairs(server_capabilities) do
-    local keymap = mappings_table[cap]
-    if keymap and key ~= false then
-      -- dbgi('Capability: '..cap..', Key: ',key and 'true' or 'false', I(mappings_table[cap]))
-      if type(keymap[1]) == 'string' then
-        -- dbgi('Keymap string: ', keymap)
-        vim.keymap.set(keymap[1], keymap[2], keymap[3], opts)
-      elseif type(keymap[1]) == 'table' then
-        for _, map in ipairs(keymap) do
-          -- dbgi('Keymap table: ', map)
-          vim.keymap.set(map[1], map[2], map[3], opts)
-        end
-      else
-        vim.notify('Unknown Keymap: ' .. keymap, vim.log.levels.ERROR)
+  for capability, _ in pairs(server_capabilities) do
+    local keymaps = mappings_table[capability]
+    if keymaps ~= false then
+      keymaps = is_tbl_only(keymaps) and keymaps or { keymaps }
+      for _, keymap in ipairs(keymaps) do
+        if debug then dbgi('Keymap table: ', vim.inspect(keymap)) end
+        local mode, lhs, rhs, desc = unpack(keymap)
+        map[mode](lhs, rhs, desc, opts)
       end
+    else
+      vim.notify('Unknown Keymap: ' .. keymaps, vim.log.levels.ERROR)
     end
   end
 
-  nmap('gf', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  nmap('<Leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
-  nmap('<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  nmap('<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  nmap('<Leader>wl', '<cmd>lua I(vim.lsp.buf.list_workspace_folders())<CR>', opts)
+  -- stylua: ignore
+  map.n(']d',  function() vim.diagnostic.goto_next() end,  'Next diagnostic')
+  map.n('[d',  function() vim.diagnostic.goto_prev() end,  'Prev diagnostic')
+  map.n('<Leader>ll',  function() vim.diagnostic.open_float() end,  'Open diagnostics float')
+  map.n('<Leader>sq',  function() vim.diagnostic.setqflist() end,  'Open diagnostics in QuickFix list')
+  map.n('<Leader>sl',  function() vim.diagnostic.setloclist() end,  'Open diagnostics in Location List')
+  map.n('<Leader>lwa', function() vim.lsp.buf.add_workspace_folder() end,  'Add folder')
+  map.n('<Leader>lwr', function() vim.lsp.buf.remove_workspace_folder() end,  'Remove folder')
+  map.n('<Leader>lwl', function() vim.lsp.buf.list_workspace_folders() end,  'List folder')
+  map.n('<Leader>l!',  function()
+    vim.notify(vim.inspect(vim.lsp.get_active_clients()[1].server_capabilities))
+  end, 'Show LSP capabilities', opts)
 end
 
 return {
