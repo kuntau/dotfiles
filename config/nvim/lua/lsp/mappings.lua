@@ -1,65 +1,57 @@
 -- LSP mappings
 local mappings_table = {
-  codeActionProvider              = { ['<Leader>la'] = { function() vim.lsp.buf.code_action() end, 'Code action', mode = { 'n', 'v' } } },
-  declarationProvider             = { ['<Leader>ld'] = { function() vim.lsp.buf.declaration() end, 'Goto declaration' } },
-  documentFormattingProvider      = { ['<Leader>lf'] = { function() vim.lsp.buf.format() end, 'LSP format buffer' } },
-  renameProvider                  = { ['<Leader>lr'] = { function() vim.lsp.buf.rename() end, 'LSP rename' } },
-  documentRangeFormattingProvider = { ['<F4>'] = { function() vim.lsp.buf.format() end, 'LSP format range', mode='v' } },
-  hoverProvider                   = { ['K'] = { function() vim.lsp.buf.hover() end, 'Hover' } },
-  signatureHelpProvider           = {
-                                    { ['<Leader>lk'] = { function() vim.lsp.buf.signature_help() end, 'LSP signature' } },
-                                    { ['<C-k>'] = { function() vim.lsp.buf.signature_help() end, 'LSP signature', mode = 'i' } },
+  codeActionProvider = {
+    { 'n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
+    { 'v', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' },
+  }, -- 1
+  declarationProvider = { 'n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
+  documentFormattingProvider = { 'n', '<Leader>bf', '<cmd>lua vim.lsp.buf.formatting()<CR>' },
+  documentSymbolProvider = { 'n', '<Leader>ds', '<cmd>Telescope lsp_document_symbols<CR>' }, -- 2
+  documentRangeFormattingProvider = { 'x', '<Leader>bf', '<cmd>lua vim.lsp.buf.range_formatting()<CR>' },
+  referencesProvider = { 'n', 'gr', '<cmd>Telescope lsp_references<CR>' }, -- 3
+  definitionProvider = { 'n', '<c-]>', '<cmd>Telescope lsp_definitions<CR>' }, -- 4
+  hoverProvider = { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>' }, -- 5
+  implementationProvider = { 'n', 'gi', '<cmd>Telescope lsp_implementations<CR>' },
+  renameProvider = { 'n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' }, --6
+  signatureHelpProvider = {
+    { 'n', 'g<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' }, -- 7
+    { 'i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' },
   },
-  definitionProvider              = { ['<c-]>'] = { '<cmd>Telescope lsp_definitions<CR>', 'LSP definitions' } },
-  documentSymbolProvider          = { ['<Leader>fs'] = { '<cmd>Telescope lsp_document_symbols<CR>', 'LSP document symbols' } },
-  implementationProvider          = { ['gi'] = { '<cmd>Telescope lsp_implementations<CR>', 'LSP implementation' } },
-  referencesProvider              = { ['gr'] = { '<cmd>Telescope lsp_references<CR>', 'LSP references' } },
-  typeDefinitionProvider          = { ['<Leader>fT'] = { '<cmd>Telescope lsp_type_definitions<CR>', 'LSP type definitions' } },
-  workspaceSymbolProvider         = { ['<Leader>fD'] = { '<cmd>Telescope diagnostics<CR>', 'LSP diagnostics' } },
+  typeDefinitionProvider = { 'n', '<Leader>D', '<cmd>Telescope lsp_type_definitions<CR>' }, -- 8
+  workspaceSymbolProvider = { 'n', '<Leader>bd', '<cmd>Telescope diagnostics<CR>' }, -- 9
 }
 
 local setup = function(bufnr, server_capabilities)
-  local dbgi  = require('utils.logger').dbgi
-  local wk    = require('which-key')
-  local debug = false
-  local opts  = { buffer = bufnr }
+  local nmap = require('utils').nmap
+  local imap = require('utils').imap
+  local dbgi = require('utils.logger').dbgi
+  local opts = { buffer = bufnr }
 
-  local maps = {
-    [']d'] = { function() vim.diagnostic.goto_next() end, 'Next diagnostic' },
-    ['[d'] = { function() vim.diagnostic.goto_prev() end, 'Prev diagnostic' },
-    ['<Leader>l'] = { name = 'LSP' },
-    ['<Leader>s'] = {
-      name = 'Diagnostics',
-      q = { function() vim.diagnostic.setqflist() end, 'Open diagnostics in QuickFix list' },
-      l = { function() vim.diagnostic.setloclist() end, 'Open diagnostics in Location List' },
-    },
-    ['<Leader>w'] = {
-      name = 'Workspace',
-      a = { function() vim.lsp.buf.add_workspace_folder() end, 'Add folder' },
-      r = { function() vim.lsp.buf.remove_workspace_folder() end, 'Remove folder' },
-      l = { function() vim.lsp.buf.list_workspace_folders() end, 'List folder' },
-    },
-    gf = { function() vim.diagnostic.open_float() end, 'Open diagnostics float' },
-  }
-
-  -- Loop for each server capabilities
-  for capability, key in pairs(server_capabilities) do
-    -- We're only instered with what we have in mappings_table
-    local keymap = mappings_table[capability]
-    -- If those exist and have any value other than `false` then we're good to go
+  for cap, key in pairs(server_capabilities) do
+    local keymap = mappings_table[cap]
     if keymap and key ~= false then
-      -- if debug then dbgi('Capability: ' .. capability .. ', Key: ', key and 'true' or 'false', #keymap, vim.inspect(keymap)) end
-      if type(keymap) == 'table' then
-        maps = vim.tbl_extend('keep', maps, keymap)
-        -- if debug then dbgi('Maps: ', maps) end
+      -- dbgi('Capability: '..cap..', Key: ',key and 'true' or 'false', I(mappings_table[cap]))
+      if type(keymap[1]) == 'string' then
+        -- dbgi('Keymap string: ', keymap)
+        vim.keymap.set(keymap[1], keymap[2], keymap[3], opts)
+      elseif type(keymap[1]) == 'table' then
+        for _, map in ipairs(keymap) do
+          -- dbgi('Keymap table: ', map)
+          vim.keymap.set(map[1], map[2], map[3], opts)
+        end
       else
-        vim.notify('Unknown Keymap: ' .. vim.inspect(keymap), vim.log.levels.ERROR)
+        vim.notify('Unknown Keymap: ' .. keymap, vim.log.levels.ERROR)
       end
     end
   end
 
-  if debug then dbgi('Final Maps: ', maps) end
-  wk.register(maps, opts)
+  nmap('gf', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  nmap('<Leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', opts)
+  nmap('<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  nmap('<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  nmap('<Leader>wl', '<cmd>lua I(vim.lsp.buf.list_workspace_folders())<CR>', opts)
 end
 
 return {
