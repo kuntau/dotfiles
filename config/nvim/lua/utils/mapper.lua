@@ -6,13 +6,13 @@ local debug = false
 ---@class Mapper
 local M = {}
 
--- local function replace_termcodes(key, part, lt, special)
---   return vim.api.nvim_replace_termcodes(key, part, lt, special)
--- end
+M.replace_termcodes = function(key, part, lt, special)
+  return vim.api.nvim_replace_termcodes(key, part, lt, special)
+end
 
--- local function feedkey(key, mode)
---   return vim.api.nvim_feedkeys(replace_termcodes(key, true, true, true), mode, true)
--- end
+M.feedkey = function(key, mode)
+  return vim.api.nvim_feedkeys(M.replace_termcodes(key, true, true, true), mode, true)
+end
 
 ---@param mode string enum of ""|n|v|i|o|x
 ---@param opts table Mapping options.
@@ -25,7 +25,7 @@ local function mapper(mode, lhs, rhs, opts)
   })
 
   local default_opts = { noremap = true, silent = true }
-  opts = vim.tbl_extend('force', default_opts, opts or {})
+  opts = vim.tbl_deep_extend('force', default_opts, opts or {})
 
   if type(rhs) == 'function' then
     opts.callback = rhs
@@ -41,17 +41,21 @@ local function mapper(mode, lhs, rhs, opts)
   end
 end
 
-local function make_opts(...)
-  local args = ...
+---@param desc_or_opts string|table if string it will be description
+---@param ext_opts? table if desc_or_opts is string, we can pass another opts table
+local make_opts = function(desc_or_opts, ext_opts)
   local opts = {}
-  if type(args) == 'string' then
-    opts.desc = args
-  elseif type(args) == 'table' then
-    for k, v in pairs(args) do
-      if type(v) == 'table' then return make_opts(v) end
-      opts[k] = v
-    end
+
+  if type(desc_or_opts) == 'string' then
+    opts.desc = desc_or_opts
+  elseif type(desc_or_opts) == 'table' then
+    opts = desc_or_opts
   end
+
+  if ext_opts ~= nil and type(ext_opts) == 'table'then
+    opts = vim.tbl_deep_extend('force', opts, ext_opts)
+  end
+
   if debug then dbgi('Results: ', vim.pretty_print(opts)) end
   return opts
 end
@@ -60,7 +64,7 @@ M.setup = function()
   local modes = { map = '', nmap = 'n', vmap = 'v', imap = 'i', tmap = 't', xmap = 'x', omap = 'o', cmap = 'c' }
   for map, mode in pairs(modes) do
     M[map] = function(lhs, rhs, ...)
-      local opts = make_opts(...)
+      local opts = ... ~= nil and make_opts(...) or {}
       mapper(mode, lhs, rhs, opts)
     end
   end
