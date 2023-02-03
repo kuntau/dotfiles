@@ -65,7 +65,7 @@ do
   echo "Installing $i config files"
   if [[ -e $HOME/.$i ]]; then
     echo "File exists.. The file .$i will be backup to .$i.bak"
-    mv $HOME/.$i $HOME/.$i.bak
+    mv "$HOME/.$i" "$HOME/.$i.bak"
   fi
   # ln -s --backup --suffix='.bak' $DOTFILES_HOME/config/$i $HOME/.$i
   makeSymlink "$DOTFILES_HOME/config/$i" "$HOME/.$i"
@@ -80,7 +80,7 @@ select yn in "Yes" "No"; do
       echo "Symlinking vim to neovim"
       if [[ -e $XDG_CONFIG_HOME/nvim/init.vim ]]; then
         echo "File exists.. Skip installing"
-      elif [ ! -d $HOME/.vim ]; then
+      elif [ ! -d "$HOME/.vim" ]; then
         echo "Vim config dir not found, setup Vim first? Skipping..."
       else
         # ln -s $HOME/.vim $XDG_CONFIG_HOME/nvim
@@ -95,22 +95,22 @@ select yn in "Yes" "No"; do
 done
 
 # Install fzf
-if [ -d $FZF_HOME ]; then
+if [ -d "$FZF_HOME" ]; then
   echo "You already have fzf installed, skipping..."
 else
   echo "Installing fzf..."
-  $(which git) clone --depth=1 https://github.com/junegunn/fzf.git $FZF_HOME
-  $FZF_HOME/install
+  $(which git) clone --depth=1 https://github.com/junegunn/fzf.git "$FZF_HOME"
+  "$FZF_HOME/install"
 fi
 echo ""
 
 # Install zplug
-if [ -d $ZPLUG_HOME ]; then
+if [ -d "$ZPLUG_HOME" ]; then
   echo "You already have zplug installed, skipping..."
 else
   echo "Installing zplug..."
-  $(which git) clone --depth=1 https://github.com/zplug/zplug.git $ZPLUG_HOME
-  $ZPLUG_HOME/autoload/zplug install
+  $(which git) clone --depth=1 https://github.com/zplug/zplug.git "$ZPLUG_HOME"
+  "$ZPLUG_HOME/autoload/zplug" install
 fi
 echo ""
 
@@ -122,7 +122,7 @@ else
   echo "Install Tmux Plugins Manager?"
   select yn in "Yes" "No"; do
     case $yn in
-      Yes ) $(which git) clone --depth=1 https://github.com/tmux-plugins/tpm.git $HOME/.tmux/plugins/tpm; break;;
+      Yes ) $(which git) clone --depth=1 https://github.com/tmux-plugins/tpm.git "$HOME/.tmux/plugins/tpm"; break;;
       No ) break;;
     esac
   done
@@ -134,7 +134,7 @@ echo "Installing SSH config..."
 if [[ -e $HOME/.ssh/config ]]; then
   echo "SSH config exist.. Skip installing"
 else
-  [[ ! -d $HOME/.ssh ]] && mkdir -p $HOME/.ssh
+  [[ ! -d $HOME/.ssh ]] && mkdir -p "$HOME/.ssh"
   # ln -s $DOTFILES_HOME/ssh-config $HOME/.ssh/config
   makeSymlink "$DOTFILES_HOME/config/ssh-config" "$HOME/.ssh/config"
 fi
@@ -145,7 +145,7 @@ echo "Checking .secret file..."
 if [[ -e $HOME/.secret ]]; then
   echo ".secret file exist.. Skip installing"
 else
-  touch $HOME/.secret
+  touch "$HOME/.secret"
 fi
 echo ""
 
@@ -153,7 +153,7 @@ echo ""
 echo "Copy your current PATH and adding it to the end of ~/.zshrc for you? "
 select yn in "Yes" "No"; do
   case $yn in
-    Yes ) export PATH=\$PATH:$PATH >> $HOME/.zshrc; break;;
+    Yes ) export PATH=\$PATH:$PATH >> "$HOME/.zshrc"; break;;
     No ) break;;
   esac
 done
@@ -162,7 +162,7 @@ echo ""
 echo "Time to change your default shell to zsh!"
 select yn in "Yes" "No"; do
   case $yn in
-    Yes ) chsh -s $(which zsh); break;;
+    Yes ) chsh -s "$(which zsh)"; break;;
     No ) break;;
   esac
 done
