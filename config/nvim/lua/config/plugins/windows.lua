@@ -1,5 +1,7 @@
 -- Windows management plugins
 
+local animation = false
+
 local config_windows = function()
   local min_width = 5
   vim.o.winwidth = min_width
@@ -23,18 +25,11 @@ local config_windows = function()
       },
     },
     animation = {
-      enable = false, -- BROKEN: broke term, neogit
+      enable = animation, -- BROKEN: broke term, neogit
       duration = 150,
       easing = 'line',
     },
   })
-end
-
-local config_tmux_navigator = function()
-  vim.g.tmux_navigator_disable_when_zoomed = 0
-  vim.g.tmux_navigator_preserve_zoom = 1
-  vim.g_tmux_navigator_save_on_switch = 1 -- 1=up, 2=wall
-  vim.g_tmux_navigator_no_mappings = 1 -- 1=up, 2=wall
 end
 
 return {
@@ -50,19 +45,19 @@ return {
     config = config_windows,
     dependencies = {
       'anuvyklack/middleclass',
-      "anuvyklack/animation.nvim"
+      { 'anuvyklack/animation.nvim', enabled = animation },
     },
   }, -- Auto expand current window with animation
   { 'kazhala/close-buffers.nvim', cmd = { 'BDelete', 'BWipeout' } }, -- TODO: Replace with mini.bufremove
   {
-    'christoomey/vim-tmux-navigator',
+    'numToStr/Navigator.nvim',
     keys = {
-      { '<c-l>', '<cmd>TmuxNavigateRight<cr>', desc = 'Tmux navigate right' },
-      { '<c-h>', '<cmd>TmuxNavigateLeft<cr>', desc = 'Tmux navigate left' },
-      { '<c-j>', '<cmd>TmuxNavigateDown<cr>', desc = 'Tmux navigate down' },
-      { '<c-k>', '<cmd>TmuxNavigateUp<cr>', desc = 'Tmux navigate up' },
-      { '<c-`>', '<cmd>TmuxNavigatePrevious<cr>', desc = 'Tmux navigate previous' },
+      { '<c-l>', '<cmd>NavigatorRight<cr>',    mode = { 'n', 't' }, desc = 'Navigate right' },
+      { '<c-h>', '<cmd>NavigatorLeft<cr>',     mode = { 'n', 't' }, desc = 'Navigate left' },
+      { '<c-j>', '<cmd>NavigatorDown<cr>',     mode = { 'n', 't' }, desc = 'Navigate down' },
+      { '<c-k>', '<cmd>NavigatorUp<cr>',       mode = { 'n', 't' }, desc = 'Navigate up' },
+      { '<c-`>', '<cmd>NavigatorPrevious<cr>', mode = { 'n', 't' }, desc = 'Navigate previous' },
     },
-    config = config_tmux_navigator,
+    opts = { auto_save = 'current' },
   },
 }

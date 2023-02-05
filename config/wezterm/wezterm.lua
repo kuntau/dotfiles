@@ -7,7 +7,7 @@ local basename = function(s) return string.gsub(s, '(.*[/\\])(.*)', '%2') end
 local is_vim = function(pane)
   local proc = basename(pane:get_foreground_process_name())
   wezterm.log_info('@is_vim, proc=' .. proc)
-  return proc == 'nvim' or proc == 'vim' or proc == 'hx'
+  return string.match(proc, 'n?vim') or proc == 'hx'
   -- return string.match(proc, 'nvim')
 end
 
