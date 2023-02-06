@@ -55,9 +55,9 @@ end
 
 -- Quickclose some pane
 local quick_close_pane = function()
-  local orientation = get_win_orientation()
-  if vim.o.buftype == 'help' then -- if it's help pane, do some modifications
-    if orientation == 'vertical' then
+  local ori, ft = get_win_orientation(), vim.bo.filetype
+  if ft == 'help' or ft == 'man' then -- if it's help pane, do some modifications
+    if ori == 'vertical' then
       vim.cmd('wincmd J') -- Move to bottom most split
     else
       vim.cmd('wincmd L') -- Move to right most vsplit
