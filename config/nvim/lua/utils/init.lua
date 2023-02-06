@@ -91,7 +91,7 @@ local autocmd_legacy = function(group, cmds, clear)
 end
 
 ---@param group string Group name
----@param autocmds table|table[] Autocommands
+---@param autocmds table Autocommands
 ---@param desc? string Group description
 ---@param clear? boolean Should we clear the group? Default true
 local autocmd = function(group, autocmds, desc, clear)
@@ -109,7 +109,7 @@ local autocmd = function(group, autocmds, desc, clear)
 
   ---@param event string|string[]
   ---@param pttrn_or_bufnr string|string[]|integer
-  ---@param cmds string|fun(_)|table
+  ---@param cmds string|string[]|fun(_)
   ---@param cmd_opts? table autocmd options
   local process_cmds = function(event, pttrn_or_bufnr, cmds, cmd_opts)
     cmd_opts = type(cmd_opts) == 'table' and cmd_opts or {}
@@ -152,6 +152,7 @@ return {
   get_os = get_os,
   get_win_orientation = get_win_orientation,
   quick_close_pane = quick_close_pane,
+  is_tbl_only = is_tbl_only,
   reload_module = reload_module,
   autocmd = autocmd,
   autocmd_legacy = autocmd_legacy,

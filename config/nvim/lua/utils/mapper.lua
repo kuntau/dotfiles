@@ -6,12 +6,23 @@ local debug = false
 ---@class Mapper
 local M = {}
 
+---@param key string Key to convert
+---@param part? boolean
+---@param lt? boolean
+---@param special? boolean
 M.replace_termcodes = function(key, part, lt, special)
+  part = part or true
+  lt = lt or true
+  special = special or true
   return vim.api.nvim_replace_termcodes(key, part, lt, special)
 end
 
-M.feedkey = function(key, mode)
-  return vim.api.nvim_feedkeys(M.replace_termcodes(key, true, true, true), mode, true)
+---@param key string Key to convert
+---@param mode string Behaviour flags, see feedkeys
+---@param escape? boolean
+M.feedkey = function(key, mode, escape)
+  escape = escape or false
+  return vim.api.nvim_feedkeys(M.replace_termcodes(key), mode, escape)
 end
 
 ---@param mode string enum of ""|n|v|i|o|x
