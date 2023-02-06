@@ -1,10 +1,11 @@
-
     ███╗░░██╗░█████╗░████████╗███████╗░██████╗
     ████╗░██║██╔══██╗╚══██╔══╝██╔════╝██╔════╝
     ██╔██╗██║██║░░██║░░░██║░░░█████╗░░╚█████╗░
     ██║╚████║██║░░██║░░░██║░░░██╔══╝░░░╚═══██╗
     ██║░╚███║╚█████╔╝░░░██║░░░███████╗██████╔╝
     ╚═╝░░╚══╝░╚════╝░░░░╚═╝░░░╚══════╝╚═════╝░
+
+# Neovim
 
 ## Building Neovim
 
@@ -18,7 +19,10 @@
 
 ### `unknown terminal type` = missing `terminfo`
 
-If we got error `unknown terminal type` while setting up the `TERM` value, it's because we're missing `terminfo` information for that particular `TERM` on current machine. To solve this, we need another machine that have that `terminfo`. Here's how we can get that info for current machine.
+If we got error `unknown terminal type` while setting up the `TERM` value, it's because we're missing `terminfo`
+information for that particular `TERM` on current machine. To solve this, we need another machine that have that
+`terminfo`. Here's how we can get that info for current machine.
+
 1. Export from donor machine `infocmp -x _<TERM_NAME>_ > _<FILENAME>_`
 2. Transfer _<FILENAME>_ to current machine.
 3. Import with `tic -x _<FILENAME>_`
@@ -42,19 +46,34 @@ static void buf_set_term_title(buf_T *buf, char *title)
 
 #### [Solution](https://github.com/neovim/neovim/issues/16217#issuecomment-959793388)
 
-> This should be fixed in Homebrew for now. You need to do `brew unlink libvterm` (or `brew uninstall --force libvterm` if you don't otherwise need it) if you have Homebrew installed into `/usr/local`.
-> If that still doesn't work, do `brew update` first.
+> This should be fixed in Homebrew for now. You need to do `brew unlink libvterm` (or `brew uninstall --force libvterm`
+> if you don't otherwise need it) if you have Homebrew installed into `/usr/local`. If that still doesn't work, do
+> `brew update` first.
 
-## Neovim <3 Lua
+## Tips
+
+1. Spelling
+
+- `]s` or `[s` to jump to misspelled words.
+- `zg` to add word under cursor to external dictionary.
+- `z=` to get suggestions for misspelled word under cursor.
+
+2. Neovim <3 Lua
 
 - To access `vim` function from lua, prefix the function with `vim.fn`. Ex. `vim.fn.fnameescape`
 - To access `vim` variable from lua, prefix the function with `vim.v`. Ex. `vim.v.oldfiles`
 - To access `vim` global settings from lua, prefix the function with `vim.g`. Ex. `vim.g.loaded_zip`
 - To access `vim` options from lua, prefix the function with `vim.opt`. Ex. `vim.opt.clipboard`
 
-### Tips
+# Wezterm
 
-1. Spelling
-- `]s` or `[s` to jump to misspelled words.
-- `zg` to add word under cursor to external dictionary.
-- `z=` to get suggestions for misspelled word under cursor.
+## Wezterm not detecting foreground process
+
+Regarding this [issue](https://github.com/wez/wezterm/issues/1898) with `Wezterm`. It's actually `zplug` fault for not clearing
+it's job lock file in `~/.zplug/log/job.lock`, this maybe happened when we interrupt zplug process forcefully.
+
+This [solution](https://github.com/zplug/zplug/issues/322) is found while searching why `zsh` can't send process to
+background with <kbd>CTRL</kbd>+<kbd>z</kbd> and looking at `Wezterm` REPL/debug message
+(<kbd>SHIFT</kbd>+<kbd>CTRL</kbd>+<kbd>L</kbd>), no other foreground process got detected.
+
+So if you use `zplug` and have the same problem, find the `~/.zplug/log/job.lock` and delete it.
