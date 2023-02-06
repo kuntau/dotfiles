@@ -1,4 +1,5 @@
--- Neovim internal option configs
+-- █▀█ █▀█ ▀█▀ █ █▀█ █▄░█ █▀
+-- █▄█ █▀▀ ░█░ █ █▄█ █░▀█ ▄█ Neovim internal option configs
 -- Try not to repeat many of neovim defaults `:help nvim-defaults`
 
 -- Leaders
@@ -10,11 +11,11 @@ vim.o.autochdir       = false
 vim.o.autowriteall    = true
 vim.o.backup          = true
 vim.o.clipboard       = 'unnamed,unnamedplus' -- better safe than sorry
-vim.o.cursorbind      = false -- Like scrollbind for cursor, let we edit same file in 2 split
+vim.o.cursorbind      = false   -- Like scrollbind for cursor, let we edit same file in 2 split
 vim.o.errorbells      = false
 vim.o.ignorecase      = true
 vim.o.inccommand      = 'split' -- cmdline search & replace open in split
-vim.o.lazyredraw      = false -- better ui performance
+vim.o.lazyredraw      = false   -- better ui performance but might have compability problems
 vim.o.modelines       = 2
 vim.o.mouse           = 'a'
 vim.o.mousemodel      = 'extend'
@@ -30,7 +31,6 @@ vim.opt.sessionoptions= {
   'tabpages',
   'winsize',
   'winpos',
-  'terminal',
 }
 
 -- Looks & feels
@@ -47,8 +47,9 @@ vim.o.relativenumber  = true
 vim.o.scrolloff       = 5     -- Show 5 line above & below cursor
 vim.o.showcmd         = true  -- already in defaults
 vim.o.showmode        = false -- we already have mode in statusline
+vim.o.showtabline     = 0     -- disable tabline, 1 = auto, 2 = always
 vim.o.sidescrolloff   = 5     -- Show 5 columns left & right cursor
-vim.o.signcolumn      = 'auto' -- AKA the gutter, smallest size = 'yes:1'
+vim.o.signcolumn      = 'auto'-- AKA the gutter, smallest size = 'yes:1'
 vim.o.splitbelow      = true
 vim.o.splitright      = true
 vim.o.termguicolors   = true  -- enable truecolor
@@ -70,16 +71,17 @@ vim.o.smartindent     = true  -- already in defaults
 vim.o.smarttab        = true  -- already in defaults
 
 -- User
-vim.o.formatoptions   = "jcroqlnt/" -- default=jcroql
+vim.o.formatoptions   = 'jcroqlnt/' -- default=jcroql
+vim.o.grepprg         = vim.fn.executable('rg') == 1 and 'rg --vimgrep'
+vim.o.grepformat      = '%f:%l:%c:%m'
+-- vim.o.keywordprg      = ':help'
 vim.opt.spelllang     = { 'en', 'ms' }
-vim.opt.grepprg       = "rg --vimgrep"
-vim.opt.grepformat    = "%f:%l:%c:%m"
 
 -- Folding: managed by _ufo_
 vim.o.foldenable      = true
 vim.o.foldcolumn      = 'auto'
 vim.o.foldlevel       = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart  = 99 -- ""
+vim.o.foldlevelstart  = 99 -- "
 vim.o.foldminlines    = 3
 vim.o.foldnestmax     = 5
 
@@ -115,9 +117,9 @@ vim.opt.fillchars:append {
   verthoriz = '╋',
   eob = ' ',
   -- fold = ' ',
-  foldopen = '',
+  foldopen = '▼',
   foldsep = ' ',
-  foldclose = '',
+  foldclose = '▶',
 }
 vim.opt.diffopt:append   'vertical' -- Diff always open in vsplit
 vim.opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
@@ -128,7 +130,6 @@ vim.opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages
 -- disable some builtin plugins
 vim.g.loaded_2html_plugin   = 1
 vim.g.loaded_gzip           = 1
-vim.g.loaded_man            = 1
 vim.g.loaded_matchit        = 1
 vim.g.loaded_matchparen     = 1
 vim.g.loaded_netrwPlugin    = 1
@@ -139,14 +140,14 @@ vim.g.loaded_tarPlugin      = 1
 vim.g.loaded_zip            = 1
 vim.g.loaded_zipPlugin      = 1
 
-if vim.fn.has("nvim-0.8") == 1 then
+if vim.fn.has('nvim-0.8') == 1 then
   vim.opt.cmdheight = 0
-  vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
+  vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup'
 end
 
-if vim.fn.has("nvim-0.9.0") == 1 then
-  vim.opt.splitkeep  = "screen"
-  vim.o.shortmess    = "filnxtToOFWIcC" -- default: icxTFlotOnf. Rm `I` to have :intro
+if vim.fn.has('nvim-0.9.0') == 1 then
+  vim.opt.splitkeep = 'screen'
+  vim.o.shortmess   = 'filnxtToOFWIcC' -- default: icxTFlotOnf. Rm `I` to have :intro
   -- vim.o.statuscolumn = '%=%{&rnu && v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . "  " : v:lnum) : &nu && v:virtnum < 1 ? v:lnum : ""}'
   -- ..'%=%s%{foldlevel(v:lnum) > 0 ? (foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " ") : " " }'
 end
