@@ -6,6 +6,7 @@ local nmap = require('utils').nmap
 local imap = require('utils').imap
 local vmap = require('utils').vmap
 local tmap = require('utils').tmap
+local rtc = require('utils.mapper').replace_termcodes
 local orien = require('utils').get_win_orientation
 local wk = require("which-key")
 
@@ -14,7 +15,7 @@ nmap('<cr>',   ':', { silent = false, desc = 'Enter command line' })
 map('<D-s>',   '<cmd>up!<cr>', 'Save')
 map('<M-C-S>', '<cmd>up!<cr>', 'Save') -- hyper_key
 imap('<D-v>',  '<c-r>+', 'Paste')
-nmap('gK',      ':help <c-r><c-w><cr>', 'Open help for word under cursor')
+nmap('gK',     ':help <c-r><c-w><cr>', 'Open help for word under cursor')
 nmap('<F5>',   function() require("specs").show_specs() end, 'Show cursor location')
 nmap('<Leader>rm',     function() vim.cmd('up') require("utils").reload_module() end, 'Save & reload module')
 nmap('<Leader>ro',     '<cmd>up<cr><cmd>luafile %<cr>', 'Save & re-source current file')
@@ -23,8 +24,6 @@ nmap('<LocalLeader>w', '<cmd>up!<cr>', 'Save')
 
 -- Terminal movements
 local ts = [[<C-\><C-n>]] -- terminal map shortcut
-nmap('<Leader>oC', '<cmd>'..(orien() == 'vertical' and 's' or 'vs')..'plit term://nu<cr>')
-nmap('<Leader>oc', '<cmd>term<cr>')
 tmap('<LocalLeader><Esc>', ts, 'Escape terminal')
 tmap('<M-`>', function() require('FTerm').toggle() end, 'Toggle FTerm')
 map('<M-`>',  function() require('FTerm').toggle() end, 'Toggle FTerm')
@@ -36,8 +35,8 @@ nmap('<left>',  '<cmd>bprevious<cr>', 'Prev buffer')
 -- Moving block of codes
 nmap('<m-j>', ':m .+1<CR>==', 'Move current line down')
 nmap('<m-k>', ':m .-2<CR>==', 'Move current line up')
-vmap('J', ":m '>+1<CR>gv=gv", 'Move selected line down')
-vmap('K', ":m '<-2<CR>gv=gv", 'Move selected line up')
+vmap('J',     ":m '>+1<CR>gv=gv", 'Move selected line down')
+vmap('K',     ":m '<-2<CR>gv=gv", 'Move selected line up')
 imap('<m-j>', '<Esc>:m .+1<CR>==gi', 'Move current line down')
 imap('<m-k>', '<Esc>:m .-2<CR>==gi', 'Move current line up')
 
@@ -46,23 +45,22 @@ nmap('<Leader><c-l>', '<cmd>noh<Bar>diffupdate<cr><c-l>', 'Clear search highligh
 
 -- buffer management
 nmap('<M-Tab>',        '<C-^>', 'Toggle alternate file')
-nmap('<LocalLeader>W','<cmd>xall<cr>', 'Save & Quit all')
+nmap('<LocalLeader>W', '<cmd>xall<cr>', 'Save & Quit all')
 nmap('<LocalLeader>Q', '<cmd>qa!<cr>', 'Quit all')
 nmap('<LocalLeader>q', '<cmd>q!<cr>', 'Quit window')
 nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>', 'Delete this buffer')
 nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>', 'Delete other buffer')
 nmap('<LocalLeader>c', '<cmd>close!<cr>', 'Close window')
 nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>', 'Select open buffers')
-nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, {desc="Open last edited"})
+-- nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, "Open last edited")
 
--- windows movements
-for i=9,0,-1 do
-  nmap('<M-'..i..'>', function()
-    if i == 0 then i = 100 end -- HACK: so we can do Alt-0 to go to last window
-    local code = vim.api.nvim_replace_termcodes('<c-w>', true, true, true)
-    local cmd = string.format('normal! %s%s%s', i, code, code)
-    vim.api.nvim_command(cmd) -- nvim_exec also work
-  end, {desc='Go to windows '..i})
+-- windows switcher. CTRL-0..CTRL-9
+for i = 9, 0, -1 do
+  nmap('<C-' .. i .. '>', function()
+    if i == 0 then i = 100 end -- HACK: so we can do CTRL-0 to go to last window
+    local code = rtc('<c-w>')
+    vim.cmd(string.format('normal! %s%s%s', i, code, code))
+  end, 'Go to windows ' .. i)
 end
 
 -- Plugins
@@ -74,14 +72,14 @@ nmap('zR', function() require('ufo').openAllFolds() end)
 nmap('zM', function() require('ufo').closeAllFolds() end)
 nmap('zr', function() require('ufo').openFoldsExceptKinds() end)
 nmap('zm', function() require('ufo').closeFoldsWith() end)
-nmap('K', function() require('ufo').peekFoldedLinesUnderCursor() end)
+nmap('K', function() if not require('ufo').peekFoldedLinesUnderCursor() then vim.cmd('normal! K') end end)
+
+-- improve defaults
+nmap('gh', '_', 'Goto first non-blank char')
+nmap('gl', 'g_', 'Goto last non-blank char')
 
 -- Register which-key
 wk.register({
-  -- Some goodies from helix
-  gh = { '^', 'Goto first non-blank char' },
-  gl = { '$', 'Goto last non-blank char' },
-
   -- Telescope bindings
   ['<c-p>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
   ['<Leader>f'] = {
