@@ -53,6 +53,8 @@ OS_NAME=$(uname)
 HOST_NAME=$(hostname)
 DOTFILES=$HOME/dotfiles
 
+exists() { type "$1" >/dev/null 2>&1; }
+
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
   # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
@@ -164,14 +166,14 @@ fi
 # }}}
 
 # Update $PATH (platform *nix)) {{{
-hash npm      2>/dev/null && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
-hash npm      2>/dev/null && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
-hash pnpm     2>/dev/null && export PNPM_HOME=$HOME/.npm-global/bin
-hash python3  2>/dev/null && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
-hash cargo    2>/dev/null && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
-hash composer 2>/dev/null && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
-hash snap     2>/dev/null && export PATH=/snap/bin:$PATH                  # snap binary path
-export PATH=$PATH:$DENO_INSTALL/bin                                       # deno binary path
+exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
+exists npm      && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
+exists pnpm     && export PNPM_HOME=$HOME/.npm-global/bin       # pnpm global binary path
+exists python3  && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
+exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
+exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
+exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
+export PATH=$PATH:$DENO_INSTALL/bin                             # deno binary path
 export PATH=$DOTFILES/bin:$PATH
 # }}}
 
@@ -180,8 +182,8 @@ function zvm_after_init() {
   [[ -x rustup ]] && source $HOME/.cargo/env
   [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
   [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-  hash fzf 2> /dev/null && source $DOTFILES/zsh/fzf.zsh
-  hash nnn 2> /dev/null && source $DOTFILES/nnn/quitcd.zsh
+  exists fzf && source $DOTFILES/zsh/fzf.zsh
+  exists nnn && source $DOTFILES/nnn/quitcd.zsh
 
   source $DOTFILES/zsh/default.zsh # my aliases
   source $DOTFILES/zsh/aliases.zsh # my aliases

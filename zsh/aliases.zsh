@@ -2,7 +2,7 @@
 alias dus='du -hd 1'
 
 # files listing with optional exa -- colorized  everything
-if command -v exa &> /dev/null; then
+if exists exa; then
   alias l='exa'
   alias ll='exa --long --group-directories-first'
   alias la='exa -alg --git --group-directories-first'
@@ -17,14 +17,14 @@ else
 fi
 
 # FZF aliases
-if command -v fzf &> /dev/null; then
+if exists fzf; then
   alias f='fzf-tmux'
   alias ft='fzf-tmux --preview "bat --style=numbers --color=always {}"'
   alias fp='fzf --preview "bat --style=numbers --color=always {}"'
 fi
 
 # docker aliases
-if command -v docker &> /dev/null; then
+if exists docker; then
   alias d='docker'
   alias ds='docker start'
   alias dst='docker stop'
@@ -32,27 +32,27 @@ if command -v docker &> /dev/null; then
   alias drm='docker rm'
 fi
 
-if command -v docker-compose &> /dev/null; then
+if exists docker-compose; then
   alias dc='docker-compose'
 fi
 
-if command -v laravel &> /dev/null; then
+if exists laravel; then
   alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 fi
 
 # nvim 24 bit color; TUI ENABLE not needed anymore
-if command -v nvim &>/dev/null; then
+if exists nvim; then
   alias vi='nvim'
 else
   alias vi='vim'
 fi
 
 # set default top btop -> gotop -> htop -> top
-if command -v btop &>/dev/null; then
+if exists btop; then
   alias top=btop
-elif command -v gotop &>/dev/null; then
+elif exists gotop; then
   alias top=gotop
-elif command -v htop &>/dev/null; then
+elif exists htop; then
   alias top=htop
 else
   alias top=top
@@ -91,7 +91,7 @@ alias artisan='php artisan'
 alias tinker='php artisan tinker'
 
 # prettify json on command line
-if command -v jq &> /dev/null; then
+if exists jq; then
   alias json='jq'
 else
   alias json='python -mjson.tool'
@@ -113,8 +113,8 @@ mkd() {
   mkdir -p "$1" && cd "$1"
 }
 
-# wget crate mirror
-alias wgetm="wget \
+# wget make mirror
+alias wget_mirror="wget \
   --mirror \
   --convert-links \
   --adjust-extension \
@@ -124,7 +124,7 @@ alias wgetm="wget \
   $1"
 
 # wget throttle
-alias wgett="wget \
+alias wget_mirror_throttle="wget \
   --header='Accept: text/html' \
   --user-agent='Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/84.0.4147.140 Safari/537.36' \
   --mirror \
@@ -139,7 +139,7 @@ alias wgett="wget \
 
 # recursive wget download
 # --cut-dirs=1 \
-alias wgetr='wget \
+alias wget_recursive_dl='wget \
   --mirror \
   --no-parent \
   --no-clobber \
@@ -172,15 +172,10 @@ alias please=sudo
 alias gurl='curl --compressed'
 
 #get week number
-alias week='data +%V'
+alias week='date +%V'
 
 #stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && data'
-
-# handy things
-alias bunyip='node ~/code/bunyip/cli.js'
-alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
-
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -191,7 +186,7 @@ fi
 
 # `cat` with beautiful colors. requires Pygments installed.
 #                  sudo easy_install Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
+exists pygmentize && alias c='pygmentize -O style=monokai -f console256 -g'
 
 # GIT STUFF
 
@@ -226,20 +221,16 @@ alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 # Canonical hex dump; some systems have this symlinked
-type hd > /dev/null || alias hd="hexdump -C"
+exists hd || alias hd="hexdump -C"
 
 # OS X has no `md5sum`, so use `md5` as a fallback
-type md5sum > /dev/null || alias md5sum="md5"
+exists md5sum || alias md5sum="md5"
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
-
-# Shortcuts
-# alias g="git"
-# alias v="vim"
 
 # File size
 alias fs="stat -f \"%z bytes\""
