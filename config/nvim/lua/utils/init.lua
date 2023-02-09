@@ -65,7 +65,7 @@ local quick_close_pane = function()
   end
   -- vim.cmd('resize') -- resize help buffer to maximum (CTRL-W__)
   -- vim.cmd('wincmd T') -- move current buffer to new tab
-  mapper.nmap('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
+  mapper['nmap']('q', ':q<cr>', { buffer = true }) -- map `q` to close help buffer
 end
 
 local reload_module = function()
@@ -157,11 +157,11 @@ return {
   autocmd = autocmd,
   autocmd_legacy = autocmd_legacy,
   mapper = mapper,
-  map  = mapper.map,
-  tmap = mapper.tmap,
-  nmap = mapper.nmap,
-  vmap = mapper.vmap,
-  imap = mapper.imap,
-  xmap = mapper.xmap,
-  omap = mapper.omap,
+  map  = mapper['map'],
+  tmap = mapper['tmap'],
+  nmap = mapper['nmap'],
+  vmap = mapper['vmap'],
+  imap = mapper['imap'],
+  xmap = mapper['xmap'],
+  omap = mapper['omap'],
 }
