@@ -40,12 +40,15 @@ local config_null = function()
       -- Formatter
       -- nls.builtins.formatting.deno_fmt, -- deno
       nls.builtins.formatting.stylua, -- lua
-      nls.builtins.formatting.prettierd, -- JS/TS
+      nls.builtins.formatting.prettierd.with({
+        filetypes = { 'js', 'jsx', 'ts', 'tsx', 'vue', 'markdown' }
+      }), -- JS/TS
       nls.builtins.formatting.pint, -- PHP
       -- nls.builtins.formatting.rome, -- JS/TS
       -- nls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
       -- nls.builtins.formatting.eslint_d,
-      nls.builtins.formatting.shfmt, -- Shell
+      -- nls.builtins.formatting.shfmt, -- Shell/POSIX
+      nls.builtins.formatting.beautysh, -- Prefer this over shfmt bcoz it support `zsh`
       nls.builtins.formatting.black, -- Python
       -- nls.builtins.formatting.prettierd.with({
       --   filetypes = { "markdown" }, -- only runs `prettierd` for markdown
@@ -54,6 +57,7 @@ local config_null = function()
       -- Linter
       nls.builtins.diagnostics.eslint_d, -- JS/TS
       nls.builtins.diagnostics.phpstan, -- PHP
+      nls.builtins.diagnostics.shellcheck, -- Bash
       -- nls.builtins.diagnostics.pylint, -- Python
       -- nls.builtins.diagnostics.mypy, -- Python
       -- nls.builtins.diagnostics.selene.with({
@@ -66,6 +70,7 @@ local config_null = function()
       -- nls.builtins.code_actions.gitsigns,
       nls.builtins.code_actions.eslint_d,
       nls.builtins.code_actions.refactoring,
+      nls.builtins.code_actions.shellcheck, -- Bash
 
       -- Hover
       -- nls.builtins.hover.dictionary
