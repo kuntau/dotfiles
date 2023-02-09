@@ -40,8 +40,8 @@ local config = function()
       navigation = {
         enable = false,
         keymaps = {
-          goto_definition = 'grnd',
-          list_definition = 'grnD',
+          goto_definition = 'grd',
+          list_definition = 'grD',
           list_definition_toc = 'gO',
           goto_next_usage = '<a-*>',
           goto_previos_usgae = '<a-#>',
@@ -90,8 +90,8 @@ local config = function()
       },
       swap = {
         enable = true,
-        swap_next = { ['<leader>a'] = '@parameter.inner' },
-        swap_previous = { ['<leader>A'] = '@parameter.inner' },
+        swap_next = { ['gra'] = '@parameter.inner' },
+        swap_previous = { ['grA'] = '@parameter.inner' },
       },
       lsp_interop = {
         enable = true,

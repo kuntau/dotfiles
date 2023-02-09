@@ -1,14 +1,11 @@
 -- mappings.lua: My custom keyboard mappings
 -- NOTES: Use <cmd> only when have <cr>
 
-local map  = require('utils').map
-local nmap = require('utils').nmap
-local imap = require('utils').imap
-local vmap = require('utils').vmap
-local tmap = require('utils').tmap
-local rtc = require('utils.mapper').replace_termcodes
-local orien = require('utils').get_win_orientation
-local wk = require("which-key")
+local Utils = require('utils')
+local Mapper = Utils.mapper
+local map, nmap, imap, vmap, tmap = Utils.map, Utils.nmap, Utils.imap, Utils.vmap, Utils.tmap
+local rtc = Mapper.replace_termcodes
+local orien = Utils.get_win_orientation
 
 -- Basic
 nmap('<cr>',   ':', { silent = false, desc = 'Enter command line' })
@@ -78,6 +75,7 @@ nmap('K', function() if not require('ufo').peekFoldedLinesUnderCursor() then vim
 nmap('gh', '_', 'Goto first non-blank char')
 nmap('gl', 'g_', 'Goto last non-blank char')
 
+<<<<<<< HEAD
 -- Register which-key
 wk.register({
   -- Telescope bindings
@@ -102,32 +100,87 @@ wk.register({
     [';'] = { '<cmd>Telescope command_history<cr>', 'Command history' },
     ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
   },
-
-  ['go'] = {
-    name = 'Plugins',
-    g = { function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split' },
-    G = { function() require('neogit').open({ kind = 'replace' }) end, 'Open neogit in current window' },
-    c = { function() vim.cmd((orien() == 'vertical' and 's' or 'vs') .. 'plit') vim.cmd('term') end, 'Open terminal in split' },
-    C = { function() vim.cmd('term') end, 'Open terminal in current window' },
-    e = { function() require('nvim-tree.api').tree.toggle() end, 'Toggle FileTree' },
-    E = { function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window' },
-    r = { function() require('hlargs').toggle() end, 'Toggle hlargs' },
-    a = { '<cmd>AerialToggle!<cr>', 'Toggle Aerial' },
-    y = { '<cmd>SymbolsOutline<cr>', 'Toggle Symbols Outline' },
-    h = { '<cmd>Startify<cr>', 'Open Startify' },
-    l = { '<cmd>Lazy<cr>', 'Open Lazy' },
-    i = { '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline' },
-    t = { '<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle Trouble document diagnostics' },
-    d = { '<cmd>DiffviewOpen<cr>', 'Open Diffview' },
-    u = { '<cmd>UndotreeToggle<CR>', 'Toggle Undotree' },
+||||||| parent of c2b4feb (squash! ref(nvim): don't use `which-key` to set mappings)
+-- Register which-key
+wk.register({
+  -- Telescope bindings
+  ['<c-p>'] = { function() require('telescope').extensions.smart_open.smart_open({ cwd_only=true }) end, 'Smart Open' },
+  ['<Leader>f'] = {
+    name = 'Telescope',
+    A = { function() require('telescope').extensions.aerial.aerial() end, 'Aerial' },
+    f = { function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, 'Frecency in CWD' },
+    F = { function() require('telescope').extensions.frecency.frecency() end, 'Frecency' },
+    p = { function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project' },
+    P = { function() require('telescope').extensions.projects.projects() end, 'Project' },
+    ['<space>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
+    o = { '<cmd>Telescope oldfiles<cr>', 'Recent files in CWD' },
+    O = { '<cmd>Telescope oldfiles only_cwd=false<cr>', 'Recent files' },
+    a = { '<cmd>Telescope builtin<cr>', 'Show builtin modules' },
+    i = { '<cmd>Telescope git_files<cr>', 'Git files' },
+    t = { '<cmd>Telescope filetypes<cr>', 'Filetypes' },
+    g = { '<cmd>Telescope live_grep<cr>', 'Live grep' },
+    l = { '<cmd>Telescope buffers<cr>', 'List open buffers' },
+    h = { '<cmd>Telescope help_tags<cr>', 'Help tags' },
+    c = { '<cmd>Telescope commands<cr>', 'Commands' },
+    r = { '<cmd>Telescope resume<cr>', 'Resume last action' },
+    [';'] = { '<cmd>Telescope command_history<cr>', 'Command history' },
+    ['/'] = { '<cmd>Telescope search_history<cr>', 'Search history' },
   },
+=======
+-- Telescope bindings
+nmap('<c-p>',      function() require('telescope').extensions.smart_open.smart_open({ cwd_only=true }) end, 'Smart Open')
+nmap('<Leader>f ', '<cmd>Telescope fd<cr>', 'Find files fd')
+nmap('<Leader>fA', function() require('telescope').extensions.aerial.aerial() end, 'Aerial')
+nmap('<Leader>ff', function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, 'Frecency in CWD')
+nmap('<Leader>fF', function() require('telescope').extensions.frecency.frecency() end, 'Frecency')
+nmap('<Leader>fp', function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project')
+nmap('<Leader>fP', function() require('telescope').extensions.projects.projects() end, 'Project')
+nmap('<Leader>fo', '<cmd>Telescope oldfiles<cr>', 'Recent files in CWD')
+nmap('<Leader>fO', '<cmd>Telescope oldfiles only_cwd=false<cr>', 'Recent files')
+nmap('<Leader>fa', '<cmd>Telescope builtin<cr>', 'Show builtin modules')
+nmap('<Leader>fi', '<cmd>Telescope git_files<cr>', 'Git files')
+nmap('<Leader>ft', '<cmd>Telescope filetypes<cr>', 'Filetypes')
+nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>', 'Live grep')
+nmap('<Leader>fl', '<cmd>Telescope buffers<cr>', 'List open buffers')
+nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>', 'Help tags')
+nmap('<Leader>fc', '<cmd>Telescope commands<cr>', 'Commands')
+nmap('<Leader>fr', '<cmd>Telescope resume<cr>', 'Resume last action')
+nmap('<Leader>f;', '<cmd>Telescope command_history<cr>', 'Command history')
+nmap('<Leader>f/', '<cmd>Telescope search_history<cr>', 'Search history')
+>>>>>>> c2b4feb (squash! ref(nvim): don't use `which-key` to set mappings)
 
+-- Plugins bindings. TODO: Move this to their own plugin spec
+nmap('gog', function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split')
+nmap('goG', function() require('neogit').open({ kind = 'replace' }) end, 'Open neogit in current window')
+nmap('goc', function() vim.cmd((orien() == 'vertical' and 's' or 'vs') .. 'plit') vim.cmd('term') end, 'Open terminal in split')
+nmap('goC', function() vim.cmd('term') end, 'Open terminal in current window')
+nmap('goe', function() require('nvim-tree.api').tree.toggle() end, 'Toggle FileTree')
+nmap('goE', function() require('nvim-tree').open_replacing_current_buffer() end, 'Open Tree in current window')
+nmap('gor', function() require('hlargs').toggle() end, 'Toggle hlargs')
+nmap('goa', '<cmd>AerialToggle!<cr>', 'Toggle Aerial')
+nmap('goy', '<cmd>SymbolsOutline<cr>', 'Toggle Symbols Outline')
+nmap('goh', '<cmd>Startify<cr>', 'Open Startify')
+nmap('gol', '<cmd>Lazy<cr>', 'Open Lazy')
+nmap('goi', '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline')
+nmap('got', '<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle Trouble document diagnostics')
+nmap('god', '<cmd>DiffviewOpen<cr>', 'Open Diffview')
+nmap('gou', '<cmd>UndotreeToggle<CR>', 'Toggle Undotree')
+
+<<<<<<< HEAD
+||||||| parent of c2b4feb (squash! ref(nvim): don't use `which-key` to set mappings)
   -- Register empty desc
   ['g'] = { name = 'Go' },
   [']'] = 'Unimpaired',
   ['['] = 'Unimpaired',
 })
 
+=======
+  -- Register empty desc
+  -- ['g'] = { name = 'Go' },
+  -- [']'] = { name = 'Unimpaired' },
+  -- ['['] = { name = 'Unimpaired' },
+
+>>>>>>> c2b4feb (squash! ref(nvim): don't use `which-key` to set mappings)
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
 
