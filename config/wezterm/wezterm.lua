@@ -52,7 +52,7 @@ return {
   send_composed_key_when_right_alt_is_pressed = false,
 
   -- Colors
-  color_scheme = 'tokyonight_moon', -- full list @ wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = 'nordic', -- full list @ wezfurlong.org/wezterm/colorschemes/index.html
 
   -- Appearance
   initial_cols = 500,
