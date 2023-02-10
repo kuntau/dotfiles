@@ -182,16 +182,18 @@ export PATH=$DOTFILES/bin:$PATH
 # }}}
 
 # Extra sources {{{
+# zsh-vi-mode messed with key-bindings. So need to set ours after `zvm` init
 function zvm_after_init() {
   [[ -x rustup ]] && source $HOME/.cargo/env
   [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
   exists fzf && source $DOTFILES/zsh/fzf.zsh
   exists nnn && source $DOTFILES/nnn/quitcd.zsh
 
-  source $DOTFILES/zsh/default.zsh # my aliases
+  source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases
   source $HOME/.secret             # don't commit this file
   typeset -U PATH                  # remove dups from $PATH
 }
+
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 # }}}
