@@ -116,7 +116,6 @@ return {
   'toppair/peek.nvim', -- Markdown preview
   -- gen740/SmoothCursor.nvim
   -- rktjmp/paperplanes.nvim
-  -- danielfalk/smart-open.nvim
   -- ThePrimeagen/harpoon
   -- LeonHeidelbach/trailblazer.nvim
 }

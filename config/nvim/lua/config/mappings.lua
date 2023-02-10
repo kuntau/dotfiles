@@ -79,7 +79,7 @@ nmap('gl', 'g_', 'Goto last non-blank char')
 -- Register which-key
 wk.register({
   -- Telescope bindings
-  ['<c-p>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
+  ['<c-p>'] = { function() require('telescope').extensions.smart_open.smart_open({ cwd_only=true }) end, 'Smart Open' },
   ['<Leader>f'] = {
     name = 'Telescope',
     A = { function() require('telescope').extensions.aerial.aerial() end, 'Aerial' },
@@ -87,6 +87,7 @@ wk.register({
     F = { function() require('telescope').extensions.frecency.frecency() end, 'Frecency' },
     p = { function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project' },
     P = { function() require('telescope').extensions.projects.projects() end, 'Project' },
+    ['<space>'] = { '<cmd>Telescope fd<cr>', 'Find files fd' },
     o = { '<cmd>Telescope oldfiles<cr>', 'Recent files in CWD' },
     O = { '<cmd>Telescope oldfiles only_cwd=false<cr>', 'Recent files' },
     a = { '<cmd>Telescope builtin<cr>', 'Show builtin modules' },
