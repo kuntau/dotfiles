@@ -153,13 +153,18 @@ local config_material = function()
   })
 end
 
+local config_nordic = {
+  bold_keywords = true,
+  override = {}
+}
+
 return {
   -- Colorschemes
   'NLKNguyen/papercolor-theme',
   'folke/tokyonight.nvim',
   'nyoom-engineering/oxocarbon.nvim', -- IBM carbon inspired
   'NTBBloodbath/doom-one.nvim',
-  { 'AlexvZyl/nordic.nvim', dev = false, opts = { telescope = { style = 'flat' } } },
+  { 'AlexvZyl/nordic.nvim', dev = false, opts = config_nordic },
   { 'EdenEast/nightfox.nvim', config = config_nightfox },
   { 'catppuccin/nvim', name = 'catppuccin', config = config_catpuccin },
   { 'marko-cerovac/material.nvim', config = config_material, dev = false },
