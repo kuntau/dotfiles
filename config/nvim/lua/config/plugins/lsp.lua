@@ -1,7 +1,7 @@
 -- LSP, linter & formatter configs
 
 local ensure_installed = {
-  'sumneko_lua',
+  'lua_ls',
   'tsserver',
   'intelephense',
   'volar',
