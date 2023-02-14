@@ -20,6 +20,7 @@ local custom_header = {
 '    ██  ██████████████████  ██  ██  ██████████████  ██  ██',
 '    ██                      ██  ██                      ██',
 '    ██████████████████████████  ██████████████████████████',
+'                                                          ',
 }
 
 local formatter = function (files)
@@ -57,7 +58,7 @@ local config_startify = function()
   vim.g.startify_lists = {
     { header = {('   MRU: ' .. cwd())}, type = 'dir' },
     -- { header = {'   MRU: Global'},      type = 'files' },
-    { header = {'   Sessions'},         type = 'sessions' },
+    -- { header = {'   Sessions'},         type = 'sessions' },
     -- { header = {'   Git modified'},     type = async.git_modified },
     -- { header = {'   Git untracked'},    type = git_utracked },
     -- { header = {'   Git commits'},      type = git_commit },
@@ -92,9 +93,68 @@ local config_startify = function()
   vim.g.startify_custom_header = custom_header
 end
 
+local homepage = 'dashboard'
+
 return {
-  'mhinz/vim-startify',
-  config = config_startify,
-  cmd = 'Startify',
-  lazy = false,
+  {
+    'mhinz/vim-startify',
+    config = config_startify,
+    cmd = 'Startify',
+    event = 'VimEnter',
+    enabled = (homepage == 'startify'),
+  },
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    opts = {
+      theme = 'hyper',
+      config = {
+        disable_move = true,
+        header = custom_header,
+        packages = { enable = false },
+        week_header = {
+          enable = false,
+        },
+        shortcut = {
+          {
+            icon = ' ',
+            icon_hl = '@variable',
+            desc = 'Files',
+            group = 'Label',
+            action = function() require('telescope').extensions.smart_open.smart_open({ cwd_only = true }) end,
+            key = 'f',
+          },
+          { desc = ' Lazy', group = '@property', action = 'Lazy', key = 'l' },
+          {
+            desc = ' Time',
+            group = 'DiagnosticHint',
+            action = 'StartupTime',
+            key = 't',
+          },
+          {
+            desc = ' Health',
+            group = 'Number',
+            action = 'checkhealth',
+            key = 'h',
+          },
+          {
+            desc = ' Neogit',
+            group = 'DiagnosticInfo',
+            action = function() require('neogit').open({ kind = 'vsplit' }) end,
+            key = 'g',
+          },
+          {
+            desc = ' Exit',
+            group = 'DiagnosticError',
+            action = 'quit',
+            key = 'q',
+          },
+        },
+        project = { limit = 5, label = 'Projects', action = 'Telescope fd cwd=' },
+        mru = { limit = 10, label = 'MRU' },
+        footer = {}, -- footer
+      },
+    },
+    enabled = (homepage == 'dashboard'),
+  },
 }
