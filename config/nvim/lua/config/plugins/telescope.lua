@@ -1,6 +1,7 @@
 -- telescope and it's extensions configs
 
 local config = function()
+  local telescope = require('telescope')
   local actions = require('telescope.actions')
   local layout = require('telescope.actions.layout')
 
@@ -11,8 +12,10 @@ local config = function()
     end
   end
 
-  require('telescope').setup({
+  telescope.setup({
     defaults = {
+      prompt_prefix = ' ',
+      -- selection_caret = '>>',
       vimgrep_arguments = {
         'rg',
         '--color=never',
@@ -91,31 +94,14 @@ local config = function()
       },
     },
     extensions = {
+      smart_open = {
+        show_scores = true,
+        max_unindexed = 1000,
+        match_algorithm = 'fzf',
+      },
       frecency = {
         previewer = false,
-        require('telescope.themes').get_dropdown({
-          theme = 'ivy',
-          layout_config = { width = 0.4, height = 0.5 },
-        }),
-      },
-      projects = {
-        require('telescope.themes').get_dropdown({
-          layout_config = { width = 0.4, height = 0.5 },
-        }),
-      },
-      project = {
-        require('telescope.themes').get_dropdown({
-          layout_config = { width = 0.4, height = 0.5 },
-        }),
-        base_dirs = {
-          -- { '~/coding', max_depth = 2 },
-          -- { '~/coding/forks', max_depth = 2 }
-        },
-      },
-      ['ui-select'] = {
-        require('telescope.themes').get_dropdown({
-          layout_config = { width = 0.4, height = 0.5 },
-        }),
+        show_scores = true,
       },
     },
   })
