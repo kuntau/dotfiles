@@ -354,6 +354,6 @@ local norm_opts = {
 }
 
 return {
-  { 'nvim-lualine/lualine.nvim', event = 'VeryLazy', opts = norm_opts, config = function(_, opts) require('lualine').setup(opts) end },
+  { 'nvim-lualine/lualine.nvim', event = 'BufReadPost', opts = norm_opts, config = function(_, opts) require('lualine').setup(opts) end },
   { 'edkolev/tmuxline.vim', cmd = 'Tmuxline' }, -- Tmux statusline
 }

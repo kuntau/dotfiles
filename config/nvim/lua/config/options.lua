@@ -49,7 +49,7 @@ vim.o.showcmd         = true  -- already in defaults
 vim.o.showmode        = false -- we already have mode in statusline
 vim.o.showtabline     = 0     -- disable tabline, 1 = auto, 2 = always
 vim.o.sidescrolloff   = 5     -- Show 5 columns left & right cursor
-vim.o.signcolumn      = 'auto'-- AKA the gutter, smallest size = 'yes:1'
+vim.o.signcolumn      = 'auto:1'-- AKA the gutter, smallest size = 'yes:1'
 vim.o.splitbelow      = true
 vim.o.splitright      = true
 vim.o.termguicolors   = true  -- enable truecolor
@@ -79,7 +79,7 @@ vim.opt.spelllang     = { 'en', 'ms' }
 
 -- Folding: managed by _ufo_
 vim.o.foldenable      = true
-vim.o.foldcolumn      = 'auto'
+vim.o.foldcolumn      = 'auto:1'
 vim.o.foldlevel       = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart  = 99 -- "
 vim.o.foldminlines    = 3
