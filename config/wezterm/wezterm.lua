@@ -7,16 +7,25 @@ local hyper_key = 'SHIFT|ALT|CTRL|CMD'
 
 local basename = function(s) return string.gsub(s, '(.*[/\\])(.*)', '%2') end
 
-local is_vim = function(pane)
+local get_process = function(pane)
   local proc = basename(pane:get_foreground_process_name())
-  wezterm.log_info('@is_vim, proc=' .. proc)
+  wezterm.log_info('@foreground_process, proc=' .. proc)
+  return proc
+end
+
+local is_tmux = function(proc)
+  return proc == 'tmux'
+end
+
+local is_vim = function(proc)
   return string.match(proc, 'n?vim') or proc == 'hx'
-  -- return string.match(proc, 'nvim')
 end
 
 local switch_pane = function(win, pane, key)
   local direction = { h = 'Left', l = 'Right', j = 'Down', k = 'Up' }
-  if is_vim(pane) then
+  local proc = get_process(pane)
+
+  if is_vim(proc) or is_tmux(proc) then
     win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
   else
     win:perform_action({ ActivatePaneDirection = direction[key] }, pane)
@@ -56,41 +65,36 @@ return {
   send_composed_key_when_right_alt_is_pressed = false,
 
   -- GPU
-  front_end = 'WebGpu', -- WebGpu make font thicker
+  front_end = 'WebGpu', -- Software|OpenGL|WebGpu make font thicker
   animation_fps = 1,
   cursor_blink_ease_in = 'Constant',
   cursor_blink_ease_out = 'Constant',
 
   -- Colors
-  color_scheme = 'nordic', -- full list @ wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = 'nordic', -- full list @ https://wezfurlong.org/wezterm/colorschemes/index.html
 
   -- Appearance
   initial_cols = 500,
   initial_rows = 300,
   line_height = 1.0,
-  enable_tab_bar = true, -- [true]
+  enable_tab_bar = true,
   use_fancy_tab_bar = false,
-  hide_tab_bar_if_only_one_tab = true, -- [false] hide the tab bar when there is only a single tab in the window
-  window_background_opacity = 1.0, -- [1.0] alpha channel value with floating point numbers in the range 0.0 (meaning completely translucent/transparent) through to 1.0 (meaning completely opaque)
+  hide_tab_bar_if_only_one_tab = true,
+  tab_bar_at_bottom = true,
+  tab_max_width = 50,
+  window_background_opacity = 1.0,
   window_decorations = 'RESIZE', -- 'TITLE', 'RESIZE', 'NONE'
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
-  foreground_text_hsb = {
-    hue = 1.0,
-    saturation = 1.0,
-    brightness = 1.0,
-  },
-  inactive_pane_hsb = {
-    saturation = 1.0,
-    brightness = 0.85,
-  },
+  inactive_pane_hsb = { saturation = 1.0, brightness = 0.85 },
 
   -- Behavior
-  automatically_reload_config = true,
+  automatically_reload_config = false,
   clean_exit_codes = { 130 },
   exit_behavior = 'CloseOnCleanExit',
-  window_close_confirmation = 'NeverPrompt',
-  unzoom_on_switch_pane = false,
+  pane_focus_follows_mouse = true,
   skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish', 'tmux', 'nu' },
+  unzoom_on_switch_pane = false,
+  window_close_confirmation = 'NeverPrompt',
 
   -- define leader key, same as tmux
   leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
@@ -153,6 +157,19 @@ return {
   },
 
   mouse_bindings = {
+    -- Right click to paste
+    {
+      event = { Down = { streak = 1, button = 'Right' } },
+      mods = 'NONE',
+      action = action.PasteFrom('Clipboard'),
+    },
+
+    -- Change the default click behavior so that it only selects text and doesn't open hyperlinks
+    {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = action.CompleteSelection('ClipboardAndPrimarySelection'),
+    },
     -- Bind 'Up' event of CMD-Click to open hyperlinks
     {
       event = { Up = { streak = 1, button = 'Left' } },
