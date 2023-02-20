@@ -5,6 +5,37 @@ local emit = action.EmitEvent
 
 local hyper_key = 'SHIFT|ALT|CTRL|CMD'
 
+local COLORS = {
+	rosewater = "#F4DBD6",
+	flamingo = "#F0C6C6",
+	pink = "#F5BDE6",
+	mauve = "#C6A0F6",
+	red = "#ED8796",
+	maroon = "#EE99A0",
+	peach = "#F5A97F",
+	yellow = "#EED49F",
+	green = "#A6DA95",
+	teal = "#8BD5CA",
+	sky = "#91D7E3",
+	sapphire = "#7DC4E4",
+	blue = "#8AADF4",
+	lavender = "#B7BDF8",
+
+	text = "#CAD3F5",
+	subtext1 = "#B8C0E0",
+	subtext0 = "#A5ADCB",
+	overlay2 = "#939AB7",
+	overlay1 = "#8087A2",
+	overlay0 = "#6E738D",
+	surface2 = "#5B6078",
+	surface1 = "#494D64",
+	surface0 = "#363A4F",
+
+	base = "#24273A",
+	mantle = "#1E2030",
+	crust = "#181926",
+}
+
 local basename = function(s) return string.gsub(s, '(.*[/\\])(.*)', '%2') end
 
 local get_process = function(pane)
@@ -31,6 +62,120 @@ local switch_pane = function(win, pane, key)
     win:perform_action({ ActivatePaneDirection = direction[key] }, pane)
   end
 end
+
+local function get_tab_process(tab)
+  local process_icons = {
+    nvim = {
+      { Foreground = { Color = COLORS.green } },
+      { Text = wezterm.nerdfonts.custom_vim },
+    },
+    vim = {
+      { Foreground = { Color = COLORS.green } },
+      { Text = wezterm.nerdfonts.dev_vim },
+    },
+    node = {
+      { Foreground = { Color = COLORS.green } },
+      { Text = wezterm.nerdfonts.mdi_hexagon },
+    },
+    zsh = {
+      { Foreground = { Color = COLORS.peach } },
+      { Text = wezterm.nerdfonts.dev_terminal },
+    },
+    bash = {
+      { Foreground = { Color = COLORS.subtext0 } },
+      { Text = wezterm.nerdfonts.cod_terminal_bash },
+    },
+    htop = {
+      { Foreground = { Color = COLORS.yellow } },
+      { Text = wezterm.nerdfonts.mdi_chart_donut_variant },
+    },
+    cargo = {
+      { Foreground = { Color = COLORS.peach } },
+      { Text = wezterm.nerdfonts.dev_rust },
+    },
+    go = {
+      { Foreground = { Color = COLORS.sapphire } },
+      { Text = wezterm.nerdfonts.mdi_language_go },
+    },
+    lazydocker = {
+      { Foreground = { Color = COLORS.blue } },
+      { Text = wezterm.nerdfonts.linux_docker },
+    },
+    git = {
+      { Foreground = { Color = COLORS.peach } },
+      { Text = wezterm.nerdfonts.dev_git },
+    },
+    gitui = {
+      { Foreground = { Color = COLORS.peach } },
+      { Text = wezterm.nerdfonts.dev_git },
+    },
+    lua = {
+      { Foreground = { Color = COLORS.blue } },
+      { Text = wezterm.nerdfonts.seti_lua },
+    },
+    wget = {
+      { Foreground = { Color = COLORS.yellow } },
+      { Text = wezterm.nerdfonts.mdi_arrow_down_box },
+    },
+    curl = {
+      { Foreground = { Color = COLORS.yellow } },
+      { Text = wezterm.nerdfonts.mdi_flattr },
+    },
+    gh = {
+      { Foreground = { Color = COLORS.mauve } },
+      { Text = wezterm.nerdfonts.dev_github_badge },
+    },
+    docker = {
+      { Foreground = { Color = COLORS.blue } },
+      { Text = wezterm.nerdfonts.linux_docker },
+    },
+    ["docker-compose"] = {
+      { Foreground = { Color = COLORS.blue } },
+      { Text = wezterm.nerdfonts.linux_docker },
+    },
+  }
+
+  local process_name = string.gsub(tab.active_pane.foreground_process_name, "(.*[/\\])(.*)", "%2")
+
+  if process_name == "" then
+    process_name = "zsh"
+  end
+
+  return wezterm.format(
+    process_icons[process_name]
+    or { { Foreground = { Color = COLORS.sky } }, { Text = string.format("[%s]", process_name) } }
+  )
+end
+
+local function get_current_working_dir(tab)
+  local current_dir = tab.active_pane.current_working_dir
+  local HOME_DIR = string.format('file://%s', os.getenv('HOME'))
+
+  return current_dir == HOME_DIR and '  ~'
+    or string.format('  %s', string.gsub(current_dir, '(.*[/\\])(.*)', '%2'))
+end
+
+wezterm.on('format-tab-title', function(tab)
+    return wezterm.format({
+      { Attribute = { Intensity = 'Bold' } },
+      { Text = string.format(' %s  ', tab.tab_index + 1) },
+      'ResetAttributes',
+      { Text = get_tab_process(tab) },
+      { Text = ' ' },
+      { Text = get_current_working_dir(tab) },
+      { Foreground = { Color = COLORS.base } },
+      { Text = '  ▕' },
+    })
+  end
+)
+
+wezterm.on('update-status', function(window)
+    window:set_right_status(wezterm.format({
+      { Attribute = { Intensity = 'Normal' } },
+      { Text = wezterm.strftime(' %A, %d %B %Y %I:%M %p ') },
+    }))
+  end
+)
 
 on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
 on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h') end)
