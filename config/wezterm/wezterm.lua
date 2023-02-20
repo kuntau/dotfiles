@@ -1,4 +1,5 @@
 local wezterm = require('wezterm')
+local Utils = require('utils')
 local action = wezterm.action
 local on = wezterm.on
 local emit = action.EmitEvent
