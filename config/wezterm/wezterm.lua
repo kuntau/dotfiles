@@ -22,7 +22,7 @@ local COLORS = {
 	blue = "#8AADF4",
 	lavender = "#B7BDF8",
 
-	text = "#CAD3F5",
+	text = "#D8DEE9",
 	subtext1 = "#B8C0E0",
 	subtext0 = "#A5ADCB",
 	overlay2 = "#939AB7",
@@ -32,9 +32,9 @@ local COLORS = {
 	surface1 = "#494D64",
 	surface0 = "#363A4F",
 
-	base = "#24273A",
-	mantle = "#1E2030",
-	crust = "#181926",
+	base = "#242933",
+	mantle = "#838fa7", -- lighten
+	crust = "#111419", -- darken
 }
 
 local basename = function(s) return string.gsub(s, '(.*[/\\])(.*)', '%2') end
