@@ -3,6 +3,7 @@ local Utils = require('utils')
 local action = wezterm.action
 local on = wezterm.on
 local emit = action.EmitEvent
+local nf = wezterm.nerdfonts
 
 local hyper_key = 'SHIFT|ALT|CTRL|CMD'
 
@@ -68,71 +69,71 @@ local function get_tab_process(tab)
   local process_icons = {
     nvim = {
       { Foreground = { Color = COLORS.green } },
-      { Text = wezterm.nerdfonts.custom_vim },
+      { Text = nf.custom_vim },
     },
     vim = {
       { Foreground = { Color = COLORS.green } },
-      { Text = wezterm.nerdfonts.dev_vim },
+      { Text = nf.dev_vim },
     },
     node = {
       { Foreground = { Color = COLORS.green } },
-      { Text = wezterm.nerdfonts.mdi_hexagon },
+      { Text = nf.mdi_hexagon },
     },
     zsh = {
       { Foreground = { Color = COLORS.peach } },
-      { Text = wezterm.nerdfonts.dev_terminal },
+      { Text = nf.dev_terminal },
     },
     bash = {
       { Foreground = { Color = COLORS.subtext0 } },
-      { Text = wezterm.nerdfonts.cod_terminal_bash },
+      { Text = nf.cod_terminal_bash },
     },
     htop = {
       { Foreground = { Color = COLORS.yellow } },
-      { Text = wezterm.nerdfonts.mdi_chart_donut_variant },
+      { Text = nf.mdi_chart_donut_variant },
     },
     cargo = {
       { Foreground = { Color = COLORS.peach } },
-      { Text = wezterm.nerdfonts.dev_rust },
+      { Text = nf.dev_rust },
     },
     go = {
       { Foreground = { Color = COLORS.sapphire } },
-      { Text = wezterm.nerdfonts.mdi_language_go },
+      { Text = nf.mdi_language_go },
     },
     lazydocker = {
       { Foreground = { Color = COLORS.blue } },
-      { Text = wezterm.nerdfonts.linux_docker },
+      { Text = nf.linux_docker },
     },
     git = {
       { Foreground = { Color = COLORS.peach } },
-      { Text = wezterm.nerdfonts.dev_git },
+      { Text = nf.dev_git },
     },
     gitui = {
       { Foreground = { Color = COLORS.peach } },
-      { Text = wezterm.nerdfonts.dev_git },
+      { Text = nf.dev_git },
     },
     lua = {
       { Foreground = { Color = COLORS.blue } },
-      { Text = wezterm.nerdfonts.seti_lua },
+      { Text = nf.seti_lua },
     },
     wget = {
       { Foreground = { Color = COLORS.yellow } },
-      { Text = wezterm.nerdfonts.mdi_arrow_down_box },
+      { Text = nf.mdi_arrow_down_box },
     },
     curl = {
       { Foreground = { Color = COLORS.yellow } },
-      { Text = wezterm.nerdfonts.mdi_flattr },
+      { Text = nf.mdi_flattr },
     },
     gh = {
       { Foreground = { Color = COLORS.mauve } },
-      { Text = wezterm.nerdfonts.dev_github_badge },
+      { Text = nf.dev_github_badge },
     },
     docker = {
       { Foreground = { Color = COLORS.blue } },
-      { Text = wezterm.nerdfonts.linux_docker },
+      { Text = nf.linux_docker },
     },
     ['docker-compose'] = {
       { Foreground = { Color = COLORS.blue } },
-      { Text = wezterm.nerdfonts.linux_docker },
+      { Text = nf.linux_docker },
     },
   }
 
@@ -168,10 +169,32 @@ wezterm.on('format-tab-title', function(tab)
 end)
 
 wezterm.on('update-status', function(window)
+  local date = wezterm.strftime(' %a, %d %b %Y ')
+  local time = wezterm.strftime(' %H:%M ')
+  local batt = ''
+
+  for _, b in ipairs(wezterm.battery_info()) do
+    batt = string.format(' %.0f%%', b.state_of_charge * 100)
+  end
+
   window:set_right_status(wezterm.format({
-    { Attribute = { Intensity = 'Normal' } },
-    { Text = wezterm.strftime(' %A, %d %B %Y %I:%M %p ') },
+    { Foreground = { Color = COLORS.red } },
+    { Text = window:leader_is_active() and 'LEADER ' or '' },
+    { Foreground = { Color = COLORS.mantle } },
+    { Text = nf.fa_calendar },
+    { Text = date },
+    { Foreground = { Color = COLORS.green } },
+    { Text = nf.oct_clock },
+    { Text = time },
+    { Foreground = { Color = COLORS.maroon } },
+    { Text = nf.mdi_battery_50 },
+    { Text = batt },
   }))
+end)
+
+wezterm.on('window-config-reloaded', function(window, _)
+  wezterm.log_info 'the config was reloaded for this window!'
+  window:toast_notification('wezterm', 'configuration reloaded!', nil, 4000)
 end)
 
 on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
