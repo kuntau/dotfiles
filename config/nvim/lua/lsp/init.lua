@@ -86,6 +86,9 @@ lspconfig.lua_ls.setup({
         workspaceWord = true,
         callSnippet = 'Replace', -- 'Both'
       },
+      format = {
+        enable = false -- Use stylua to format
+      },
       runtime = {
         version = 'LuaJIT', -- Tell the language server we're using LuaJIT
         -- path = runtime_path, -- Setup your lua path. SLOW: Use neodev
