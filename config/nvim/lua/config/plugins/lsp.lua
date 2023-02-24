@@ -98,14 +98,15 @@ return {
         'williamboman/mason.nvim',
         cmd = 'Mason',
         config = true,
-        dependencies = {
-          'williamboman/mason-lspconfig.nvim',
-          opts = {
-            automatic_installation = true,
-            ensure_installed = ensure_installed,
-          },
-        }, -- Bridge for mason-LSP config
+        -- dependencies = ,
       }, -- Auto/manage LSP
+      {
+        'williamboman/mason-lspconfig.nvim',
+        opts = {
+          automatic_installation = true,
+          ensure_installed = ensure_installed,
+        },
+      },  -- Bridge for mason-LSP config
       { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },
       { 'jose-elias-alvarez/null-ls.nvim', config = config_null }, -- Bridge LSP
     },
