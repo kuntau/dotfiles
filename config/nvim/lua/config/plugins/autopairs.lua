@@ -24,9 +24,8 @@ local config = function()
       -- lua = {'string'},
       javascript = {'template_string'},
     },
-    disable_filetypes = {
+    disable_filetype = {
       'TelescopePrompt',
-      'guihua',
       'vim'
     }
   })
