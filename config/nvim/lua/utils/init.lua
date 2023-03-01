@@ -34,8 +34,9 @@ end
 
 local get_win_orientation = function() return vim.o.columns <= 154 and 'vertical' or 'horizontal' end
 
+-- gui_running check requires nvim v0.9 https://github.com/neovim/neovim/pull/22382
 local is_gui = function()
-  if vim.fn.has('gui_running') == 1 or vim.g.gonvim_running == 1 or vim.g.neoray == 1 then return true end
+  if vim.fn.has('gui_running') == 1 or vim.g.gonvim_running == 1 or vim.g.neoray == 1 or vim.g.neovide == 1 then return true end
   return false
 end
 
