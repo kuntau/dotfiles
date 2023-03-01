@@ -64,8 +64,27 @@ return {
 
   -- UI & UX
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
-  { 'luukvbaal/statuscol.nvim', opts = { setopt = true, relculright = true, foldfunc = 'builtin', order = 'FNS' }, event = 'VeryLazy', enabled = (vim.fn.has('nvim-0.9') == 1) },
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', opts = {}, },
+  { 'luukvbaal/statuscol.nvim',
+    config = function()
+      local builtin = require('statuscol.builtin')
+      require('statuscol').setup({
+        setopt = true,
+        relculright = true,
+        segments = {
+          { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
+          {
+            text = { builtin.lnumfunc, ' ' },
+            condition = { true, builtin.not_empty },
+            click = 'v:lua.ScLa',
+          },
+          { text = { '%s' }, click = 'v:lua.ScSa' },
+        },
+      })
+    end,
+    event = 'VeryLazy',
+    enabled = (vim.fn.has('nvim-0.9') == 1),
+  },
   { 'folke/which-key.nvim',
     event = 'VeryLazy',
     opts = { show_help = false, show_keys = true },
