@@ -68,7 +68,7 @@ return {
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', opts = {}, },
   { 'folke/which-key.nvim',
     event = 'VeryLazy',
-    opts = { plugins = { spelling = { enabled = true } }, show_help = false, show_keys = true },
+    opts = { show_help = false, show_keys = true },
     config = function(_, opts)
       local wk = require('which-key')
       wk.setup(opts)
