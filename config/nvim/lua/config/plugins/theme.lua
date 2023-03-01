@@ -154,7 +154,11 @@ local config_material = function()
 end
 
 local config_nordic = {
+  theme = 'nordic',
   bold_keywords = true,
+  transparent_bg = false,
+  noice = { style = 'flat' },
+  telescope = { style = 'flat' },
   override = {}
 }
 

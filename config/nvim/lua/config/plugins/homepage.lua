@@ -117,41 +117,55 @@ return {
         },
         shortcut = {
           {
-            icon = ' ',
+            icon = ' ',
             icon_hl = '@variable',
             desc = 'Files',
             group = 'Label',
             action = function() require('telescope').extensions.smart_open.smart_open({ cwd_only = true }) end,
             key = 'f',
           },
-          { desc = ' Lazy', group = '@property', action = 'Lazy', key = 'l' },
           {
-            desc = ' Time',
+            icon = ' ',
+            icon_hl = '@variable',
+            desc = 'Status',
+            group = 'String',
+            action = 'Telescope git_status',
+            key = 's',
+          },
+          { desc = ' Lazy', group = '@property', action = 'Lazy', key = 'l' },
+          {
+            desc = ' Time',
             group = 'DiagnosticHint',
             action = 'StartupTime',
             key = 't',
           },
           {
-            desc = ' Health',
+            desc = ' Health',
             group = 'Number',
             action = 'checkhealth',
             key = 'h',
           },
           {
-            desc = ' Neogit',
+            desc = ' Mason',
             group = 'DiagnosticInfo',
-            action = function() require('neogit').open({ kind = 'vsplit' }) end,
-            key = 'g',
+            action = 'Mason',
+            key = 'm',
           },
           {
-            desc = ' Exit',
+            desc = ' Exit',
             group = 'DiagnosticError',
             action = 'quit',
             key = 'q',
           },
         },
-        project = { limit = 5, label = 'Projects', action = 'Telescope fd cwd=' },
-        mru = { limit = 10, label = 'MRU' },
+        project = {
+          limit = 5,
+          action = function(path)
+            vim.fn.chdir(path)
+            require('telescope').extensions.smart_open.smart_open({ cwd_only = true })
+          end,
+        },
+        -- mru = { limit = 10, label = 'MRU' },
         footer = {}, -- footer
       },
     },
