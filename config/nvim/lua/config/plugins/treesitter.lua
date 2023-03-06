@@ -95,10 +95,10 @@ local config = function()
       },
       lsp_interop = {
         enable = true,
-        border = 'none',
+        border = 'single',
         peek_definition_code = {
-          ['<leader>df'] = '@function.outer',
-          ['<leader>dF'] = '@class.outer',
+          ['grf'] = '@function.outer',
+          ['grF'] = '@class.outer',
         },
       },
     },
@@ -143,6 +143,11 @@ return {
     event = 'BufReadPost',
     config = config,
     build = ':TSUpdate', -- We recommend updating the parsers cmd update
+  },
+  { 'chrisgrieser/nvim-various-textobjs',
+    name = 'various-textobjs',
+    opts = { useDefaultKeymaps = true },
+    event = 'ModeChanged',
   },
   { 'windwp/nvim-ts-autotag', ft = { 'markdown', 'vue', 'html', 'jsx', 'tsx' } }, -- auto complete HTML tags
   { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *.*' }, -- TS - easy exit in params
