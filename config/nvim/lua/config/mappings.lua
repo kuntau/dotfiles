@@ -4,6 +4,7 @@
 local Utils = require('utils')
 local Mapper = Utils.mapper
 local map, nmap, imap, vmap, tmap = Utils.map, Utils.nmap, Utils.imap, Utils.vmap, Utils.tmap
+local open_url = Utils.open_url
 local rtc = Mapper.replace_termcodes
 local orien = Utils.get_win_orientation
 
@@ -74,6 +75,21 @@ nmap('K', function() if not require('ufo').peekFoldedLinesUnderCursor() then vim
 -- improve defaults
 map('gh', '_', 'Goto first non-blank char')
 map('gl', 'g_', 'Goto last non-blank char')
+
+-- Smart URL opener
+nmap('gx', function ()
+  require("various-textobjs").url() -- select URL
+  local foundURL = vim.fn.mode():find("v") -- only switches to visual mode if found
+  local url
+  if foundURL then
+    vim.cmd.normal { '"zy', bang = true } -- retrieve URL with "z as intermediary
+    url = vim.fn.getreg("z")
+    open_url(url)
+  else
+    -- if not found in proximity, search whole buffer via urlview.nvim instead
+    vim.cmd.UrlView("buffer")
+  end
+end, {desc = "Smart URL Opener"})
 
 -- Telescope bindings
 nmap('<c-p>',      function() require('telescope').extensions.smart_open.smart_open({ cwd_only=true }) end, 'Smart Open')

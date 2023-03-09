@@ -146,6 +146,19 @@ local autocmd = function(group, autocmds, desc, clear)
 
 end
 
+---@param url string URL
+local open_url = function(url)
+  local opener
+  if vim.fn.has("macunix") == 1 then
+    opener = "open"
+  elseif vim.fn.has("linux") == 1 then
+    opener = "xdg-open"
+  elseif vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 then
+    opener = "start"
+  end
+  os.execute(opener .. " '" .. url .. "'")
+end
+
 ---@class Utils
 return {
   is_day = is_day,
@@ -157,6 +170,7 @@ return {
   reload_module = reload_module,
   autocmd = autocmd,
   autocmd_legacy = autocmd_legacy,
+  open_url = open_url,
   mapper = mapper,
   map  = mapper['map'],
   tmap = mapper['tmap'],
