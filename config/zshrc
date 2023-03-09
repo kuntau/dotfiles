@@ -33,9 +33,9 @@ zplug "plugins/docker-compose", from:oh-my-zsh
 # from github
 zplug "jeffreytse/zsh-vi-mode", depth:1
 zplug "zsh-users/zsh-completions", depth:1
+zplug "marlonrichert/zsh-autocomplete", depth:1, defer:2
 zplug "zsh-users/zsh-autosuggestions", depth:1
-zplug "zsh-users/zsh-history-substring-search", depth:1
-zplug "zdharma-continuum/fast-syntax-highlighting", depth:1, defer:2
+zplug "z-shell/F-Sy-H", depth:1, defer:3
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
 zplug "agkozak/zsh-z", depth:1
 
