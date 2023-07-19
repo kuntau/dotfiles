@@ -8,7 +8,7 @@ local html_class = function(bufnr)
   local syntax_tree = language_tree:parse()
   local root = syntax_tree[1]:root()
 
-  local query = vim.treesitter.parse_query(
+  local query = vim.treesitter.query.parse(
     'html',
     [[
     ((attribute
@@ -17,7 +17,7 @@ local html_class = function(bufnr)
     ]]
   )
 
-  for _, captures, metadata in query:iter_matches(root, bufnr, root:start(), root:end_()) do
+  for _, captures, metadata in query:iter_matches(root, bufnr, root:start(), root:end_(), nil) do
     local start_row, start_col, end_row, end_col = captures[2]:range()
     vim.api.nvim_buf_set_extmark(bufnr, namespace, start_row, start_col, {
       end_line = end_row,
