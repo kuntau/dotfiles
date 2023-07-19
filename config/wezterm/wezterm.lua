@@ -7,6 +7,20 @@ local nf = wezterm.nerdfonts
 
 local hyper_key = 'SHIFT|ALT|CTRL|CMD'
 
+-- Set renderer & gpu to use. Software|OpenGL|WebGpu *make font thicker
+local use_webgpu = false
+local adapter = nil
+local front_end = 'OpenGL'
+if use_webgpu then
+  for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+    if gpu.backend == 'Metal' and gpu.device_type == 'IntegratedGpu' then
+      adapter = gpu
+      front_end = 'WebGpu'
+      break
+    end
+  end
+end
+
 local COLORS = {
 	rosewater = "#F4DBD6",
 	flamingo  = "#F0C6C6",
@@ -230,7 +244,8 @@ return {
   send_composed_key_when_right_alt_is_pressed = false,
 
   -- GPU
-  front_end = 'WebGpu', -- Software|OpenGL|WebGpu make font thicker
+  webgpu_preferred_adapter = adapter,
+  front_end = front_end,
   animation_fps = 1,
   cursor_blink_ease_in = 'Constant',
   cursor_blink_ease_out = 'Constant',
