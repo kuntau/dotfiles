@@ -1,5 +1,9 @@
 -- init.lua --
 
+if vim.fn.has('nvim-0.10') == 1 then
+  vim.loader.enable()
+end
+
 require('config.options')
 require('config.lazy')
 require('config.ui')
