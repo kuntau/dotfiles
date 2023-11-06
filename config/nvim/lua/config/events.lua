@@ -18,11 +18,11 @@ autocmd('remember_folds', {
 -- Show listchars in insert mode only only ft with extensions
 autocmd('insert_enter', {
   { 'InsertEnter', '*.*', function()
-    vim.cmd('setl list nornu | IndentBlanklineEnable')
+    vim.cmd('setl list nornu | IBLEnable')
     vim.diagnostic.hide()
   end },
   { 'InsertLeave', '*.*', function()
-    vim.cmd('setl nolist rnu | IndentBlanklineDisable')
+    vim.cmd('setl nolist rnu | IBLDisable')
     vim.diagnostic.show()
   end }
 })
