@@ -152,6 +152,10 @@ if vim.fn.has('nvim-0.9.0') == 1 then
   -- ..'%=%s%{foldlevel(v:lnum) > 0 ? (foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "" : "") : " ") : " " }'
 end
 
+if vim.fn.filereadable('/opt/local/bin/sqlite3') == 1 then
+  vim.g.sqlite_clib_path = '/opt/local/lib/libsqlite3.dylib'
+end
+
 -- References: {
 -- https://github.com/tarruda/dot-files
 -- https://github.com/junegunn/dotfiles
