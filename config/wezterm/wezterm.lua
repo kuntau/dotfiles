@@ -217,7 +217,7 @@ on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k')
 on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
 
 return {
-  default_prog = { '/usr/local/bin/zsh', '-li' },
+  default_prog = { '/opt/local/bin/zsh', '-li' },
 
   font = wezterm.font_with_fallback({
     {
