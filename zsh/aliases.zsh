@@ -2,7 +2,15 @@
 alias dus='du -hd 1'
 
 # files listing with optional exa -- colorized  everything
-if exists exa; then
+if exists eza; then
+  alias l='eza'
+  alias ll='eza --long --group-directories-first'
+  alias la='eza -alg --git --group-directories-first'
+  alias laa='eza -alg -a --group-directories-first'
+  alias lsd='eza --long --only-dirs' # List only directories
+  alias lst='eza --long --tree --level=2 --group-directories-first' # Tree view
+  alias lsr='eza --long --recurse --level=2 --group-directories-first' # Recurse directories
+elif exists exa; then
   alias l='exa'
   alias ll='exa --long --group-directories-first'
   alias la='exa -alg --git --group-directories-first'
