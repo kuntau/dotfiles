@@ -135,7 +135,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # nnn - https://github.com/jarun/nnn
 NNN_PLUG_FZF='c:fzcd;o:fzopen;j:autojump;h:fzhist;p:fzplug;g:gitroot'
-NNN_PLUG_REST='3:mp3conv;4:ipinfo;v:preview-tui;s:chksum;m:mediainf;k:pskill;i:imgview;l:launch'
+NNN_PLUG_REST='3:mp3conv;4:ipinfo;v:preview-tui;s:chksum;x:!chmod +x "$nnn";m:-!|mediainfo "$nnn";k:pskill;i:imgview;l:launch'
 NNN_PLUG="$NNN_PLUG_FZF;$NNN_PLUG_REST"
 export NNN_PLUG
 export NNN_OPTS='acdEHFrxQU'
