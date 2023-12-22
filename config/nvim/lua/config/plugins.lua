@@ -66,6 +66,7 @@ return {
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', opts = {}, },
   { 'luukvbaal/statuscol.nvim',
+    branch = '0.10',
     config = function()
       local builtin = require('statuscol.builtin')
       require('statuscol').setup({
