@@ -11,14 +11,12 @@ ControlPersist yes
 
 Host hq
   User     kuntau
-  HostName 175.139.178.197
+  HostName hq.kuntau.org
   Port     2211
-  # HostName kuntau.asuscomm.com
-  # HostName kosx.duckdns.org
 
 Host hqrouter
   User     kuntau
-  HostName kuntau.asuscomm.com
+  HostName hq.kuntau.org
   Port     21211
 
 Host vps
@@ -34,7 +32,7 @@ Host dh
 Host pi
   User     kuntau
   Port     22111
-  HostName kuntau.asuscomm.com
+  HostName hq.kuntau.org
 
 Host ocean
   User     kuntau
@@ -62,7 +60,7 @@ Host paprouter
 
 Host hqsvr
   User     kuntau
-  HostName kuntau.asuscomm.com
+  HostName hqsvr.kuntau.org
   port     22122
 
 Host papsvr
