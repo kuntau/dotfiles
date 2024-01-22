@@ -79,7 +79,7 @@ if [[ $OS_NAME == Linux ]]; then
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'hqsvr' ]]; then
     export COMPOSER_HOME=$HOME/.composer
-    export NNN_BMS='d:~/dotfiles;x:/HQPOOL/Videos/xXx;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
+    export NNN_BMS='d:~/dotfiles;b:/DL;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
   fi
 elif [[ $OS_NAME == Darwin ]]; then
 
