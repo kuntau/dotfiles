@@ -88,7 +88,7 @@ return {
   },
   { 'folke/which-key.nvim',
     event = 'VeryLazy',
-    opts = { show_help = false, show_keys = true },
+    opts = { show_help = false, show_keys = true, triggers_blacklist = { n = { 'd', 'y' } } },
     config = function(_, opts)
       local wk = require('which-key')
       wk.setup(opts)
