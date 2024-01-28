@@ -23,6 +23,7 @@ zplug "plugins/git-flow",       from:oh-my-zsh
 zplug "plugins/node",           from:oh-my-zsh
 zplug "plugins/npm",            from:oh-my-zsh
 zplug "plugins/tmux",           from:oh-my-zsh
+zplug "plugins/maestral",       from:oh-my-zsh
 zplug "plugins/safe-paste",     from:oh-my-zsh
 zplug "plugins/docker",         from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
@@ -138,7 +139,7 @@ NNN_PLUG_FZF='c:fzcd;o:fzopen;j:autojump;h:fzhist;p:fzplug;g:gitroot'
 NNN_PLUG_REST='3:mp3conv;4:ipinfo;v:preview-tui;s:chksum;x:!chmod +x "$nnn";m:-!|mediainfo "$nnn";k:pskill;i:imgview;l:launch'
 NNN_PLUG="$NNN_PLUG_FZF;$NNN_PLUG_REST"
 export NNN_PLUG
-export NNN_OPTS='acdEHFrxQU'
+export NNN_OPTS='acEFrxQU'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_COLORS='a321e2be;1234'
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
