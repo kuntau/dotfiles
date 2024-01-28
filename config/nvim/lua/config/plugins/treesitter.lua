@@ -2,10 +2,9 @@
 
 local config = function()
   require('nvim-treesitter.configs').setup({
-    ensure_installed = 'all',
-    -- ensure_installed = { 'bash', 'cmake', 'comment', 'cpp', 'css', 'dart', 'dockerfile', 'go', 'graphql', 'html', 'javascript', 'json', 'jsonc', 'lua', 'php', 'python', 'regex', 'ruby', 'scss', 'svelte', 'toml', 'tsx', 'typescript', 'vim', 'vue', 'yaml' },
+    ensure_installed = { 'comment', 'css', 'html', 'javascript', 'json', 'php', 'tsx', 'typescript', 'vue' },
     sync_install = true,
-    auto_install = true,
+    auto_install = true, -- auto install on first filetype load
     highlight = {
       enable = true,
       use_languagetree = true,
