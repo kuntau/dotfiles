@@ -77,3 +77,12 @@ background with <kbd>CTRL</kbd>+<kbd>z</kbd> and looking at `Wezterm` REPL/debug
 (<kbd>SHIFT</kbd>+<kbd>CTRL</kbd>+<kbd>L</kbd>), no other foreground process got detected.
 
 So if you use `zplug` and have the same problem, find the `~/.zplug/log/job.lock` and delete it.
+
+## Glitch over remote connections
+- First happens in mosh
+- Only recently
+- Seen in neovim, tmux, nnn
+- Also happens over SSH
+- Still happens in `Zellij`
+- Also happens with `wezterm` over `mosh`
+- `SSH` with `Tmux` on `wezterm` ok currently
