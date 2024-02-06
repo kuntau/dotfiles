@@ -20,6 +20,7 @@ zplug "plugins/brew",           from:oh-my-zsh
 zplug "plugins/git",            from:oh-my-zsh
 zplug "plugins/git-extras",     from:oh-my-zsh
 zplug "plugins/git-flow",       from:oh-my-zsh
+zplug "plugins/mosh",           from:oh-my-zsh
 zplug "plugins/node",           from:oh-my-zsh
 zplug "plugins/npm",            from:oh-my-zsh
 zplug "plugins/tmux",           from:oh-my-zsh
