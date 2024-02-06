@@ -16,6 +16,7 @@ local servers = {
   'volar',
   'pylsp',
   'clangd',
+  'rust_analyzer',
   -- 'cssls',
   -- 'eslint',
   -- 'html',
