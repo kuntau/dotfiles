@@ -6,9 +6,9 @@ return {
   -- Essentials/Library
   { 'kuntau/vim-osc52', keys = { { '<c-c>', '<Plug>(YankOSC52)', mode='v', desc='Yank (OSC52)' } } }, -- Copy & paste across tmux & screen over mosh
   { 'stevearc/dressing.nvim', config = true, event = 'VeryLazy' }, -- Input library
+  { 'rcarriga/nvim-notify', opts = { background_colour = '#000000' } }, -- Notifications library
   'MunifTanjim/nui.nvim', -- UI library
   'nvim-tree/nvim-web-devicons', -- for file icons
-  'rcarriga/nvim-notify', -- Notifications library
   'nvim-lua/plenary.nvim', -- Utils/async library
   'tami5/sqlite.lua', -- SQLite library
 
@@ -64,7 +64,7 @@ return {
 
   -- UI & UX
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
-  { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy' },
+  { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', config = true },
   { 'luukvbaal/statuscol.nvim',
     branch = '0.10',
     config = function()
