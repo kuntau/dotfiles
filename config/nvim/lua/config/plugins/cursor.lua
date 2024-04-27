@@ -25,5 +25,6 @@ end
 return {
   'edluffy/specs.nvim',
   config = config,
+  enabled = false,
   event = 'WinNew',
 }
