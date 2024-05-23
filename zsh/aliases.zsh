@@ -38,10 +38,7 @@ if exists docker; then
   alias dst='docker stop'
   alias dps='docker ps'
   alias drm='docker rm'
-fi
-
-if exists docker-compose; then
-  alias dc='docker-compose'
+  alias dc='docker compose'
 fi
 
 if exists laravel; then
