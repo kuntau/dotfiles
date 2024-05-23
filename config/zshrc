@@ -1,4 +1,4 @@
-# vim: foldmethod=marker foldlevel=0 nomodeline:
+# vim: ft=zsh foldmethod=marker foldlevel=1 nomodeline:
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
