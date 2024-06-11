@@ -108,7 +108,7 @@ return {
         },
       },  -- Bridge for mason-LSP config
       { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },
-      { 'jose-elias-alvarez/null-ls.nvim', config = config_null }, -- Bridge LSP
+      { 'nvimtools/none-ls.nvim', config = config_null }, -- Bridge LSP
     },
   },
 }
