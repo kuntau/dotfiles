@@ -26,54 +26,57 @@ local format_on_save = function(client, bufnr)
 end
 
 -- Source references:
--- https://github.com/jose-elias-alvarez/null-ls.nvim/doc/BUILTINS.md
--- https://github.com/jose-elias-alvarez/null-ls.nvim/doc/BUILTIN_CONFIG.md
+-- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
+-- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+-- https://github.com/nvimtools/none-ls-extras.nvim
 
 local config_null = function()
-  local nls = require('null-ls')
+  local nuls = require('null-ls')
 
-  nls.setup({
+  nuls.setup({
     debounce = 150,
     save_after_format = false,
     on_attach = format_on_save,
     sources = {
       -- Formatter
-      -- nls.builtins.formatting.deno_fmt, -- deno
-      nls.builtins.formatting.stylua, -- lua
-      nls.builtins.formatting.prettierd.with({
+      -- nuls.builtins.formatting.deno_fmt, -- deno
+      nuls.builtins.formatting.stylua, -- lua
+      nuls.builtins.formatting.prettierd.with({
         filetypes = { 'js', 'jsx', 'ts', 'tsx', 'vue', 'markdown' }
       }), -- JS/TS
-      nls.builtins.formatting.pint, -- PHP
-      -- nls.builtins.formatting.rome, -- JS/TS
-      -- nls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
-      -- nls.builtins.formatting.eslint_d,
-      -- nls.builtins.formatting.shfmt, -- Shell/POSIX
-      nls.builtins.formatting.beautysh, -- Prefer this over shfmt bcoz it support `zsh`
-      nls.builtins.formatting.black, -- Python
-      -- nls.builtins.formatting.prettierd.with({
+      nuls.builtins.formatting.pint, -- PHP
+      -- nuls.builtins.formatting.rome, -- JS/TS
+      -- nuls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
+      -- nuls.builtins.formatting.eslint_d,
+      -- nuls.builtins.formatting.shfmt, -- Shell/POSIX/Bash
+      require('none-ls.formatting.beautysh'), -- Prefer this over shfmt bcoz it support `zsh`
+      -- require('none-ls.formatting.beautysh').with({ filetypes = { "zsh" }}), -- Prefer this over shfmt bcoz it support `zsh`
+      nuls.builtins.formatting.black, -- Python
+      -- nuls.builtins.formatting.prettierd.with({
       --   filetypes = { "markdown" }, -- only runs `prettierd` for markdown
       -- }),
 
       -- Linter
-      nls.builtins.diagnostics.eslint_d, -- JS/TS
-      nls.builtins.diagnostics.phpstan, -- PHP
-      nls.builtins.diagnostics.shellcheck, -- Bash
-      -- nls.builtins.diagnostics.pylint, -- Python
-      -- nls.builtins.diagnostics.mypy, -- Python
-      -- nls.builtins.diagnostics.selene.with({
+      -- nuls.builtins.diagnostics.eslint, -- JS/TS NOTE: Use LSP
+      nuls.builtins.diagnostics.phpstan, -- PHP
+      -- nuls.builtins.diagnostics.bashls, -- Bash/sh NOTE: Use LSP
+      nuls.builtins.diagnostics.zsh, -- zsh
+      -- nuls.builtins.diagnostics.pylint, -- Python
+      -- nuls.builtins.diagnostics.mypy, -- Python
+      -- nuls.builtins.diagnostics.selene.with({
       --   condition = function(utils)
       --     return utils.root_has_file({ "selene.toml" })
       --   end,
       -- }),
 
       -- Code actions
-      -- nls.builtins.code_actions.gitsigns,
-      nls.builtins.code_actions.eslint_d,
-      nls.builtins.code_actions.refactoring,
-      nls.builtins.code_actions.shellcheck, -- Bash
+      -- nuls.builtins.code_actions.gitsigns,
+      -- nuls.builtins.code_actions.eslint, -- NOTE: Use LSP
+      nuls.builtins.code_actions.refactoring,
+      -- nuls.builtins.code_actions.basls, -- Bash NOTE: Use LSP
 
       -- Hover
-      -- nls.builtins.hover.dictionary
+      -- nuls.builtins.hover.dictionary
     },
   })
 end
@@ -108,7 +111,7 @@ return {
         },
       },  -- Bridge for mason-LSP config
       { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },
-      { 'nvimtools/none-ls.nvim', config = config_null }, -- Bridge LSP
+      { 'nvimtools/none-ls.nvim', dependencies = { "nvimtools/none-ls-extras.nvim" }, config = config_null }, -- Bridge LSP
     },
   },
 }

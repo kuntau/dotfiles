@@ -14,14 +14,16 @@ local servers = {
   'tsserver',
   'vimls',
   'volar',
-  'pylsp',
+  -- 'pylsp',
+  'ruff_lsp',
   'clangd',
   'rust_analyzer',
   -- 'cssls',
-  -- 'eslint',
-  -- 'html',
+  'stylelint_lsp',
+  'eslint',
+  'html',
   -- 'jsonls',
-  -- 'denols',
+  'denols',
 }
 local DEBOUNCE_TIME = 150
 local dbgi = require('utils.logger').dbgi
