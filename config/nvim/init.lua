@@ -14,5 +14,6 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     require('config.mappings')
     require('config.commands')
+    require('oil').setup()
   end
 })

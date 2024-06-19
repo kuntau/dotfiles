@@ -47,7 +47,13 @@ local config = function()
 end
 
 return {
-  'nvim-tree/nvim-tree.lua',
-  cmd = 'NvimTreeToggle',
-  config = config,
+  {
+    'nvim-tree/nvim-tree.lua',
+    cmd = 'NvimTreeToggle',
+    config = config,
+  },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+  }
 }
