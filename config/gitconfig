@@ -2,8 +2,12 @@
 
 [alias]
   co = checkout
-  count = !git shortlog -sn
+  count = shortlog -sn
   now = status --short --branch
+	last = log -1 HEAD
+  unstage = reset HEAD --
+  ui = !gitui
+  sm = !smerge
   # https://gist.github.com/junegunn/f4fca918e937e6bf5bad#gistcomment-3715673
   fzf = !"                                                                                                                                                                                              \
       function gfzf() {                                                                                                                                                                                 \
