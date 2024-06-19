@@ -41,7 +41,7 @@ return {
   { 'rhysd/git-messenger.vim', cmd = 'GitMessenger' },
 
   -- Snippets
-  { 'L3MON4D3/LuaSnip', dependencies = 'rafamadriz/friendly-snippets' },
+  { 'L3MON4D3/LuaSnip', run = 'make install_jsregexp', dependencies = 'rafamadriz/friendly-snippets' },
 
   -- Utilities
   'numToStr/FTerm.nvim',
