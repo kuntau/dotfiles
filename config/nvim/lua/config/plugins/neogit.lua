@@ -34,7 +34,5 @@ end
 return {
   'NeogitOrg/neogit',
   config = config,
-  branch = 'nightly',
   cmd = 'Neogit',
-  dev = false,
 }
