@@ -5,6 +5,7 @@
   count = shortlog -sn
   now = status --short --branch
 	last = log -1 HEAD
+  root = rev-parse --show-toplevel
   unstage = reset HEAD --
   ui = !gitui
   sm = !smerge
