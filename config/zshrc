@@ -52,6 +52,7 @@ zplug "zsh-users/zsh-autosuggestions", depth:1
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
 zplug "agkozak/zsh-z", depth:1
 zplug "le0me55i/zsh-extract", depth:1
+zplug "marlonrichert/zsh-edit", depth:1
 zplug "zsh-users/zsh-history-substring-search", as:plugin, depth:1, defer:1
 zplug "marlonrichert/zsh-autocomplete", depth:1, defer:2
 zplug "z-shell/F-Sy-H", depth:1, defer:3
