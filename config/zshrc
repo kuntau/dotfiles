@@ -33,13 +33,16 @@ zplug "plugins/docker-compose", from:oh-my-zsh
 # zplug "~/dotfiles/zsh/completions", from:local, use:_hx.zsh
 
 # from github
-zplug "jeffreytse/zsh-vi-mode", depth:1
 zplug "zsh-users/zsh-completions", depth:1
-zplug "marlonrichert/zsh-autocomplete", depth:1, defer:2
+zplug "bigH/git-fuzzy", as:command, use:"bin/git-fuzzy"
+zplug "jeffreytse/zsh-vi-mode", depth:1
 zplug "zsh-users/zsh-autosuggestions", depth:1
-zplug "z-shell/F-Sy-H", depth:1, defer:3
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
 zplug "agkozak/zsh-z", depth:1
+zplug "le0me55i/zsh-extract", depth:1
+zplug "zsh-users/zsh-history-substring-search", as:plugin, depth:1, defer:1
+zplug "marlonrichert/zsh-autocomplete", depth:1, defer:2
+zplug "z-shell/F-Sy-H", depth:1, defer:3
 
 # theme
 zplug "romkatv/powerlevel10k", depth:1, use:powerlevel10k.zsh-theme
@@ -129,11 +132,6 @@ export LC_ALL="en_US.UTF-8"
 # zsh-completions. https://github.com/zsh-users/zsh-completions/
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
 
-# zsh-history-substring-search. https://github.com/zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
 
 # nnn - https://github.com/jarun/nnn
 NNN_PLUG_FZF='c:fzcd;o:fzopen;j:autojump;h:fzhist;p:fzplug;g:gitroot'
@@ -191,6 +189,12 @@ function zvm_after_init() {
   [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
   exists fzf && source $DOTFILES/zsh/fzf.zsh
   exists nnn && source $DOTFILES/nnn/quitcd.zsh
+
+
+  # zsh-history-substring-search configuration
+  bindkey '^[[A' history-substring-search-up # or '\eOA'
+  bindkey '^[[B' history-substring-search-down # or '\eOB'
+  HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
   source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases
