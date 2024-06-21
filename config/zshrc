@@ -46,7 +46,7 @@ zplug "~/dotfiles/zsh/completions", from:local
 
 # from github
 zplug "zsh-users/zsh-completions", depth:1
-zplug "bigH/git-fuzzy", as:command, use:"bin/git-fuzzy"
+zplug "bigH/git-fuzzy", depth:1, as:command, use:"bin/git-fuzzy"
 zplug "jeffreytse/zsh-vi-mode", depth:1
 zplug "zsh-users/zsh-autosuggestions", depth:1
 zplug "b4b4r07/enhancd", depth:1, use:init.sh
@@ -98,6 +98,9 @@ if [[ $OS_NAME == Linux ]]; then
   if [[ $HOST_NAME == 'hqsvr' ]]; then
     export COMPOSER_HOME=$HOME/.composer
     export NNN_BMS='d:~/dotfiles;b:/DL;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
+
+    # atuin - https://atuin.sh
+    source $HOME/.atuin/bin/env
   fi
 elif [[ $OS_NAME == Darwin ]]; then
 
@@ -186,7 +189,7 @@ fi
 exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
 exists npm      && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
 exists pnpm     && export PNPM_HOME=$HOME/.npm-global/bin       # pnpm global binary path
-exists python3  && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
+exists pip      && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
 exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
 exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
 exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
@@ -202,6 +205,7 @@ function zvm_after_init() {
   [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
   exists fzf && source $DOTFILES/zsh/fzf.zsh
   exists nnn && source $DOTFILES/nnn/quitcd.zsh
+  exists atuin && eval "$(atuin init zsh)"
 
 
   # zsh-history-substring-search configuration
