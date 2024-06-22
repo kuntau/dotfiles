@@ -91,7 +91,7 @@ local function get_tab_process(tab)
     },
     node = {
       { Foreground = { Color = COLORS.green } },
-      { Text = nf.mdi_hexagon },
+      { Text = nf.md_hexagon },
     },
     zsh = {
       { Foreground = { Color = COLORS.peach } },
@@ -103,7 +103,7 @@ local function get_tab_process(tab)
     },
     htop = {
       { Foreground = { Color = COLORS.yellow } },
-      { Text = nf.mdi_chart_donut_variant },
+      { Text = nf.md_chart_donut_variant },
     },
     cargo = {
       { Foreground = { Color = COLORS.peach } },
@@ -111,7 +111,7 @@ local function get_tab_process(tab)
     },
     go = {
       { Foreground = { Color = COLORS.sapphire } },
-      { Text = nf.mdi_language_go },
+      { Text = nf.md_language_go },
     },
     lazydocker = {
       { Foreground = { Color = COLORS.blue } },
@@ -131,11 +131,11 @@ local function get_tab_process(tab)
     },
     wget = {
       { Foreground = { Color = COLORS.yellow } },
-      { Text = nf.mdi_arrow_down_box },
+      { Text = nf.md_arrow_down_box },
     },
     curl = {
       { Foreground = { Color = COLORS.yellow } },
-      { Text = nf.mdi_flattr },
+      { Text = nf.md_flattr },
     },
     gh = {
       { Foreground = { Color = COLORS.mauve } },
@@ -201,7 +201,7 @@ wezterm.on('update-status', function(window)
     { Text = nf.oct_clock },
     { Text = time },
     { Foreground = { Color = COLORS.maroon } },
-    { Text = nf.mdi_battery_50 },
+    { Text = nf.md_battery_50 },
     { Text = batt },
   }))
 end)
