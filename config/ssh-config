@@ -60,7 +60,7 @@ Host paprouter
 
 Host hqsvr
   User     kuntau
-  HostName hqsvr.kuntau.org
+  HostName hq.kuntau.org
   port     22122
 
 Host papsvr

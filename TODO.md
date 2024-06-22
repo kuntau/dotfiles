@@ -7,7 +7,7 @@
     ░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
 
 ## Rust overlord takeover
-- [-] `bottom` over `top`, `htop`, `btop` or `ctop`
+- [x] `bottom` over `top`, `htop`, `btop` or `ctop`
 - [x] `ripgrep` over `grep`
 - [x] `fd` over `find`
 - [x] `exa` or `lsd` over `ls`
