@@ -13,7 +13,7 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # from oh-my-zsh
 zplug 'lib/clipboard',          from:oh-my-zsh
 zplug 'lib/history',            from:oh-my-zsh
-zplug 'lib/completion',         from:oh-my-zsh
+# zplug 'lib/completion',         from:oh-my-zsh
 zplug 'lib/key-bindings',       from:oh-my-zsh
 zplug 'lib/directories',        from:oh-my-zsh
 zplug 'plugins/asdf',           from:oh-my-zsh
@@ -84,12 +84,7 @@ if [[ $OS_NAME == Linux ]]; then
   # rust
   # golang
   export PATH=$PATH:/usr/local/go/bin
-  export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
   export DENO_INSTALL='/home/kuntau/.deno'
-  export PATH=~/.local/lsp/lua-language-server/bin:$PATH # Sumneko lua path
-
-  # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
-  export GPG_TTY=$(tty)
 
   # nnn
   export NNN_OPENER='nuke'
@@ -97,10 +92,11 @@ if [[ $OS_NAME == Linux ]]; then
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'hqsvr' ]]; then
     export COMPOSER_HOME=$HOME/.composer
-    export NNN_BMS='d:~/dotfiles;b:/DL;v:/HQPOOL/Videos;c:/HQPOOL/DATA/Coding;T:/HQPOOL/DATA;p:/HQPOOL;D:/HQPOOL/Downloads'
 
     # atuin - https://atuin.sh
     source $HOME/.atuin/bin/env
+
+    export NNN_BMS='d:~/dotfiles;D:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;L:~/.local;f:/HQPOOL/Coding/forks'
   fi
 elif [[ $OS_NAME == Darwin ]]; then
 
@@ -109,7 +105,8 @@ elif [[ $OS_NAME == Darwin ]]; then
   export PATH=$PATH:$HOME/Library/Python/3.9/bin
 
   # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
-  export GPG_TTY=$(tty)
+  GPG_TTY=$(tty)
+  export GPG_TTY
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
@@ -117,21 +114,20 @@ elif [[ $OS_NAME == Darwin ]]; then
   export HOMEBREW_NO_INSTALL_CLEANUP=0
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
-  # One off binary. Homebrew installation
-  export PATH=/usr/local/opt/ncurses/bin:$PATH # Homebrew's ncurses
-  export PATH=/usr/local/opt/sqlite/bin:$PATH  # Homebrew's sqlite3
-
   # nnn
   export NNN_OPENER='open'
+
+  # LSP
+  export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
 
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'HQ' ]]; then
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
     export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
-    export NNN_BMS='d:~/dotfiles;D:/Volumes/HOME/Downloads;E:/Volumes/Entertainment;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local'
+    export NNN_BMS='D:~/dotfiles;d:/Volumes/HOME/Downloads;E:/Volumes/Entertainment;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local'
   elif [[ $HOST_NAME == 'rMBP' ]]; then
     export ANDROID_HOME=~/Library/Android/sdk
-    export NNN_BMS='d:~/dotfiles;D:~/downloads;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local'
+    export NNN_BMS='D:~/dotfiles;d:~/downloads;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local;V:/Volumes'
   fi
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
@@ -147,6 +143,23 @@ export LC_ALL="en_US.UTF-8"
 # Plugins config & ENV {{{
 # zsh-completions. https://github.com/zsh-users/zsh-completions/
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
+
+# zsh-autcomplete configs https://github.com/marlonrichert/zsh-autocomplete/blob/main/.zshrc
+# Some snippets from https://github.com/tshu-w/dotfiles/blob/f06c7c7f7084e615c82d4d56efb008b39bdb24cd/config/zsh/.zshrc#L33-L48
+# zstyle '*:compinit' arguments -D -i -u -C -w # might cause `compinit` not generating `zcompdump`
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # not using
+# zstyle ':completion:*' file-sort date
+# zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+# zstyle ':completion:*:paths' path-completion yes
+# zstyle ':autocomplete:*' ignored-input '..##'
+# zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
+zstyle ':autocomplete:*' min-delay 0.3  # seconds (float)
+zstyle ':autocomplete:*' min-input 2  # characters (int)
+# zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:*' fzf-completion yes
+# zstyle ':autocomplete:*' default-context history-incremental-search-backward
+bindkey -M menuselect "^[m" accept-and-hold
+bindkey -M menuselect "^M" .accept-line
 
 
 # nnn - https://github.com/jarun/nnn
@@ -173,6 +186,9 @@ export ENHANCD_DISABLE_HYPHEN=0
 export ENHANCD_HYPHEN_ARG=';'
 export ENHANCD_DOT_ARG='.'
 
+# ripgrep - https://github.com/BurntSushi/ripgrep
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
 export ZVM_CURSOR_STYLE_ENABLED=false
 
@@ -193,6 +209,7 @@ exists pip      && export PATH=$HOME/.local/bin:$PATH           # pip app binary
 exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
 exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
 exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
+exists atuin    && eval "$(atuin init zsh)"                     # atuin https://atuin.sh
 export PATH=$PATH:$DENO_INSTALL/bin                             # deno binary path
 export PATH=$PATH:/usr/local/sbin                               # some brew installed in `sbin`
 export PATH=$DOTFILES/bin:$PATH
@@ -207,6 +224,19 @@ function zvm_after_init() {
   exists nnn && source $DOTFILES/nnn/quitcd.zsh
   exists atuin && eval "$(atuin init zsh)"
 
+  bindkey              '^I' menu-complete
+  bindkey "$terminfo[kcbt]" reverse-menu-complete
+  bindkey              '^I' menu-select
+  bindkey "$terminfo[kcbt]" menu-select
+  bindkey -M menuselect              '^I'         menu-complete
+  bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+  # bindkey '^S' history-incremental-search-forward
+  # bindkey '^I' menu-select 
+  # bindkey "$terminfo[kcbt]" menu-select
+  # bindkey -M menuselect '^I' menu-complete
+  # bindkey "$terminfo[kcbt]" reverse-menu-complete
+
+  bindkey -M viins '^Xa' _expand_alias
 
   # zsh-history-substring-search configuration
   bindkey '^[[A' history-substring-search-up # or '\eOA'
