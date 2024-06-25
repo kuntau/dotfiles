@@ -59,16 +59,14 @@
   added = yellow
   changed = green
   untracked = cyan
-# [commit]
-#   template = /Volumes/Home/Users/kuntau/.gitmessage
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
   pager = delta
 [credential]
 	helper = osxkeychain
-	credentialStore = gpg
-	helper = /usr/local/bin/git-credential-manager
+	# credentialStore = gpg
+	# helper = /usr/local/bin/git-credential-manager
 [credential "https://github.com"]
 	helper = cache --timeout=3600
   username = kuntau
@@ -94,13 +92,6 @@
   file-style = bold yellow ul
   file-decoration-style = none
   hunk-header-decoration-style = yellow box  
-[diff]
-  colorMoved = default
-[difftool]
-  prompt = false
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
 [filter "media"]
   clean = git-media-clean %f
   smudge = git-media-smudge %f
@@ -118,13 +109,6 @@
   path = ~/dotfiles/config/delta/themes.gitconfig
 [interactive]
   diffFilter = delta --color-only
-[merge]
-  conflictstyle = diff3
-[mergetool]
-  keepBackup = false
-[mergetool "sourcetree"]
-  cmd = /Users/kuntau/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
 [rerere]
   enabled = true
 [rebase]
@@ -145,3 +129,18 @@
 	process = git-lfs filter-process
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[diff]
+  colorMoved = default
+	tool = smerge
+[difftool]
+  prompt = false
+[difftool "smerge"]
+  cmd = smerge \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+[merge]
+  conflictstyle = diff3
+  tool = smerge
+[mergetool]
+  keepBackup = false
+[mergetool "smerge"]
+	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
