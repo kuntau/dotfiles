@@ -14,9 +14,6 @@ local config = function()
       delay = 1000,
       ignore_whitespace = false,
     },
-    current_line_blame_formatter_opts = {
-      relative_time = true,
-    },
     on_attach = function(bufnr)
       local wk = require('which-key')
       local gs = package.loaded.gitsigns
