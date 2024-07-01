@@ -145,6 +145,19 @@ export LC_ALL="en_US.UTF-8"
 # }}}
 
 # Plugins config & ENV {{{
+
+# Theme - Auto dark/light based on time
+light_theme='catppuccin-latte'
+dark_theme='catppuccin-mocha'
+
+# vivid - LS_COLORS generator
+exists vivid && LS_COLORS=$(vivid generate $(is_day && echo $light_theme || echo $dark_theme))
+export LS_COLORS
+
+# Kitty
+kitty_theme=$(is_day && echo $light_theme|| echo $dark_theme)
+[[ -n $KITTY_PID ]] && $command kitten themes $kitty_theme
+
 # zsh-completions. https://github.com/zsh-users/zsh-completions/
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
 
@@ -200,10 +213,11 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 # FIX the blinding green on green directory listing on external drive.
 # Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
+# This should not be needed anymore since we use `vivid`, I'll keep it until we can properly test
 if [[ -f ~/.dircolors ]]; then
-  eval $(dircolors -b ~/.dircolors)
+  eval "$(dircolors -b ~/.dircolors)"
 elif [[ -f /etc/DIR_COLORS ]]; then
-  eval $(dircolors -b /etc/DIR_COLORS)
+  eval "$(dircolors -b /etc/DIR_COLORS)"
 fi
 # }}}
 
