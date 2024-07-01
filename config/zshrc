@@ -73,7 +73,8 @@ OS_NAME=$(uname)
 HOST_NAME=$(hostname)
 DOTFILES=$HOME/dotfiles
 
-exists() { type "$1" >/dev/null 2>&1; }
+exists() { command -v "$1" >/dev/null 2>&1; }
+is_day() { [ $(date +%H) -ge 8 ] && [ $(date +%H) -le 19 ] }
 
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
