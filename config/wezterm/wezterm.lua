@@ -19,15 +19,6 @@ if use_webgpu then
       break
     end
   end
-
-local basename = function(s) return string.gsub(s, "(.*[/\\])(.*)", "%2") end
-
-local is_vim = function(pane)
-  wezterm.log_info('@is_vim, pane='..pane:get_foreground_process_name())
-  local proc = basename(pane:get_foreground_process_name())
-  wezterm.log_info('@is_vim, proc='..proc)
-  return proc ==  'nvim' or proc == 'vim'
-  -- return string.match(proc, 'nvim')
 end
 
 local COLORS = {
@@ -81,11 +72,35 @@ local switch_pane = function(win, pane, key)
   local direction = { h = 'Left', l = 'Right', j = 'Down', k = 'Up' }
   local proc = get_process(pane)
 
+  wezterm.log_info('@pane: TTY name, ttyp=' .. pane:get_tty_name())
+
   if is_vim(proc) or is_tmux(proc) then
     win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
   else
     win:perform_action({ ActivatePaneDirection = direction[key] }, pane)
   end
+end
+
+on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
+on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h') end)
+on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
+on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
+
+local is_remote = function(pane)
+  local proc = basename(pane:get_foreground_process_name())
+  wezterm.log_info('@is_remote, proc='..proc)
+  return proc ==  'mosh-client' or proc == 'ssh'
+end
+
+local direction = {
+  h = 'Left',
+  l = 'Right',
+  j = 'Down',
+  k = 'Up'
+}
+
+local select_pane = function(win, pane, key)
+  -- code
 end
 
 local function get_tab_process(tab)
@@ -254,28 +269,6 @@ wezterm.on('window-config-reloaded', function(window, _)
   window:toast_notification('wezterm', 'configuration reloaded!', nil, 4000)
 end)
 
-on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
-on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h') end)
-on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
-on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
-
-local is_remote = function(pane)
-  local proc = basename(pane:get_foreground_process_name())
-  wezterm.log_info('@is_remote, proc='..proc)
-  return proc ==  'mosh-client' or proc == 'ssh'
-end
-
-local direction = {
-  h = 'Left',
-  l = 'Right',
-  j = 'Down',
-  k = 'Up'
-}
-
-local select_pane = function(win, pane, key)
-  -- code
-end
-
 return {
   default_prog = { '/opt/local/bin/zsh', '-li' },
 
@@ -423,34 +416,39 @@ return {
     { key = 'j', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Down' }) },
 
     -- Pane movements
-    { key='h', mods="CTRL", action=wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
-        win:perform_action({ SendKey = { key = 'h', mods = 'CTRL' } }, pane)
-      else
-        win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
-      end
-    end) },
-    { key='l', mods="CTRL", action=wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
-        win:perform_action({ SendKey = { key = 'l', mods = 'CTRL' } }, pane)
-      else
-        win:perform_action({ ActivatePaneDirection = 'Right' }, pane)
-      end
-    end) },
-    { key='j', mods="CTRL", action=wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
-        win:perform_action({ SendKey = { key = 'j', mods = 'CTRL' } }, pane)
-      else
-        win:perform_action({ ActivatePaneDirection = 'Down' }, pane)
-      end
-    end) },
-    { key='k', mods="CTRL", action=wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
-        win:perform_action({ SendKey = { key = 'k', mods = 'CTRL' } }, pane)
-      else
-        win:perform_action({ ActivatePaneDirection = 'Up' }, pane)
-      end
-    end) },
+    { key = 'h', mods = 'CTRL', action = emit('ActivatePaneDirectionLeft') },
+    { key = 'l', mods = 'CTRL', action = emit('ActivatePaneDirectionRight') },
+    { key = 'k', mods = 'CTRL', action = emit('ActivatePaneDirectionUp') },
+    { key = 'j', mods = 'CTRL', action = emit('ActivatePaneDirectionDown') },
+
+    -- { key='h', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'h', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
+    --   end
+    -- end) },
+    -- { key='l', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'l', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Right' }, pane)
+    --   end
+    -- end) },
+    -- { key='j', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'j', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Down' }, pane)
+    --   end
+    -- end) },
+    -- { key='k', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'k', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Up' }, pane)
+    --   end
+    -- end) },
 
     { key = 'H', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Left', 5 } }) },
     { key = 'J', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Down', 5 } }) },
