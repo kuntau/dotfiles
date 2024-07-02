@@ -29,12 +29,12 @@ nmap('<right>', '<cmd>bnext<cr>', 'Next buffer')
 nmap('<left>',  '<cmd>bprevious<cr>', 'Prev buffer')
 
 -- Moving block of codes
-nmap('<m-j>', ':m .+1<CR>==', 'Move current line down')
-nmap('<m-k>', ':m .-2<CR>==', 'Move current line up')
+nmap('<M-j>', ':m .+1<CR>==', 'Move current line down')
+nmap('<M-k>', ':m .-2<CR>==', 'Move current line up')
 vmap('J',     ":m '>+1<CR>gv=gv", 'Move selected line down')
 vmap('K',     ":m '<-2<CR>gv=gv", 'Move selected line up')
-imap('<m-j>', '<Esc>:m .+1<CR>==gi', 'Move current line down')
-imap('<m-k>', '<Esc>:m .-2<CR>==gi', 'Move current line up')
+imap('<M-j>', '<Esc>:m .+1<CR>==gi', 'Move current line down')
+imap('<M-k>', '<Esc>:m .-2<CR>==gi', 'Move current line up')
 
 -- clear search highlight
 nmap('<Leader><c-l>', '<cmd>noh<Bar>diffupdate<cr><c-l>', 'Clear search highlight')
