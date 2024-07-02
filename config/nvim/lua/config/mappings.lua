@@ -3,7 +3,7 @@
 
 local Utils = require('utils')
 local Mapper = Utils.mapper
-local map, nmap, imap, vmap, tmap = Utils.map, Utils.nmap, Utils.imap, Utils.vmap, Utils.tmap
+local map, cmap, nmap, imap, vmap, tmap = Utils.map, Utils.cmap, Utils.nmap, Utils.imap, Utils.vmap, Utils.tmap
 local open_url = Utils.open_url
 local rtc = Mapper.replace_termcodes
 local orien = Utils.get_win_orientation
