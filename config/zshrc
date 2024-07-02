@@ -192,7 +192,10 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 export NNN_TRASH=0
 
 # bat - https://github.com/sharkdp/bat
-export BAT_THEME="gruvbox-dark"
+BAT_LIGHT_THEME="Monokai Extended Light"
+BAT_DARK_THEME="Monokai Extended"
+export BAT_OPTS="--color=always"
+export BAT_THEME="$(is_day && echo $BAT_LIGHT_THEME || echo $BAT_DARK_THEME)"
 export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
