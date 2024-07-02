@@ -28,19 +28,22 @@
 | gui editor      | sublime, vscode          |
 | player          | mpv, iina, vlc           |
 | terminal        | wezterm, kitty, iTerm2   |
-| multiplexer     | tmux                     |
-| finder          | fd                       |
-| fuzzy finder    | fzf, skim                |
+| multiplexer     | tmux, zellij?            |
+| finder          | fd, bfs                  |
+| fuzzy finder    | fzf, skim?, fzy?         |
 | file manager    | nnn                      |
-| disk usage      | ncdu                     |
-| prompt          | powerlevel10k, starship  |
+| note taking     | obsidian, ia writer      |
+| disk usage      | ncdu, dua, dust          |
+| prompt          | powerlevel10k, starship? |
 | jumper          | zsh-z, zoxide            |
 | package manager | homebrew, pip, pnpm      |
 | grep            | ripgrep                  |
-| previewer       | bat                      |
-| git helper      | delta                    |
+| previewer       | bat, glow, mdcat?        |
+| git helper      | delta, diff              |
+| git gui         | gitui, subl. merge       |
 | ssh             | mosh                     |
 | fonts           | operator mono, nerd font |
+| LSCOLORS        | vivid                    |
 | theme           | ayu, tokyonight          |
 
 
