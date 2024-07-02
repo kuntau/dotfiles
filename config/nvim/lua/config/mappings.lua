@@ -10,9 +10,7 @@ local orien = Utils.get_win_orientation
 
 -- Basic
 nmap('<cr>',   ':', { silent = false, desc = 'Enter command line' })
-map('<D-s>',   '<cmd>up!<cr>', 'Save')
 map('<M-C-S>', '<cmd>up!<cr>', 'Save') -- hyper_key
-imap('<D-v>',  '<c-r>+', 'Paste')
 nmap('gK',     ':help <c-r><c-w><cr>', 'Open help for word under cursor')
 nmap('<F5>',   function() require("specs").show_specs() end, 'Show cursor location')
 nmap('<Leader>rm',     function() vim.cmd('up') require("utils").reload_module() end, 'Save & reload module')
@@ -129,6 +127,17 @@ nmap('goi', '<cmd>IndentBlanklineToggle<cr>', 'Toggle IndentBlankline')
 nmap('got', '<cmd>Trouble diagnostics toggle<cr>', 'Toggle Trouble diagnostics')
 nmap('god', '<cmd>DiffviewOpen<cr>', 'Open Diffview')
 nmap('gou', '<cmd>UndotreeToggle<CR>', 'Toggle Undotree')
+
+-- GUI mappings, with CMD key
+map('<D-s>',   '<cmd>up!<cr>', 'Save')
+vmap('<D-c>',  '"+y', 'Paste')
+imap('<D-v>',  '<c-r>+', 'Paste')
+cmap('<D-v>',  '<c-r>"', 'Paste')
+map('<D-f>', function()
+  if vim.g.neovide == true then
+    vim.cmd(":let g:neovide_fullscreen = !g:neovide_fullscreen")
+  end
+end, 'Toogle fullscreen') -- Toggle neovide fullscreen
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
