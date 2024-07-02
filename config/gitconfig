@@ -4,7 +4,7 @@
   co = checkout
   count = shortlog -sn
   now = status --short --branch
-	last = log -1 HEAD
+  last = log -1 HEAD
   root = rev-parse --show-toplevel
   unstage = reset HEAD --
   ui = !gitui
@@ -64,11 +64,11 @@
   editor = nvim
   pager = delta
 [credential]
-	helper = osxkeychain
-	# credentialStore = gpg
-	# helper = /usr/local/bin/git-credential-manager
+  helper = osxkeychain
+  # credentialStore = gpg
+  # helper = /usr/local/bin/git-credential-manager
 [credential "https://github.com"]
-	helper = cache --timeout=3600
+  helper = cache --timeout=3600
   username = kuntau
   # features = calochortus-lyallii
 [delta]
@@ -123,15 +123,15 @@
   name = Nizamuddin Sulieman
   signingkey = DFBA935E336840CA
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
 [credential "https://dev.azure.com"]
-	useHttpPath = true
+  useHttpPath = true
 [diff]
   colorMoved = default
-	tool = smerge
+  tool = smerge
 [difftool]
   prompt = false
 [difftool "smerge"]
@@ -142,5 +142,5 @@
 [mergetool]
   keepBackup = false
 [mergetool "smerge"]
-	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
-	trustExitCode = true
+  cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+  trustExitCode = true
