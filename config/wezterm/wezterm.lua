@@ -191,13 +191,47 @@ wezterm.on('format-tab-title', function(tab)
   })
 end)
 
+-- Update right-status
 wezterm.on('update-status', function(window)
   local date = wezterm.strftime(' %a, %d %b %Y ')
   local time = wezterm.strftime(' %H:%M ')
   local batt = ''
+  local batt_soc = ''
+  local batt_state = ''
+  local batt_icon = nf.md_battery_unknown
+  local batt_charging = nf.md_lightning_bolt
+  local batt_info = ''
+  local _ = false
 
-  for _, b in ipairs(wezterm.battery_info()) do
-    batt = string.format(' %.0f%%', b.state_of_charge * 100)
+  -- wezterm.log_info('BATTERY: ', wezterm.battery_info())
+  _, batt_info = pcall(wezterm.battery_info)
+
+  if #batt_info > 0 then
+    for _, b in ipairs(batt_info) do
+      batt_state = b.state
+      batt_soc = b.state_of_charge * 100
+    end
+
+    batt = string.format(' %.0f%%', batt_soc) or ''
+    if batt_soc >= 95 then
+      batt_icon = nf.md_battery
+    elseif batt_soc >= 70 and batt_soc < 95 then
+      batt_icon = nf.md_battery_high
+    elseif batt_soc >= 35 and batt_soc < 70 then
+      batt_icon = nf.md_battery_medium
+    elseif batt_soc >= 5 and batt_soc < 40 then
+      batt_icon = nf.md_battery_low
+    elseif batt_soc < 5 then
+      batt_icon = nf.md_battery_outline
+    end
+
+    if batt_state == 'Full' then
+      batt_icon = nf.md_battery
+    elseif batt_state == 'Charging' then
+      batt_icon = string.format('%s%s', batt_icon, batt_charging)
+    elseif batt_state == 'Unknown' then
+      batt_icon = nf.md_battery_alert
+    end
   end
 
   window:set_right_status(wezterm.format({
@@ -210,7 +244,7 @@ wezterm.on('update-status', function(window)
     { Text = nf.oct_clock },
     { Text = time },
     { Foreground = { Color = COLORS.maroon } },
-    { Text = nf.md_battery_50 },
+    { Text = (#batt_info > 0 and batt_icon or batt_charging) },
     { Text = batt },
   }))
 end)
