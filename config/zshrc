@@ -182,8 +182,10 @@ export ENHANCD_DOT_ARG='.'
 # ripgrep - https://github.com/BurntSushi/ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+# NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
-export ZVM_CURSOR_STYLE_ENABLED=false
+# export ZVM_INIT_MODE=sourcing
+# export ZVM_CURSOR_STYLE_ENABLED=true
 
 # FIX the blinding green on green directory listing on external drive.
 # Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
@@ -202,7 +204,6 @@ exists pip      && export PATH=$HOME/.local/bin:$PATH           # pip app binary
 exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
 exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
 exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
-exists atuin    && eval "$(atuin init zsh)"                     # atuin https://atuin.sh
 export PATH=$PATH:$DENO_INSTALL/bin                             # deno binary path
 export PATH=$PATH:/usr/local/sbin                               # some brew installed in `sbin`
 export PATH=$DOTFILES/bin:$PATH
@@ -211,30 +212,26 @@ export PATH=$DOTFILES/bin:$PATH
 # Extra sources {{{
 # zsh-vi-mode messed with key-bindings. So need to set ours after `zvm` init
 function zvm_after_init() {
-  [[ -x rustup ]] && source $HOME/.cargo/env
-  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-  exists fzf && source $DOTFILES/zsh/fzf.zsh
-  exists nnn && source $DOTFILES/nnn/quitcd.zsh
-  exists atuin && eval "$(atuin init zsh)"
-
   bindkey              '^I' menu-complete
   bindkey "$terminfo[kcbt]" reverse-menu-complete
   bindkey              '^I' menu-select
   bindkey "$terminfo[kcbt]" menu-select
   bindkey -M menuselect              '^I'         menu-complete
   bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
-  # bindkey '^S' history-incremental-search-forward
-  # bindkey '^I' menu-select 
-  # bindkey "$terminfo[kcbt]" menu-select
-  # bindkey -M menuselect '^I' menu-complete
-  # bindkey "$terminfo[kcbt]" reverse-menu-complete
+
+  [[ -x rustup ]] && source $HOME/.cargo/env
+  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+  exists fzf && source $DOTFILES/zsh/fzf.zsh
+  exists atuin && eval "$(atuin init zsh)" # atuin - sync, search & backup shell history
+  exists nnn && source $DOTFILES/nnn/quitcd.zsh
 
   bindkey -M viins '^Xa' _expand_alias
+  bindkey -M viins '^R' atuin-search-viins
 
   # zsh-history-substring-search configuration
-  bindkey '^[[A' history-substring-search-up # or '\eOA'
-  bindkey '^[[B' history-substring-search-down # or '\eOB'
-  HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+  bindkey '^[[A' history-substring-search-up   # or '\eOA' = Up arrow
+  bindkey '^[[B' history-substring-search-down # or '\eOB' = Down arrow
+  export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
   source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases
