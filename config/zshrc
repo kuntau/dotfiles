@@ -93,7 +93,6 @@ if [[ $OS_NAME == Linux ]]; then
     export NNN_BMS='d:~/dotfiles;D:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;L:~/.local;f:/HQPOOL/Coding/forks'
   fi
 elif [[ $OS_NAME == Darwin ]]; then
-
   # python: https://docs.python.org/3/using/cmdline.html#environment-variables
   export PYTHONUSERBASE=~/.local
   export PATH=$PATH:$HOME/Library/Python/3.9/bin
@@ -109,7 +108,7 @@ elif [[ $OS_NAME == Darwin ]]; then
   export HOMEBREW_AUTO_UPDATE_SECS=86400
 
   # nnn
-  export NNN_OPENER='open'
+  export NNN_OPENER='open' # set MacOS nnn opener
 
   # LSP
   export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
@@ -141,15 +140,15 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,unde
 # zsh-autcomplete configs https://github.com/marlonrichert/zsh-autocomplete/blob/main/.zshrc
 # Some snippets from https://github.com/tshu-w/dotfiles/blob/f06c7c7f7084e615c82d4d56efb008b39bdb24cd/config/zsh/.zshrc#L33-L48
 # zstyle '*:compinit' arguments -D -i -u -C -w # might cause `compinit` not generating `zcompdump`
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # not using
-# zstyle ':completion:*' file-sort date
-# zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
-# zstyle ':completion:*:paths' path-completion yes
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # use with `vivid`
+zstyle ':completion:*' file-sort date
+zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+zstyle ':completion:*:paths' path-completion yes
 # zstyle ':autocomplete:*' ignored-input '..##'
-# zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
+zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
 zstyle ':autocomplete:*' min-delay 0.3  # seconds (float)
 zstyle ':autocomplete:*' min-input 2  # characters (int)
-# zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:*' insert-unambiguous yes
 zstyle ':autocomplete:*' fzf-completion yes
 # zstyle ':autocomplete:*' default-context history-incremental-search-backward
 bindkey -M menuselect "^[m" accept-and-hold
