@@ -7,49 +7,49 @@
     ░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
 
 ## Rust overlord takeover
-- [x] `bottom` over `top`, `htop`, `btop` or `ctop`
-- [x] `ripgrep` over `grep`
-- [x] `fd` over `find`
-- [x] `exa` or `lsd` over `ls`
-- [x] `dust` over `du`
-- [x] `nu` over `zsh`
-- [ ] `zoxide` over `zsh-z`
+- [-] `zoxide` over `zsh-z`
 - [ ] `Zellij` over `TMUX`
 
-## INSTALL SCRIPT
-- [x] Borrow code from `ohmyzsh` installer
-- [x] OS detection in install script for BSD/Linux difference
+## Install script
+- [ ] Detection for Android
 
-### AVAILABILITY FEATURE CHECKLIST
-- [x] ZSH
-- [x] Git & version
-- [x] NodeJS
-- [x] TMUX
-- [x] Neovim
-- [x] Vim & version
-- [x] FZF
-- [x] Go
-- [ ] PHP
+### Dependencies check on install
+- [-] Core
+  - [x] `git`
+  - [x] `node`
+  - [ ] `tmux`
+  - [ ] `bat`
+  - [ ] `fzf`
+  - [ ] `fd`
+  - [ ] `rg`
+- [ ] `pnpm`
+- [ ] `bfs`
+- [ ] `gitui`
+- [ ] `atuin`
+- [ ] `vivid`
 
 ### Symlinks on install
-- [x] Symlink zshrc
-- [x] Symlink vimrc
-- [x] Symlink .gitignore
-- [x] .vimrc -> init.vim
+- [ ] Neovim -> init.lua
+- [ ] Configs
+  - [ ] `ripgreprc`
+  - [ ] `atuin`
+  - [ ] `gitui`
+  - [ ] `rclone`
+  - [ ] `luarc`
+
+## Shell
+- [x] Function to return *day* or *night*
+- [x] Change terminal *theme* based on *time*
+- [-] Change prompt *theme* based on *time* (`p10k`)
+  - [ ] Maybe it's the right time to switch to `starship`?
+- [ ] Change `gitui` *theme* based on *time*
 
 ## (Neo)ViM
-- [x] Use `ale` as `coc.nvim` replacement when `nodejs` not avaiable
-  - [x] Irrelevant since now we use `lazy`
-- [x] Install `mason.nvim` to automate installing LSP servers
-- [x] Rewrite regular mappings/use lua API
-- [x] Rewrite LSP mappings
-- [x] Make mapping have `desc` for `which_key` support
-- [x] Write proper handler for LSP capabilities
 
 ## Config file
-- [x] Reorganize config files
-- [x] Make separate config file for each OS
-- [x] Update install script
+- [-] Reorganize config files
+- [ ] Make separate config file for each OS
+- [ ] Update install script
 - [ ] Make `zplug` manage `fzf` update
 
 ## NNN
