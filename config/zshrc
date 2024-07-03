@@ -16,7 +16,6 @@ zplug 'lib/history',            from:oh-my-zsh
 # zplug 'lib/completion',         from:oh-my-zsh
 zplug 'lib/key-bindings',       from:oh-my-zsh
 zplug 'lib/directories',        from:oh-my-zsh
-zplug 'plugins/asdf',           from:oh-my-zsh
 zplug 'plugins/brew',           from:oh-my-zsh
 zplug 'plugins/bun',            from:oh-my-zsh
 zplug 'plugins/copybuffer',     from:oh-my-zsh
@@ -25,21 +24,16 @@ zplug 'plugins/copypath',       from:oh-my-zsh
 zplug 'plugins/cp',             from:oh-my-zsh
 zplug 'plugins/docker',         from:oh-my-zsh
 zplug 'plugins/docker-compose', from:oh-my-zsh
-zplug 'plugins/eza',            from:oh-my-zsh
 zplug 'plugins/git',            from:oh-my-zsh
 zplug 'plugins/git-extras',     from:oh-my-zsh
 zplug 'plugins/git-flow',       from:oh-my-zsh
-zplug 'plugins/macports',       from:oh-my-zsh
 zplug 'plugins/mosh',           from:oh-my-zsh
+zplug 'plugins/nmap',           from:oh-my-zsh
 zplug 'plugins/safe-paste',     from:oh-my-zsh
 zplug 'plugins/ssh',            from:oh-my-zsh
-zplug 'plugins/sublime',        from:oh-my-zsh
-zplug 'plugins/sublime-merge',  from:oh-my-zsh
 zplug 'plugins/sudo',           from:oh-my-zsh
 zplug 'plugins/taskwarrior',    from:oh-my-zsh
-zplug 'plugins/timer',          from:oh-my-zsh
 zplug 'plugins/tmux',           from:oh-my-zsh
-zplug 'plugins/z',              from:oh-my-zsh
 
 # local/dotfiles
 zplug "~/dotfiles/zsh/completions", from:local
