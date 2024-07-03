@@ -66,12 +66,12 @@ return {
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', config = true },
   { 'luukvbaal/statuscol.nvim',
-    branch = '0.10',
     config = function()
       local builtin = require('statuscol.builtin')
       require('statuscol').setup({
         setopt = true,
         relculright = true,
+        thousands = ',',
         segments = {
           { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
           {
@@ -84,7 +84,7 @@ return {
       })
     end,
     event = 'VeryLazy',
-    enabled = (vim.fn.has('nvim-0.9') == 1),
+    enabled = (vim.fn.has('nvim-0.10') == 1),
   },
   { 'folke/which-key.nvim',
     event = 'VeryLazy',
@@ -121,7 +121,6 @@ return {
 
   -- Language specifics
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
-  { 'norcalli/nvim-terminal.lua', event = 'TermOpen', enabled = false },
   { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = ':TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg' }, config = true, opts = { markdown = { fat_headlines = false } } },
