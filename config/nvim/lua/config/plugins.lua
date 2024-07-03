@@ -48,7 +48,7 @@ return {
   { 'sedm0784/vim-resize-mode', event = 'WinNew' },
   { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
-  { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
+  { "Rawnly/gist.nvim", cmd = { "GistCreate", "GistCreateFromFile", "GistsList" }, config = true }, -- Required `gh` cli installed
   { 'mtth/scratch.vim',
     keys = {
       { 'gos', '<cmd>Scratch<cr>', desc = 'Open Scratch' },
