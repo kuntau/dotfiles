@@ -1,10 +1,7 @@
 -- LSP, linter & formatter configs
 
 local ensure_installed = {
-  'lua_ls',
-  'ts_ls',
-  'intelephense',
-  'vue_ls',
+  -- 'lua_ls',
 }
 
 -- This is here to format on save
@@ -94,6 +91,7 @@ end
 return {
   {
     'neovim/nvim-lspconfig',
+    enabled = false,
     event = 'BufReadPre',
     config = function() require('lsp') end,
     dependencies = {
@@ -106,7 +104,7 @@ return {
       {
         'williamboman/mason-lspconfig.nvim',
         opts = {
-          automatic_installation = true,
+          automatic_installation = false,
           ensure_installed = ensure_installed,
         },
       },  -- Bridge for mason-LSP config
