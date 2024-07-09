@@ -1,7 +1,7 @@
 # vim:ft=sshconfig
 
 Host *
-ControlMaster auto
+ControlMaster no
 ControlPath /tmp/%r@%h:%p
 TCPKeepAlive=yes
 ServerAliveInterval=15
