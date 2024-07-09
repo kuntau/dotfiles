@@ -2,7 +2,7 @@
 
 Host *
 ControlMaster auto
-ControlPath /tmp/%r@%h:%p
+ControlPath ~/.ssh/socket/%r@%h:%p
 TCPKeepAlive=yes
 ServerAliveInterval=15
 ServerAliveCountMax=6
