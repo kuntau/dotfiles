@@ -1,10 +1,6 @@
 -- LSP, linter & formatter configs
 
 local ensure_installed = {
-  -- 'lua_ls',
-  'ts_ls',
-  'intelephense',
-  'vue_ls',
 }
 
 -- This is here to format on save
@@ -112,7 +108,7 @@ return {
       {
         'mason-org/mason-lspconfig.nvim',
         opts = {
-          automatic_installation = true,
+          automatic_installation = false,
           -- ensure_installed = ensure_installed,
           -- automatic_enable = {
           --   'emmylua_ls',
