@@ -110,6 +110,9 @@ elif [[ $OS_NAME == Darwin ]]; then
   # nnn
   export NNN_OPENER='open' # set MacOS nnn opener
 
+  # Add MacPorts MAN path
+  export MANPATH=$MANPATH:/opt/local/man
+
   # LSP
   export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
 
@@ -126,6 +129,9 @@ elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
 fi
+
+# Add MAN path
+export MANPATH=$MANPATH:$ZPLUG_HOME/doc/man
 
 # Fix locale
 export LANG="en_US.UTF-8"
@@ -237,6 +243,7 @@ function zvm_after_init() {
   source $DOTFILES/zsh/aliases.zsh # my aliases
   source $HOME/.secret             # don't commit this file
   typeset -U PATH                  # remove dups from $PATH
+  typeset -U MANPATH               # remove dups from $MANPATH
 }
 
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
