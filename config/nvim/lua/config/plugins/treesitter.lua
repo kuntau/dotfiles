@@ -110,10 +110,6 @@ local config = function()
         ['i;'] = 'textsubjects-container-inner',
       },
     },
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
     autotag = {
       enable = true,
     },
