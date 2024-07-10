@@ -18,6 +18,18 @@ local config = function()
       local wk = require('which-key')
       local gs = package.loaded.gitsigns
 
+      -- Ref: https://www.reddit.com/r/neovim/comments/vlc9sc/how_to_define_a_user_command_to_partially_stage/
+      -- https://github.com/andrewferrier/dotfiles/blob/919719a153d34393b787e4c0a394de56e764004a/common/.config/nvim/lua/plugins/gitsigns.lua#L3
+      -- https://github.com/b0o/nvim-conf/blob/839b0f92e8a2a94b7a218e978da4e2d7f69d8cd7/lua/user/mappings.lua#L716
+      local visual_stage = function()
+        local feedkey = vim.api.nvim_feedkeys
+        local rtc = vim.api.nvim_replace_termcodes
+        local first_line = vim.fn.line('v')
+        local last_line = vim.fn.getpos('.')[2]
+        gs.stage_hunk({ first_line, last_line })
+        feedkey(rtc('<Esc>', true, false, true), 't', false)
+      end
+
       wk.register({
         [']c'] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", 'Next hunk', expr = true },
         ['[c'] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", 'Previous hunk', expr = true },
