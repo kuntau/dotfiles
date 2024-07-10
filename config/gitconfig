@@ -73,8 +73,8 @@
   # features = calochortus-lyallii
 [delta]
   navigate = true
-  side-by-side = true
-  diff-highlight = false
+  side-by-side = false
+  diff-highlight = true
   diff-so-fancy = true
   features = unobtrusive-line-numbers decorations
   whitespace-error-style = 22 reverse
