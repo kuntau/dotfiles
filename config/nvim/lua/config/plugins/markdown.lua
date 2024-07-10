@@ -31,4 +31,5 @@ return {
   'SidOfc/mkdx',
   ft = 'markdown',
   config = config,
+  enabled = false,
 }
