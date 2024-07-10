@@ -69,12 +69,14 @@ zplug load
 # }}}
 
 # Set ENV VARIABLE {{{
+setopt interactive_comments
+
 OS_NAME=$(uname)
 HOST_NAME=$(hostname)
 DOTFILES=$HOME/dotfiles
 
 exists() { command -v "$1" >/dev/null 2>&1; }
-is_day() { [ $(date +%H) -ge 8 ] && [ $(date +%H) -le 19 ] }
+is_day() { [ "$(date +%H)" -ge 8 ] && [ "$(date +%H)" -le 19 ]; }
 
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
@@ -155,11 +157,16 @@ exists vivid && LS_COLORS=$(vivid generate $(is_day && echo $light_theme || echo
 export LS_COLORS
 
 # Kitty
-kitty_theme=$(is_day && echo $light_theme|| echo $dark_theme)
+kitty_theme=$(is_day && echo $light_theme || echo $dark_theme)
 [[ -n $KITTY_PID ]] && $command kitten themes $kitty_theme
 
-# zsh-completions. https://github.com/zsh-users/zsh-completions/
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
+# zsh-autosuggestions. https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file#configuration
+autosuggest_light_theme="#808080"
+autosuggest_dark_theme="#585858"
+autosuggest_theme=$(is_day && echo $autosuggest_light_theme || echo $autosuggest_dark_theme)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${autosuggest_theme},italic"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# ZSH_AUTOSUGGEST_CLEAR_WIDGETS # TODO: Add widgets like atuin & autocomplete
 
 # zsh-autcomplete configs https://github.com/marlonrichert/zsh-autocomplete/blob/main/.zshrc
 # Some snippets from https://github.com/tshu-w/dotfiles/blob/f06c7c7f7084e615c82d4d56efb008b39bdb24cd/config/zsh/.zshrc#L33-L48
