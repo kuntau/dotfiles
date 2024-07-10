@@ -108,6 +108,8 @@ return {
     event = 'VimEnter',
     opts = {
       theme = 'hyper',
+      shortcut_type = 'letter',
+      shuffle_letter = false,
       config = {
         disable_move = true,
         header = custom_header,
