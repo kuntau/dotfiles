@@ -323,11 +323,12 @@ return {
   line_height = 1.0,
   enable_tab_bar = true,
   use_fancy_tab_bar = false,
-  hide_tab_bar_if_only_one_tab = true,
+  hide_tab_bar_if_only_one_tab = false,
   tab_bar_at_bottom = true,
   tab_max_width = 50,
   window_background_opacity = 1.0,
-  window_decorations = 'RESIZE', -- 'TITLE', 'RESIZE', 'NONE'
+  window_decorations = 'INTEGRATED_BUTTONS|RESIZE', -- 'INTEGRATED_BUTTONS', 'TITLE', 'RESIZE', 'NONE'
+  integrated_title_button_style = 'Windows',
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
   inactive_pane_hsb = { saturation = 1.0, brightness = 0.85 },
 
@@ -351,9 +352,9 @@ return {
 
     -- { key = 'a', mods = 'LEADER|CTRL', action = action { SendString = '\x01' } }, -- can be used with tmux
     { key = 's', mods = 'LEADER|CTRL', action = { SendKey = { key = 's', mods = 'CTRL' } } }, -- more friendly way to send
-    { key = 'v', mods = 'LEADER', action = action({ SplitHorizontal = { domain = 'CurrentPaneDomain' } }) },
-    { key = 's', mods = 'LEADER', action = action({ SplitVertical = { domain = 'CurrentPaneDomain' } }) },
-    { key = 'x', mods = 'LEADER', action = action({ CloseCurrentPane = { confirm = true } }) },
+    { key = 'v', mods = 'LEADER', action = action.SplitPane({ direction = 'Right' }) },
+    { key = 's', mods = 'LEADER', action = action.SplitPane({ direction = 'Down' }) },
+    { key = 'x', mods = 'LEADER', action = action.CloseCurrentPane({ confirm = false }) },
 
     { key = 'h', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Left' }) },
     { key = 'l', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Right' }) },
