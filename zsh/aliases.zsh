@@ -102,15 +102,16 @@ else
   alias json='python -mjson.tool'
 fi
 
-OMZ_PATH='~/.zplug/repos/robbyrussell/oh-my-zsh'
+OMZ_PATH="$ZPLUG_REPOS/robbyrussell/oh-my-zsh"
 omz-plugin() {
-  less -S "~/.oh-my-zsh/plugins/$1/$1.plugin.zsh"
+  $PAGER -p "$OMZ_PATH/plugins/$1/$1.plugin.zsh"
 }
-omz-plug() {
-  less -S "~/.oh-my-zsh/plugins/$1/README.md"
+# TODO: Figure out how to list plugins with FZF and enter will open README
+omz-list() {
+  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$(ls $OMZ_PATH/plugins | fzf)/README.md"
 }
 omz-readme() {
-  $PAGER "~/.oh-my-zsh/plugins/$1/README.md"
+  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$1/README.md"
 }
 
 # create directory and immedietly cd into it
