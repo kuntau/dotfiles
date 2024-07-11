@@ -1,5 +1,9 @@
 # vim: ft=zsh foldmethod=marker foldlevel=1 nomodeline:
 
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+  zmodload zsh/zprof
+fi
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -247,4 +251,8 @@ function zvm_after_init() {
 }
 
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+  zprof
+fi
 # }}}
