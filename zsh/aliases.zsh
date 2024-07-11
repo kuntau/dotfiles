@@ -299,7 +299,8 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias chromekill="ps ux | rg '[C]hrome Helper --type=renderer' | rg -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias edgekill="ps ux | rg '[M]icrosoft Edge Helper \(Renderer\) --type=renderer' | rg -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Tmux Helper
 alias takeover="tmux detach -a"
