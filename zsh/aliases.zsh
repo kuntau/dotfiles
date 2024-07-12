@@ -304,3 +304,15 @@ alias edgekill="ps ux | rg '[M]icrosoft Edge Helper \(Renderer\) --type=renderer
 
 # Tmux Helper
 alias takeover="tmux detach -a"
+
+# Make CTRL+z do both fg & bg
+function fg-bg {
+if [[ $#BUFFER -eq 0 ]]; then
+  BUFFER=fg
+  zle accept-line
+else
+  zle push-input
+fi
+}
+zle -N fg-bg
+bindkey '^z' fg-bg # CTRL+z
