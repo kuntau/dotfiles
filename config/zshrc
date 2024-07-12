@@ -235,8 +235,11 @@ function zvm_after_init() {
   exists atuin && eval "$(atuin init zsh)" # atuin - sync, search & backup shell history
   exists nnn && source $DOTFILES/nnn/quitcd.zsh
 
+  # Customs
   bindkey -M viins '^Xa' _expand_alias
   bindkey -M viins '^R' atuin-search-viins
+  bindkey -M vicmd '' up-line-or-history
+  bindkey -M vicmd '' down-line-or-history
 
   # zsh-history-substring-search configuration
   bindkey '^[[A' history-substring-search-up   # or '\eOA' = Up arrow
