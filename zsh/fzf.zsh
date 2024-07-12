@@ -1,8 +1,12 @@
 # REFERENCE https://github.com/junegunn/fzf/issues/745
 
+# Set default finder
+FINDER_BFS="bfs -type f -follow -exclude -name .git"
+FINDER_FD="fd --type f --hidden --follow --exclude .git"
+
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
+export FZF_DEFAULT_COMMAND="$(exists bfs && echo $FINDER_BFS || echo $FINDER_FD)"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export FZF_COLOR_MIRAGE='--color=fg:#cbccc6,bg:#1f2430,hl:#707a8c --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
@@ -14,8 +18,7 @@ export FZF_DEFAULT_OPTS="--extended --reverse --inline-info $FZF_COLOR_MIRAGE"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' $FZF_PREVIEW_WINDOW_DOWN"
 # export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(bat {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '$FZF_PREVIEW_OPTS' $FZF_PREVIEW_WINDOW_RIGHT"
-export FZF_ALT_C_OPTS="--preview '$FZF_PREVIEW_OPTS'"
-# export FZF_ALT_C_OPTS="--preview '($FZF_PREVIEW_OPTS) 2> /dev/null | head -200'"
+# export FZF_ALT_C_OPTS="--preview '$FZF_PREVIEW_OPTS'" # CD into directory doesn't need preview
 
 # export FZF_DEFAULT_OPTS="--color light,bg+:153,fg+:-1,pointer:-1,prompt:-1,hl:125,hl+:125,info:-1,spinner:-1 --tabstop=4 --layout=reverse --info=hidden --no-bold"
 
@@ -44,7 +47,7 @@ append_history() {
 
 # FZF + GIT helper {{{
 # fzf_git_log - git commit browser
-fzf_commit_log () {
+_fzf_commit_log () {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-r:toggle-sort \
@@ -54,11 +57,11 @@ fzf_commit_log () {
                 {}
 FZF-EOF"
 }
-zle     -N     fzf_commit_log
-bindkey '^X^O' fzf_commit_log
+zle     -N     _fzf_commit_log
+bindkey '^X^O' _fzf_commit_log # CTRL+x CTRL+o
 
 # show commit from log
-fzf_commit_preview () {
+_fzf_commit_preview () {
   git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  | \
    fzf --ansi --no-sort --reverse --tiebreak=index --preview \
    'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
@@ -69,27 +72,28 @@ fzf_commit_preview () {
 FZF-EOF" --preview-window=right:60%
 }
 # --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:
-zle     -N     fzf_commit_preview
-bindkey '^X^P' fzf_commit_preview
+zle     -N     _fzf_commit_preview
+bindkey '^X^P' _fzf_commit_preview
 # }}}
 
-# fe [FUZZY PATTERN] - Open the selected file with the default editor
+# v [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
-fzf_edit_file () {
-  IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
+#   NOTE: Call this with alias, not keybind
+_fzf_edit_file () {
+  IFS=$'\n' out=("$(fzf --query="$1" --exit-0 --select-1 --expect=ctrl-o,ctrl-e)")
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
   fi
 }
-zle     -N     fzf_edit_file
-bindkey '^X^E' fzf_edit_file
+zle  -N _fzf_edit_file
+alias v=_fzf_edit_file
 
-fzf_quick_paths() {
+_fzf_quick_paths() {
   local word="${LBUFFER##* }"
 
   local selected
@@ -107,8 +111,8 @@ fzf_quick_paths() {
   fi
   zle reset-prompt
 }
-zle -N fzf-quick-paths fzf_quick_paths
-bindkey "\ev" fzf-quick-paths
+zle     -N    _fzf_quick_paths
+bindkey '^[v' _fzf_quick_paths ## ALT+v
 
 fzf_history() {
   local selected
@@ -123,14 +127,14 @@ fzf_history() {
   zle reset-prompt
 }
 zle -N fzf-history fzf_history
-bindkey "^X^I" fzf-history
+bindkey "^X^I" fzf-history # CTRL+x CTRL+i
 
 fzf-history-widget-accept() {
   fzf-history-widget
   zle accept-line
 }
 zle     -N     fzf-history-widget-accept
-bindkey '^X^R' fzf-history-widget-accept
+bindkey '^X^R' fzf-history-widget-accept # CTRL+x CTRL+r
 
 # CTRL-R - Execute or edit from history
 fzf-history-widget-ext() {
@@ -160,15 +164,4 @@ fzf-history-widget-ext() {
   return $ret
 }
 zle     -N   fzf-history-widget-ext
-bindkey '^R' fzf-history-widget-ext
-
-function fg-bg {
-    if [[ $#BUFFER -eq 0 ]]; then
-        BUFFER=fg
-        zle accept-line
-    else
-        zle push-input
-    fi
-}
-zle -N fg-bg
-bindkey '^z' fg-bg
+bindkey '^X^E' fzf-history-widget-ext # CTRL+r
