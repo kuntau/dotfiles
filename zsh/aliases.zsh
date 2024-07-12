@@ -2,26 +2,20 @@
 alias dus='du -hd 1'
 
 # files listing with optional exa -- colorized  everything
-if exists eza; then
-  alias l='eza'
-  alias ll='eza --long --group-directories-first'
-  alias la='eza -alg --git --group-directories-first'
-  alias laa='eza -alg -a --group-directories-first'
-  alias lsd='eza --long --only-dirs' # List only directories
-  alias lst='eza --long --tree --level=2 --group-directories-first' # Tree view
-  alias lsr='eza --long --recurse --level=2 --group-directories-first' # Recurse directories
-elif exists exa; then
-  alias l='exa'
-  alias ll='exa --long --group-directories-first'
-  alias la='exa -alg --git --group-directories-first'
-  alias laa='exa -alg -a --group-directories-first'
-  alias lsd='exa --long --only-dirs' # List only directories
-  alias lst='exa --long --tree --level=2 --group-directories-first' # Tree view
-  alias lsr='exa --long --recurse --level=2 --group-directories-first' # Recurse directories
+# `eza` is `exa` successor, it have the same syntax, so the following is not DRY
+LS=$(exists eza && echo 'eza' || $(exists exa && echo 'exa' || echo 'ls'))
+if exists eza || exists exa; then
+  alias   l="$LS"
+  alias  ll="$LS --long --group-directories-first"
+  alias  la="$LS -alg --git --group-directories-first"
+  alias laa="$LS -alg -a --group-directories-first"
+  alias lsd="$LS --long --only-dirs"                                   # List only directories
+  alias lst="$LS --long --tree --level=2 --group-directories-first"    # Tree view
+  alias lsr="$LS --long --recurse --level=2 --group-directories-first" # Recurse directories
 else
-  alias l="ls ${colorflag}" # List all files colorized in long format
+  alias l="ls ${colorflag}"        # List all files colorized in long format
   alias la="ls -laGh ${colorflag}" # List all files colorized in long format, including dot files
-  alias lsd='ls -l | grep "^d"' # List only directories
+  alias lsd='ls -l | grep "^d"'    # List only directories
 fi
 
 # FZF aliases
