@@ -1,34 +1,13 @@
-[aws]
-symbol = "  "
-
-[conda]
-symbol = " "
-
-[dart]
-symbol = " "
-
-[directory]
-read_only = " "
-
-[docker_context]
-symbol = " "
-
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
 [git_branch]
 symbol = " "
 
-# [git_state]
-# format = '[\($state( $progress_current of $progress_total)\)]($style) '
-# cherry_pick = "[🍒 PICKING](bold red)"
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
 
-# [git_commit]
-# commit_hash_length = 4
-# tag_symbol = "🔖 "
+[git_commit]
+commit_hash_length = 4
+tag_symbol = "🔖 "
 
 [git_metrics]
 disabled = true
@@ -50,8 +29,67 @@ modified = "[☂$count](cyan) "
 staged = "[๏${count}](green) "
 untracked = "✪$count"
 
+[username]
+style_user = 'white bold'
+style_root = 'black bold'
+format = 'user: [$user]($style) '
+disabled = false
+show_always = false
+aliases = { "corpuser034g" = "matchai" }
+
+[hostname]
+ssh_only = false
+ssh_symbol = " "
+detect_env_vars = ['!TMUX', 'SSH_CONNECTION']
+disabled = false
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
 [golang]
 symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
 
 [hg_branch]
 symbol = " "
@@ -62,29 +100,54 @@ symbol = " "
 [julia]
 symbol = " "
 
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
 [memory_usage]
-symbol = " "
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
 
 [nim]
-symbol = " "
+symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os]
+disabled = false
+symbols = { Alpaquita = " ", Alpine = " ", AlmaLinux = " ", Amazon = " ", Android = " ", Arch = " ", Artix = " ", CentOS = " ", Debian = " ", DragonFly = " ", Emscripten = " ", EndeavourOS = " ", Fedora = " ", FreeBSD = " ", Garuda = "󰛓 ", Gentoo = " ", HardenedBSD = "󰞌 ", Illumos = "󰈸 ", Kali = " ", Linux = " ", Mabox = " ", Macos = " ", Manjaro = " ", Mariner = " ", MidnightBSD = " ", Mint = " ", NetBSD = " ", NixOS = " ", OpenBSD = "󰈺 ", openSUSE = " ", OracleLinux = "󰌷 ", Pop = " ", Raspbian = " ", Redhat = " ", RedHatEnterprise = " ", RockyLinux = " ", Redox = "󰀘 ", Solus = "󰠳 ", SUSE = " ", Ubuntu = " ", Unknown = " ", Void = " ", Windows = "󰍲 " }
 
 [package]
-symbol = " "
+symbol = "󰏗 "
 
 [perl]
-symbol = " "
+symbol = " "
 
 [php]
 symbol = " "
 
+[pijul_channel]
+symbol = " "
+
 [python]
-symbol = " "
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
 
 [ruby]
-symbol = " "
+symbol = " "
 
 [rust]
 symbol = " "
@@ -92,8 +155,8 @@ symbol = " "
 [scala]
 symbol = " "
 
-[shlvl]
-symbol = " "
-
 [swift]
-symbol = "ﯣ "
+symbol = " "
+
+[zig]
+symbol = " "
