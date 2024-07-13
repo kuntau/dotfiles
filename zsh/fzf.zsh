@@ -9,12 +9,27 @@ export FZF_TMUX_HEIGHT=40%
 export FZF_DEFAULT_COMMAND="$(exists bfs && echo $FINDER_BFS || echo $FINDER_FD)"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-export FZF_COLOR_MIRAGE='--color=fg:#cbccc6,bg:#1f2430,hl:#707a8c --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+# FZF Themes
+FZF_COLOR_MIRAGE=" \
+--color=fg:#cbccc6,bg:#1f2430,hl:#707a8c \
+--color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66 \
+--color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6 \
+--color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff"
+FZF_COLOR_LATTE=" \
+--color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
+--color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
+--color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
+FZF_COLOR_FRAPPE=" \
+  --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
+  --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
+  --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
+export FZF_THEME="$(is_day && echo $FZF_COLOR_LATTE || echo $FZF_COLOR_FRAPPE)"
+
 export FZF_PREVIEW_OPTS="(bat --style plain --wrap never --color always {} || cat {} || tree -C {}) 2> /dev/null | head -200"
 export FZF_PREVIEW_WINDOW_RIGHT="--preview-window wrap --bind '?:toggle-preview'"
 export FZF_PREVIEW_WINDOW_DOWN="--preview-window down:wrap --bind '?:toggle-preview'"
 export FZF_PREVIEW_WINDOW_HIDDEN="--preview-window hidden:wrap --bind '?:toggle-preview'"
-export FZF_DEFAULT_OPTS="--extended --reverse --inline-info $FZF_COLOR_MIRAGE"
+export FZF_DEFAULT_OPTS="--extended --reverse --inline-info $FZF_THEME"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' $FZF_PREVIEW_WINDOW_DOWN"
 # export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '(bat {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_T_OPTS="--select-1 --exit-0 --preview '$FZF_PREVIEW_OPTS' $FZF_PREVIEW_WINDOW_RIGHT"
