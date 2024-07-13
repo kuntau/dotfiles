@@ -129,10 +129,10 @@ return {
           {
             icon = ' ',
             icon_hl = '@variable',
-            desc = 'Status',
+            desc = 'Neogit',
             group = 'String',
-            action = 'Telescope git_status',
-            key = 's',
+            action = 'Neogit',
+            key = 'g',
           },
           { desc = ' Lazy', group = '@property', action = 'Lazy', key = 'l' },
           {

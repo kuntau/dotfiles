@@ -81,7 +81,7 @@ So if you use `zplug` and have the same problem, find the `~/.zplug/log/job.lock
 ## Glitch over remote connections
 - First happens in mosh
 - Only recently
-- Seen in neovim, tmux, nnn
+- Seen in neovim, `tmux`, `nnn`
 - Also happens over SSH
 - Still happens in `Zellij`
 - Also happens with `wezterm` over `mosh`
