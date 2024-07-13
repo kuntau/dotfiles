@@ -1,18 +1,10 @@
 # alias 'dus=du -sckx * | sort -nr'
 alias dus='du -hd 1'
 
-# Set default grep
-if exists rg; then
-  GREP=rg
-elif exists ag; then
-  GREP=ag
-else
-  GREP=grep
-fi
-
+# TOOD: Rewrite this!
 # files listing with optional exa -- colorized  everything
 # `eza` is `exa` successor, it have the same syntax, so the following is not DRY
-LS=$(exists eza && echo 'eza' || $(exists exa && echo 'exa' || echo 'ls'))
+LS=$(exists eza && echo 'eza' || echo 'exa')
 if exists eza || exists exa; then
   alias   l="$LS"
   alias  ll="$LS --long --group-directories-first"
