@@ -159,3 +159,6 @@
 [mergetool "smerge"]
   cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
   trustExitCode = true
+[safe]
+	directory = /data/data/com.termux/files/home/storage/shared/Documents/notes
+	directory = /storage/emulated/0/Documents/notes
