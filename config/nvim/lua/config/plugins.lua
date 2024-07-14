@@ -92,6 +92,15 @@ return {
       preset = 'helix',
       show_help = false,
       show_keys = true,
+      disable = {
+        -- ft = { 'zsh' },
+        trigger = function(ctx)
+          vim.notify(ctx.keys, vim.log.levels.DEBUG)
+          if ctx.keys == 'd' and ctx.mode == 'n' then
+            return true
+          end
+        end
+      }
       -- triggers_blacklist = { n = { 'd', 'y' } },
     },
     keys = { {
