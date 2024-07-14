@@ -88,28 +88,40 @@ return {
   },
   { 'folke/which-key.nvim',
     event = 'VeryLazy',
-    opts = { show_help = false, show_keys = true, triggers_blacklist = { n = { 'd', 'y' } } },
+    opts = {
+      preset = 'helix',
+      show_help = false,
+      show_keys = true,
+      -- triggers_blacklist = { n = { 'd', 'y' } },
+    },
+    keys = { {
+      "<Leader>?",
+      function()
+        require('which-key').show({ global = false })
+      end,
+      desc = "Buffer local mappings (which-key)"
+    } },
     config = function(_, opts)
       local wk = require('which-key')
       wk.setup(opts)
-      wk.register({
-        mode = { 'n', 'v' },
-        ['g'] = { name = 'Go' },
-        ['z'] = { name = 'Folds' },
-        ['='] = { name = 'Yanky' },
-        [']'] = { name = 'Next' },
-        ['['] = { name = 'Previous' },
-        ['go'] = { name = 'Plugins' },
-        ['gr'] = { name = 'Treesitter' },
-        ['\\'] = { name = 'Local leader' },
-        ['grr'] = 'Smart rename',
-        ['<Leader>'] = { name = 'Leader' },
-        ['<Leader>f'] = { name = 'Telescope' },
-        ['<Leader>d'] = { name = 'Debug' },
-        ['<Leader>l'] = { name = 'LSP' },
-        ['<Leader>s'] = { name = 'Diagnostics' },
-        ['<Leader>r'] = { name = 'Reload' },
-        ['<Leader>lw'] = { name = 'LSP' },
+      wk.add({
+        mode = { "n", "v" },
+        { "=", group = "Yanky" },
+        { "[", group = "Previous" },
+        { "\\", group = "Local leader" },
+        { "]", group = "Next" },
+        { "g", group = "Go" },
+        { "go", group = "Plugins" },
+        { "gr", group = "Treesitter" },
+        { "grr", desc = "Smart rename" },
+        { "z", group = "Folds" },
+        { "<Leader>", group = "Leader" },
+        { "<Leader>d", group = "Debug" },
+        { "<Leader>f", group = "Telescope" },
+        { "<Leader>l", group = "LSP" },
+        { "<Leader>lw", group = "LSP" },
+        { "<Leader>r", group = "Reload" },
+        { "<Leader>s", group = "Diagnostics" },
       })
     end,
   }, -- Give key hint
