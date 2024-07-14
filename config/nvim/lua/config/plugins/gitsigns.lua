@@ -18,43 +18,33 @@ local config = function()
       local wk = require('which-key')
       local gs = package.loaded.gitsigns
 
-      -- Ref: https://www.reddit.com/r/neovim/comments/vlc9sc/how_to_define_a_user_command_to_partially_stage/
-      -- https://github.com/andrewferrier/dotfiles/blob/919719a153d34393b787e4c0a394de56e764004a/common/.config/nvim/lua/plugins/gitsigns.lua#L3
-      -- https://github.com/b0o/nvim-conf/blob/839b0f92e8a2a94b7a218e978da4e2d7f69d8cd7/lua/user/mappings.lua#L716
-      local visual_stage = function()
-        local feedkey = vim.api.nvim_feedkeys
-        local rtc = vim.api.nvim_replace_termcodes
-        local first_line = vim.fn.line('v')
-        local last_line = vim.fn.getpos('.')[2]
-        gs.stage_hunk({ first_line, last_line })
-        feedkey(rtc('<Esc>', true, false, true), 't', false)
-      end
+      wk.add({
+        { "<Leader>h", group = "GitSigns" },
+        -- Navigation
+        { "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", desc = "next hunk", expr = true, replace_keycodes = false },
+        { "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", desc = "previous hunk", expr = true, replace_keycodes = false },
+        { "<Leader>hs", gs.stage_hunk, desc = "Stage hunk" },
+        { "<Leader>hr", gs.reset_hunk, desc = "Reset hunk" },
+        { "<Leader>hs", function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, desc = "Stage hunk", mode = "v" },
+        { "<Leader>hr", function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, desc = "Reset hunk", mode = "v" },
+        { "<Leader>hS", gs.stage_buffer, desc = "Stage buffer" },
+        { "<Leader>hu", gs.undo_stage_hunk, desc = "Undo stage hunk" },
+        { "<Leader>hR", gs.reset_buffer, desc = "Reset buffer" },
+        { "<Leader>hp", gs.preview_hunk, desc = "Preview hunk" },
+        { "<Leader>hd", gs.diffthis, desc = "Diff this" },
+        { "<Leader>hD", function() gs.diffthis('~') end, desc = "Diff this" },
+        { "<Leader>hb", function() gs.blame_line({ full = true }) end, desc = "Git blame full" },
 
-      wk.register({
-        [']c'] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", 'Next hunk', expr = true },
-        ['[c'] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", 'Previous hunk', expr = true },
-        ['<Leader>h'] = {
-          name = 'GitSigns',
-          s = { gs.stage_hunk, 'Stage hunk', mode = { 'n', 'v' } },
-          r = { gs.reset_hunk, 'Reset hunk', mode = { 'n', 'v' } },
-          S = { gs.stage_buffer, 'Stage buffer' },
-          u = { gs.undo_stage_hunk, 'Undo stage hunk' },
-          R = { gs.reset_buffer, 'Reset buffer' },
-          p = { gs.preview_hunk, 'Preview hunk' },
-          d = { gs.diffthis, 'Diff this' },
-          D = { function() gs.diffthis('~') end, 'Diff this' },
-          b = { function() gs.blame_line({ full = true }) end, 'Git blame full' },
-        },
-        ['<Leader>ht'] = {
-          name = 'Toggle',
-          b = { gs.toggle_current_line_blame, 'Toggle current line blame' },
-          d = { gs.toggle_deleted, 'Toggle deleted' },
-          n = { gs.toggle_numhl, 'Toggle number highlight' },
-          s = { gs.toggle_signs, 'Toggle gutter signs' },
-          w = { gs.toggle_word_diff, 'Toggle word diff' },
-          l = { gs.toggle_linehl, 'Toggle line highlight' },
-        },
-        ih = { '<cmd>Gitsigns select_hunk<cr>', 'Select hunk', mode = { 'x', 'o' } },
+        { "<Leader>ht", group = "Toggle" },
+        { "<Leader>htb", gs.tooggle_current_line_blame, desc = "Toggle current line blame" },
+        { "<Leader>htd", gs.tooggle_deleted, desc = "Toggle deleted" },
+        { "<Leader>hts", gs.tooggle_signs, desc = "Toggle gutter signs" },
+        { "<Leader>htn", gs.tooggle_numhl, desc = "Toggle number highlight" },
+        { "<Leader>htl", gs.tooggle_linehl, desc = "Toggle line highlight" },
+        { "<Leader>htw", gs.tooggle_word_diff, desc = "Toggle word diff" },
+
+        { "ih", "<cmd>Gitsigns select_hunk<cr>", desc = "Select hunk", mode = { "o", "x" } },
+
       }, { buffer = bufnr })
     end,
   })
