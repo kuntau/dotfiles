@@ -5,38 +5,37 @@ local config = function()
   local mapping = require('yanky.telescope.mapping')
   local wk = require('which-key')
 
-  wk.register({
-    ['""'] = { function() require('telescope').extensions.yank_history.yank_history() end, 'Open yanky history' },
-
-    -- restore cursor after yank
-    ['y'] = { '<Plug>(YankyYank)', 'Yank & restore cursor', mode = { 'n', 'x' } },
-
-    -- Standard pasting
-    ['p'] =  { '<Plug>(YankyPutAfter)',   'Yanky Put After',   mode = { 'n', 'x' } },
-    ['P'] =  { '<Plug>(YankyPutBefore)',  'Yanky Put Before',  mode = { 'n', 'x' } },
-    ['gp'] = { '<Plug>(YankyGPutAfter)',  'Yanky GPut After',  mode = { 'n', 'x' } },
-    ['gP'] = { '<Plug>(YankyGPutBefore)', 'Yanky GPut Before', mode = { 'n', 'x' } },
-
+  wk.add({
+    -- Show yank history with Telescope
+    { '""',  function() require('telescope').extensions.yank_history.yank_history() end, desc = "Open yanky history" },
     -- Yank-ring
-    ['<A-n>'] = { '<Plug>(YankyCycleForward)',  'YankRing cycle forward' },
-    ['<A-p>'] = { '<Plug>(YankyCycleBackward)', 'YankRing cycle backward' },
-
+    { "<A-n>", "<Plug>(YankyCycleForward)", desc = "YankRing cycle forward" },
+    { "<A-p>", "<Plug>(YankyCycleBackward)", desc = "YankRing cycle backward" },
     -- unimpaired like, don't need this if we have vim-unimpaired
-    [']p'] = { '<Plug>(YankyPutIndentAfterLinewise)',  'Yanky PutIndent after Linewise' },
-    ['[p'] = { '<Plug>(YankyPutIndentBeforeLinewise)', 'Yanky PutIndent before Linewise' },
-    [']P'] = { '<Plug>(YankyPutIndentAfterLinewise)',  'Yanky PutIndent after Linewise' },
-    ['[P'] = { '<Plug>(YankyPutIndentBeforeLinewise)', 'Yanky PutIndent before Linewise' },
-
-    ['>p'] = { '<Plug>(YankyPutIndentAfterShiftRight)',  'Yanky PutIndent after shift right' },
-    ['<p'] = { '<Plug>(YankyPutIndentAfterShiftLeft)',   'Yanky PutIndent after shift left' },
-    ['>P'] = { '<Plug>(YankyPutIndentBeforeShiftRight)', 'Yanky PutIndent before shift right' },
-    ['<P'] = { '<Plug>(YankyPutIndentBeforeShiftLeft)',  'Yanky PutIndent before shift left' },
-
-    -- Special
-    ['=p'] =  { '<Plug>(YankyPutAfterFilter)',   'Yanky Put After', mode = { 'n', 'x' } },
-    ['=P'] =  { '<Plug>(YankyPutBeforeFilter)',  'Yanky Put After', mode = { 'n', 'x' } },
-    ['=gp'] = { '<Plug>(YankyGPutAfterFilter)',  'Yanky Put After', mode = { 'n', 'x' } },
-    ['=gP'] = { '<Plug>(YankyGPutBeforeFilter)', 'Yanky Put After', mode = { 'n', 'x' } },
+    { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Yanky PutIndent before Linewise" },
+    { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Yanky PutIndent before Linewise" },
+    { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Yanky PutIndent after Linewise" },
+    { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Yanky PutIndent after Linewise" },
+    -- paste with indent
+    { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Yanky PutIndent before shift left" },
+    { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Yanky PutIndent after shift left" },
+    { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Yanky PutIndent before shift right" },
+    { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Yanky PutIndent after shift right" },
+    {
+      mode = { "n", "x" },
+      -- restore cursor after yank
+      { "y", "<Plug>(YankyYank)", desc = "Yank & restore cursor" },
+      -- Standard pasting
+      { "p", "<Plug>(YankyPutAfter)", desc = "Yanky Put After" },
+      { "P", "<Plug>(YankyPutBefore)", desc = "Yanky Put Before" },
+      { "gp", "<Plug>(YankyGPutAfter)", desc = "Yanky GPut After" },
+      { "gP", "<Plug>(YankyGPutBefore)", desc = "Yanky GPut Before" },
+      -- Special
+      { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Yanky Put After" },
+      { "=gP", "<Plug>(YankyGPutBeforeFilter)", desc = "Yanky Put After" },
+      { "=gp", "<Plug>(YankyGPutAfterFilter)", desc = "Yanky Put After" },
+      { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Yanky Put After" },
+    },
   })
 
   require('telescope').load_extension('yank_history')
