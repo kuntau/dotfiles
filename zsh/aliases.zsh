@@ -1,6 +1,9 @@
 # alias 'dus=du -sckx * | sort -nr'
 alias dus='du -hd 1'
 
+# Kitty's kitten
+alias kssh='kitten ssh'
+
 # TOOD: Rewrite this!
 # files listing with optional exa -- colorized  everything
 # `eza` is `exa` successor, it have the same syntax, so the following is not DRY
