@@ -63,12 +63,14 @@ end
 nmap('<F1>', '<cmd>Startify<cr>', 'Open Startify')
 nmap('<F3>', '<cmd>NvimTreeToggle<cr>', 'Toggle file explorer')
 
--- ufo
+-- Folds & UFO
 nmap('zR', function() require('ufo').openAllFolds() end)
 nmap('zM', function() require('ufo').closeAllFolds() end)
 nmap('zr', function() require('ufo').openFoldsExceptKinds() end)
 nmap('zm', function() require('ufo').closeFoldsWith() end)
 nmap('K', function() if not require('ufo').peekFoldedLinesUnderCursor() then vim.cmd('normal! K') end end)
+vmap('<Leader>za', '<Esc>`<kzfgg`>jzfG`<', 'Fold above & below')
+nmap('<Leader>za', '<Esc>zRzz', 'Unfold above & below')
 
 -- improve defaults
 map('gh', '_', 'Goto first non-blank char')
