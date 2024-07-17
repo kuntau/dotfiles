@@ -13,7 +13,7 @@ return {
   'tami5/sqlite.lua', -- SQLite library
 
   -- Movements
-  { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
+  { 'tummetott/unimpaired.nvim', event = 'VeryLazy', config = true },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }, -- TODO: Replace with linty-org/readline.nvim
   { 'mg979/vim-visual-multi', keys = { { '<c-n>', mode = {'n','v'}, desc = 'Start multi-cursor' } } },
 
