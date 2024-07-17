@@ -111,7 +111,7 @@ return {
       shortcut_type = 'letter',
       shuffle_letter = false,
       config = {
-        disable_move = true,
+        disable_move = false,
         header = custom_header,
         packages = { enable = false },
         week_header = {
