@@ -64,19 +64,20 @@
   editor = nvim
   pager = delta
 [credential]
-  helper = osxkeychain
+  # helper = osxkeychain
   # credentialStore = gpg
   # helper = /usr/local/bin/git-credential-manager
 [credential "https://github.com"]
   helper = cache --timeout=3600
   username = kuntau
-  # features = calochortus-lyallii
 [delta]
-  navigate = true
-  side-by-side = false
-  diff-highlight = true
+  diff-highlight = false
   diff-so-fancy = true
   features = unobtrusive-line-numbers decorations
+  # features = calochortus-lyallii
+  navigate = true
+  side-by-side = false
+  true-color = always
   whitespace-error-style = 22 reverse
 [delta "unobtrusive-line-numbers"]
   line-numbers = true
@@ -113,11 +114,13 @@
   enabled = true
 [rebase]
   autostash = true
+  autoSquash = true
 [pull]
   ff = only
   rebase = true
 [push]
   default = current
+  autoSetupRemote = true
 [user]
   email = kuntau17@gmail.com
   name = Nizamuddin Sulieman
@@ -129,15 +132,27 @@
   process = git-lfs filter-process
 [credential "https://dev.azure.com"]
   useHttpPath = true
+[gpg]
+  format = ssh
+[transfer]
+  fsckObjects = true
+[fetch]
+  fsckObjects = true
+[receive]
+  fsckObjects = true
+[status]
+  submodulesummary = true
 [diff]
   colorMoved = default
   tool = smerge
+  algorithm = histogram
+  submodule = log
 [difftool]
   prompt = false
 [difftool "smerge"]
   cmd = smerge \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 [merge]
-  conflictstyle = diff3
+  conflictstyle = zdiff3
   tool = smerge
 [mergetool]
   keepBackup = false
