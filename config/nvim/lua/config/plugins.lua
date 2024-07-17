@@ -109,6 +109,9 @@ return {
         { "go", group = "Plugins" },
         { "gr", group = "Treesitter" },
         { "grr", desc = "Smart rename" },
+        { "yo", group = "Unimpaired" },
+        { "[o", group = "Unimpaired" },
+        { "]o", group = "Unimpaired" },
         { "z", group = "Folds" },
         { "<Leader>", group = "Leader" },
         { "<Leader>d", group = "Debug" },
@@ -117,6 +120,7 @@ return {
         { "<Leader>lw", group = "LSP" },
         { "<Leader>r", group = "Reload" },
         { "<Leader>s", group = "Diagnostics" },
+        { "<Leader>z", group = "Folds" },
       })
     end,
   }, -- Give key hint

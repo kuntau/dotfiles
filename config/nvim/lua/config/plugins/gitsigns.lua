@@ -21,8 +21,8 @@ local config = function()
       wk.add({
         { "<Leader>h", group = "GitSigns" },
         -- Navigation
-        { "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", desc = "next hunk", expr = true, replace_keycodes = false },
-        { "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", desc = "previous hunk", expr = true, replace_keycodes = false },
+        { "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<cr>'", desc = "Next hunk (GitSigns)", expr = true, replace_keycodes = false },
+        { "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<cr>'", desc = "Previous hunk (GitSigns)", expr = true, replace_keycodes = false },
         { "<Leader>hs", gs.stage_hunk, desc = "Stage hunk" },
         { "<Leader>hr", gs.reset_hunk, desc = "Reset hunk" },
         { "<Leader>hs", function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, desc = "Stage hunk", mode = "v" },
