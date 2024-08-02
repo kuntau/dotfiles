@@ -30,11 +30,11 @@
 | terminal        | wezterm, kitty, iTerm2   |
 | multiplexer     | tmux, zellij?            |
 | finder          | fd, bfs                  |
-| fuzzy finder    | fzf, skim?, fzy?         |
+| fuzzy finder    | fzf, ~skim~, fzy?        |
 | file manager    | nnn                      |
 | note taking     | obsidian, ia writer      |
 | disk usage      | ncdu, dua, dust          |
-| prompt          | powerlevel10k, starship? |
+| prompt          | powerlevel10k, ~starship~|
 | jumper          | zsh-z, zoxide            |
 | package manager | homebrew, pip, pnpm      |
 | grep            | ripgrep                  |
