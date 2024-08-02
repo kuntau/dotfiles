@@ -140,6 +140,12 @@ vim.g.loaded_tarPlugin      = 1
 vim.g.loaded_zip            = 1
 vim.g.loaded_zipPlugin      = 1
 
+-- disable unused plugin provider
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
+
 if vim.fn.has('nvim-0.8') == 1 then
   vim.opt.cmdheight = 0
   vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup'

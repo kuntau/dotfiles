@@ -1,6 +1,6 @@
 -- Windows management plugins
 
-local animation = false
+local animation = true
 
 local config_windows = function()
   local min_width = 5
