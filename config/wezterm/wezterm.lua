@@ -72,11 +72,35 @@ local switch_pane = function(win, pane, key)
   local direction = { h = 'Left', l = 'Right', j = 'Down', k = 'Up' }
   local proc = get_process(pane)
 
+  wezterm.log_info('@pane: TTY name, ttyp=' .. pane:get_tty_name())
+
   if is_vim(proc) or is_tmux(proc) then
     win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
   else
     win:perform_action({ ActivatePaneDirection = direction[key] }, pane)
   end
+end
+
+on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
+on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h') end)
+on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
+on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
+
+local is_remote = function(pane)
+  local proc = basename(pane:get_foreground_process_name())
+  wezterm.log_info('@is_remote, proc='..proc)
+  return proc ==  'mosh-client' or proc == 'ssh'
+end
+
+local direction = {
+  h = 'Left',
+  l = 'Right',
+  j = 'Down',
+  k = 'Up'
+}
+
+local select_pane = function(win, pane, key)
+  -- code
 end
 
 local function get_tab_process(tab)
@@ -182,13 +206,47 @@ wezterm.on('format-tab-title', function(tab)
   })
 end)
 
+-- Update right-status
 wezterm.on('update-status', function(window)
   local date = wezterm.strftime(' %a, %d %b %Y ')
   local time = wezterm.strftime(' %H:%M ')
   local batt = ''
+  local batt_soc = ''
+  local batt_state = ''
+  local batt_icon = nf.md_battery_unknown
+  local batt_charging = nf.md_lightning_bolt
+  local batt_info = ''
+  local _ = false
 
-  for _, b in ipairs(wezterm.battery_info()) do
-    batt = string.format(' %.0f%%', b.state_of_charge * 100)
+  -- wezterm.log_info('BATTERY: ', wezterm.battery_info())
+  _, batt_info = pcall(wezterm.battery_info)
+
+  if #batt_info > 0 then
+    for _, b in ipairs(batt_info) do
+      batt_state = b.state
+      batt_soc = b.state_of_charge * 100
+    end
+
+    batt = string.format(' %.0f%%', batt_soc) or ''
+    if batt_soc >= 95 then
+      batt_icon = nf.md_battery
+    elseif batt_soc >= 70 and batt_soc < 95 then
+      batt_icon = nf.md_battery_high
+    elseif batt_soc >= 35 and batt_soc < 70 then
+      batt_icon = nf.md_battery_medium
+    elseif batt_soc >= 5 and batt_soc < 40 then
+      batt_icon = nf.md_battery_low
+    elseif batt_soc < 5 then
+      batt_icon = nf.md_battery_outline
+    end
+
+    if batt_state == 'Full' then
+      batt_icon = nf.md_battery
+    elseif batt_state == 'Charging' then
+      batt_icon = string.format('%s%s', batt_icon, batt_charging)
+    elseif batt_state == 'Unknown' then
+      batt_icon = nf.md_battery_alert
+    end
   end
 
   window:set_right_status(wezterm.format({
@@ -201,7 +259,7 @@ wezterm.on('update-status', function(window)
     { Text = nf.oct_clock },
     { Text = time },
     { Foreground = { Color = COLORS.maroon } },
-    { Text = nf.md_battery_50 },
+    { Text = (#batt_info > 0 and batt_icon or batt_charging) },
     { Text = batt },
   }))
 end)
@@ -210,11 +268,6 @@ wezterm.on('window-config-reloaded', function(window, _)
   wezterm.log_info 'the config was reloaded for this window!'
   window:toast_notification('wezterm', 'configuration reloaded!', nil, 4000)
 end)
-
-on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
-on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h') end)
-on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
-on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
 
 return {
   default_prog = { '/opt/local/bin/zsh', '-li' },
@@ -343,6 +396,8 @@ return {
 
   -- define leader key, same as tmux
   leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
+  disable_default_key_bindings = false,
+
   -- mappings
   keys = {
     { key = 't', mods = hyper_key, action = action({ SpawnTab = 'CurrentPaneDomain' }) },
@@ -361,10 +416,40 @@ return {
     { key = 'k', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Up' }) },
     { key = 'j', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Down' }) },
 
-    { key = 'l', mods = 'CTRL', action = emit('ActivatePaneDirectionRight') },
+    -- Pane movements
     { key = 'h', mods = 'CTRL', action = emit('ActivatePaneDirectionLeft') },
+    { key = 'l', mods = 'CTRL', action = emit('ActivatePaneDirectionRight') },
     { key = 'k', mods = 'CTRL', action = emit('ActivatePaneDirectionUp') },
     { key = 'j', mods = 'CTRL', action = emit('ActivatePaneDirectionDown') },
+
+    -- { key='h', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'h', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
+    --   end
+    -- end) },
+    -- { key='l', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'l', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Right' }, pane)
+    --   end
+    -- end) },
+    -- { key='j', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'j', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Down' }, pane)
+    --   end
+    -- end) },
+    -- { key='k', mods="CTRL", action=wezterm.action_callback(function(win, pane)
+    --   if is_vim(pane) then
+    --     win:perform_action({ SendKey = { key = 'k', mods = 'CTRL' } }, pane)
+    --   else
+    --     win:perform_action({ ActivatePaneDirection = 'Up' }, pane)
+    --   end
+    -- end) },
 
     { key = 'H', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Left', 5 } }) },
     { key = 'J', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Down', 5 } }) },
@@ -372,6 +457,15 @@ return {
     { key = 'L', mods = 'LEADER', action = action({ AdjustPaneSize = { 'Right', 5 } }) },
     { key = 'z', mods = 'LEADER', action = 'TogglePaneZoomState' },
     { key = 'l', mods = 'LEADER|CTRL', action = action({ ClearScrollback = 'ScrollbackAndViewport' }) },
+
+    { key='b', mods="LEADER", action=wezterm.action_callback(function(win, pane)
+      if is_remote(pane) then
+        win:perform_action({ SendKey = { key = 's', mods = 'CTRL' } }, pane)
+      else
+        wezterm.log_info('@is_remote, proc='..pane:get_foreground_process_name())
+        --   win:perform_action({ ActivatePaneDirection = 'Left' }, pane)
+      end
+    end) },
 
     -- CTRL-SHIFT-l activates the debug overlay
     { key = 'L', mods = 'CTRL', action = action.ShowDebugOverlay },
