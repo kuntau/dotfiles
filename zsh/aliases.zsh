@@ -37,7 +37,9 @@ if exists docker; then
   alias d='docker'
   alias ds='docker start'
   alias dst='docker stop'
-  alias dps='docker ps'
+  alias dps='docker ps --format "table {{.ID}}\t{{.Names}}"'
+  alias dpsf='docker ps --no-trunc'
+  alias dpsa='docker ps --no-trunc --all'
   alias drm='docker rm'
   alias dc='docker compose'
 fi
