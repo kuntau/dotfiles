@@ -216,6 +216,16 @@ on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h')
 on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
 on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
 
+-- Set auto switch dark/light themes
+local is_day = function ()
+  local time = tonumber(wezterm.strftime('%H'))
+  return (time >= 8 and time < 19) and true or false
+end
+
+local light_theme = 'Papercolor Light (Gogh)'
+local dark_theme = 'nordic'
+local theme = is_day() and light_theme or dark_theme
+
 return {
   default_prog = { '/opt/local/bin/zsh', '-li' },
 
@@ -251,70 +261,70 @@ return {
   cursor_blink_ease_out = 'Constant',
 
   -- Colors
-  color_scheme = 'nordic', -- full list @ https://wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = theme, -- full list @ https://wezfurlong.org/wezterm/colorschemes/index.html
   colors = {
-		split = COLORS.surface0,
-		foreground = COLORS.text,
-		background = COLORS.base,
-		cursor_bg = COLORS.rosewater,
-		cursor_border = COLORS.rosewater,
-		cursor_fg = COLORS.base,
-		selection_bg = COLORS.surface2,
-		selection_fg = COLORS.text,
-		visual_bell = COLORS.surface0,
+		-- split = COLORS.surface0,
+		-- foreground = COLORS.text,
+		-- background = COLORS.base,
+		-- cursor_bg = COLORS.rosewater,
+		-- cursor_border = COLORS.rosewater,
+		-- cursor_fg = COLORS.base,
+		-- selection_bg = COLORS.surface2,
+		-- selection_fg = COLORS.text,
+		-- visual_bell = COLORS.surface0,
 		indexed = {
 			[16] = COLORS.peach,
 			[17] = COLORS.rosewater,
 		},
 		scrollbar_thumb = COLORS.surface2,
 		compose_cursor = COLORS.flamingo,
-		ansi = {
-			COLORS.surface1,
-			COLORS.red,
-			COLORS.green,
-			COLORS.yellow,
-			COLORS.blue,
-			COLORS.pink,
-			COLORS.teal,
-			COLORS.subtext0,
-		},
-		brights = {
-			COLORS.subtext0,
-			COLORS.red,
-			COLORS.green,
-			COLORS.yellow,
-			COLORS.blue,
-			COLORS.pink,
-			COLORS.teal,
-			COLORS.surface1,
-		},
-		tab_bar = {
-			background = COLORS.crust,
-			active_tab = {
-				bg_color = "none",
-				fg_color = COLORS.subtext1,
-				intensity = "Bold",
-				underline = "None",
-				italic = false,
-				strikethrough = false,
-			},
-			inactive_tab = {
-				bg_color = COLORS.crust,
-				fg_color = COLORS.surface2,
-			},
-			inactive_tab_hover = {
-				bg_color = COLORS.mantle,
-				fg_color = COLORS.subtext0,
-			},
-			new_tab = {
-				bg_color = COLORS.crust,
-				fg_color = COLORS.subtext0,
-			},
-			new_tab_hover = {
-				bg_color = COLORS.crust,
-				fg_color = COLORS.subtext0,
-			},
-		},
+		-- ansi = {
+			-- COLORS.surface1,
+			-- COLORS.red,
+			-- COLORS.green,
+			-- COLORS.yellow,
+			-- COLORS.blue,
+			-- COLORS.pink,
+			-- COLORS.teal,
+			-- COLORS.subtext0,
+		-- },
+		-- brights = {
+		-- 	COLORS.subtext0,
+		-- 	COLORS.red,
+		-- 	COLORS.green,
+		-- 	COLORS.yellow,
+		-- 	COLORS.blue,
+		-- 	COLORS.pink,
+		-- 	COLORS.teal,
+		-- 	COLORS.surface1,
+		-- },
+		-- tab_bar = {
+		-- 	background = COLORS.crust,
+		-- 	active_tab = {
+		-- 		bg_color = "none",
+		-- 		fg_color = COLORS.subtext1,
+		-- 		intensity = "Bold",
+		-- 		underline = "None",
+		-- 		italic = false,
+		-- 		strikethrough = false,
+		-- 	},
+		-- 	inactive_tab = {
+		-- 		bg_color = COLORS.crust,
+		-- 		fg_color = COLORS.surface2,
+		-- 	},
+		-- 	inactive_tab_hover = {
+		-- 		bg_color = COLORS.mantle,
+		-- 		fg_color = COLORS.subtext0,
+		-- 	},
+		-- 	new_tab = {
+		-- 		bg_color = COLORS.crust,
+		-- 		fg_color = COLORS.subtext0,
+		-- 	},
+		-- 	new_tab_hover = {
+		-- 		bg_color = COLORS.crust,
+		-- 		fg_color = COLORS.subtext0,
+		-- 	},
+		-- },
   },
 
   -- Appearance
