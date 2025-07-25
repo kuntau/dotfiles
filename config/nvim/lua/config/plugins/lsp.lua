@@ -2,9 +2,9 @@
 
 local ensure_installed = {
   'lua_ls',
-  'tsserver',
+  'ts_ls',
   'intelephense',
-  'volar',
+  'vue_ls',
 }
 
 -- This is here to format on save
@@ -12,7 +12,7 @@ local ensure_installed = {
 local enable_format_on_save = false
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local format_on_save = function(client, bufnr)
-  if client.supports_method('textDocument/formatting') and enable_format_on_save then
+  if client:supports_method('textDocument/formatting') and enable_format_on_save then
     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,

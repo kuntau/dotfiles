@@ -11,11 +11,11 @@ local servers = {
   'bashls',
   'intelephense',
   'ls_emmet',
-  'tsserver',
+  'ts_ls',
   'vimls',
   'volar',
   -- 'pylsp',
-  'ruff_lsp',
+  'ruff',
   'clangd',
   'rust_analyzer',
   -- 'cssls',
@@ -45,7 +45,7 @@ local on_attach = function(client, bufnr)
 
   if debug then
     dbgi(vim.lsp.get_active_clients())
-    dbgi(client.supports_method('textDocument/codeAction'))
+    dbgi(client:supports_method('textDocument/codeAction'))
     --[[ dbgi(client.server_capabilities.code_action) ]]
   end
 

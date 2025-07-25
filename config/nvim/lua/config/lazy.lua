@@ -44,6 +44,7 @@ require("lazy").setup("config.plugins", {
   },
   diff = { cmd = 'diffview.nvim' },
   ui = { border = 'rounded' },
+  rocks = { enabled = false },
   debug = false,
   dev = {
     path = "~/coding/forks"
