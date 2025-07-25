@@ -80,11 +80,6 @@ is_day() { [ "$(date +%H)" -ge 8 ] && [ "$(date +%H)" -le 19 ]; }
 
 # OS specific ENVIRONMENT VARIABLE
 if [[ $OS_NAME == Linux ]]; then
-  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
-  # export PATH=~/.local/bin:$PATH
-  # rust
-  # golang
-  export PATH=$PATH:/usr/local/go/bin
   export DENO_INSTALL='/home/kuntau/.deno'
 
   # nnn
@@ -110,9 +105,10 @@ elif [[ $OS_NAME == Darwin ]]; then
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  export HOMEBREW_NO_AUTO_UPDATE=0
-  export HOMEBREW_NO_INSTALL_CLEANUP=0
+  # export HOMEBREW_NO_AUTO_UPDATE=0
+  # export HOMEBREW_NO_INSTALL_CLEANUP=0
   export HOMEBREW_AUTO_UPDATE_SECS=86400
+  export HOMBREW_GIT_PATH=/opt/local/bin/git
 
   # nnn
   export NNN_OPENER='open' # set MacOS nnn opener
@@ -270,6 +266,9 @@ function zvm_after_init() {
   bindkey '^[[A' history-substring-search-up   # or '\eOA' = Up arrow
   bindkey '^[[B' history-substring-search-down # or '\eOB' = Down arrow
   export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+
+  # linuxbrew
+  [[ -d /home/linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
   source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases
