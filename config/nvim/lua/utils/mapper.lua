@@ -28,12 +28,10 @@ end
 ---@param mode string enum of ""|n|v|i|o|x
 ---@param opts table Mapping options.
 local function mapper(mode, lhs, rhs, opts)
-  vim.validate({
-    mode = { mode, { 's', 't' } },
-    lhs = { lhs, 's' },
-    rhs = { rhs, { 's', 'f' } },
-    opts = { opts, 't', true },
-  })
+  vim.validate('mode', mode, {'string', 'table'})
+  vim.validate('lhs', lhs, 'string')
+  vim.validate('rhs', rhs, {'string', 'function'})
+  vim.validate('opts', opts, 'table')
 
   local default_opts = { noremap = true, silent = true }
   opts = vim.tbl_deep_extend('force', default_opts, opts or {})
