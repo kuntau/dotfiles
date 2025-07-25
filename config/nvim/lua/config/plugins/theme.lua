@@ -156,10 +156,9 @@ end
 local config_nordic = {
   theme = 'nordic',
   bold_keywords = true,
-  transparent_bg = false,
+  transparent = { bg = false },
   noice = { style = 'flat' },
   telescope = { style = 'flat' },
-  override = {}
 }
 
 return {
