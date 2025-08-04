@@ -9,13 +9,16 @@ alias kssh='kitten ssh'
 # `eza` is `exa` successor, it have the same syntax, so the following is not DRY
 LS=$(exists eza && echo 'eza' || echo 'exa')
 if exists eza || exists exa; then
-  alias   l="$LS"
-  alias  ll="$LS --long --group-directories-first"
-  alias  la="$LS -alg --git --group-directories-first"
-  alias laa="$LS -alg -a --group-directories-first"
-  alias lsd="$LS --long --only-dirs"                                   # List only directories
-  alias lst="$LS --long --tree --level=2 --group-directories-first"    # Tree view
-  alias lsr="$LS --long --recurse --level=2 --group-directories-first" # Recurse directories
+  alias   l="$LS --icons=auto"
+  alias  ll="$LS --icons=auto --long --group-directories-first"
+  alias  la="$LS --icons=auto -alg --git --group-directories-first"
+  alias  lA="$LS --icons=auto -alg -a --group-directories-first"
+  alias lsd="$LS --icons=auto --only-dirs"                                          # List only directories
+  alias lsD="$LS --icons=auto --long --only-dirs"                                   # List only directories
+  alias lst="$LS --icons=auto --tree --level=2 --group-directories-first"           # Tree view
+  alias lsT="$LS --icons=auto --long --tree --level=2 --group-directories-first"    # Tree view
+  alias lsr="$LS --icons=auto --recurse --level=2 --group-directories-first"        # Recurse directories
+  alias lsR="$LS --icons=auto --long --recurse --level=2 --group-directories-first" # Recurse directories
 else
   alias l="ls ${colorflag}"        # List all files colorized in long format
   alias la="ls -laGh ${colorflag}" # List all files colorized in long format, including dot files
@@ -34,7 +37,9 @@ if exists docker; then
   alias d='docker'
   alias ds='docker start'
   alias dst='docker stop'
-  alias dps='docker ps'
+  alias dps='docker ps --format "table {{.ID}}\t{{.Names}}"'
+  alias dpsf='docker ps --no-trunc'
+  alias dpsa='docker ps --no-trunc --all'
   alias drm='docker rm'
   alias dc='docker compose'
 fi
@@ -149,6 +154,15 @@ alias wget_recursive_dl='wget \
   --no-clobber \
   --no-host-directories \
   --reject "index.html*"'
+
+ffcheck() {
+  ffmpeg -v error -i "$1" -f NULL - 2>error.log
+}
+fffix() {
+  ffmpeg -v error -err_detect ignore_err -i "$1" -c copy -acodec copy fix.mkv
+  mv "$1" "$1.old"
+  mv fix.mkv "$1"
+}
 
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases

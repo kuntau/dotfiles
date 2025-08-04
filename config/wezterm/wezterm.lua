@@ -218,13 +218,15 @@ on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j')
 
 -- Set auto switch dark/light themes
 local is_day = function ()
-  local time = wezterm.strftime('%H')
+
+  local time = tonumber(wezterm.strftime('%H'))
   return (time >= 8 and time < 19) and true or false
 end
 
 local light_theme = 'Papercolor Light (Gogh)'
 local dark_theme = 'nordic'
-local theme = is_day and light_theme or dark_theme
+
+local theme = is_day() and light_theme or dark_theme
 
 return {
   default_prog = { '/opt/local/bin/zsh', '-li' },
