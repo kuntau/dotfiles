@@ -105,7 +105,7 @@ return {
   },
   {
     'glepnir/dashboard-nvim',
-    event = 'VimEnter',
+    lazy = false,
     opts = {
       theme = 'hyper',
       shortcut_type = 'letter',
