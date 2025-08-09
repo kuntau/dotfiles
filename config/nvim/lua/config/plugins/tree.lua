@@ -54,6 +54,10 @@ return {
   },
   {
     'stevearc/oil.nvim',
-    opts = {},
+    event = 'VeryLazy',
+    opts = {
+      delete_to_trash = false,
+      skip_confirm_for_simple_edit = true,
+    },
   }
 }
