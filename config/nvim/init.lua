@@ -16,6 +16,5 @@ vim.api.nvim_create_autocmd("User", {
     require('config.events')
     require('config.mappings')
     require('config.commands')
-    require('oil').setup()
   end
 })
