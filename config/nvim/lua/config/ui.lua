@@ -8,7 +8,7 @@ local background = (Utils.is_day() and auto_switch) and 'light' or 'dark'
 local gui_light_theme = 'dayfox'
 local gui_dark_theme = 'nightfox'
 local tui_light_theme = 'PaperColor'
-local tui_dark_theme = 'nordic'
+local tui_dark_theme = 'kanagawa'
 
 vim.o.background = background
 local tui_theme = background == 'dark' and tui_dark_theme or tui_light_theme
