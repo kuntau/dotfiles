@@ -2,7 +2,7 @@
 
 # font-family = Cascadia Code
 # font-feature = +calt, +ss01, +ss02, +ss03, +ss19, +ss20 # for Cascadia
-font-family = MonnLisa
+font-family = MonoLisa
 font-feature = +calt, +ss01, +ss02, +ss03 # for MonoLisa
 # font-family = Operator Mono
 # font-family = 0xProto
