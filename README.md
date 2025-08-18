@@ -115,7 +115,49 @@ git config -f ".git/config" --remove-section "submodule.$submodule" 2> /dev/null
 git commit -m "Remove submodule $submodule"
 ```
 
-#### Test terminal formatting
+## Post Installation
+
+### Essential TUI apps
+
+- `zsh`
+- `git`
+- `node`
+- `homebrew` or `MacPorts`
+- `nnn`
+- `ripgrep`
+- `fd`
+- `fzf`
+- `bat`
+- `eza`
+- `mosh`
+- `rclone`
+- `rsync`*
+- `curl`*
+
+### Essential GUI apps
+
+- `Ghostty`/`Kitty`/`WezTerm`
+- `Karabiner-Elements`
+- `Sublime Text`
+- `aText`
+- `Dash`
+- `Obsidian`
+- `IINA`/`mpv`/`vlc`
+
+### Nice to have TUI
+
+- `gitui`
+- `glow`/`mdcat`
+- `fdupes`
+
+### Nice to have GUI
+
+- `VSCode`/`VSCodium`
+- `Kaleidoscope`
+- `Bitwarden`
+- `BetterZip`
+
+### Test terminal formatting
 
 ```bash
 echo -e "\e[1mbold\e[0m"
@@ -131,4 +173,4 @@ echo -e "\x1B[31mHello World\e[0m"
 
 `sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 
-### P/S. It is hard & PITA to maintain the same dotfiles across `OS X`, `Linux` & `Windows (Cygwin)`
+### P/S. It is hard & PITA to maintain the same dotfiles across `OS X`, `Linux` & `Windows (~Cygwin~WSL)`
