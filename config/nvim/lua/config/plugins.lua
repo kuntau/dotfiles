@@ -133,7 +133,8 @@ return {
 
   -- Language specifics
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
-  { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
+  -- NOTE: Make terminal wonky on latest neovim, something todo with auto insert mode
+  -- { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = ':TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'fladson/vim-kitty', ft = 'kitty' }, -- kitty config syntax file
 
