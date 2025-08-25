@@ -3,7 +3,7 @@
 local config = function()
   require('ibl').setup({
     enabled = true,
-    indent = { char = "|" },
+    indent = { char = "│" },
     whitespace = { highlight = { "Whitespace", "NonText" } },
     scope = {
       show_start = false,
@@ -47,4 +47,5 @@ return {
   main = 'ibl',
   opts = {},
   config = config,
+  enabled = false
 }
