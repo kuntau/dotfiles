@@ -5,7 +5,8 @@ return {
 
   -- Essentials/Library
   { 'kuntau/vim-osc52', keys = { { '<c-c>', '<Plug>(YankOSC52)', mode='v', desc='Yank (OSC52)' } } }, -- Copy & paste across tmux & screen over mosh
-  { 'rcarriga/nvim-notify', opts = { background_colour = '#000000' } }, -- Notifications library
+  -- { 'rcarriga/nvim-notify', opts = { background_colour = '#000000' } }, -- Notifications library
+  -- { 'stevearc/dressing.nvim', opts = {}, event = 'VeryLazy' },
   'MunifTanjim/nui.nvim', -- UI library
   'nvim-tree/nvim-web-devicons', -- for file icons
   'nvim-lua/plenary.nvim', -- Utils/async library
