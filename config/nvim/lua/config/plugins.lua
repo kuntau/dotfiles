@@ -141,11 +141,11 @@ return {
   -- TODO: Configure the following plugins
 
   -- Refactor
-  'cshuaimin/ssr.nvim', -- Structural Search and replace
-  'nvim-pack/nvim-spectre', -- Search and replace workflow
+  -- 'cshuaimin/ssr.nvim', -- Structural Search and replace
+  -- 'nvim-pack/nvim-spectre', -- Search and replace workflow
 
   -- Misc
-  'toppair/peek.nvim', -- Markdown preview
+  -- 'toppair/peek.nvim', -- Markdown preview
   -- gen740/SmoothCursor.nvim
   -- rktjmp/paperplanes.nvim
   -- ThePrimeagen/harpoon
