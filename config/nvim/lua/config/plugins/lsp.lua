@@ -98,13 +98,13 @@ return {
     config = function() require('lsp') end,
     dependencies = {
       {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         cmd = 'Mason',
         config = true,
         -- dependencies = ,
       }, -- Auto/manage LSP
       {
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason-lspconfig.nvim',
         opts = {
           automatic_installation = true,
           ensure_installed = ensure_installed,
