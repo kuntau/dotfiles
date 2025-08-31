@@ -45,6 +45,7 @@ return {
 
   -- Utilities
   'numToStr/FTerm.nvim',
+  { 'jiaoshijie/undotree', opts = {} },
   { 'sedm0784/vim-resize-mode', event = 'WinNew' },
   { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
