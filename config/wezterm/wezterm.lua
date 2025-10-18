@@ -231,10 +231,12 @@ return {
 
   font = wezterm.font_with_fallback({
     {
-      family = 'LigaOperatorMono Nerd Font Mono',
+      family = 'Operator Mono',
       weight = 'Book',
     },
-    'BlexMono Nerd Font Mono',
+    'Cascadia Code',
+    'JetBrains Maple Mono',
+    'SF Mono'
   }),
 
   font_size = 13.0,
