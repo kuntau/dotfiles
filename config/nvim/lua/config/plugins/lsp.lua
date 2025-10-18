@@ -94,6 +94,7 @@ end
 return {
   {
     'neovim/nvim-lspconfig',
+    version = '*',
     event = 'BufReadPre',
     config = function() require('lsp') end,
     dependencies = {
