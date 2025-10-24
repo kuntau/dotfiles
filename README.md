@@ -21,35 +21,38 @@
 
 ## Stacks
 
-| Category        | Software                 |
-| :-------        | :---------:              |
-| shell           | zsh, nu                  |
-| tui editor      | vim, neovim              |
-| gui editor      | sublime, vscode          |
-| player          | mpv, iina, vlc           |
-| terminal        | wezterm, kitty, iTerm2   |
-| multiplexer     | tmux, zellij?            |
-| finder          | fd, bfs                  |
-| fuzzy finder    | fzf, ~skim~, fzy?        |
-| file manager    | nnn                      |
-| note taking     | obsidian, ia writer      |
-| disk usage      | ncdu, dua, dust          |
-| prompt          | powerlevel10k, ~starship~|
-| jumper          | zsh-z, zoxide            |
-| package manager | homebrew, pip, pnpm      |
-| grep            | ripgrep                  |
-| previewer       | bat, glow, mdcat?        |
-| git helper      | delta, diff              |
-| git gui         | gitui, subl. merge       |
-| ssh             | mosh                     |
-| fonts           | operator mono, nerd font |
-| LSCOLORS        | vivid                    |
-| theme           | ayu, tokyonight          |
+| Category        | Software                  |
+| :-------        | :---------:               |
+| Shell           | zsh, nu                   |
+| TUI editor      | neovim, helix             |
+| GUI editor      | sublime, vscode, zed      |
+| Player          | mpv, iina, vlc            |
+| Terminal        | wezterm, kitty, ghostty   |
+| Multiplexer     | tmux, ~zellij~            |
+| Finder          | fd, bfs                   |
+| Fuzzy finder    | fzf, ~skim~, ~fzy~        |
+| File manager    | nnn                       |
+| Note taking     | obsidian, ia writer       |
+| Disk usage      | ncdu, dua, dust           |
+| Prompt          | p10k, omp                 |
+| Jumper          | zsh-z, zoxide             |
+| Package manager | brew, port, pnpm, uv      |
+| Grep            | ripgrep                   |
+| Previewer       | bat, glow                 |
+| Git helper      | delta, diff               |
+| Git gui         | gitui, lazygit            |
+| VCS             | git, jujutsu              |
+| Sync            | rsync, rclone             |
+| Downloader      | yt-dlp, gallery-dl, aria  |
+| Fonts           | operator mono, nerd font  |
+| SSH             | mosh                      |
+| LSCOLORS        | vivid                     |
+| Theme           | ayu, tokyonight, kanagawa |
 
 
 ## Installation
 
-`git clone git://github.com/kuntau/dotfiles.git ~/dotfiles`
+`git clone --filter=blob:none git://github.com/kuntau/dotfiles.git ~/dotfiles`
 
 ### Make the install script executable
 
