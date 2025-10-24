@@ -1,0 +1,197 @@
+#!/usr/bin/env python3
+"""
+Organize images and videos into folders by date taken (DD-MM-YYYY).
+
+Priority for date detection:
+ 1. Filename pattern (e.g., PXL_YYYYMMDD_########.ext or IMGYYYYMMDD...)
+ 2. EXIF DateTimeOriginal (images only)
+ 3. Filesystem modified date (fallback)
+
+Behavior:
+ - Images: prefer filename → EXIF → mtime
+ - Videos (.mp4, .mov, .avi, .mkv, .hevc): prefer filename → mtime
+ - If no date found, file is logged to <dest>/missing_date.log and skipped
+ - Use `--move` to move files instead of copying
+ - Does not overwrite existing files (skips if destination exists)
+"""
+
+from __future__ import annotations
+import argparse
+import re
+import shutil
+from pathlib import Path
+from datetime import datetime
+from typing import Optional, Set
+from PIL import Image, ExifTags
+
+
+FILENAME_DATE_RE = re.compile(r"(?:PXL|IMG|VID)[_-]?(\d{4})(\d{2})(\d{2})")
+# You can expand patterns if you have other naming conventions
+
+
+def get_date_from_filename(file: Path) -> Optional[datetime]:
+    """Extract date from common filename patterns (PXL_YYYYMMDD_..., IMGYYYYMMDD...)."""
+    m = FILENAME_DATE_RE.search(file.stem)
+    if not m:
+        return None
+    try:
+        y, mo, d = map(int, m.groups())
+        return datetime(y, mo, d)
+    except ValueError:
+        return None
+
+
+def get_exif_date(image_path: Path) -> Optional[datetime]:
+    """Try to extract EXIF DateTimeOriginal. Returns None on failure."""
+    try:
+        with Image.open(image_path) as img:
+            exif = img._getexif()
+            if not exif:
+                return None
+            for tag, val in exif.items():
+                name = ExifTags.TAGS.get(tag, tag)
+                if name == "DateTimeOriginal":
+                    # Format "YYYY:MM:DD HH:MM:SS"
+                    try:
+                        return datetime.strptime(val, "%Y:%m:%d %H:%M:%S")
+                    except Exception:
+                        return None
+    except Exception:
+        return None
+    return None
+
+
+def get_best_date(file: Path, image_exts: Set[str], video_exts: Set[str]) -> Optional[datetime]:
+    """Determine the best date available for this file."""
+    # 1) Filename
+    date = get_date_from_filename(file)
+    if date:
+        return date
+
+    # 2) EXIF for images
+    if file.suffix.lower() in image_exts:
+        exif_date = get_exif_date(file)
+        if exif_date:
+            return exif_date
+
+    # 3) Filesystem modified date (fallback)
+    try:
+        return datetime.fromtimestamp(file.stat().st_mtime)
+    except Exception:
+        return None
+
+
+def organize_files(source_dir: Path, dest_dir: Path, move: bool = False):
+    image_exts = {".jpg", ".jpeg", ".png", ".heic", ".webp", ".tiff", ".gif"}
+    video_exts = {".mp4", ".mov", ".avi", ".mkv", ".hevc"}
+    allowed_exts = image_exts.union(video_exts)
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    log_path = dest_dir / "missing_date.log"
+
+    copied = 0
+    moved = 0
+    skipped = 0
+    missing = []
+
+    for file in source_dir.rglob("*"):
+        if not file.is_file():
+            continue
+
+        ext = file.suffix.lower()
+        if ext not in allowed_exts:
+            continue
+
+        # Decide date source rules:
+        # - For both images & videos filename -> exif (images only) -> mtime
+        # - If still None, log and skip
+        best_date = get_best_date(file, image_exts, video_exts)
+        if not best_date:
+            missing.append(file)
+            print(f"⚠️  Missing date info, logged and skipped: {file.name}")
+            continue
+
+        folder_name = best_date.strftime("%d-%m-%Y")
+        target_folder = dest_dir / folder_name
+        target_folder.mkdir(parents=True, exist_ok=True)
+
+        dest_path = target_folder / file.name
+        if dest_path.exists():
+            print(f"⚠️  Destination exists, skipping: {dest_path}")
+            skipped += 1
+            continue
+
+        try:
+            if move:
+                shutil.move(str(file), str(dest_path))
+                moved += 1
+                print(f"🚚 Moved: {file.name} → {folder_name}")
+            else:
+                shutil.copy2(str(file), str(dest_path))
+                copied += 1
+                print(f"✅ Copied: {file.name} → {folder_name}")
+        except Exception as e:
+            print(f"⚠️  Error processing {file}: {e}")
+            skipped += 1
+
+    # Write missing-date log
+    if missing:
+        try:
+            with log_path.open("w", encoding="utf-8") as lf:
+                lf.write("Files missing date info (could not determine by filename/EXIF/mtime):\n\n")
+                for p in missing:
+                    try:
+                        stat = p.stat()
+                        mtime = datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
+                        size_kb = stat.st_size / 1024
+                    except Exception:
+                        mtime = "N/A"
+                        size_kb = -1
+                    lf.write(
+                        f"File: {p.name}\n"
+                        f"Path: {p}\n"
+                        f"Size: {size_kb:.1f} KB\n"
+                        f"Modified: {mtime}\n"
+                        f"{'-'*40}\n"
+                    )
+            print(f"\n⚠️  {len(missing)} files logged to: {log_path}")
+        except Exception as e:
+            print(f"⚠️  Failed to write missing-date log: {e}")
+
+    print("\n📊 Summary:")
+    print(f"Copied: {copied}")
+    print(f"Moved:  {moved}")
+    print(f"Skipped: {skipped}")
+    print(f"Missing-date logged: {len(missing)}")
+    print(f"Destination root: {dest_dir.resolve()}")
+
+
+def parse_args():
+    p = argparse.ArgumentParser(
+        description="Organize images/videos into DD-MM-YYYY folders using filename/EXIF/mtime."
+    )
+    p.add_argument("source", help="Source folder to scan")
+    p.add_argument("destination", help="Destination root folder")
+    p.add_argument("--move", action="store_true", help="Move files instead of copying")
+    return p.parse_args()
+
+
+def main():
+    args = parse_args()
+    src = Path(args.source).expanduser().resolve()
+    dst = Path(args.destination).expanduser().resolve()
+
+    if not src.exists() or not src.is_dir():
+        print(f"❌ Source folder not found or not a directory: {src}")
+        raise SystemExit(1)
+
+    print(f"Scanning: {src}")
+    print(f"Destination: {dst}")
+    print(f"Mode: {'MOVE' if args.move else 'COPY'}\n")
+
+    organize_files(src, dst, move=args.move)
+
+
+if __name__ == "__main__":
+    main()
+
