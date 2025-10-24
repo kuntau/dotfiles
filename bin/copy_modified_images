@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""
+Copy or move image files listed in 'modified_files_today.txt' to a destination folder.
+
+Usage:
+    python3 copy_modified_images.py <modified_files_log> <destination_folder> [--move]
+
+Examples:
+    python3 copy_modified_images.py modified_files_today.txt ~/Pictures/ModifiedToday
+    python3 copy_modified_images.py modified_files_today.txt ~/Pictures/ModifiedToday --move
+"""
+
+import sys
+import shutil
+from pathlib import Path
+
+
+def extract_file_paths(log_path: Path):
+    """
+    Parse the log file and extract file paths from 'Location' + 'File' entries.
+    Returns a list of full paths.
+    """
+    file_paths = []
+    current_name = None
+    current_location = None
+
+    with log_path.open('r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith("File: "):
+                current_name = line.replace("File: ", "").strip()
+            elif line.startswith("Location: "):
+                current_location = line.replace("Location: ", "").strip()
+                if current_name and current_location:
+                    full_path = Path(current_location) / current_name
+                    file_paths.append(full_path)
+                    current_name = None
+                    current_location = None
+    return file_paths
+
+
+def process_images_from_log(log_file: Path, dest_folder: Path, move_files: bool = False):
+    """
+    Copy or move image files listed in the log file to the destination folder.
+    """
+    if not log_file.exists():
+        print(f"❌ Error: Log file '{log_file}' not found.")
+        sys.exit(1)
+
+    dest_folder.mkdir(parents=True, exist_ok=True)
+
+    supported_ext = {".jpg", ".jpeg", ".png", ".heic", ".webp", ".mp4"}
+    copied = 0
+    moved = 0
+    skipped = 0
+
+    file_paths = extract_file_paths(log_file)
+
+    if not file_paths:
+        print("⚠️ No valid files found in log file.")
+        return
+
+    for file_path in file_paths:
+        if not file_path.exists():
+            print(f"⚠️ Missing: {file_path}")
+            skipped += 1
+            continue
+
+        if file_path.suffix.lower() not in supported_ext:
+            print(f"⏭️ Skipping non-image: {file_path.name}")
+            skipped += 1
+            continue
+
+        dest_path = dest_folder / file_path.name
+
+        if dest_path.exists():
+            print(f"⚠️ Skipped (exists): {dest_path}")
+            skipped += 1
+            continue
+
+        try:
+            if move_files:
+                shutil.move(str(file_path), str(dest_path))
+                print(f"🚚 Moved: {file_path.name}")
+                moved += 1
+            else:
+                shutil.copy2(file_path, dest_path)
+                print(f"✅ Copied: {file_path.name}")
+                copied += 1
+
+        except Exception as e:
+            print(f"⚠️ Error processing {file_path}: {e}")
+            skipped += 1
+
+    print("\n📊 Summary:")
+    print(f"Copied: {copied}")
+    print(f"Moved: {moved}")
+    print(f"Skipped (missing/exists/errors): {skipped}")
+    print(f"Destination: {dest_folder.resolve()}")
+
+
+def main():
+    if len(sys.argv) < 3:
+        print("Usage: python3 copy_modified_images.py <modified_files_log> <destination_folder> [--move]")
+        sys.exit(1)
+
+    log_file = Path(sys.argv[1]).expanduser().resolve()
+    dest_folder = Path(sys.argv[2]).expanduser().resolve()
+    move_flag = "--move" in sys.argv
+
+    print(f"Reading log file: {log_file}")
+    print(f"Destination: {dest_folder}")
+    print(f"Mode: {'MOVE' if move_flag else 'COPY'}\n")
+
+    process_images_from_log(log_file, dest_folder, move_files=move_flag)
+
+
+if __name__ == "__main__":
+    main()
+
