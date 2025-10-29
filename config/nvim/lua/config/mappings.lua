@@ -46,7 +46,7 @@ nmap('<LocalLeader>q', '<cmd>q!<cr>', 'Quit window')
 nmap('<LocalLeader>x', '<cmd>BDelete! this<cr>', 'Delete this buffer')
 nmap('<LocalLeader>X', '<cmd>BDelete! other<cr>', 'Delete other buffer')
 nmap('<LocalLeader>c', '<cmd>close!<cr>', 'Close window')
-nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>', 'Select open buffers')
+-- nmap('<LocalLeader><Tab>', '<cmd>Telescope buffers<cr>', 'Select open buffers')
 -- nmap('g0', function () vim.cmd('edit '..vim.fn.fnameescape(vim.v.oldfiles[1])) end, "Open last edited")
 
 -- windows switcher. CTRL-0..CTRL-9
@@ -90,33 +90,6 @@ nmap('gx', function ()
   end
 end, {desc = "Smart URL Opener"})
 
--- Telescope bindings
-nmap('<c-p>',      function() require('telescope').extensions.smart_open.smart_open({ cwd_only=true }) end, 'Smart Open')
-nmap('<Leader>f ', '<cmd>Telescope fd<cr>', 'Find files fd')
-nmap('<Leader>fa', function() require('telescope').extensions.aerial.aerial() end, 'Aerial')
-nmap('<Leader>ff', function() require('telescope').extensions.frecency.frecency({ workspace='CWD' }) end, 'Frecency in CWD')
-nmap('<Leader>fF', function() require('telescope').extensions.frecency.frecency() end, 'Frecency')
-nmap('<Leader>fp', function() require('telescope').extensions.project.project({ display_type='full' }) end, 'Project')
-nmap('<Leader>fP', function() require('telescope').extensions.projects.projects() end, 'Project')
-nmap('<Leader>fb', '<cmd>Telescope builtin<cr>', 'Show builtin modules')
-nmap('<Leader>fc', '<cmd>Telescope commands<cr>', 'Commands')
-nmap('<Leader>fe', '<cmd>Telescope registers<cr>', 'Registers')
-nmap('<Leader>fg', '<cmd>Telescope live_grep<cr>', 'Live grep')
-nmap('<Leader>fh', '<cmd>Telescope help_tags<cr>', 'Help tags')
-nmap('<Leader>fi', '<cmd>Telescope git_files<cr>', 'Git files')
-nmap('<Leader>fj', '<cmd>Telescope jumplist<cr>', 'Jumplist')
-nmap('<Leader>fk', '<cmd>Telescope keymaps<cr>', 'Keymaps')
-nmap('<Leader>fl', '<cmd>Telescope buffers<cr>', 'List open buffers')
-nmap('<Leader>fm', '<cmd>Telescope marks<cr>', 'Marks')
-nmap('<Leader>fn', '<cmd>Telescope notify<cr>', 'Notify')
-nmap('<Leader>fo', '<cmd>Telescope oldfiles<cr>', 'Recent files in CWD')
-nmap('<Leader>fO', '<cmd>Telescope oldfiles only_cwd=false<cr>', 'Recent files')
-nmap('<Leader>fr', '<cmd>Telescope resume<cr>', 'Resume last action')
-nmap('<Leader>fs', '<cmd>Telescope git_status<cr>', 'Git status')
-nmap('<Leader>ft', '<cmd>Telescope filetypes<cr>', 'Filetypes')
-nmap('<Leader>f;', '<cmd>Telescope command_history<cr>', 'Command history')
-nmap('<Leader>f/', '<cmd>Telescope search_history<cr>', 'Search history')
-
 -- Plugins bindings. TODO: Move this to their own plugin spec
 nmap('gog', function() require('neogit').open({ kind = (orien() == 'vertical' and 'split' or 'vsplit') }) end, 'Open neogit in split')
 nmap('goG', function() require('neogit').open({ kind = 'replace' }) end, 'Open neogit in current window')
@@ -139,6 +112,7 @@ map('<D-s>',   '<cmd>up!<cr>', 'Save')
 imap('<D-s>',   '<c-o><cmd>up!<cr>', 'Save')
 vmap('<D-c>',  '"+y', 'Paste')
 imap('<D-v>',  '<c-r>+', 'Paste')
+tmap('<D-v>',  '<c-r>+', 'Paste')
 cmap('<D-v>',  '<c-r>"', 'Paste')
 map('<D-f>', function()
   if vim.g.neovide == true then
@@ -148,24 +122,3 @@ end, 'Toogle fullscreen') -- Toggle neovide fullscreen
 
 ---@abbreviations
 vim.cmd.ia [[<expr> ddate strftime('%d/%m/%Y')]]
-
--- NEXT: Experimental
--- nmap('<F23>', '<cmd>split<cr>')  -- S-F11
--- nmap('<F35>', '<cmd>vsplit<cr>') -- C-F11
--- nmap('<M-S-F11>', '<cmd>vsplit<cr>') -- M-S-F11
--- nmap('<F24>', '<cmd>split<cr>')  -- S-F12
--- nmap('<F36>', '<cmd>vsplit<cr>') -- C-F12
--- nmap('<M-S-F12>', '<cmd>vsplit<cr>') -- M-S-F12
--- nmap('<S-F11>', '<cmd>split<cr>')
--- nmap('<C-F11>', '<cmd>split<cr>')
--- nmap('<C-S-F11>', '<cmd>vsplit<cr>')
--- nmap('<S-F12>', '<cmd>split<cr>')
--- nmap('<C-F12>', '<cmd>split<cr>')
--- nmap('<C-S-F12>', '<cmd>vsplit<cr>')
--- nmap('<M-@>', '<cmd>split<cr>')
--- nmap('<S-M-@>', '<cmd>split<cr>')
--- <F23><F22><F21><F20><F19><F35><F23><F34><S-F11><C-S-F11><S-F9>
--- nmap('<S-CR>', '<cmd>vsplit<cr>')
--- nmap('<C-CR>', '<cmd>vsplit<cr>')
--- imap('<S-CR>', '<cmd>vsplit<cr>')
--- imap('<C-CR>', '<cmd>vsplit<cr>')
