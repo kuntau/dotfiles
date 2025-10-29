@@ -1,13 +1,11 @@
 -- All about the YANK. So far Yanky is the best
 
 local config = function()
-  local utils = require('yanky.utils')
-  local mapping = require('yanky.telescope.mapping')
   local wk = require('which-key')
 
   wk.add({
-    -- Show yank history with Telescope
-    { '""',  function() require('telescope').extensions.yank_history.yank_history() end, desc = "Open yanky history" },
+    -- Show yank history with Snacks.picker
+    { '""',  function() Snacks.picker.yanky() end, desc = "Open yanky history" },
     -- Yank-ring
     { "<A-n>", "<Plug>(YankyCycleForward)", desc = "YankRing cycle forward" },
     { "<A-p>", "<Plug>(YankyCycleBackward)", desc = "YankRing cycle backward" },
@@ -38,28 +36,8 @@ local config = function()
     },
   })
 
-  require('telescope').load_extension('yank_history')
   require('yanky').setup({
     ring = { storage = 'sqlite' },
-    picker = {
-      telescope = {
-        mappings = {
-          default = mapping.put('p'),
-          i = {
-            ['<cr>'] = mapping.put('p'),
-            ['<s-cr>'] = mapping.put('P'),
-            ['<c-x>'] = mapping.delete(),
-            ['<c-r>'] = mapping.set_register(utils.get_default_register()),
-          },
-          n = {
-            p = mapping.put('p'),
-            P = mapping.put('P'),
-            d = mapping.delete(),
-            r = mapping.set_register(utils.get_default_register()),
-          },
-        },
-      },
-    },
   })
 end
 
