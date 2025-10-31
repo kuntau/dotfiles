@@ -31,6 +31,10 @@ znap source le0me55i/zsh-extract # extract
 znap source babarot/enhancd 'init.sh'  # alias to cd for trigger
 command -v zoxide &> /dev/null || znap source agkozak/zsh-z
 
+# Extra helper for debugging `zbrowse`
+znap source zdharma-continuum/zui
+znap source zdharma-continuum/zbrowse
+
 # For some unknow reason this have to be load last or zsh will crash
 znap source jeffreytse/zsh-vi-mode
 
