@@ -4,9 +4,10 @@ if [[ -n "$ZSH_DEBUGRC" ]]; then
   zmodload zsh/zprof
 fi
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+() { [[ -r $1 ]] && source $1 } ${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USERNAME}.zsh
 
 # start znap {{{
 zstyle ':znap:*' repos-dir $HOME/.znap
@@ -16,10 +17,7 @@ zstyle ':znap:*' repos-dir $HOME/.znap
 
 source ~/.znap/zsh-snap/znap.zsh
 
-
-znap prompt romkatv/powerlevel10k
-
-# === core: load immediately ===
+znap source romkatv/powerlevel10k powerlevel10k.zsh-theme
 znap source ohmyzsh/ohmyzsh \
   lib/{clipboard,history,key-bindings,directories} \
   plugins/{git,git-extras,safe-paste,ssh,sudo,command-not-found}
