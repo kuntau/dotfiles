@@ -33,7 +33,6 @@ znap source ohmyzsh/ohmyzsh \
 znap source z-shell/f-sy-h
 znap source marlonrichert/zsh-autocomplete
 znap source marlonrichert/zsh-edit
-znap source zsh-users/zsh-history-substring-search
 znap source zsh-users/zsh-completions
 znap source zsh-users/zsh-autosuggestions
 znap source michaelaquilina/zsh-you-should-use
@@ -244,11 +243,6 @@ function zvm_after_init() {
   bindkey -M viins '^R' atuin-search-viins
   bindkey -M vicmd '' up-line-or-history
   bindkey -M vicmd '' down-line-or-history
-
-  # zsh-history-substring-search configuration
-  bindkey '^[[A' history-substring-search-up   # or '\eOA' = Up arrow
-  bindkey '^[[B' history-substring-search-down # or '\eOB' = Down arrow
-  export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
   # linuxbrew
   [[ -d /home/linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
