@@ -8,64 +8,47 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# start zplug {{{
-source ~/.zplug/init.zsh
+# start znap {{{
+zstyle ':znap:*' repos-dir $HOME/.znap
 
-# zplug can manage itself
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+[[ ! -f ~/.znap/zsh-snap/znap.zsh ]] &&
+  git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
 
-# from oh-my-zsh
-zplug 'lib/clipboard',          from:oh-my-zsh
-zplug 'lib/history',            from:oh-my-zsh
-# zplug 'lib/completion',         from:oh-my-zsh
-zplug 'lib/key-bindings',       from:oh-my-zsh
-zplug 'lib/directories',        from:oh-my-zsh
-zplug 'plugins/brew',           from:oh-my-zsh
-zplug 'plugins/bun',            from:oh-my-zsh
-zplug 'plugins/copybuffer',     from:oh-my-zsh
-zplug 'plugins/copyfile',       from:oh-my-zsh
-zplug 'plugins/copypath',       from:oh-my-zsh
-zplug 'plugins/cp',             from:oh-my-zsh
-zplug 'plugins/docker',         from:oh-my-zsh
-zplug 'plugins/docker-compose', from:oh-my-zsh
-zplug 'plugins/git',            from:oh-my-zsh
-zplug 'plugins/git-extras',     from:oh-my-zsh
-zplug 'plugins/git-flow',       from:oh-my-zsh
-zplug 'plugins/mosh',           from:oh-my-zsh
-zplug 'plugins/nmap',           from:oh-my-zsh
-zplug 'plugins/safe-paste',     from:oh-my-zsh
-zplug 'plugins/ssh',            from:oh-my-zsh
-zplug 'plugins/sudo',           from:oh-my-zsh
-zplug 'plugins/taskwarrior',    from:oh-my-zsh
-zplug 'plugins/tmux',           from:oh-my-zsh
+source ~/.znap/zsh-snap/znap.zsh
 
-# local/dotfiles
-zplug "~/dotfiles/zsh/completions", from:local
 
-# from github
-zplug "zsh-users/zsh-completions", depth:1
-zplug "bigH/git-fuzzy", depth:1, as:command, use:"bin/git-fuzzy"
-zplug "jeffreytse/zsh-vi-mode", depth:1
-zplug "zsh-users/zsh-autosuggestions", depth:1
-zplug "babarot/enhancd", depth:1, use:init.sh
-zplug "agkozak/zsh-z", depth:1, if:"[[ !command -v zoxide ]]"
-zplug "le0me55i/zsh-extract", depth:1
-zplug "marlonrichert/zsh-edit", depth:1
-zplug "zsh-users/zsh-history-substring-search", as:plugin, depth:1, defer:1
-zplug "marlonrichert/zsh-autocomplete", depth:1, defer:2
-zplug "z-shell/F-Sy-H", depth:1, defer:3
+znap prompt romkatv/powerlevel10k
 
-# theme
-zplug "romkatv/powerlevel10k", depth:1, use:powerlevel10k.zsh-theme
+# === core: load immediately ===
+znap source ohmyzsh/ohmyzsh \
+  lib/{clipboard,history,key-bindings,directories} \
+  plugins/{git,git-extras,safe-paste,ssh,sudo,command-not-found}
+# znap source ohmyzsh/ohmyzsh plugins/{git,git-extras,safe-paste}
+# znap source ohmyzsh/ohmyzsh plugins/{ssh,sudo,copybuffer,copypath}
 
-if ! zplug check; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
+# === local sources ===
+# unfortunately it's not possible to load local source
+# znap source ~/dotfiles/zsh/completions
 
-zplug load
+# === other plugins ===
+# znap source zdharma-continuum/fast-syntax-highlighting
+znap source z-shell/f-sy-h
+znap source marlonrichert/zsh-autocomplete
+znap source marlonrichert/zsh-edit
+znap source zsh-users/zsh-history-substring-search
+znap source zsh-users/zsh-completions
+znap source zsh-users/zsh-autosuggestions
+znap source michaelaquilina/zsh-you-should-use
+
+# === lazy via znap function (documented) ===
+# znap source bigh/git-fuzzy # can't load this here, znap can only manage it, add bin to path
+znap source junegunn/fzf shell/{completion,key-bindings}.zsh
+znap source le0me55i/zsh-extract # extract
+znap source babarot/enhancd 'init.sh'  # alias to cd for trigger
+# command -v zoxide &> /dev/null || znap source agkozak/zsh-z
+
+znap source jeffreytse/zsh-vi-mode
+
 # }}}
 
 # Set ENV VARIABLE {{{
