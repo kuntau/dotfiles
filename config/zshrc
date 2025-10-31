@@ -4,16 +4,12 @@ if [[ -n "$ZSH_DEBUGRC" ]]; then
   zmodload zsh/zprof
 fi
 
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
 () { [[ -r $1 ]] && source $1 } ${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USERNAME}.zsh
 
 # start znap {{{
 zstyle ':znap:*' repos-dir $HOME/.znap
 
-[[ ! -f ~/.znap/zsh-snap/znap.zsh ]] &&
-  git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
+[[ ! -f ~/.znap/zsh-snap/znap.zsh ]] && git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
 
 source ~/.znap/zsh-snap/znap.zsh
 
@@ -21,15 +17,7 @@ znap source romkatv/powerlevel10k powerlevel10k.zsh-theme
 znap source ohmyzsh/ohmyzsh \
   lib/{clipboard,history,key-bindings,directories} \
   plugins/{git,git-extras,safe-paste,ssh,sudo,command-not-found}
-# znap source ohmyzsh/ohmyzsh plugins/{git,git-extras,safe-paste}
-# znap source ohmyzsh/ohmyzsh plugins/{ssh,sudo,copybuffer,copypath}
 
-# === local sources ===
-# unfortunately it's not possible to load local source
-# znap source ~/dotfiles/zsh/completions
-
-# === other plugins ===
-# znap source zdharma-continuum/fast-syntax-highlighting
 znap source z-shell/f-sy-h
 znap source marlonrichert/zsh-autocomplete
 znap source marlonrichert/zsh-edit
@@ -37,13 +25,13 @@ znap source zsh-users/zsh-completions
 znap source zsh-users/zsh-autosuggestions
 znap source michaelaquilina/zsh-you-should-use
 
-# === lazy via znap function (documented) ===
 # znap source bigh/git-fuzzy # can't load this here, znap can only manage it, add bin to path
 znap source junegunn/fzf shell/{completion,key-bindings}.zsh
 znap source le0me55i/zsh-extract # extract
 znap source babarot/enhancd 'init.sh'  # alias to cd for trigger
-# command -v zoxide &> /dev/null || znap source agkozak/zsh-z
+command -v zoxide &> /dev/null || znap source agkozak/zsh-z
 
+# For some unknow reason this have to be load last or zsh will crash
 znap source jeffreytse/zsh-vi-mode
 
 # }}}
@@ -70,7 +58,7 @@ if [[ $OS_NAME == Linux ]]; then
     export COMPOSER_HOME=$HOME/.composer
 
     # atuin - https://atuin.sh
-    source $HOME/.atuin/bin/env
+    exists atuin && source $HOME/.atuin/bin/env
 
     export NNN_BMS='d:~/dotfiles;D:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;L:~/.local;f:/HQPOOL/Coding/forks'
   fi
@@ -116,7 +104,7 @@ elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   source ~/dotfiles/mintty/sol.dark
 fi
 
-# Add MAN path
+# Add MAN path FIXME: No longer using zplug
 export MANPATH=$MANPATH:$ZPLUG_HOME/doc/man
 
 # Fix locale
@@ -144,7 +132,7 @@ autosuggest_light_theme="#808080"
 autosuggest_dark_theme="#585858"
 autosuggest_theme=$(is_day && echo $autosuggest_light_theme || echo $autosuggest_dark_theme)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${autosuggest_theme},italic"
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 # ZSH_AUTOSUGGEST_CLEAR_WIDGETS # TODO: Add widgets like atuin & autocomplete
 
 # zsh-autcomplete configs https://github.com/marlonrichert/zsh-autocomplete/blob/main/.zshrc
@@ -159,7 +147,7 @@ zstyle ':autocomplete:*' add-space executables aliases functions builtins reserv
 zstyle ':autocomplete:*' min-delay 0.3  # seconds (float)
 zstyle ':autocomplete:*' min-input 2  # characters (int)
 zstyle ':autocomplete:*' insert-unambiguous yes
-zstyle ':autocomplete:*' fzf-completion yes
+zstyle ':autocomplete:tab:*' fzf-completion yes
 # zstyle ':autocomplete:*' default-context history-incremental-search-backward
 bindkey -M menuselect "^[m" accept-and-hold
 bindkey -M menuselect "^M" .accept-line
@@ -234,8 +222,8 @@ function zvm_after_init() {
   [[ -x rustup ]] && source $HOME/.cargo/env
   [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
   exists fzf && source $DOTFILES/zsh/fzf.zsh
-  exists atuin && eval "$(atuin init zsh)" # atuin - sync, search & backup shell history
-  exists zoxide && eval "$(zoxide init zsh)" # zoxide - modern z
+  exists atuin && znap eval atuin "atuin init zsh" # atuin - sync, search & backup shell history
+  exists zoxide && znap eval z "zoxide init zsh" # zoxide - modern z
   exists nnn && source $DOTFILES/nnn/quitcd.zsh
 
   # Customs
