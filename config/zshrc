@@ -60,12 +60,12 @@ if [[ $OS_NAME == Linux ]]; then
   # nnn
   export NNN_OPENER='nuke'
 
+  # linuxbrew
+  [[ -d /home/linuxbrew ]] && znap eval brew "/home/linuxbrew/.linuxbrew/bin/brew shellenv"
+
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'hqsvr' ]]; then
     export COMPOSER_HOME=$HOME/.composer
-
-    # atuin - https://atuin.sh
-    exists atuin && source $HOME/.atuin/bin/env
 
     export NNN_BMS='d:~/dotfiles;D:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;L:~/.local;f:/HQPOOL/Coding/forks'
   fi
@@ -80,9 +80,6 @@ elif [[ $OS_NAME == Darwin ]]; then
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  export HOMEBREW_NO_AUTO_UPDATE=1
-  export HOMEBREW_NO_INSTALL_CLEANUP=1
-  export HOMEBREW_AUTO_UPDATE_SECS=86400
   export HOMBREW_GIT_PATH=/opt/local/bin/git
 
   # nnn
@@ -110,6 +107,11 @@ elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
 fi
+
+# Homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 # Add MAN path FIXME: No longer using zplug
 export MANPATH=$MANPATH:$ZPLUG_HOME/doc/man
@@ -239,9 +241,6 @@ function zvm_after_init() {
   znap function _synthing synthing 'eval "$(synthing install-completions)"'
   znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
   fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
-
-  # linuxbrew
-  [[ -d /home/linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
   source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases
