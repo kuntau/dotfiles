@@ -15,8 +15,11 @@ source ~/.znap/zsh-snap/znap.zsh
 
 znap source romkatv/powerlevel10k powerlevel10k.zsh-theme
 znap source ohmyzsh/ohmyzsh \
-  lib/{clipboard,history,key-bindings,directories} \
   plugins/{git,git-extras,safe-paste,ssh,sudo,command-not-found}
+  # lib/{clipboard,history,key-bindings,directories} \
+
+znap source sorin-ionescu/prezto init.zsh \
+  modules/{macports,homebrew,node,osx,tmux}
 
 znap source z-shell/f-sy-h
 znap source marlonrichert/zsh-autocomplete
