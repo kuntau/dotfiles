@@ -229,6 +229,17 @@ function zvm_after_init() {
   bindkey -M vicmd '' up-line-or-history
   bindkey -M vicmd '' down-line-or-history
 
+  # Completions - Znap way
+  znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
+  znap function _deno deno 'eval "$(deno completions zsh)"'
+  znap function _cargo cargo 'eval "$(rustup completions zsh cargo)"'
+  znap function _rustup rustup 'eval "$(rustup completions zsh)"'
+  znap function _gh gh 'eval "$(gh completion --shell zsh)"'
+  znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
+  znap function _synthing synthing 'eval "$(synthing install-completions)"'
+  znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
+  fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
+
   # linuxbrew
   [[ -d /home/linuxbrew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
