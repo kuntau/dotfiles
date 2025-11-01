@@ -146,7 +146,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # use with `vivid`
 zstyle ':completion:*' file-sort date
 zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
 zstyle ':completion:*:paths' path-completion yes
-# zstyle ':autocomplete:*' ignored-input '..##'
+zstyle ':autocomplete:*' ignored-input '..##'
 zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
 zstyle ':autocomplete:*' min-delay 0.3  # seconds (float)
 zstyle ':autocomplete:*' min-input 2  # characters (int)
@@ -187,18 +187,8 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 # NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
-# export ZVM_INIT_MODE=sourcing
-# export ZVM_CURSOR_STYLE_ENABLED=true
-
-# FIX the blinding green on green directory listing on external drive.
-# Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
-# This should not be needed anymore since we use `vivid`, I'll keep it until we can properly test
-if [[ -f ~/.dircolors ]]; then
-  eval "$(dircolors -b ~/.dircolors)"
-elif [[ -f /etc/DIR_COLORS ]]; then
-  eval "$(dircolors -b /etc/DIR_COLORS)"
-fi
-# }}}
+ZVM_INIT_MODE=sourcing
+ZVM_CURSOR_STYLE_ENABLED=true
 
 # Update $PATH (platform *nix)) {{{
 exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
@@ -232,7 +222,7 @@ function zvm_after_init() {
 
   # Customs
   bindkey -M viins '^Xa' _expand_alias
-  bindkey -M viins '^R' atuin-search-viins
+  bindkey -M viins '^R' atuin-search
   bindkey -M vicmd '' up-line-or-history
   bindkey -M vicmd '' down-line-or-history
 
