@@ -15,8 +15,8 @@ source ~/.znap/zsh-snap/znap.zsh
 
 znap source romkatv/powerlevel10k powerlevel10k.zsh-theme
 znap source ohmyzsh/ohmyzsh \
+  lib/{clipboard,functions,misc,key-bindings,grep,git} \
   plugins/{git,git-extras,safe-paste,ssh,sudo,command-not-found}
-  # lib/{clipboard,history,key-bindings,directories} \
 
 znap source sorin-ionescu/prezto init.zsh \
   modules/{macports,homebrew,node,osx,tmux}
