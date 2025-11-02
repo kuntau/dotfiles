@@ -1,4 +1,8 @@
-*.log
-*.bak
+# folders
 .scratch
 .idea
+
+# file extensions
+*.log
+*.bak
+*.zwc
