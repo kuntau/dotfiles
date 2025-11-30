@@ -21,6 +21,12 @@ CHOME=$XDG_CONFIG_HOME
 ZHOME=$HOME/.znap
 FZF_HOME=$HOME/.fzf
 
+BOLD='\033[1m'
+UNDERLINE='\033[4m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
 ICON_WAIT='⏳'
 ICON_OK='✅'
@@ -56,18 +62,46 @@ CONFIG_DIRS=(
   wezterm
 )
 
+REQUIRED_BIN=(
+  zsh
+  git
+  bash
+  curl
+)
+
 CORE_BIN=(
   rg
   fd
+  uv
+  fzf
+  nnn
   bat
-  zoxide
-  atuin
   nvim
+  mosh
   tmux
+  rsync
+  atuin
+  delta
+  vivid
+  zoxide
 )
 
 EXTRA_BIN=(
+  sd
   nu
+  hx
+  jj
+  vim
+  bfs
+  dua
+  dust
+  glow
+  gitui
+  aria2c
+  rclone
+  fdupes
+  fclones
+  lazygit
 )
 
 
@@ -98,27 +132,29 @@ make_link() {
 
   # check if link exist, make backup & make symbolic link
   if [[ -e $sym_path && $MAKE_BACKUP = true ]]; then
-    echo "$ICON_WARN $base_file_name exists.. The original file will be backup to $base_file_name.bak"
+    echo -e "$ICON_WARN ${BOLD}${YELLOW}$base_file_name${NC} exists.. The original file will be backup to ${BOLD}${YELLOW}$base_file_name.bak${NC}"
     $cmd_prefix mv "$sym_path" "$sym_path.bak"
   fi
-  echo "$ICON_OK $base_file_name linked to ${source_path/#$HOME/\~}"
+  echo -e "$ICON_OK ${BOLD}${GREEN}$base_file_name${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
   $cmd_prefix ln -sf "$source_path" "$sym_path"
 }
 
 
+# Create directory: $1=DIR_PATH
 make_dir() {
   local cmd_prefix=${DEBUG:+"echo"}
   local dir=$1
   if [[ -d $dir ]]; then
-    echo "$ICON_WARN ${dir/#$HOME/\~} exist, skip making directory..."
+    echo -e "$ICON_WARN ${BOLD}${YELLOW}${dir/#$HOME/\~}${NC} exist, skip making directory..."
   else
-    echo "$ICON_OK Creating directory ${dir/#$HOME/\~}..."
+    echo -e "$ICON_OK Creating directory ${BOLD}${GREEN}${dir/#$HOME/\~}${NC}..."
     $cmd_prefix mkdir -p "$dir"
   fi
 }
 
 
-setup_config_dir() {
+# setup configs in XDG_CONFIG_HOME
+setup_configs() {
   local cmd_prefix=${DEBUG:+"echo"}
   local dir=$1
   make_dir "$CHOME/$dir"
@@ -131,17 +167,69 @@ setup_config_dir() {
 }
 
 
-check_binary() {
+# $1=BINARY $2=TEXT_OK $3=TEXT_ERR
+exist() {
   local bin=$1
-  local success=${2:-"$ICON_OK OK $bin available."}
-  local error=${3:-"$ICON_ERR ERROR $bin can't be found in \$PATH."}
+  local success=${2:-"$ICON_OK OK ${BOLD}${GREEN}$bin${NC} available."}
+  local error=${3:-"$ICON_ERR ERR ${BOLD}${RED}$bin${NC} can't be found in \$PATH."}
   if command -v "$bin" >/dev/null 2>&1; then
-    echo "$success"
+    echo -e "$success"
     return 0
   else
-    echo "$error"
+    echo -e "$error"
     return 1
   fi
+}
+
+
+# Install homebrew
+install_homebrew() {
+  if ! exist "brew"; then
+    if ask "$ICON_ASK Do you want to install homebrew? "; then
+      $(which bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+  fi
+}
+
+
+# TODO: Make automatic install without using the installer
+# Install MacPorts
+install_macports() {
+  if ! exist "port"; then
+    if ask "$ICON_ASK Do you want to install MacPorts? "; then
+      xcode-select --install
+      xcodebuild -license
+      echo -e "It's complicated. For now install MacPorts from ${BOLD}https://guide.macports.org/chunked/installing.macports.html${NC}"
+    fi
+  fi
+}
+
+
+# Check package manager
+check_pacman() {
+  # $(which bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo ""
+  echo "$ICON_WAIT Checking package manager..."
+  if [[ $OS = Linux ]]; then
+    install_homebrew
+  elif [[ $OS = Darwin ]]; then
+    install_homebrew
+    install_macports
+  fi
+  return 0
+}
+
+
+# check array of binary. $1=GROUP $2=ARRAY_OF_BIN
+check_binary() {
+  local -n misses=$1
+  shift
+  local bins=("$@")
+  for bin in "${bins[@]}"; do
+    if ! exist "$bin"; then
+      misses+=("$bin")
+    fi
+  done
 }
 
 
@@ -152,9 +240,9 @@ clone_repo() {
   local url=$2
   local dir=$3
   if [[ -d $dir ]]; then
-    echo "$ICON_WARN You already have $name installed, skipping..."
+    echo -e "$ICON_WARN You already have ${BOLD}${YELLOW}$name${NC} installed, skipping..."
   else
-    echo "$ICON_GITHUB Cloning $name..."
+    echo -e "$ICON_GITHUB Cloning ${BOLD}${GREEN}$name${NC}..."
     $cmd_prefix "$(which git)" clone --filter=blob:none "$url" "$dir"
   fi
 }
@@ -162,9 +250,31 @@ clone_repo() {
 
 # START INSTALL #
 main() {
+  local missings=()
   echo "$ICON_WAIT Checking requirements..."
-  check_binary "git"
-  check_binary "zsh"
+  for tool in "${REQUIRED_BIN[@]}"; do
+    if ! exist "$tool"; then
+      return 1
+    fi
+  done
+
+  check_pacman
+
+  # check core tools
+  if ask "$ICON_ASK Check core tool availability? "; then
+    echo "$ICON_WAIT Checking core tool availability..."
+    echo ""
+    check_binary missings "${CORE_BIN[@]}"
+    echo "${missings[*]}"
+  fi
+
+  # check extra tools
+  if ask "$ICON_ASK Check extra tool availability? "; then
+    echo "$ICON_WAIT Checking extra tool availability..."
+    echo ""
+    check_binary "${EXTRA_BIN[@]}"
+    echo "${missings[*]}"
+  fi
 
   if ! ask "$ICON_ASK Continue installation? "; then exit; fi
 
@@ -172,8 +282,7 @@ main() {
   if ask "$ICON_ASK Link config files? "; then
     echo "$ICON_WAIT Linking config files..."
     echo ""
-    for dir in "${CONFIG_FILES[@]}"
-    do
+    for dir in "${CONFIG_FILES[@]}"; do
       make_link "$DOTFILES/config/$dir" "$HOME/.$dir"
     done
     # Link ssh config
@@ -185,11 +294,9 @@ main() {
     echo "$ICON_WAIT Linking config directories..."
     echo ""
     for dir in "${CONFIG_DIRS[@]}"; do
-      setup_config_dir "$dir"
+      setup_configs "$dir"
     done
   fi
-
-  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
 
   # Install fzf
   if ask "$ICON_ASK Install fzf? "; then
@@ -205,6 +312,8 @@ main() {
   if ask "$ICON_ASK Install TMUX Plugin Manager (TPM)? "; then
     clone_repo "tpm" "https://github.com/tmux-plugins/tpm.git " "$HOME/.tmux/plugins/tpm"
   fi
+
+  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
 
   # check .secret file availability
   echo ""
