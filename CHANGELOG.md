@@ -7,10 +7,34 @@
     ░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝░╚═════╝░╚══════╝╚══════╝░╚════╝░░╚═════╝░
 
 # DOTFILES CHANGELOG <sup>Please keep me updated :(</sup>
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+v5.0.0 / 2025-12-02
+===================
+
+  * feat(install): add feature to offer to install missing packages
+  * feat(install): add more features below
+  * refactor(zsh): env & functions goes to the top
+  * fix(zsh): remove zplug deps & fix/improve aliases to include prezto
+  * feat(install): Add check for package manager & use colors
+  * docs: update TODO
+  * feat(): rewrite `install` script
+  * chore(git): ignore _zsh word code_ (zwc) files
+  * fix(zsh): fix missing libs from omz
+  * fix(zsh): load homebrew config early so we get it in $PATH
+  * chore(zsh): update _rustup from latest version
+  * feat(zsh): try `znap function` for completions (wip)
+  * feat(zsh): add presto & remove omz lib (wip)
+  * chore(zsh): tweak & cleanup
+  * feat(zsh): add `zbrowse` plugin
+  * chore(zsh): cleanup
+  * chore(zsh): use `atuin` instead of `history-substring-search`
+  * fix(zsh): fix `p10k` instant prompt
+  * feat(zsh): upgrade package manager `zplug` -> `znap` (wip)
 
 v4.1.1 / 2025-10-27
 ===================
