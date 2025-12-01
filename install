@@ -8,9 +8,9 @@ set -eu
 # --- Configuration ---
 SCRIPT_NAME="$(basename "$0")"
 VERSION="1.0.0"
-DEBUG=false
-VERBOSE=false
-ALL=false
+DEBUG=
+VERBOSE=
+FULL=
 MAKE_BACKUP=true
 OS=$(uname)
 HOSTNAME=$(hostname)
@@ -96,6 +96,8 @@ EXTRA_BIN=(
   dua
   dust
   glow
+  node
+  nginx
   gitui
   aria2c
   rclone
@@ -108,8 +110,8 @@ EXTRA_BIN=(
 # prompt with default to *yes* borrowed from *fzf*
 # return code 0 for true, 1-255 for false
 ask() {
-  if [[ $ALL = true ]]; then return 0; fi
   echo ""
+  if [[ $FULL = true ]]; then return 0; fi
   while true; do
     read -p "$1 ([y]/n) " -r
     REPLY=${REPLY:-"y"}
@@ -125,6 +127,7 @@ ask() {
 # Symlink file/folder: $1=SOURCE/ORIGIN $2=TARGET/NEW
 make_link() {
   local cmd_prefix=${DEBUG:+"echo"}
+  local verbosity=${VERBOSE:+":"}
   local source_path=$1
   local sym_path=$2
   local base_file_name
@@ -132,10 +135,10 @@ make_link() {
 
   # check if link exist, make backup & make symbolic link
   if [[ -e $sym_path && $MAKE_BACKUP = true ]]; then
-    echo -e "$ICON_WARN ${BOLD}${YELLOW}$base_file_name${NC} exists.. The original file will be backup to ${BOLD}${YELLOW}$base_file_name.bak${NC}"
+    $verbosity echo -e "$ICON_WARN ${BOLD}${YELLOW}$base_file_name${NC} exists.. The original file will be backup to ${BOLD}${YELLOW}$base_file_name.bak${NC}"
     $cmd_prefix mv "$sym_path" "$sym_path.bak"
   fi
-  echo -e "$ICON_OK ${BOLD}${GREEN}$base_file_name${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
+  $verbosity echo -e "$ICON_OK ${BOLD}${GREEN}$base_file_name${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
   $cmd_prefix ln -sf "$source_path" "$sym_path"
 }
 
@@ -143,11 +146,12 @@ make_link() {
 # Create directory: $1=DIR_PATH
 make_dir() {
   local cmd_prefix=${DEBUG:+"echo"}
+  local verbosity=${VERBOSE:+":"}
   local dir=$1
   if [[ -d $dir ]]; then
-    echo -e "$ICON_WARN ${BOLD}${YELLOW}${dir/#$HOME/\~}${NC} exist, skip making directory..."
+    $verbosity echo -e "$ICON_WARN ${BOLD}${YELLOW}${dir/#$HOME/\~}${NC} exist, skip making directory..."
   else
-    echo -e "$ICON_OK Creating directory ${BOLD}${GREEN}${dir/#$HOME/\~}${NC}..."
+    $verbosity echo -e "$ICON_OK Creating directory ${BOLD}${GREEN}${dir/#$HOME/\~}${NC}..."
     $cmd_prefix mkdir -p "$dir"
   fi
 }
@@ -163,7 +167,6 @@ setup_configs() {
     base_file=$(basename "$file")
     make_link "$file" "$CHOME/$dir/$base_file"
   done
-  echo ""
 }
 
 
@@ -272,11 +275,9 @@ main() {
   if ask "$ICON_ASK Check extra tool availability? "; then
     echo "$ICON_WAIT Checking extra tool availability..."
     echo ""
-    check_binary "${EXTRA_BIN[@]}"
+    check_binary missings "${EXTRA_BIN[@]}"
     echo "${missings[*]}"
   fi
-
-  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
 
   # Link config files
   if ask "$ICON_ASK Link config files? "; then
@@ -298,6 +299,8 @@ main() {
     done
   fi
 
+  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
+
   # Install fzf
   if ask "$ICON_ASK Install fzf? "; then
     clone_repo "fzf" "https://github.com/junegunn/fzf.git" "$FZF_HOME"
@@ -317,9 +320,9 @@ main() {
 
   # check .secret file availability
   echo ""
-  echo "$ICON_WAIT Checking .secret file..."
+  echo -e "$ICON_WAIT Checking $BOLD$UNDERLINE.secret$NC file..."
   if [[ -f $HOME/.secret ]]; then
-    echo "$ICON_WARN .secret file exist.. Skip installing"
+    echo -e "$ICON_WARN $BOLD$UNDERLINE.secret$NC file exist. Skipping..."
   else
     touch "$HOME/.secret"
   fi
@@ -356,14 +359,10 @@ main() {
   done
   echo ""
 
-  # source ~/.zshrc
-  # $EDITOR +PlugInstall
-
-  hash node 2>/dev/null || { echo "No NodeJS installation detected. Alternative https://github.com/nodesource/distributions/blob/master/README.md"; }
-  hash nginx 2>/dev/null || { echo "No nginx installation detected. "; }
-
   echo "$ICON_OK dotfiles install completed."
 
+  # source "$HOME/.zshrc"
+  exec zsh
 }
 
 
@@ -372,18 +371,21 @@ show_help() {
 Usage: $SCRIPT_NAME [OPTIONS] [ARGS...]
 
 Options:
-      --help      Show this help message and exit
+      --full      Install all configs without prompt
+      --debug     Enabe debug mode (no op)
+      --no-backup Do not make backup file we overwrite
 
+  -q, --quiet     Keep output minimal
   -h, --help      Show this help message and exit
   -v, --version   Show version number and exit
-      --debug     Enabe debug mode
+
 EOF
     exit 0
 }
 
 
 show_version() {
-    echo "$SCRIPT_NAME $VERSION"
+    echo "$SCRIPT_NAME v$VERSION"
     exit 0
 }
 
@@ -399,11 +401,14 @@ while [[ $# -gt 0 ]]; do
         --no-backup)
             MAKE_BACKUP=false
             ;;
-        --verbose)
-            VERBOSE=true
+        --full)
+            FULL=true
             ;;
-        --all)
-            ALL=true
+        -q|--quiet)
+            VERBOSE=false
+            ;;
+        --verbose)
+            VERBOSE=
             ;;
         --debug)
             DEBUG=true
