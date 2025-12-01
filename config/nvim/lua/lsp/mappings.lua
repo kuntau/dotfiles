@@ -44,8 +44,8 @@ local setup = function(bufnr, server_capabilities)
   end
 
   -- stylua: ignore
-  nmap(']d', function() vim.diagnostic.goto_next() end,  'Next diagnostic')
-  nmap('[d', function() vim.diagnostic.goto_prev() end, 'Prev diagnostic')
+  nmap(']d', function() vim.diagnostic.jump({ count = 1 }) end,  'Next diagnostic')
+  nmap('[d', function() vim.diagnostic.jump({ count = -1 }) end, 'Prev diagnostic')
   nmap('<Leader>ll',  function() vim.diagnostic.open_float() end, 'Open diagnostics float')
   nmap('<Leader>sq',  function() vim.diagnostic.setqflist() end, 'Open diagnostics in QuickFix list')
   nmap('<Leader>sl',  function() vim.diagnostic.setloclist() end, 'Open diagnostics in Location List')
