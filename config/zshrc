@@ -43,6 +43,7 @@ znap source babarot/enhancd 'init.sh'  # alias to cd for trigger
 exists zoxide || znap source agkozak/zsh-z
 
 # Extra helper for debugging `zbrowse`
+znap source MichaelAquilina/zsh-autoswitch-virtualenv
 znap source zdharma-continuum/zui
 znap source zdharma-continuum/zbrowse
 
@@ -184,6 +185,9 @@ export BAT_PAGER="less -RS"
 export ENHANCD_FILTER=fzf
 export ENHANCD_DISABLE_DOT=0
 export ENHANCD_DISABLE_HYPHEN=0
+
+# autoswitch-virtualenv - https://github.conm/MichaelAquilina/zsh-autoswitch-virtualenv
+export AUTOSWITCH_SILENT=1
 
 # ripgrep - https://github.com/BurntSushi/ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
