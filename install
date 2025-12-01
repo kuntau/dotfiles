@@ -33,6 +33,7 @@ ICON_OK='✅'
 ICON_ERR='❌'
 ICON_WARN='⚠️'
 ICON_ASK='❔'
+ICON_INFO='ℹ️'
 ICON_GITHUB=' '
 
 # Config files to install
@@ -185,6 +186,22 @@ exist() {
 }
 
 
+# Install packages
+install_packages() {
+  local cmd_prefix=${DEBUG:+"echo"}
+  local verbosity=${VERBOSE:+":"}
+  local packages=$*
+  
+  $verbosity echo -e "$ICON_INFO Missing packages: ${BOLD}${YELLOW}$packages${NC}"
+  if ask "$ICON_ASK Do you want to install them? "; then
+    if exist brew; then
+      $cmd_prefix brew update && $cmd_prefix brew install "$packages"
+    elif exist port; then
+      $cmd_prefix sudo port sync && $cmd_prefix sudo port install "$packages"
+    fi
+  fi
+}
+
 # Install homebrew
 install_homebrew() {
   if ! exist "brew"; then
@@ -253,7 +270,6 @@ clone_repo() {
 
 # START INSTALL #
 main() {
-  local missings=()
   echo "$ICON_WAIT Checking requirements..."
   for tool in "${REQUIRED_BIN[@]}"; do
     if ! exist "$tool"; then
@@ -265,19 +281,24 @@ main() {
 
   # check core tools
   if ask "$ICON_ASK Check core tool availability? "; then
+    local missing_cores=()
     echo "$ICON_WAIT Checking core tool availability..."
     echo ""
-    check_binary missings "${CORE_BIN[@]}"
-    echo "${missings[*]}"
+    check_binary missing_cores "${CORE_BIN[@]}"
+    install_packages "${missing_cores[@]}"
   fi
 
   # check extra tools
   if ask "$ICON_ASK Check extra tool availability? "; then
+    local missing_extras=()
     echo "$ICON_WAIT Checking extra tool availability..."
     echo ""
-    check_binary missings "${EXTRA_BIN[@]}"
-    echo "${missings[*]}"
+    check_binary missing_extras "${EXTRA_BIN[@]}"
+    install_packages "${missing_extras[@]}"
+    # echo "${missing_extras[*]}"
   fi
+
+  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
 
   # Link config files
   if ask "$ICON_ASK Link config files? "; then
@@ -298,8 +319,6 @@ main() {
       setup_configs "$dir"
     done
   fi
-
-  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
 
   # Install fzf
   if ask "$ICON_ASK Install fzf? "; then
