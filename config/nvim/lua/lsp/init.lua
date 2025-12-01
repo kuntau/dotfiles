@@ -65,6 +65,19 @@ if not configs.ls_emmet then
   }
 end
 
+-- vim.lsp.enable('emmylua_ls')
+-- Custom server emmylua_ls.. must be above the main servers loop
+if not configs.emmylua_ls then
+  configs.emmylua_ls = {
+    default_config = {
+      cmd = { 'emmylua_ls' },
+      filetypes = { 'lua' },
+      root_markers = { ".luarc.json", ".emmyrc.json", ".luacheckrc", ".git" },
+      workspace_required = false,
+    },
+  }
+end
+
 -- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.foldingRange = {
@@ -79,42 +92,76 @@ if neodev_ok then neodev.setup({ library = { runtime = true, plugins = false } }
 -- table.insert(runtime_path, 'lua/?.lua')
 -- table.insert(runtime_path, 'lua/?/init.lua')
 
-lspconfig.lua_ls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  flags = { debounce_text_changes = DEBOUNCE_TIME },
-  settings = {
-    Lua = {
-      completion = {
-        workspaceWord = true,
-        callSnippet = 'Replace', -- 'Both'
-      },
-      format = {
-        enable = false -- Use stylua to format
-      },
-      runtime = {
-        version = 'LuaJIT', -- Tell the language server we're using LuaJIT
-        -- path = runtime_path, -- Setup your lua path. SLOW: Use neodev
-      },
-      diagnostics = {
-        globals = { 'vim' }, -- Get the language server to recognize the `vim` global
-      },
-      workspace = {
-        -- library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files. SLOW: Use neodev
-        checkThirdParty = false,
-      },
-      telemetry = { enable = false },
-    },
-  },
-})
+-- lspconfig.lua_ls.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   flags = { debounce_text_changes = DEBOUNCE_TIME },
+--   settings = {
+--     Lua = {
+--       completion = {
+--         workspaceWord = true,
+--         callSnippet = 'Replace', -- 'Both'
+--       },
+--       format = {
+--         enable = false -- Use stylua to format
+--       },
+--       runtime = {
+--         version = 'LuaJIT', -- Tell the language server we're using LuaJIT
+--         -- path = runtime_path, -- Setup your lua path. SLOW: Use neodev
+--       },
+--       diagnostics = {
+--         globals = { 'vim' }, -- Get the language server to recognize the `vim` global
+--       },
+--       workspace = {
+--         -- library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files. SLOW: Use neodev
+--         checkThirdParty = false,
+--       },
+--       telemetry = { enable = false },
+--     },
+--   },
+-- })
 
 for _, lsp in ipairs(servers) do
+  local settings
+  if lsp == 'lua_ls' then
+    settings = {
+      Lua = {
+        completion = {
+          workspaceWord = true,
+          callSnippet = 'Replace', -- 'Both'
+        },
+        format = {
+          enable = false -- Use stylua to format
+        },
+        runtime = {
+          version = 'LuaJIT', -- Tell the language server we're using LuaJIT
+          -- path = runtime_path, -- Setup your lua path. SLOW: Use neodev
+        },
+        diagnostics = {
+          globals = { 'vim' }, -- Get the language server to recognize the `vim` global
+        },
+        workspace = {
+          -- library = vim.api.nvim_get_runtime_file('', true), -- Make the server aware of Neovim runtime files. SLOW: Use neodev
+          checkThirdParty = false,
+        },
+        telemetry = { enable = false },
+      },
+    }
+  end
+
+  if lsp == 'bashls' then
+    settings = {
+      filetype = { 'sh', 'zsh' }
+    }
+  end
+
   lspconfig[lsp].setup({
     on_attach = on_attach,
     flags = {
       debounce_text_changes = DEBOUNCE_TIME,
     },
     capabilities = capabilities,
+    settings = settings
   })
 end
 

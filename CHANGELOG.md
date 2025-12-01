@@ -13,6 +13,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+v5.0.1 / 2025-12-02
+===================
+
+  * fix(nvim): change deprecated LSP command
+  * fix(nvim): explicitly setting cmdheight=0 give cmd popup on startup
+  * fix(nvim): leap no longer provide default mappings
+  * chore(atuin): use fuzzy search mode so we can use fzf syntax
+
 v5.0.0 / 2025-12-02
 ===================
 

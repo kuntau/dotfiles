@@ -106,9 +106,13 @@ return {
       }, -- Auto/manage LSP
       {
         'williamboman/mason-lspconfig.nvim',
+        enabled = false,
         opts = {
           automatic_installation = true,
           ensure_installed = ensure_installed,
+          automatic_enable = {
+            'emmylua_ls',
+          },
         },
       },  -- Bridge for mason-LSP config
       { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },

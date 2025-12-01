@@ -65,8 +65,8 @@
   pager = delta
 [credential]
   # helper = osxkeychain
-  # credentialStore = gpg
-  # helper = /usr/local/bin/git-credential-manager
+  credentialStore = gpg
+  helper = "/home/linuxbrew/.linuxbrew/bin/gh auth git-credential"
 [credential "https://github.com"]
   helper = cache --timeout=3600
   username = kuntau
