@@ -6,7 +6,8 @@ return {
     event = 'BufReadPost',
     config = function()
       local leap = require('leap')
-      leap.add_default_mappings()
+      vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+      vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
       leap.opts.case_sensitive = true
       leap.opts.max_phase_one_targets = 5
       leap.opts.highlight_unlabeled_phase_one_targets = true
