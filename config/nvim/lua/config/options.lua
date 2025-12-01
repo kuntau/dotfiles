@@ -147,7 +147,7 @@ vim.g.loaded_node_provider = 0
 vim.g.loaded_python3_provider = 0
 
 if vim.fn.has('nvim-0.8') == 1 then
-  vim.opt.cmdheight = 0
+  -- vim.opt.cmdheight = 0
   vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup'
 end
 
