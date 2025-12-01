@@ -105,21 +105,27 @@ else
   alias json='python -mjson.tool'
 fi
 
-OMZ_PATH="$ZPLUG_REPOS/robbyrussell/oh-my-zsh"
+OMZ_PATH="$ZHOME/ohmyzsh/ohmyzsh"
+PREZTO_PATH="$ZHOME/sorin-ionescu/prezto"
+
 omz-plugin() {
-  $PAGER -p "$OMZ_PATH/plugins/$1/$1.plugin.zsh"
+  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
+  $PAGER -p "$OMZ_PATH/plugins/$cmd/$cmd.plugin.zsh"
 }
-# TODO: Figure out how to list plugins with FZF and enter will open README
-omz-list() {
-  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$(ls $OMZ_PATH/plugins | fzf)/README.md"
-}
+
 omz-readme() {
-  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$1/README.md"
+  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
+  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$cmd/README.md"
+}
+
+prezto-readme() {
+  cmd=${1:-"$(command ls $PREZTO_PATH/modules | fzf)"}
+  $MARKDOWN_VIEWER -p "$PREZTO_PATH/modules/$cmd/README.md"
 }
 
 # create directory and immedietly cd into it
 mkd() {
-  mkdir -p "$1" && cd "$1"
+  mkdir -p "$1" && command cd "$1"
 }
 
 # wget make mirror
