@@ -114,7 +114,7 @@ ask() {
   echo ""
   if [[ $FULL = true ]]; then return 0; fi
   while true; do
-    read -p "$1 ([y]/n) " -r
+    read -p "$(echo -e "$1" '([y]/n) ')" -r
     REPLY=${REPLY:-"y"}
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       return 0
@@ -192,20 +192,23 @@ install_packages() {
   local verbosity=${VERBOSE:+":"}
   local packages=$*
   
-  $verbosity echo -e "$ICON_INFO Missing packages: ${BOLD}${YELLOW}$packages${NC}"
-  if ask "$ICON_ASK Do you want to install them? "; then
-    if exist brew; then
-      $cmd_prefix brew update && $cmd_prefix brew install "$packages"
-    elif exist port; then
-      $cmd_prefix sudo port sync && $cmd_prefix sudo port install "$packages"
+  if [[ ${#packages} -gt 0 ]]; then
+    $verbosity echo -e "\n$ICON_INFO Missing packages: ${BOLD}${YELLOW}$packages${NC}"
+    if ask "$ICON_ASK Install ${BOLD}${YELLOW}$packages${NC} with package manager?"; then
+      if exist brew; then
+        $cmd_prefix brew update && $cmd_prefix brew install "$packages"
+      elif exist port; then
+        $cmd_prefix sudo port sync && $cmd_prefix sudo port install "$packages"
+      fi
     fi
   fi
+
 }
 
 # Install homebrew
 install_homebrew() {
   if ! exist "brew"; then
-    if ask "$ICON_ASK Do you want to install homebrew? "; then
+    if ask "$ICON_ASK Do you want to install homebrew?"; then
       $(which bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
   fi
@@ -216,7 +219,7 @@ install_homebrew() {
 # Install MacPorts
 install_macports() {
   if ! exist "port"; then
-    if ask "$ICON_ASK Do you want to install MacPorts? "; then
+    if ask "$ICON_ASK Do you want to install MacPorts?"; then
       xcode-select --install
       xcodebuild -license
       echo -e "It's complicated. For now install MacPorts from ${BOLD}https://guide.macports.org/chunked/installing.macports.html${NC}"
@@ -280,7 +283,7 @@ main() {
   check_pacman
 
   # check core tools
-  if ask "$ICON_ASK Check core tool availability? "; then
+  if ask "$ICON_ASK Check core tool availability?"; then
     local missing_cores=()
     echo "$ICON_WAIT Checking core tool availability..."
     echo ""
@@ -289,7 +292,7 @@ main() {
   fi
 
   # check extra tools
-  if ask "$ICON_ASK Check extra tool availability? "; then
+  if ask "$ICON_ASK Check extra tool availability?"; then
     local missing_extras=()
     echo "$ICON_WAIT Checking extra tool availability..."
     echo ""
@@ -298,10 +301,10 @@ main() {
     # echo "${missing_extras[*]}"
   fi
 
-  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
+  if ! ask "$ICON_ASK Continue installation?"; then exit; fi
 
   # Link config files
-  if ask "$ICON_ASK Link config files? "; then
+  if ask "$ICON_ASK Link config files?"; then
     echo "$ICON_WAIT Linking config files..."
     echo ""
     for dir in "${CONFIG_FILES[@]}"; do
@@ -312,7 +315,7 @@ main() {
   fi
 
   # Link config directories
-  if ask "$ICON_ASK Link config directories? "; then
+  if ask "$ICON_ASK Link config directories?"; then
     echo "$ICON_WAIT Linking config directories..."
     echo ""
     for dir in "${CONFIG_DIRS[@]}"; do
@@ -321,21 +324,21 @@ main() {
   fi
 
   # Install fzf
-  if ask "$ICON_ASK Install fzf? "; then
+  if ask "$ICON_ASK Install fzf?"; then
     clone_repo "fzf" "https://github.com/junegunn/fzf.git" "$FZF_HOME"
   fi
 
   # Install znap
-  if ask "$ICON_ASK Install znap? "; then
+  if ask "$ICON_ASK Install znap?"; then
     clone_repo "znap" "https://github.com/merlonrichert/zsh-snap.git" "$ZHOME/zsh-snap"
   fi
 
   # Install tmux plugins manager
-  if ask "$ICON_ASK Install TMUX Plugin Manager (TPM)? "; then
+  if ask "$ICON_ASK Install TMUX Plugin Manager (TPM)?"; then
     clone_repo "tpm" "https://github.com/tmux-plugins/tpm.git " "$HOME/.tmux/plugins/tpm"
   fi
 
-  if ! ask "$ICON_ASK Continue installation? "; then exit; fi
+  if ! ask "$ICON_ASK Continue installation?"; then exit; fi
 
   # check .secret file availability
   echo ""
@@ -347,11 +350,11 @@ main() {
   fi
 
   # append path.. possible duplicate..
-  if ask "$ICON_ASK Append \$PATH to the end of ~/.zshrc? "; then
+  if ask "$ICON_ASK Append \$PATH to the end of $BOLD$UNDERLINE~/.zshrc$NC?"; then
     export PATH=\$PATH:$PATH >> "$HOME/.zshrc"
   fi
 
-  if ask "$ICON_ASK Change default shell to zsh? "; then
+  if ask "$ICON_ASK Change default shell to zsh?"; then
     chsh -s "$(which zsh)"
   fi
 
