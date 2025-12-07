@@ -134,8 +134,6 @@ return {
   { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
   { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = ':TSInstall nu' }, -- nu shell systax, TSInstall nu
-  { 'MeanderingProgrammer/markdown.nvim', main = 'render-markdown', config = true, ft = 'markdown' },
-  -- { 'OXY2DEV/markview.nvim', ft = 'markdown' }, -- TODO: Torned between this or `markdown.nvim`
   { 'fladson/vim-kitty', ft = 'kitty' }, -- kitty config syntax file
 
   -- TODO: Configure the following plugins
@@ -145,7 +143,6 @@ return {
   'nvim-pack/nvim-spectre', -- Search and replace workflow
 
   -- Misc
-  'toppair/peek.nvim', -- Markdown preview
   -- gen740/SmoothCursor.nvim
   -- rktjmp/paperplanes.nvim
   -- ThePrimeagen/harpoon
