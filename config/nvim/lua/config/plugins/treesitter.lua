@@ -141,7 +141,7 @@ return {
   },
   { 'chrisgrieser/nvim-various-textobjs',
     name = 'various-textobjs',
-    opts = { keymaps = { useDefaults = true } },
+    opts = { keymaps = { useDefaults = true, disabledDefaults = { 'r' } } },
     event = 'ModeChanged',
   },
   { 'windwp/nvim-ts-autotag', ft = { 'markdown', 'vue', 'html', 'jsx', 'tsx' } }, -- auto complete HTML tags
