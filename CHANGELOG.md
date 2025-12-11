@@ -13,6 +13,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+v5.0.2 / 2025-12-12
+===================
+
+  * chore(git): add `lazygit` alias
+  * fix(nnn): use normal cp/mv
+  * fix(zsh): fix `mkd`
+  * fix(nvim): remove `r` mapping from `various-textobjs`
+  * ref(kitty): reorganize files
+  * ref(tmux): update `tm` script
+  * ref(tmux): add auto dark/light & reorganize files
+  * refactor(nvim): more markdown tweaks
+  * refactor(nvim): refactor markdown format usage
+  * fix(zsh): fix `install_packages` function in `install`
+  * chore(nvim): update lazy.lock file
+  * chore(kitty): change `kitty_mod`
+  * feat(zsh): add autoswitch-virtualenv
+
 v5.0.1 / 2025-12-02
 ===================
 
