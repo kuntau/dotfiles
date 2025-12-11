@@ -125,7 +125,7 @@ prezto-readme() {
 
 # create directory and immedietly cd into it
 mkd() {
-  mkdir -p "$1" && command cd "$1"
+  mkdir -p "$1" && builtin cd "$1"
 }
 
 # wget make mirror
