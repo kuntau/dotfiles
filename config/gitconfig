@@ -9,6 +9,7 @@
   unstage = reset HEAD --
   ui = !gitui
   sm = !smerge
+  lazy = !lazygit
   # https://gist.github.com/junegunn/f4fca918e937e6bf5bad#gistcomment-3715673
   fzf = !"                                                                                                                                                                                              \
       function gfzf() {                                                                                                                                                                                 \
