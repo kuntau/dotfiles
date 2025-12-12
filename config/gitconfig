@@ -43,7 +43,7 @@
 [credential]
   # helper = osxkeychain
   credentialStore = gpg
-  helper = "/opt/homebrew/bin/gh auth git-credential"
+  helper = "/data/data/com.termux/files/usr/bin/gh auth git-credential"
 [credential "https://github.com"]
   helper = cache --timeout=3600
   username = kuntau
@@ -148,3 +148,6 @@
 [mergetool "smerge"]
   cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
   trustExitCode = true
+[safe]
+	directory = /data/data/com.termux/files/home/storage/shared/Documents/notes
+	directory = /storage/emulated/0/Documents/notes
