@@ -82,33 +82,30 @@ elif [[ $OS_NAME == Darwin ]]; then
 
   # Homebrew
   export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  export HOMBREW_GIT_PATH=/opt/local/bin/git
 
   # nnn
   export NNN_OPENER='open' # set MacOS nnn opener
-
-  # Add MacPorts MAN path
-  export MANPATH=$MANPATH:/opt/local/man
-
-  # LSP
-  export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
+  export NNN_BMS='D:~/dotfiles;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local;T:~/Dropbox/transporter';V:/Volumes
 
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'HQ' ]]; then
+    export MANPATH=$MANPATH:/opt/local/man                # Add MacPorts MAN path
+    export HOMBREW_GIT_PATH=/opt/local/bin/git
     export ANDROID_HOME=/Volumes/HOME/Android/SDK
     export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
-    export NNN_BMS='D:~/dotfiles;d:/Volumes/HOME/Downloads;E:/Volumes/Entertainment;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local;T:~/Dropbox/transporter'
+    export NNN_BMS="$NNN_BMS;d:/Volumes/HOME/Downloads;E:/Volumes/Entertainment"
   elif [[ $HOST_NAME == 'rMBP' ]]; then
-    export ANDROID_HOME=~/Library/Android/sdk
-    export NNN_BMS='D:~/dotfiles;d:~/downloads;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local;V:/Volumes;T:~/Dropbox/transporter'
+    export ANDROID_HOME=$HOME/Library/Android/sdk
   elif [[ $HOST_NAME == 'MBA' ]]; then
     exists brew && export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH           # pip app binary path
-    export NNN_BMS='D:~/dotfiles;d:~/Downloads;f:~/Coding/forks;c:~/Coding;C:~/.config;L:~/.local;V:/Volumes;T:~/Dropbox/transporter'
   fi
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
   source ~/dotfiles/mintty/sol.dark
 fi
+
+# Neovim LSP/Mason
+export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
 
 # Homebrew
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -130,10 +127,6 @@ dark_theme='catppuccin-mocha'
 # vivid - LS_COLORS generator
 exists vivid && LS_COLORS=$(vivid generate $(is_day && echo $light_theme || echo $dark_theme))
 export LS_COLORS
-
-# Kitty
-kitty_theme=$(is_day && echo $light_theme || echo $dark_theme)
-[[ -n $KITTY_PID ]] && $command kitten themes $kitty_theme
 
 # zsh-autosuggestions. https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file#configuration
 autosuggest_light_theme="#808080"
@@ -192,10 +185,66 @@ export AUTOSWITCH_SILENT=1
 # ripgrep - https://github.com/BurntSushi/ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+export IS_DAY=$(is_day && echo 1)
+
 # NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
 ZVM_INIT_MODE=sourcing
 ZVM_CURSOR_STYLE_ENABLED=true
+
+# nnn
+export NNN_BMS='D:~/dotfiles;C:~/.config;L:~/.local'
+
+# OS specific ENVIRONMENT VARIABLE
+if [[ $OS_NAME == Linux ]]; then
+  export DENO_INSTALL='/home/kuntau/.deno'
+
+  # nnn
+  export NNN_OPENER='nuke'
+
+  # linuxbrew
+  [[ -d /home/linuxbrew ]] && znap eval brew "/home/linuxbrew/.linuxbrew/bin/brew shellenv"
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'hqsvr' ]]; then
+    export COMPOSER_HOME=$HOME/.composer
+
+    export NNN_BMS="$NNN_BMS;d:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;f:/HQPOOL/Coding/forks"
+  fi
+elif [[ $OS_NAME == Darwin ]]; then
+  # python: https://docs.python.org/3/using/cmdline.html#environment-variables
+  export PYTHONUSERBASE=~/.local
+
+  # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
+  GPG_TTY=$(tty)
+  export GPG_TTY
+
+  # Homebrew
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+  export PATH=/usr/local/sbin:$PATH
+
+  # nnn
+  export NNN_OPENER='open' # set MacOS nnn opener
+  export NNN_BMS="$NNN_BMS;c:~/coding;f:~/coding/forks;T:~/Dropbox/transporter;V:/Volumes"
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'HQ' ]]; then
+    export MANPATH=$MANPATH:/opt/local/man                # Add MacPorts MAN path
+    export HOMEBREW_GIT_PATH=/opt/local/bin/git
+    export ANDROID_HOME=/Volumes/HOME/Android/SDK
+    export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
+    export NNN_BMS="$NNN_BMS;d:/Volumes/HOME/Downloads;E:/Volumes/Entertainment"
+  elif [[ $HOST_NAME == 'rMBP' ]]; then
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+    export NNN_BMS="$NNN_BMS;d:~/Downloads"
+  elif [[ $HOST_NAME == 'MBA' ]]; then
+    export NNN_BMS="$NNN_BMS;d:~/Downloads"
+    exists brew && export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH           # pip app binary path
+  fi
+elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
+  export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
+  source ~/dotfiles/mintty/sol.dark
+fi
 
 # Update $PATH (platform *nix)) {{{
 exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
@@ -242,6 +291,7 @@ function zvm_after_init() {
   znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
   znap function _synthing synthing 'eval "$(synthing install-completions)"'
   znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
+  znap function _glow glow 'eval "$(glow completion zsh)"'
   fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
 
   source $DOTFILES/zsh/default.zsh # my defaults
