@@ -342,15 +342,15 @@ main() {
 
   # check .secret file availability
   echo ""
-  echo -e "$ICON_WAIT Checking $BOLD$UNDERLINE.secret$NC file..."
+  echo -e "$ICON_WAIT Checking $BOLD.secret$NC file..."
   if [[ -f $HOME/.secret ]]; then
-    echo -e "$ICON_WARN $BOLD$UNDERLINE.secret$NC file exist. Skipping..."
+    echo -e "$ICON_WARN $BOLD.secret$NC file exist. Skipping..."
   else
     touch "$HOME/.secret"
   fi
 
   # append path.. possible duplicate..
-  if ask "$ICON_ASK Append \$PATH to the end of $BOLD$UNDERLINE~/.zshrc$NC?"; then
+  if ask "$ICON_ASK Append \$PATH to the end of $BOLD~/.zshrc$NC?"; then
     export PATH=\$PATH:$PATH >> "$HOME/.zshrc"
   fi
 
