@@ -21,32 +21,32 @@
 
 ## Stacks
 
-| Category        | Software                  |
-| :-------        | :---------:               |
-| Shell           | zsh, nu                   |
-| TUI editor      | neovim, helix             |
-| GUI editor      | sublime, vscode, zed      |
-| Player          | mpv, iina, vlc            |
-| Terminal        | wezterm, kitty, ghostty   |
-| Multiplexer     | tmux, ~zellij~            |
-| Finder          | fd, bfs                   |
-| Fuzzy finder    | fzf, ~skim~, ~fzy~        |
-| File manager    | nnn                       |
-| Note taking     | obsidian, ia writer       |
-| Disk usage      | ncdu, dua, dust           |
-| Prompt          | p10k, omp                 |
-| Jumper          | zsh-z, zoxide             |
-| Package manager | brew, port, pnpm, uv      |
-| Grep            | ripgrep                   |
-| Previewer       | bat, glow                 |
-| Git helper      | delta, diff               |
-| Git gui         | gitui, lazygit            |
-| VCS             | git, jujutsu              |
-| Sync            | rsync, rclone             |
+| Category        |         Software          |
+| --------------- | :-----------------------: |
+| Shell           |          zsh, nu          |
+| TUI editor      |       neovim, helix       |
+| GUI editor      |   sublime, vscode, zed    |
+| Player          |      mpv, iina, vlc       |
+| Terminal        |  wezterm, kitty, ghostty  |
+| Multiplexer     |      tmux, ~zellij~       |
+| Finder          |          fd, bfs          |
+| Fuzzy finder    |          fzf, tv          |
+| File manager    |            nnn            |
+| Note taking     |    obsidian, ia writer    |
+| Disk usage      |      ncdu, dua, dust      |
+| Prompt          |         p10k, omp         |
+| Jumper          |       zsh-z, zoxide       |
+| Package manager |   brew, port, pnpm, uv    |
+| Grep            |          ripgrep          |
+| Previewer       |         bat, glow         |
+| Git helper      |        delta, diff        |
+| Git gui         |      gitui, lazygit       |
+| VCS             |       git, jujutsu        |
+| Sync            |       rsync, rclone       |
 | Downloader      | yt-dlp, gallery-dl, aria  |
 | Fonts           | operator mono, nerd font  |
-| SSH             | mosh                      |
-| LSCOLORS        | vivid                     |
+| SSH             |           mosh            |
+| LSCOLORS        |           vivid           |
 | Theme           | ayu, tokyonight, kanagawa |
 
 
