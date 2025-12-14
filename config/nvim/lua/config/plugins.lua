@@ -50,18 +50,6 @@ return {
   { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
   { "Rawnly/gist.nvim", cmd = { "GistCreate", "GistCreateFromFile", "GistsList" }, config = true }, -- Required `gh` cli installed
-  { 'mtth/scratch.vim',
-    keys = {
-      { 'gos', '<cmd>Scratch<cr>', desc = 'Open Scratch' },
-      { 'gos', '<cmd>ScratchSelection<cr>', mode = 'v', desc = 'Open Scratch with selections' }, -- BUG: didn't work
-    },
-    init = function()
-      vim.g.scratch_persistence_file = '.scratch'
-      vim.g.scratch_filetype = 'markdown'
-      vim.g.scratch_height = 0.4
-      vim.g.scratch_no_mappings = 1
-    end,
-  },
 
   -- UI & UX
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
