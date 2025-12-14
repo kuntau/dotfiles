@@ -115,11 +115,12 @@ vim.opt.fillchars:append {
   vertleft = '┨',
   vertright = '┣',
   verthoriz = '╋',
-  eob = ' ',
-  -- fold = ' ',
-  foldopen = '▼',
-  foldsep = ' ',
-  foldclose = '▶',
+  eob = nil,
+  fold = nil,      -- Alt ·
+  foldopen = '',  -- Alt  ▼
+  foldsep = nil,   -- Alt │
+  foldclose = '', -- Alt  ▶
+  foldinner = nil
 }
 vim.opt.diffopt:append   'vertical' -- Diff always open in vsplit
 vim.opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.

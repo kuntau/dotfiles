@@ -108,8 +108,8 @@ return {
   -- TODO: Configure the following plugins
 
   -- Refactor
-  'cshuaimin/ssr.nvim', -- Structural Search and replace
-  'nvim-pack/nvim-spectre', -- Search and replace workflow
+  -- 'cshuaimin/ssr.nvim', -- Structural Search and replace
+  -- 'nvim-pack/nvim-spectre', -- Search and replace workflow
 
   -- Misc
   -- gen740/SmoothCursor.nvim
