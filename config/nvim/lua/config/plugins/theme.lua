@@ -156,6 +156,16 @@ local config_nordic = {
   telescope = { style = 'flat' },
 }
 
+vim.g.PaperColor_Theme_Options = {
+  theme = {
+    default = {
+      allow_italic = 1,
+      allow_bold = 1,
+      transparent_background = 0,
+    },
+  },
+}
+
 return {
   -- Colorschemes
   'NLKNguyen/papercolor-theme',
