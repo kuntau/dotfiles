@@ -9,9 +9,22 @@ local setup = function()
   vim.diagnostic.config({
     underline = true,
     virtual_text = false,
-    signs = true,
     severity_sort = true,
     update_in_insert = false,
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = signs.Error,
+        [vim.diagnostic.severity.WARN] = signs.Warn,
+        [vim.diagnostic.severity.HINT] = signs.Hint,
+        [vim.diagnostic.severity.INFO] = signs.Info,
+      },
+      linehl = {
+        [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+      },
+      numhl = {
+        [vim.diagnostic.severity.WARN] = 'WarningMsg',
+      },
+    },
     float = {
       focusable = false,
       style = 'minimal',
