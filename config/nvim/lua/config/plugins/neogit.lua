@@ -5,15 +5,21 @@ local config = function()
     auto_refresh = true,
     auto_show_console = true,
     remember_settings = true,
-    kind = "vsplit",
+    kind = "floating",
     graph_style = 'unicode',
     console_timeout = 5000,
     disable_signs = false,
     disable_hint = true,
     disable_commit_confirmation = true,
     disable_builtin_notifications = true,
-    -- disable_insert_on_commit = 'auto',
-    integrations = { diffview = true },
+    disable_insert_on_commit = 'auto',
+    commit_editor = {
+      kind = "auto"
+    },
+    integrations = {
+      diffview = true,
+      snacks = true,
+    },
     signs = {
       -- { closed, open }
       section = { "▶", "▼" },
