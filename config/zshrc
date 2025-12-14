@@ -190,7 +190,8 @@ elif [[ $OS_NAME == Darwin ]]; then
     export NNN_BMS="$NNN_BMS;d:~/Downloads"
   elif [[ $HOST_NAME == 'MBA' ]]; then
     export NNN_BMS="$NNN_BMS;d:~/Downloads"
-    exists brew && export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH           # pip app binary path
+    exists brew && export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH  # brew app binary path
+    fpath+=( /opt/homebrew/share/zsh/site-functions )  # this path might have been added automatically
   fi
 elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
   export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
@@ -198,15 +199,15 @@ elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
 fi
 
 # Update $PATH (platform *nix)) {{{
+exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
+exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
+exists deno     && export PATH=$PATH:$DENO_INSTALL/bin          # deno binary path
+exists go       && export PATH=$HOME/go/bin:$PATH               # go binary path
 exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
 exists npm      && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
 exists pnpm     && export PNPM_HOME=$HOME/.npm-global/bin       # pnpm global binary path
-exists pip      && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
-exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
-exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
-exists go       && export PATH=$HOME/go/bin:$PATH               # go binary path
 exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
-exists deno     && export PATH=$PATH:$DENO_INSTALL/bin          # deno binary path
+exists uv       && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
 export PATH=$DOTFILES/bin:$PATH                                 # dotfiles binary path
 # }}}
 
@@ -234,15 +235,17 @@ function zvm_after_init() {
   bindkey -M vicmd '' down-line-or-history
 
   # Completions - Znap way
-  znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
-  znap function _deno deno 'eval "$(deno completions zsh)"'
-  znap function _cargo cargo 'eval "$(rustup completions zsh cargo)"'
-  znap function _rustup rustup 'eval "$(rustup completions zsh)"'
-  znap function _gh gh 'eval "$(gh completion --shell zsh)"'
-  znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
-  znap function _synthing synthing 'eval "$(synthing install-completions)"'
-  znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
-  znap function _glow glow 'eval "$(glow completion zsh)"'
+  exists atuin && znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
+  exists cargo && znap function _cargo cargo 'eval "$(rustup completions zsh cargo)"'
+  exists deno && znap function _deno deno 'eval "$(deno completions zsh)"'
+  exists gh && znap function _gh gh 'eval "$(gh completion --shell zsh)"'
+  exists git-lfs && znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
+  exists glow && znap function _glow glow 'eval "$(glow completion zsh)"'
+  exists jj && znap function _jj jj 'eval "$(jj util completion zsh)"'
+  exists rustup && znap function _rustup rustup 'eval "$(rustup completions zsh)"'
+  exists syncthing && znap function _synthing synthing 'eval "$(synthing install-completions)"'
+  exists tree-sitter && znap function _tree-sitter tree-sitter 'eval "$(tree-sitter complete --shell zsh)"'
+  exists uv && znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
   fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
 
   source $DOTFILES/zsh/default.zsh # my defaults
