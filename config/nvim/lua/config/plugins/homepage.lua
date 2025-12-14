@@ -118,53 +118,19 @@ return {
           enable = false,
         },
         shortcut = {
-          {
-            icon = ' ',
-            icon_hl = '@variable',
-            desc = 'Files',
-            group = 'Label',
-            action = function() require('telescope').extensions.smart_open.smart_open({ cwd_only = true }) end,
-            key = 'f',
-          },
-          {
-            icon = ' ',
-            icon_hl = '@variable',
-            desc = 'Neogit',
-            group = 'String',
-            action = 'Neogit',
-            key = 'g',
-          },
-          { desc = ' Lazy', group = '@property', action = 'Lazy', key = 'l' },
-          {
-            desc = ' Time',
-            group = 'DiagnosticHint',
-            action = 'StartupTime',
-            key = 't',
-          },
-          {
-            desc = ' Health',
-            group = 'Number',
-            action = 'checkhealth',
-            key = 'h',
-          },
-          {
-            desc = ' Mason',
-            group = 'DiagnosticInfo',
-            action = 'Mason',
-            key = 'm',
-          },
-          {
-            desc = ' Exit',
-            group = 'DiagnosticError',
-            action = 'quit',
-            key = 'q',
-          },
+          { icon = ' ', icon_hl = '@variable', desc = 'Files', group = 'Label', action = function() Snacks.picker.smart() end, key = 'f' },
+          { icon = ' ', icon_hl = '@variable', desc = 'Neogit', group = 'String', action = 'Neogit', key = 'g' },
+          { icon = ' ', desc = 'Lazy', group = '@property', action = 'Lazy', key = 'l' },
+          { icon = '󱎫 ', desc = 'Time', group = 'DiagnosticHint', action = 'StartupTime', key = 't' },
+          { icon = ' ', desc = 'Health', group = 'Number', action = 'checkhealth', key = 'h' },
+          { icon = '󱌣 ', desc = 'Mason', group = 'DiagnosticInfo', action = 'Mason', key = 'm' },
+          { icon = '󰩈 ', desc = 'Exit', group = 'DiagnosticError', action = 'quit', key = 'q' },
         },
         project = {
           limit = 5,
           action = function(path)
             vim.fn.chdir(path)
-            require('telescope').extensions.smart_open.smart_open({ cwd_only = true })
+            Snacks.picker.files()
           end,
         },
         -- mru = { limit = 10, label = 'MRU' },
