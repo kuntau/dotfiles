@@ -9,6 +9,7 @@ return {
   { 'rcarriga/nvim-notify', opts = { background_colour = '#000000' } }, -- Notifications library
   'MunifTanjim/nui.nvim', -- UI library
   'nvim-tree/nvim-web-devicons', -- for file icons
+  'echasnovski/mini.icons', -- for file icons
   'nvim-lua/plenary.nvim', -- Utils/async library
   'tami5/sqlite.lua', -- SQLite library
 
