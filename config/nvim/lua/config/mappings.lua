@@ -136,6 +136,7 @@ nmap('gou', '<cmd>UndotreeToggle<CR>', 'Toggle Undotree')
 
 -- GUI mappings, with CMD key
 map('<D-s>',   '<cmd>up!<cr>', 'Save')
+imap('<D-s>',   '<c-o><cmd>up!<cr>', 'Save')
 vmap('<D-c>',  '"+y', 'Paste')
 imap('<D-v>',  '<c-r>+', 'Paste')
 cmap('<D-v>',  '<c-r>"', 'Paste')

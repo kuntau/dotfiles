@@ -113,7 +113,7 @@ return {
       config = {
         disable_move = false,
         header = custom_header,
-        packages = { enable = false },
+        packages = { enable = true },
         week_header = {
           enable = false,
         },
