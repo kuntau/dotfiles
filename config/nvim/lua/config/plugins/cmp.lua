@@ -34,6 +34,10 @@ local config = function()
   require('luasnip.loaders.from_vscode').lazy_load()
 
   cmp.setup({
+    experimental = {
+      -- ghost_text = { hl_group = "CmpGhostText" },
+      ghost_text = false,
+    },
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body) -- For `luasnip` users.
@@ -176,5 +180,14 @@ return {
   },
   { 'hrsh7th/cmp-cmdline', event = 'CmdlineEnter' },
   { 'dmitmel/cmp-cmdline-history', event = 'CmdlineEnter' },
-  { 'tzachar/cmp-fuzzy-buffer', event = 'CmdlineEnter', dependencies = 'tzachar/fuzzy.nvim' },
+  {
+    'tzachar/cmp-fuzzy-buffer',
+    event = 'CmdlineEnter',
+    dependencies = {
+      {
+        'tzachar/fuzzy.nvim',
+        dependencies = 'nvim-telescope/telescope-fzf-native.nvim'
+      }
+    },
+  },
 }

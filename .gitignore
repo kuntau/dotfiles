@@ -1,6 +1,9 @@
 # folders
 .scratch
 .idea
+.zed
+.jj
+.venv
 
 # file extensions
 *.log

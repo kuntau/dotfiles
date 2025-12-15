@@ -67,7 +67,7 @@
 [credential]
   # helper = osxkeychain
   credentialStore = gpg
-  helper = "/home/linuxbrew/.linuxbrew/bin/gh auth git-credential"
+  helper = "/opt/homebrew/bin/gh auth git-credential"
 [credential "https://github.com"]
   helper = cache --timeout=3600
   username = kuntau
@@ -113,24 +113,22 @@
   diffFilter = delta --color-only
 [rerere]
   enabled = true
+  autoupdate = true
 [rebase]
-  autostash = true
-  autoSquash = true
+  autoStash = true
+  autosquash = true
+  updateRefs = true
 [pull]
   ff = only
   rebase = true
 [push]
   default = current
   autoSetupRemote = true
+  followTags = true
 [user]
   email = kuntau17@gmail.com
-  name = Nizamuddin Sulieman
+	name = Kuntau
   signingkey = DFBA935E336840CA
-[filter "lfs"]
-  required = true
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
 [credential "https://dev.azure.com"]
   useHttpPath = true
 [gpg]
@@ -139,15 +137,29 @@
   fsckObjects = true
 [fetch]
   fsckObjects = true
+  prune = true
+  pruneTags = true
 [receive]
   fsckObjects = true
 [status]
   submodulesummary = true
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[init]
+  defaultBranch = master
+[help]
+  autocorrect = prompt
 [diff]
-  colorMoved = default
+  colorMoved = plain
   tool = smerge
   algorithm = histogram
   submodule = log
+  renames = true
+  mnemonicPrefix = true
 [difftool]
   prompt = false
 [difftool "smerge"]

@@ -13,6 +13,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+v6.0.0 / 2025-12-16
+===================
+
+  * feat(nvim): add PaperColor bold & italic
+  * fix(nvim): fix diagnostic signs
+  * chore(nvim): update windows.nvim to use my fork
+  * chore(nvim): update which-key groups
+  * feat(nvim): add `mini.icons`
+  * feat(nvim): update homepage
+  * chore(nvim): tweak configs
+  * ref(nvim): remove scratch.vim in favor of snacks.scratch
+  * ref(nvim): remove statuscol.nvim in favor of snacks.statuscolumn
+  * ref(nvim): remove `indent-blanklines` in favor of `snacks.indent`
+  * fix(nvim): remove `Telescope` configs
+  * fix(nvim): replace `Telescope` plugins with `Snacks`
+  * feat(nvim): replace `undotree` with lua version
+  * feat(nvim): add snacks helper in init
+  * feat(nvim): add `snacks.nvim`
+  * docs(): update README
+
 v5.1.2 / 2025-12-14
 ===================
 

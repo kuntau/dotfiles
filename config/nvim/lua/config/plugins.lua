@@ -36,7 +36,7 @@ return {
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
   { 'simrat39/symbols-outline.nvim', config = true, cmd = 'SymbolsOutline' },
   { 'folke/trouble.nvim', config = true, cmd = 'Trouble' },
-  { 'folke/neodev.nvim', ft = 'lua' },
+  { 'folke/lazydev.nvim', ft = 'lua', opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 
   -- VCS
   { 'rhysd/git-messenger.vim', cmd = 'GitMessenger' },
@@ -107,6 +107,24 @@ return {
   -- { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = ':TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'fladson/vim-kitty', ft = 'kitty' }, -- kitty config syntax file
+  {
+    "dmtrKovalenko/fff.nvim",
+    build = function()
+      -- this will download prebuild binary or try to use existing rustup toolchain to build from source
+      -- (if you are using lazy you can use gb for rebuilding a plugin if needed)
+      require("fff.download").download_or_build_binary()
+    end,
+    opts = {},
+    keys = {
+      {
+        "<leader>fq", -- try it if you didn't it is a banger keybinding for a picker
+        function()
+          require("fff").find_files() -- or find_in_git_root() if you only want git files
+        end,
+        desc = "Open file picker",
+      },
+    },
+  }
 
   -- TODO: Configure the following plugins
 

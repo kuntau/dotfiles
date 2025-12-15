@@ -3,7 +3,7 @@
 local Utils = require('utils')
 
 local auto_switch = true -- should theme switch between day and night
-local same_theme = true -- should GUI & TUI have the same theme? GUI use TUI
+local same_theme = false -- should GUI & TUI have the same theme? GUI use TUI
 local background = (Utils.is_day() and auto_switch) and 'light' or 'dark'
 local gui_light_theme = 'dayfox'
 local gui_dark_theme = 'nightfox'
@@ -21,7 +21,7 @@ if Utils.is_gui() then -- running in GUI
     vim.o.guifont = 'Consolas:h10'
   elseif OS == 'macos' then
     -- if required we can check for has('gui_vimr')
-    vim.o.guifont = 'LigaOperatorMono Nerd Font Mono:h13'
+    -- vim.o.guifont = 'LigaOperatorMono Nerd Font Mono:h13'
     -- vim.o.guifont = 'Liga_Operator_Mono_Book_Nerd_Font_Complete_Mono:h13'
     -- vim.o.guifont = 'LigaOperatorMono Nerd Font Mono,OperatorMonoLigaturized Nerd Font:h13'
     -- vim.o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
@@ -38,8 +38,9 @@ if Utils.is_gui() then -- running in GUI
       vim.g.neovide_remember_window_size = true
       vim.g.neovide_scale_factor = 1.0
       vim.g.neovide_show_border = false
-      vim.g.neovide_transparency = 1
-      vim.o.guifont = 'LigaOperatorMono Nerd Font Mono:h13'
+      vim.g.neovide_opacity = 1
+      -- vim.o.guifont = 'LigaOperatorMono Nerd Font Mono:h13'
+      vim.o.guifont = nil
       -- vim.o.guifont = 'Ligalex Mono:h13'
     end
   elseif OS == 'linux' then

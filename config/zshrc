@@ -132,6 +132,8 @@ export ENHANCD_DISABLE_HYPHEN=0
 
 # autoswitch-virtualenv - https://github.conm/MichaelAquilina/zsh-autoswitch-virtualenv
 export AUTOSWITCH_SILENT=1
+export AUTOSWITCH_DEFAULT_PYTHON="python3"
+# export AUTOSWITCH_DEFAULTENV="kuntau"
 
 # ripgrep - https://github.com/BurntSushi/ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
@@ -140,8 +142,8 @@ export IS_DAY=$(is_day && echo 1)
 
 # NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
-ZVM_INIT_MODE=sourcing
-ZVM_CURSOR_STYLE_ENABLED=true
+export ZVM_INIT_MODE=sourcing
+export ZVM_CURSOR_STYLE_ENABLED=true
 
 # nnn
 export NNN_BMS='D:~/dotfiles;C:~/.config;L:~/.local'

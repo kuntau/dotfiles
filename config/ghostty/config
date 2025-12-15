@@ -1,20 +1,30 @@
-# vim: ft=conf nomodeline:
-
+font-size = 12
 # font-family = Cascadia Code
 # font-feature = +calt, +ss01, +ss02, +ss03, +ss19, +ss20 # for Cascadia
 font-family = MonoLisa
-font-feature = +calt, +ss01, +ss02, +ss03 # for MonoLisa
+font-feature = +liga, +ss01, +ss02, +ss03, +ss11 # for MonoLisa
+# font-feature = +calt, +ss01, +ss02, +ss03, +ss11, +liga # for MonoLisa
+# font-family = "JetBrains Maple Mono"
+# font-feature = +calt, +ss01, +ss02, +ss03 # for JetBrains Maple
 # font-family = Operator Mono
 # font-family = 0xProto
 # font-feature = +ss01
 font-style = Book
-theme = light:dawnfox,dark:oxocarbon
-focus-follows-mouse = true
-confirm-close-surface = false
+adjust-cell-height = +10%
+theme = light:dawnfox,dark:ayu mirage
+focus-follows-mouse = false
+confirm-close-surface = true
 quit-after-last-window-closed = true
 quit-after-last-window-closed-delay = 1m
-macos-titlebar-style = transparent
+# tabs = good, hidden = hide all chrome except rounded corder
+macos-titlebar-style = hidden
+macos-icon = xray
+# auto, false, none
 window-decoration = auto
 window-save-state = always
-window-subtitle = working-directory
+window-subtitle = false
 window-theme = auto
+window-vsync = true
+window-padding-x = 0
+window-padding-y = 0
+auto-update = check
