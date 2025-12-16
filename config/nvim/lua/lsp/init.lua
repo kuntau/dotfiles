@@ -65,19 +65,6 @@ if not configs.ls_emmet then
   }
 end
 
--- vim.lsp.enable('emmylua_ls')
--- Custom server emmylua_ls.. must be above the main servers loop
--- if not configs.emmylua_ls then
---   configs.emmylua_ls = {
---     default_config = {
---       cmd = { 'emmylua_ls' },
---       filetypes = { 'lua' },
---       root_markers = { ".luarc.json", ".emmyrc.json", ".luacheckrc", ".git" },
---       workspace_required = false,
---     },
---   }
--- end
-
 -- Setup lspconfig with snippet support
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.foldingRange = {
