@@ -1,6 +1,6 @@
--- diffview.nvim configs
+-- diff configs
 
-local opts = {
+local opts_diffview = {
   keymaps = {
     disable_defaults = false, -- Disable the default keymaps
     view = {
@@ -17,7 +17,14 @@ local opts = {
 }
 
 return {
-  'sindrets/diffview.nvim',
-  cmd = 'DiffviewOpen',
-  opts = opts,
+  {
+    'sindrets/diffview.nvim',
+    cmd = 'DiffviewOpen',
+    opts = opts_diffview,
+  },
+  {
+    "esmuellert/vscode-diff.nvim",
+    branch = 'next',
+    cmd = "CodeDiff",
+  }
 }
