@@ -118,7 +118,7 @@ return {
           enable = false,
         },
         shortcut = {
-          { icon = ' ', icon_hl = '@variable', desc = 'Files', group = 'Label', action = function() Snacks.picker.smart() end, key = 'f' },
+          { icon = ' ', icon_hl = '@variable', desc = 'Files', group = 'Label', action = function() require('fff').find_files()  end, key = 'f' },
           { icon = ' ', icon_hl = '@variable', desc = 'Neogit', group = 'String', action = 'Neogit', key = 'g' },
           { icon = ' ', desc = 'Lazy', group = '@property', action = 'Lazy', key = 'l' },
           { icon = '󱎫 ', desc = 'Time', group = 'DiagnosticHint', action = 'StartupTime', key = 't' },
@@ -129,8 +129,7 @@ return {
         project = {
           limit = 5,
           action = function(path)
-            vim.fn.chdir(path)
-            Snacks.picker.files()
+            require('fff').find_files_in_dir(path) 
           end,
         },
         -- mru = { limit = 10, label = 'MRU' },

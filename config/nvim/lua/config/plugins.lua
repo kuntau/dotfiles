@@ -19,7 +19,6 @@ return {
   { 'mg979/vim-visual-multi', keys = { { '<c-n>', mode = {'n','v'}, desc = 'Start multi-cursor' } } },
 
   -- Syntaxes and such
-  'ThePrimeagen/refactoring.nvim', -- Refactoring library
   { 'm-demare/hlargs.nvim', opts = {} }, -- Highlight arguments async
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = { { '.', desc = 'REPEAT' } } },
@@ -107,30 +106,13 @@ return {
   -- { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = ':TSInstall nu' }, -- nu shell systax, TSInstall nu
   { 'fladson/vim-kitty', ft = 'kitty' }, -- kitty config syntax file
-  {
-    "dmtrKovalenko/fff.nvim",
-    build = function()
-      -- this will download prebuild binary or try to use existing rustup toolchain to build from source
-      -- (if you are using lazy you can use gb for rebuilding a plugin if needed)
-      require("fff.download").download_or_build_binary()
-    end,
-    opts = {},
-    keys = {
-      {
-        "<leader>fq", -- try it if you didn't it is a banger keybinding for a picker
-        function()
-          require("fff").find_files() -- or find_in_git_root() if you only want git files
-        end,
-        desc = "Open file picker",
-      },
-    },
-  }
 
   -- TODO: Configure the following plugins
 
   -- Refactor
   -- 'cshuaimin/ssr.nvim', -- Structural Search and replace
   -- 'nvim-pack/nvim-spectre', -- Search and replace workflow
+  -- 'ThePrimeagen/refactoring.nvim', -- Refactoring library
 
   -- Misc
   -- gen740/SmoothCursor.nvim
