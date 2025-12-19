@@ -67,7 +67,6 @@ CONFIG_DIRS=(
 REQUIRED_BIN=(
   zsh
   git
-  bash
   curl
 )
 
@@ -98,11 +97,12 @@ EXTRA_BIN=(
   dua
   dust
   glow
+  ncdu
   node
   gitui
   aria2c
   rclone
-  fdupes
+  rdfind
   fclones
   lazygit
 )
@@ -239,7 +239,7 @@ check_pacman() {
     install_pacman "homebrew"
   elif [[ $OS = Darwin ]]; then
     install_pacman "homebrew"
-    install_pacman "macports"
+    # install_pacman "macports"
   fi
   return 0
 }
