@@ -333,11 +333,6 @@ main() {
     done
   fi
 
-  # Install fzf
-  if ask "$ICON_ASK Install fzf?"; then
-    clone_repo "fzf" "https://github.com/junegunn/fzf.git" "$FZF_HOME"
-  fi
-
   # Install znap
   if ask "$ICON_ASK Install znap?"; then
     clone_repo "znap" "https://github.com/merlonrichert/zsh-snap.git" "$ZHOME/zsh-snap"
@@ -461,3 +456,5 @@ done
 
 # Call main with arguments "$@"
 main "$@"
+
+# vim: set ft=bash foldlevel=1
