@@ -99,7 +99,6 @@ EXTRA_BIN=(
   dust
   glow
   node
-  nginx
   gitui
   aria2c
   rclone
@@ -211,20 +210,18 @@ install_packages() {
 
 }
 
-# Install homebrew
-install_homebrew() {
-  if ! exist "brew"; then
+# Install package manager
+install_pacman() {
+  local pacman=$1
+
+  if [[ $pacman == "homebrew" ]] && ! exist "brew"; then
     if ask "$ICON_ASK Do you want to install homebrew?"; then
       $(which bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
   fi
-}
 
-
-# TODO: Make automatic install without using the installer
-# Install MacPorts
-install_macports() {
-  if ! exist "port"; then
+  # TODO: Make automatic install without using the installer
+  if [[ $pacman == "macports" ]] && ! exist "port"; then
     if ask "$ICON_ASK Do you want to install MacPorts?"; then
       xcode-select --install
       xcodebuild -license
@@ -236,14 +233,13 @@ install_macports() {
 
 # Check package manager
 check_pacman() {
-  # $(which bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   echo ""
   echo "$ICON_WAIT Checking package manager..."
   if [[ $OS = Linux ]]; then
-    install_homebrew
+    install_pacman "homebrew"
   elif [[ $OS = Darwin ]]; then
-    install_homebrew
-    install_macports
+    install_pacman "homebrew"
+    install_pacman "macports"
   fi
   return 0
 }
