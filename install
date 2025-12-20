@@ -145,31 +145,38 @@ make_link() {
     $verbosity echo -e "$ICON_WARN ${BOLD}${YELLOW}$base_file_name${NC} exists. It will be backed up to ${BOLD}${YELLOW}$base_file_name.bak${NC}"
     $cmd_prefix mv "$sym_path" "$sym_path.bak"
   fi
+  # TODO: There's no point linking if it is the same target
   $verbosity echo -e "$ICON_OK ${BOLD}${GREEN}$base_file_name${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
   $cmd_prefix ln -sf "$source_path" "$sym_path"
 }
 
 
 # setup configs in $XDG_CONFIG_HOME: $1=DIR
+# TODO: Check the target with `realpath` and proceed accordingly wether to link/create or not
 link_config() {
   local cmd_prefix=${DEBUG:+"echo"}
   local verbosity=${VERBOSE:+":"}
   local dir=$1
   local dir_path=$CHOME/$dir
 
-  echo ""
   if [[ -d $dir_path && $MAKE_BACKUP = true ]] || [[ -L $dir_path ]]; then
+    echo ""
     $verbosity echo -e "$ICON_WARN ${BOLD}${YELLOW}${dir_path/#$HOME/\~}${NC} exists. It will be backed up to ${BOLD}${YELLOW}$(basename $dir_path).bak${NC}"
     $cmd_prefix mv "$dir_path" "$dir_path.bak"
-  fi
-  $verbosity echo -e "$ICON_INFO Creating directory ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC}..."
-  $cmd_prefix mkdir -p "$dir_path"
 
-  for file in "$DOTFILES/config/$dir"/*; do
-    local base_file
-    base_file=$(basename "$file")
-    make_link "$file" "$CHOME/$dir/$base_file"
-  done
+    # Recreate the directory
+    $verbosity echo -e "$ICON_WAIT Creating directory ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC}..."
+    $cmd_prefix mkdir -p "$dir_path"
+
+    # Process subfolders/files
+    for file in "$DOTFILES/config/$dir"/*; do
+      local base_file
+      base_file=$(basename "$file")
+      make_link "$file" "$CHOME/$dir/$base_file"
+    done
+  else
+    $verbosity echo -e "$ICON_OK ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC} config is good to go."
+  fi
 }
 
 
