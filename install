@@ -7,7 +7,7 @@ set -eu
 
 # --- Configuration ---
 SCRIPT_NAME="$(basename "$0")"
-VERSION="1.2.0"
+VERSION="1.5.1"
 DEBUG=
 VERBOSE=
 FULL=
@@ -25,6 +25,7 @@ BOLD='\033[1m'
 UNDERLINE='\033[4m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
@@ -56,7 +57,7 @@ CONFIG_DIRS=(
   gitui
   helix
   kitty
-  lazyvim
+  lazygit
   mpv
   neovide
   nu
@@ -141,50 +142,56 @@ make_link() {
   base_file_name=$(basename "$sym_path")
 
   # check if link exist, make backup & make symbolic link
-  if [[ -e $sym_path && $MAKE_BACKUP = true ]]; then
-    $verbosity echo -e "$ICON_WARN ${BOLD}${YELLOW}$base_file_name${NC} exists. It will be backed up to ${BOLD}${YELLOW}$base_file_name.bak${NC}"
-    $cmd_prefix mv "$sym_path" "$sym_path.bak"
+  if [[ -e $sym_path ]]; then
+    if [[ -L $sym_path ]]; then
+      local dest=$(realpath $sym_path)
+
+      if [[ $dest == $source_path ]]; then
+        $verbosity echo -e "$ICON_OK OK. ${BOLD}${GREEN}${base_file_name}${NC} link is good to go."
+        return 0
+      fi
+    elif [[ $MAKE_BACKUP = true ]]; then
+      $verbosity echo -e "$ICON_WARN CAUTION. ${BOLD}${YELLOW}${base_file_name}${NC} exists. It will be backed up to ${BOLD}${YELLOW}${base_file_name}.bak${NC}"
+      $cmd_prefix mv "$sym_path" "${sym_path}.bak"
+    fi
   fi
-  # TODO: There's no point linking if it is the same target
-  $verbosity echo -e "$ICON_OK ${BOLD}${GREEN}$base_file_name${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
+  $verbosity echo -e "$ICON_OK OK. ${BOLD}${GREEN}${base_file_name}${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
   $cmd_prefix ln -sf "$source_path" "$sym_path"
 }
 
 
 # setup configs in $XDG_CONFIG_HOME: $1=DIR
-# TODO: Check the target with `realpath` and proceed accordingly wether to link/create or not
 link_config() {
   local cmd_prefix=${DEBUG:+"echo"}
   local verbosity=${VERBOSE:+":"}
   local dir=$1
   local dir_path=$CHOME/$dir
 
+  echo ""
+  $verbosity echo -e "$ICON_WAIT WAIT. Checking ${BOLD}${BLUE}${dir}${NC} link."
   if [[ -d $dir_path && $MAKE_BACKUP = true ]] || [[ -L $dir_path ]]; then
-    echo ""
-    $verbosity echo -e "$ICON_WARN ${BOLD}${YELLOW}${dir_path/#$HOME/\~}${NC} exists. It will be backed up to ${BOLD}${YELLOW}$(basename $dir_path).bak${NC}"
-    $cmd_prefix mv "$dir_path" "$dir_path.bak"
+    $verbosity echo -e "$ICON_WARN CAUTION. ${BOLD}${YELLOW}${dir_path/#$HOME/\~}${NC} exists. It will be backed up to ${BOLD}${YELLOW}$(basename $dir_path).bak${NC}"
+    $cmd_prefix mv "$dir_path" "${dir_path}.bak"
 
     # Recreate the directory
-    $verbosity echo -e "$ICON_WAIT Creating directory ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC}..."
+    $verbosity echo -e "$ICON_WAIT WAIT. Creating directory ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC}..."
     $cmd_prefix mkdir -p "$dir_path"
-
-    # Process subfolders/files
-    for file in "$DOTFILES/config/$dir"/*; do
-      local base_file
-      base_file=$(basename "$file")
-      make_link "$file" "$CHOME/$dir/$base_file"
-    done
-  else
-    $verbosity echo -e "$ICON_OK ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC} config is good to go."
   fi
+
+  # Process subfolders/files
+  for file in "$DOTFILES/config/$dir"/*; do
+    local base_file
+    base_file=$(basename "$file")
+    make_link "$file" "$CHOME/$dir/$base_file"
+  done
 }
 
 
 # $1=BINARY $2=TEXT_OK $3=TEXT_ERR
 exist() {
   local bin=$1
-  local success=${2:-"$ICON_OK OK ${BOLD}${GREEN}$bin${NC} available."}
-  local error=${3:-"$ICON_ERR ERR ${BOLD}${RED}$bin${NC} can't be found in \$PATH."}
+  local success=${2:-"$ICON_OK OK. ${BOLD}${GREEN}$bin${NC} available."}
+  local error=${3:-"$ICON_ERR ERR. ${BOLD}${RED}$bin${NC} can't be found in \$PATH."}
 
   if command -v "$bin" >/dev/null 2>&1; then
     echo -e "$success"
@@ -203,7 +210,7 @@ install_packages() {
   local packages=$*
   
   if [[ ${#packages} -gt 0 ]]; then
-    $verbosity echo -e "\n$ICON_INFO Missing packages: ${BOLD}${YELLOW}$packages${NC}"
+    $verbosity echo -e "\n$ICON_INFO INFO. Missing packages: ${BOLD}${BLUE}$packages${NC}"
     if ask "$ICON_ASK Install ${BOLD}${YELLOW}$packages${NC} with package manager?"; then
       if exist brew; then
         $cmd_prefix brew update && $cmd_prefix brew install $packages
@@ -239,7 +246,7 @@ install_pacman() {
 # Check package manager
 check_pacman() {
   echo ""
-  echo "$ICON_WAIT Checking package manager..."
+  echo "$ICON_WAIT WAIT. Checking package manager..."
   if [[ $OS = Linux ]]; then
     install_pacman "homebrew"
   elif [[ $OS = Darwin ]]; then
@@ -277,9 +284,9 @@ clone_repo() {
   local dir=$3
 
   if [[ -d $dir ]]; then
-    echo -e "$ICON_WARN You already have ${BOLD}${YELLOW}$name${NC} installed, skipping..."
+    echo -e "$ICON_WARN CAUTION. You already have ${BOLD}${YELLOW}$name${NC} installed, skipping..."
   else
-    echo -e "$ICON_GITHUB Cloning ${BOLD}${GREEN}$name${NC}..."
+    echo -e "$ICON_GITHUB GITHUB. Cloning ${BOLD}${GREEN}$name${NC}..."
     $cmd_prefix "$(which git)" clone --filter=blob:none "$url" "$dir"
   fi
 }
@@ -287,7 +294,7 @@ clone_repo() {
 
 # START INSTALL #
 main() {
-  echo "$ICON_WAIT Checking requirements..."
+  echo "$ICON_WAIT WAIT. Checking requirements..."
   for tool in "${REQUIRED_BIN[@]}"; do
     if ! exist "$tool"; then
       return 1
@@ -298,7 +305,7 @@ main() {
 
   # Link config files
   if ask "$ICON_ASK Link config files?"; then
-    echo "$ICON_WAIT Linking config files..."
+    echo "$ICON_WAIT WAIT. Linking config files..."
     echo ""
     for file in "${CONFIG_FILES[@]}"; do
       make_link "$DOTFILES/config/$file" "$HOME/.$file"
@@ -309,8 +316,7 @@ main() {
 
   # Link config directories
   if ask "$ICON_ASK Link config directories?"; then
-    echo "$ICON_WAIT Linking config directories..."
-    echo ""
+    echo "$ICON_WAIT WAIT. Linking config directories..."
     for dir in "${CONFIG_DIRS[@]}"; do
       link_config "$dir"
     done
@@ -331,7 +337,7 @@ main() {
   # check core tools
   if ask "$ICON_ASK Check core tool availability?"; then
     local missing_cores=()
-    echo "$ICON_WAIT Checking core tool availability..."
+    echo "$ICON_WAIT WAIT. Checking core tool availability..."
     echo ""
     check_binary missing_cores "${CORE_BIN[@]}"
     install_packages "${missing_cores[@]:-}"
@@ -340,7 +346,7 @@ main() {
   # check extra tools
   if ask "$ICON_ASK Check extra tool availability?"; then
     local missing_extras=()
-    echo "$ICON_WAIT Checking extra tool availability..."
+    echo "$ICON_WAIT WAIT. Checking extra tool availability..."
     echo ""
     check_binary missing_extras "${EXTRA_BIN[@]}"
     install_packages "${missing_extras[@]:-}"
@@ -350,9 +356,9 @@ main() {
 
   # check .secret file availability
   echo ""
-  echo -e "$ICON_WAIT Checking $BOLD.secret$NC file..."
+  echo -e "$ICON_WAIT WAIT. Checking $BOLD.secret$NC file..."
   if [[ -f $HOME/.secret ]]; then
-    echo -e "$ICON_WARN $BOLD.secret$NC file exist. Skipping..."
+    echo -e "$ICON_WARN CAUTION. $BOLD.secret$NC file exist. Skipping..."
   else
     touch "$HOME/.secret"
   fi
@@ -389,7 +395,7 @@ main() {
   done
   echo ""
 
-  echo "$ICON_OK dotfiles install completed."
+  echo "$ICON_OK OK. Dotfiles install completed."
 
   # source "$HOME/.zshrc"
   exec zsh
