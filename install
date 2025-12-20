@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Name: dotfiles installer
 # Author: Kuntau
-# Last edit: 1/12/2025
+# Last edit: 20/12/2025
 
 set -eu
 
 # --- Configuration ---
 SCRIPT_NAME="$(basename "$0")"
-VERSION="1.1.0"
+VERSION="1.2.0"
 DEBUG=
 VERBOSE=
 FULL=
