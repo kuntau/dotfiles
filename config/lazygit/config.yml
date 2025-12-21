@@ -1,0 +1,24 @@
+gui:
+  # UI Improvements
+  showIcons: true
+  sidePanelWidth: 0.33
+  mainPanelSplitMode: 'flexible'
+  language: 'auto'
+authorColors:
+'*': '#7287fd'
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
+  parseEmoji: true
+os:
+  editCommand: 'nvim'
+  editCommandTemplate: '{{editor}} {{filename}}'
+
+# customCommands:
+#   - key: 'C'
+#     command: "git cz" # Adds support for Commitizen if you use it
+#     context: 'files'
+#     loadingText: 'opening commitizen'
+#     description: 'commit with commitizen'
+#     subprocess: true

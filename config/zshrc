@@ -71,6 +71,9 @@ export LC_ALL="en_US.UTF-8"
 
 # Plugins config & ENV {{{
 
+# export this mainly for usage with TMUX
+export IS_DAY=$(is_day && echo 1)
+
 # Theme - Auto dark/light based on time
 light_theme='catppuccin-latte'
 dark_theme='catppuccin-mocha'
@@ -87,6 +90,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${autosuggest_theme},italic"
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 # ZSH_AUTOSUGGEST_CLEAR_WIDGETS # TODO: Add widgets like atuin & autocomplete
 
+# TODO: This shit is mess, so many things didn't work. Figure it out
 # zsh-autcomplete configs https://github.com/marlonrichert/zsh-autocomplete/blob/main/.zshrc
 # Some snippets from https://github.com/tshu-w/dotfiles/blob/f06c7c7f7084e615c82d4d56efb008b39bdb24cd/config/zsh/.zshrc#L33-L48
 # zstyle '*:compinit' arguments -D -i -u -C -w # might cause `compinit` not generating `zcompdump`
@@ -103,7 +107,6 @@ zstyle ':autocomplete:tab:*' fzf-completion yes
 # zstyle ':autocomplete:*' default-context history-incremental-search-backward
 bindkey -M menuselect "^[m" accept-and-hold
 bindkey -M menuselect "^M" .accept-line
-
 
 # nnn - https://github.com/jarun/nnn
 NNN_PLUG_FZF='c:fzcd;o:fzopen;j:autojump;h:fzhist;p:fzplug;g:gitroot'
@@ -125,6 +128,12 @@ export BAT_THEME="$(is_day && echo $BAT_LIGHT_THEME || echo $BAT_DARK_THEME)"
 export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
+# lazygit - https://github.com/jesseduffield/lazygit
+LG_LIGHT_THEME="$XDG_CONFIG_HOME/lazygit/themes/latte/blue.yml"
+LG_DARK_THEME="$XDG_CONFIG_HOME/lazygit/themes/tokyonight/storm.yml"
+LG_MAIN_CONFIG="$XDG_CONFIG_HOME/lazygit/config.yml"
+export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_day && echo $LG_LIGHT_THEME || echo $LG_DARK_THEME)"
+
 # enhancd - https://github.com/babarot/enhancd
 export ENHANCD_FILTER=fzf
 export ENHANCD_DISABLE_DOT=0
@@ -137,8 +146,6 @@ export AUTOSWITCH_DEFAULT_PYTHON="python3"
 
 # ripgrep - https://github.com/BurntSushi/ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
-
-export IS_DAY=$(is_day && echo 1)
 
 # NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
