@@ -4,12 +4,14 @@
   co = checkout
   count = shortlog -sn
   now = status --short --branch
-  last = log -1 HEAD
+  last = log -1 --oneline --patch
   root = rev-parse --show-toplevel
   unstage = reset HEAD --
+  wt-new = "!f() { git worktree add ../$1 -b $1 $2 && cd ../$1 && git push -u origin HEAD; }; f"
+  wt-done = "!f() { git worktree remove \"../$1\" && git branch -d \"$1\" && git fetch --prune; }; f"
   ui = !gitui
   sm = !smerge
-  lazy = !lazygit
+  lg = !lazygit --debug --screen-mode=half
   fzg = !fzf_commit_log
   fzp = !fzf_commit_preview
 [apply]
