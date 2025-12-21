@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local Utils = require('utils')
+local _utils = require('utils')
 local action = wezterm.action
 local on = wezterm.on
 local emit = action.EmitEvent
@@ -227,22 +227,21 @@ local dark_theme = 'nordic'
 local theme = is_day() and light_theme or dark_theme
 
 return {
-  default_prog = { '/opt/local/bin/zsh', '-li' },
+  default_prog = { 'zsh', '-li' },
 
   font = wezterm.font_with_fallback({
-    {
-      family = 'Operator Mono',
-      weight = 'Book',
-    },
-    'Cascadia Code',
-    'JetBrains Maple Mono',
-    'SF Mono'
+    { family = "Operator Mono", weight = 'Book', harfbuzz_features = { "+ss01", "+ss07", "+ss11" } },
+    { family = "MonoLisa", harfbuzz_features = { "+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14" } },
+    { family = "Cascadia Code", harfbuzz_features = { "+ss01", "+ss02", "+ss03", "+calt", "+ss19", "+ss20" } },
+    { family = "Maple Mono", harfbuzz_features = { "+calt", "+liga", "+ss01", "+ss02", "+ss03" } },
+    { family = "Symbols Nerd Font" }, -- fallback for icons
+    { family = "Noto Sans CJK SC" },  -- fallback for CJK
   }),
 
-  font_size = 13.0,
-  -- font_antialias  = 'Subpixel',
-  freetype_load_target = 'Light',
+  font_size = 12.5,
+  freetype_load_target = 'Light', -- Normal, Light, Mono, HorizontalLcd
   freetype_render_target = 'HorizontalLcd',
+  use_cap_height_to_scale_fallback_fonts = true,
 
   -- Basics
   scrollback_lines = 1000,
@@ -335,7 +334,7 @@ return {
   line_height = 1.0,
   enable_tab_bar = true,
   use_fancy_tab_bar = false,
-  hide_tab_bar_if_only_one_tab = false,
+  hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,
   tab_max_width = 50,
   window_background_opacity = 1.0,
@@ -354,7 +353,7 @@ return {
   window_close_confirmation = 'NeverPrompt',
 
   -- define leader key, same as tmux
-  leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
+  leader = { key = 's', mods = 'CMD|CTRL', timeout_milliseconds = 1000 },
   -- mappings
   keys = {
     { key = 't', mods = hyper_key, action = action({ SpawnTab = 'CurrentPaneDomain' }) },
