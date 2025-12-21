@@ -10,34 +10,8 @@
   ui = !gitui
   sm = !smerge
   lazy = !lazygit
-  # https://gist.github.com/junegunn/f4fca918e937e6bf5bad#gistcomment-3715673
-  fzf = !"                                                                                                                                                                                              \
-      function gfzf() {                                                                                                                                                                                 \
-          local filter;                                                                                                                                                                                 \
-          if [ -n $@ ] && [ -e $@ ]; then                                                                                                                                                               \
-              filter=\"-- $@\";                                                                                                                                                                         \
-          fi;                                                                                                                                                                                           \
-          export LESS='-R'                                                                                                                                                                              \
-          export BAT_PAGER='less -S -R -M -i';                                                                                                                                                          \
-          git log                                                                                                                                                                                       \
-              --graph --color=always --abbrev=7                                                                                                                                                         \
-              --format=format:\"%C(bold blue)%h%C(reset) %C(dim white)%an%C(reset)%C(bold yellow)%d%C(reset) %C(white)%s%C(reset) %C(bold green)(%ar)%C(reset)\" $@ |                                   \
-                  fzf --ansi --no-sort --layout=reverse --tiebreak=index                                                                                                                                \
-                      --preview=\"f() { set -- \\$(echo -- \\$@ | rg -o '\\b[a-f0-9]{7,}\\b'); [ \\$# -eq 0 ] || git show --color=always \\$1 $filter | delta --no-gitconfig --diff-so-fancy; }; f {}\" \
-                      --bind=\"ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-j:preview-down,ctrl-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up\"                                        \
-                      --bind=\"ctrl-m:execute:                                                                                                                                                          \
-                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 |                                                                                                                                   \
-                              xargs -I % -- git show --color=always %) << FZFEOF\n                                                                                                                      \
-                              {}                                                                                                                                                                        \
-                              \nFZFEOF\"                                                                                                                                                                \
-                      --bind=\"ctrl-y:execute-silent:                                                                                                                                                   \
-                              (rg -o '\\b[a-f0-9]{7,}\\b' | head -1 | tr -d \\$'\\n' | pbcopy) << FZFEOF\n                                                                                              \
-                              {}                                                                                                                                                                        \
-                              \nFZFEOF\"                                                                                                                                                                \
-                      --preview-window=right:60%;                                                                                                                                                       \
-      };                                                                                                                                                                                                \
-      gfzf                                                                                                                                                                                              \
-  "
+  fzg = !fzf_commit_log
+  fzp = !fzf_commit_preview
 [apply]
   whitespace = nowarn
 [color]
