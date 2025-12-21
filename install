@@ -172,8 +172,10 @@ link_config() {
   if [[ -d $dir_path && $MAKE_BACKUP = true ]] || [[ -L $dir_path ]]; then
     $verbosity echo -e "$ICON_WARN CAUTION. ${BOLD}${YELLOW}${dir_path/#$HOME/\~}${NC} exists. It will be backed up to ${BOLD}${YELLOW}$(basename $dir_path).bak${NC}"
     $cmd_prefix mv "$dir_path" "${dir_path}.bak"
+  fi
 
-    # Recreate the directory
+  # Recreate the directory if it didn't exist
+  if [[ ! -d $dir_path ]]; then
     $verbosity echo -e "$ICON_WAIT WAIT. Creating directory ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC}..."
     $cmd_prefix mkdir -p "$dir_path"
   fi
