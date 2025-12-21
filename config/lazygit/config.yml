@@ -1,11 +1,30 @@
 gui:
+  # borrowed from https://github.com/YousefHadder/dotfiles/blob/main/lazygit/.config/lazygit/config.yml
+  authorColors: {}
+  branchColors: {}
+  scrollHeight: 2
+  scrollPastBottom: true
+  mouseEvents: true
+  nerdFontsVersion: "3"
+  skipDiscardChangeWarning: false
+  skipStashWarning: false
+  expandFocusedSidePanel: false
+  timeFormat: 02 Jan 06 15:04 MST
+  commitLength:
+      show: true
+  skipNoStagedFilesWarning: false
+  showListFooter: true
+  showFileTree: true
+  showRandomTip: true
+  showCommandLog: true
+  showBottomLine: true
+  commandLogSize: 8
+
   # UI Improvements
   showIcons: true
   sidePanelWidth: 0.33
   mainPanelSplitMode: 'flexible'
   language: 'auto'
-authorColors:
-'*': '#7287fd'
 git:
   pagers:
     - colorArg: always
