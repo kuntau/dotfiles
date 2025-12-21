@@ -17,23 +17,6 @@ vim.api.nvim_create_autocmd("User", {
     require('config.mappings')
     require('config.commands')
 
-    -- Setup some globals for debugging (lazy-loaded)
-    _G.dd = function(...)
-      Snacks.debug.inspect(...)
-    end
-    _G.bt = function()
-      Snacks.debug.backtrace()
-    end
-
-    -- Override print to use snacks for `:=` command
-    if vim.fn.has("nvim-0.11") == 1 then
-      vim._print = function(_, ...)
-        dd(...)
-      end
-    else
-      vim.print = _G.dd 
-    end
-
     -- Create some toggle mappings
     Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>os")
     Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>ow")
