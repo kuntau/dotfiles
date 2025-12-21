@@ -27,21 +27,29 @@ if Utils.is_gui() then -- running in GUI
     -- vim.o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
     vim.o.linespace = 1 -- Linespacing for GUI, not all implement this option
     if vim.g.neovide then -- https://neovide.dev/configuration.html
-      vim.g.experimental_layer_grouping = true
+      -- Cursor
       vim.g.neovide_cursor_antialiasing = true
       vim.g.neovide_cursor_trail_size = 0.2
+      vim.g.neovide_cursor_vfx_mode = "railgun"
+
+      -- Window behavior
       vim.g.neovide_fullscreen = false
-      vim.g.neovide_hide_mouse_when_typing = true
-      vim.g.neovide_input_macos_option_key_is_meta = 'both'
-      vim.g.neovide_input_use_logo = true -- true on macOS
-      vim.g.neovide_refresh_rate = 60
       vim.g.neovide_remember_window_size = true
-      vim.g.neovide_scale_factor = 1.0
       vim.g.neovide_show_border = false
-      vim.g.neovide_opacity = 1
-      -- vim.o.guifont = 'LigaOperatorMono Nerd Font Mono:h13'
-      vim.o.guifont = nil
-      -- vim.o.guifont = 'Ligalex Mono:h13'
+      vim.g.neovide_opacity = 0.95
+
+      -- macOS input
+      vim.g.neovide_input_macos_option_key_is_meta = "both"
+      vim.g.neovide_input_use_logo = true -- Cmd key
+
+      -- Performance
+      vim.g.neovide_refresh_rate = 60
+      vim.g.experimental_layer_grouping = true
+      vim.g.neovide_hide_mouse_when_typing = true
+      vim.g.neovide_scale_factor = vim.fn.getenv("NEOVIDE_SCALE") or 1.0
+
+      -- Font (don't set fonts here, it will overwrite config.toml settings)
+      vim.o.linespace = -1
     end
   elseif OS == 'linux' then
     vim.o.guifont = 'Jetbrains Nerd Font:h13'
