@@ -12,7 +12,7 @@ DOTFILES=$HOME/dotfiles
 ZHOME=$HOME/.znap
 
 exists() { command -v "$1" >/dev/null 2>&1; }
-is_day() { [[ "$(date +%H)" -ge 8 && "$(date +%H)" -le 19 ]]; }
+is_day() { [[ "$(date +%H)" -ge 8 && "$(date +%H)" -lt 19 ]]; }
 
 # start znap {{{
 zstyle ':znap:*' repos-dir $HOME/.znap
@@ -47,7 +47,7 @@ znap source MichaelAquilina/zsh-autoswitch-virtualenv
 znap source zdharma-continuum/zui
 znap source zdharma-continuum/zbrowse
 
-# For some unknow reason this have to be load last or zsh will crash
+# For some unknown reason this have to be load last or zsh will crash
 znap source jeffreytse/zsh-vi-mode
 
 # }}}
@@ -244,6 +244,8 @@ function zvm_after_init() {
   exists git-lfs && znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
   exists glow && znap function _glow glow 'eval "$(glow completion zsh)"'
   exists jj && znap function _jj jj 'eval "$(jj util completion zsh)"'
+  exists maestral && znap function _maestral maestral 'eval "$(maestral completion zsh)"'
+  exists rg && znap function _rg rg 'eval "$(rg --generate=complete-zsh)"'
   exists rustup && znap function _rustup rustup 'eval "$(rustup completions zsh)"'
   exists syncthing && znap function _synthing synthing 'eval "$(synthing install-completions)"'
   exists tree-sitter && znap function _tree-sitter tree-sitter 'eval "$(tree-sitter complete --shell zsh)"'
