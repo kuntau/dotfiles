@@ -16,7 +16,6 @@ return {
   -- Movements
   { 'tummetott/unimpaired.nvim', event = 'VeryLazy', config = true },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }, -- TODO: Replace with linty-org/readline.nvim
-  { 'mg979/vim-visual-multi', keys = { { '<c-n>', mode = {'n','v'}, desc = 'Start multi-cursor' } } },
 
   -- Syntaxes and such
   { 'm-demare/hlargs.nvim', opts = {} }, -- Highlight arguments async
