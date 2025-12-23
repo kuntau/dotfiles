@@ -1,15 +1,15 @@
 [mgr]
-ratio          = [ 2, 3, 5 ]
+ratio          = [ 1, 5, 5 ]
 sort_by        = "natural"
 sort_sensitive = false
 sort_reverse   = false
 sort_dir_first = true
 linemode       = "none"
-show_hidden    = true
+show_hidden    = false
 show_symlink   = true
 
 [preview]
-tab_size        = 2
+tab_size        = 5
 max_width       = 1000
 max_height      = 1000
 cache_dir       = ""
@@ -32,3 +32,11 @@ rules = [
     { mime = "audio/*", use = "play" },
     { mime = "image/*", use = "open" },
 ]
+
+[[plugin.prepend_previewers]]
+url = "*"
+run = 'piper -- echo "$1"'
+
+[[plugin.prepend_previewers]]
+url = "*.md"
+run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
