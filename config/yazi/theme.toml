@@ -1,0 +1,15 @@
+# Yazi theme configs
+
+[filetype]
+rules = [
+	{ name = "*.rs", fg = "#fe640b" },        # Peach
+	{ name = "*.js", fg = "#df8e1d" },        # Yellow
+	{ name = "*.lua", fg = "#1e66f5" },       # Blue
+	{ name = "*.md", fg = "#40a02b" },        # Green
+	{ mime = "image/*", fg = "#ea76cb" },     # Pink
+	{ mime = "video/*", fg = "#8839ef" },     # Mauve
+]
+
+[flavor]
+dark = "catppuccin-frappe"
+light = "catppuccin-latte"

@@ -64,6 +64,7 @@ CONFIG_DIRS=(
   nvim
   tmux
   wezterm
+  yazi
 )
 
 REQUIRED_BIN=(

@@ -1,0 +1,19 @@
+[[mgr.prepend_keymap]]
+on   = [ "g", "z" ]
+run  = "plugin zoxide"
+desc = "Jump to a directory using zoxide"
+
+[[mgr.prepend_keymap]]
+on   = [ "C-f" ]
+run  = "plugin fzf"
+desc = "Fuzzy find files"
+
+[[mgr.prepend_keymap]]
+on   = [ "T" ]
+run  = "plugin toggle-pane --args=preview"
+desc = "Toggle preview pane"
+
+[[mgr.prepend_keymap]]
+on   = [ "C" ]
+run  = "plugin ouch"
+desc = "Compress with ouch"
