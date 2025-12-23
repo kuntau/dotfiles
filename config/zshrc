@@ -208,16 +208,18 @@ elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
 fi
 
 # Update $PATH (platform *nix)) {{{
-exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
-exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
-exists deno     && export PATH=$PATH:$DENO_INSTALL/bin          # deno binary path
-exists go       && export PATH=$HOME/go/bin:$PATH               # go binary path
-exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
-exists npm      && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
-exists pnpm     && export PNPM_HOME=$HOME/.npm-global/bin       # pnpm global binary path
-exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
-exists uv       && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
-export PATH=$DOTFILES/bin:$PATH                                 # dotfiles binary path
+exists cargo    && PATH=$HOME/.cargo/bin:$PATH            # rust cargo binary path
+exists composer && PATH=$HOME/.composer/vendor/bin:$PATH  # composer global binary path
+exists deno     && PATH=$PATH:$DENO_INSTALL/bin           # deno binary path
+exists go       && PATH=$HOME/go/bin:$PATH                # go binary path
+exists npm      && NPM_CONFIG_PREFIX=$HOME/.npm-global    # npm -g install location
+exists npm      && PATH=$HOME/.npm-global/bin:$PATH       # npm global binary path
+exists pnpm     && PNPM_HOME=$HOME/.npm-global/bin        # pnpm global binary path
+exists snap     && PATH=/snap/bin:$PATH                   # snap binary path
+exists uv       && PATH=$HOME/.local/bin:$PATH            # pip app binary path
+exists znap     && PATH=$ZHOME/BigH/git-fuzzy/bin:$PATH   # git fuzzy binary path
+exists znap     && PATH=$ZHOME/junegunn/fzf/bin:$PATH     # fzf binary path
+export PATH=$DOTFILES/bin:$PATH                           # dotfiles binary path
 # }}}
 
 # Extra sources {{{
@@ -230,12 +232,11 @@ function zvm_after_init() {
   bindkey -M menuselect              '^I'         menu-complete
   bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
 
-  [[ -x rustup ]] && source $HOME/.cargo/env
-  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-  exists fzf && source $DOTFILES/zsh/fzf.zsh
-  exists atuin && znap eval atuin "atuin init zsh" # atuin - sync, search & backup shell history
-  exists zoxide && znap eval z "zoxide init zsh" # zoxide - modern z
-  exists nnn && source $DOTFILES/nnn/quitcd.zsh
+  exists fzf    && source $DOTFILES/zsh/fzf.zsh
+  exists nnn    && source $DOTFILES/nnn/quitcd.zsh
+  exists rustup && source $HOME/.cargo/env
+  exists atuin  && znap eval atuin "atuin init zsh"     # atuin - sync, search & backup shell history
+  exists zoxide && znap eval z "zoxide init zsh"        # zoxide - modern z
 
   # Customs
   bindkey -M viins '^Xa' _expand_alias
