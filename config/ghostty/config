@@ -1,15 +1,18 @@
+# Font Size
 font-size = 12
-# font-family = Cascadia Code
-# font-feature = +calt, +ss01, +ss02, +ss03, +ss19, +ss20 # for Cascadia
-font-family = MonoLisa
-font-feature = +liga, +ss01, +ss02, +ss03, +ss11 # for MonoLisa
-# font-feature = +calt, +ss01, +ss02, +ss03, +ss11, +liga # for MonoLisa
-# font-family = "JetBrains Maple Mono"
-# font-feature = +calt, +ss01, +ss02, +ss03 # for JetBrains Maple
-# font-family = Operator Mono
-# font-family = 0xProto
-# font-feature = +ss01
+
+# Font Family: Ghostty processes this from left to right for fallbacks
+font-family = "MonoLisa, Operator Mono, Cascadia Code, Maple Mono, Symbols Nerd Font"
+
+# Font style
 font-style = Book
+
+# Scoped Font Features
+font-feature = "MonoLisa:+ss01,+ss02,+ss07,+ss09,+ss11,+ss14,-calt"
+font-feature = "Operator Mono:+ss01,+ss07,+ss11"
+font-feature = "Cascadia Code:+ss01,+ss02,+ss03,+calt,+ss19,+ss20"
+font-feature = "Maple Mono:+calt,+liga,+ss01,+ss02,+ss03"
+
 adjust-cell-height = +10%
 theme = light:dawnfox,dark:ayu mirage
 focus-follows-mouse = false
