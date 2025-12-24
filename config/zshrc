@@ -129,8 +129,8 @@ export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
 # lazygit - https://github.com/jesseduffield/lazygit
-LG_LIGHT_THEME="$XDG_CONFIG_HOME/lazygit/themes/latte/blue.yml"
-LG_DARK_THEME="$XDG_CONFIG_HOME/lazygit/themes/tokyonight/storm.yml"
+LG_LIGHT_THEME="$XDG_CONFIG_HOME/lazygit/themes/latte/sapphire.yml"
+LG_DARK_THEME="$XDG_CONFIG_HOME/lazygit/themes/frappe/sapphire.yml"
 LG_MAIN_CONFIG="$XDG_CONFIG_HOME/lazygit/config.yml"
 export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_day && echo $LG_LIGHT_THEME || echo $LG_DARK_THEME)"
 
