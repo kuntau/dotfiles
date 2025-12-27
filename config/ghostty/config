@@ -34,3 +34,4 @@ macos-titlebar-style = hidden
 macos-icon = xray
 # window-decoration: auto, false, none
 window-decoration = auto 
+background-opacity = .95
