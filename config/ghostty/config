@@ -1,29 +1,26 @@
 # Font Size
-font-size = 12
+font-size = 12.5
 
-# Font Family: Ghostty processes this from left to right for fallbacks
-font-family = "MonoLisa, Operator Mono, Cascadia Code, Maple Mono, Symbols Nerd Font"
+font-family = "Maple Mono"
+font-family-bold = "Operator Mono"
+font-family-italic = "Cascadia Code"
+font-family-bold-italic = "MonoLisa"
 
-# Font style
-font-style = Book
+# Fallback for symbols / nerd glyphs
+font-family = "Symbols Nerd Font Mono"
 
-# Scoped Font Features
-font-feature = "MonoLisa:+ss01,+ss02,+ss07,+ss09,+ss11,+ss14,-calt"
-font-feature = "Operator Mono:+ss01,+ss07,+ss11"
-font-feature = "Cascadia Code:+ss01,+ss02,+ss03,+calt,+ss19,+ss20"
-font-feature = "Maple Mono:+calt,+liga,+ss01,+ss02,+ss03"
+font-feature = "MonoLisa:+ss01,+ss02,+ss07,+ss09,+ss11,+ss14,-calt,+zero"
+font-feature = "Operator Mono:+ss01,+ss07,+ss11,+zero"
+font-feature = "Maple Mono:+calt,+liga,+ss01,+ss02,+ss03,+zero"
+font-feature = "Cascadia Code:+ss01,+ss02,+ss03,+calt,+ss19,+ss20,+zero"
 
 adjust-cell-height = +10%
-theme = light:dawnfox,dark:ayu mirage
+theme = light:catppuccin-latte,dark:ayu mirage
 focus-follows-mouse = false
 confirm-close-surface = true
 quit-after-last-window-closed = true
 quit-after-last-window-closed-delay = 1m
-# tabs = good, hidden = hide all chrome except rounded corder
-macos-titlebar-style = hidden
-macos-icon = xray
-# auto, false, none
-window-decoration = auto
+
 window-save-state = always
 window-subtitle = false
 window-theme = auto
@@ -31,3 +28,9 @@ window-vsync = true
 window-padding-x = 0
 window-padding-y = 0
 auto-update = check
+
+# macos-titlebar-style: tabs = good, hidden = hide all chrome except rounded corder
+macos-titlebar-style = hidden 
+macos-icon = xray
+# window-decoration: auto, false, none
+window-decoration = auto 
