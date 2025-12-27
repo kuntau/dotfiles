@@ -186,6 +186,7 @@ elif [[ $OS_NAME == Darwin ]]; then
   # nnn
   export NNN_OPENER='open' # set MacOS nnn opener
   export NNN_BMS="$NNN_BMS;c:~/coding;f:~/coding/forks;T:~/Dropbox/transporter;V:/Volumes"
+  export NNN_TRASH=trash
 
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'HQ' ]]; then
