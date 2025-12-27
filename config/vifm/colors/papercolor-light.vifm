@@ -1,0 +1,28 @@
+" vim: ft=vim
+" PaperColor Light for vifm
+highlight clear
+
+" Main Window: guifg=#444444 guibg=#eeeeee
+highlight Win             cterm=none ctermfg=238 ctermbg=255 gui=none guifg=#444444 guibg=#eeeeee
+
+" Directory: Blue (#005f87) | Executable: Green (#008700)
+highlight Directory       cterm=bold ctermfg=24  ctermbg=default gui=bold guifg=#005f87 guibg=default
+highlight Link            cterm=bold ctermfg=31  ctermbg=default gui=bold guifg=#005faf guibg=default
+highlight BrokenLink      cterm=bold ctermfg=160 ctermbg=default gui=bold guifg=#af0000 guibg=default
+highlight Socket          cterm=bold ctermfg=162 ctermbg=default gui=bold guifg=#df005f guibg=default
+highlight Device          cterm=bold ctermfg=160 ctermbg=default gui=bold guifg=#af0000 guibg=default
+highlight Fifo            cterm=bold ctermfg=31  ctermbg=default gui=bold guifg=#005faf guibg=default
+highlight Executable      cterm=bold ctermfg=28  ctermbg=default gui=bold guifg=#008700 guibg=default
+
+" Selection: guibg=#d7af5f (Olive/Gold)
+highlight Selected        cterm=bold ctermfg=232 ctermbg=179     gui=bold guifg=#000000 guibg=#d7af5f
+highlight CurrLine        cterm=bold ctermfg=255 ctermbg=24      gui=bold guifg=#eeeeee guibg=#005f87
+
+" UI Elements
+highlight TopLine         cterm=none ctermfg=244 ctermbg=254     gui=none guifg=#808080 guibg=#e4e4e4
+highlight TopLineSel      cterm=bold ctermfg=238 ctermbg=252     gui=bold guifg=#444444 guibg=#d0d0d0
+highlight StatusLine      cterm=bold ctermfg=238 ctermbg=252     gui=bold guifg=#444444 guibg=#d0d0d0
+highlight WildMenu        cterm=underline,reverse ctermfg=255 ctermbg=31 gui=underline,reverse guifg=#eeeeee guibg=#005faf
+highlight CmdLine         cterm=none ctermfg=238 ctermbg=255     gui=none guifg=#444444 guibg=#eeeeee
+highlight ErrorMsg        cterm=none ctermfg=160 ctermbg=255     gui=none guifg=#af0000 guibg=#eeeeee
+highlight Border          cterm=none ctermfg=250 ctermbg=255     gui=none guifg=#d0d0d0 guibg=#eeeeee

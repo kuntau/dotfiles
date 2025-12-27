@@ -1,0 +1,22 @@
+" vim: ft=vim
+" Catppuccin Mocha for vifm
+highlight clear
+
+highlight Win             cterm=none ctermfg=254 ctermbg=234 gui=none guifg=#cdd6f4 guibg=#1e1e2e
+highlight Directory       cterm=bold ctermfg=153 ctermbg=default gui=bold guifg=#89b4fa guibg=default
+highlight Link            cterm=bold ctermfg=159 ctermbg=default gui=bold guifg=#94e2d5 guibg=default
+highlight BrokenLink      cterm=bold ctermfg=203 ctermbg=default gui=bold guifg=#f38ba8 guibg=default
+highlight Socket          cterm=bold ctermfg=213 ctermbg=default gui=bold guifg=#f5c2e7 guibg=default
+highlight Device          cterm=bold ctermfg=203 ctermbg=default gui=bold guifg=#f38ba8 guibg=default
+highlight Fifo            cterm=bold ctermfg=153 ctermbg=default gui=bold guifg=#94e2d5 guibg=default
+highlight Executable      cterm=bold ctermfg=120 ctermbg=default gui=bold guifg=#a6e3a1 guibg=default
+highlight Selected        cterm=bold ctermfg=213 ctermbg=236     gui=bold guifg=#cba6f7 guibg=#313244
+highlight CurrLine        cterm=bold ctermfg=231 ctermbg=105     gui=bold guifg=#cdd6f4 guibg=#45475a
+highlight TopLine         cterm=none ctermfg=243 ctermbg=233     gui=none guifg=#7f849c guibg=#181825
+highlight TopLineSel      cterm=bold ctermfg=254 ctermbg=236     gui=bold guifg=#cdd6f4 guibg=#313244
+highlight StatusLine      cterm=bold ctermfg=250 ctermbg=233     gui=bold guifg=#bac2de guibg=#181825
+highlight WildMenu        cterm=underline,reverse ctermfg=231 ctermbg=234 gui=underline,reverse guifg=#cdd6f4 guibg=#1e1e2e
+highlight CmdLine         cterm=none ctermfg=254 ctermbg=234     gui=none guifg=#cdd6f4 guibg=#1e1e2e
+highlight ErrorMsg        cterm=none ctermfg=203 ctermbg=234     gui=none guifg=#f38ba8 guibg=#1e1e2e
+highlight Border          cterm=none ctermfg=235 ctermbg=234     gui=none guifg=#313244 guibg=#1e1e2e
+highlight JobLine         cterm=bold,reverse ctermfg=250 ctermbg=233 gui=bold,reverse guifg=#bac2de guibg=#11111b

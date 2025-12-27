@@ -1,0 +1,33 @@
+" vim: ft=vim
+" Kanagawa Wave for vifm (True Color + Fallback)
+" Based on Rebelot's Kanagawa.nvim
+
+highlight clear
+
+" Main window colors
+highlight Win             cterm=none ctermfg=252 ctermbg=234     gui=none guifg=#dcd7ba guibg=#1f1f28
+
+" Directories and Files
+highlight Directory       cterm=bold ctermfg=110 ctermbg=default gui=bold guifg=#7e9cd8 guibg=default
+highlight Link            cterm=bold ctermfg=108 ctermbg=default gui=bold guifg=#7aa89f guibg=default
+highlight BrokenLink      cterm=bold ctermfg=131 ctermbg=default gui=bold guifg=#c34043 guibg=default
+highlight Socket          cterm=bold ctermfg=103 ctermbg=default gui=bold guifg=#957fb8 guibg=default
+highlight Device          cterm=bold ctermfg=131 ctermbg=default gui=bold guifg=#c34043 guibg=default
+highlight Fifo            cterm=bold ctermfg=109 ctermbg=default gui=bold guifg=#6a9589 guibg=default
+highlight Executable      cterm=bold ctermfg=107 ctermbg=default gui=bold guifg=#76946a guibg=default
+
+" Selection and Cursor
+" Using Kanagawa's 'waveBlue2' (#2d4f67) for selection background
+highlight Selected        cterm=bold ctermfg=186 ctermbg=237     gui=bold guifg=#c8c093 guibg=#2d4f67
+highlight CurrLine        cterm=bold ctermfg=252 ctermbg=238     gui=bold guifg=#dcd7ba guibg=#363646
+
+" UI Elements (TopLine, StatusLine, CmdLine)
+" Using 'sumiInk0' (#16161d) for darker UI bars
+highlight TopLine         cterm=none ctermfg=243 ctermbg=233     gui=none guifg=#727169 guibg=#16161d
+highlight TopLineSel      cterm=bold ctermfg=252 ctermbg=235     gui=bold guifg=#dcd7ba guibg=#1f1f28
+highlight StatusLine      cterm=bold ctermfg=252 ctermbg=233     gui=bold guifg=#dcd7ba guibg=#16161d
+highlight WildMenu        cterm=underline,reverse ctermfg=252 ctermbg=234 gui=underline,reverse guifg=#dcd7ba guibg=#1f1f28
+highlight CmdLine         cterm=none ctermfg=252 ctermbg=234     gui=none guifg=#dcd7ba guibg=#1f1f28
+highlight ErrorMsg        cterm=none ctermfg=167 ctermbg=234     gui=none guifg=#e82424 guibg=#1f1f28
+highlight Border          cterm=none ctermfg=235 ctermbg=234     gui=none guifg=#16161d guibg=#1f1f28
+highlight JobLine         cterm=bold,reverse ctermfg=243 ctermbg=233 gui=bold,reverse guifg=#727169 guibg=#16161d
