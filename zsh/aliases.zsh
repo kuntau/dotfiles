@@ -342,3 +342,25 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+vifx() {
+  # Save current directory to a temp file
+  pwd > ~/.vifm/lastdir
+  # Run vifm
+  command vifm "$@"
+  # After vifm quits, cd to the saved directory if the file exists
+  if [ -f ~/.vifm/lastdir ]; then
+    cd "$(cat ~/.vifm/lastdir)"
+    rm ~/.vifm/lastdir # Clean up the temp file
+  fi
+}
+
+vicd()
+{
+  local dst="$(command vifm --choose-dir - "$@")"
+  if [ -z "$dst" ]; then
+    echo 'Directory picking cancelled/failed'
+    return 1
+  fi
+  cd "$dst"
+}
