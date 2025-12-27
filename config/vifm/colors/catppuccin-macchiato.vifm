@@ -1,0 +1,22 @@
+" vim: ft=vim
+" Catppuccin Latte for vifm (True Color)
+highlight clear
+
+highlight Win             cterm=none ctermfg=253 ctermbg=235 gui=none guifg=#cad3f5 guibg=#24273a
+highlight Directory       cterm=bold ctermfg=117 ctermbg=default gui=bold guifg=#8aadf4 guibg=default
+highlight Link            cterm=bold ctermfg=121 ctermbg=default gui=bold guifg=#8bd5ca guibg=default
+highlight BrokenLink      cterm=bold ctermfg=204 ctermbg=default gui=bold guifg=#ed8796 guibg=default
+highlight Socket          cterm=bold ctermfg=176 ctermbg=default gui=bold guifg=#f5bde6 guibg=default
+highlight Device          cterm=bold ctermfg=204 ctermbg=default gui=bold guifg=#ed8796 guibg=default
+highlight Fifo            cterm=bold ctermfg=117 ctermbg=default gui=bold guifg=#8bd5ca guibg=default
+highlight Executable      cterm=bold ctermfg=156 ctermbg=default gui=bold guifg=#a6da95 guibg=default
+highlight Selected        cterm=bold ctermfg=213 ctermbg=237     gui=bold guifg=#c6a0f6 guibg=#363a4f
+highlight CurrLine        cterm=bold ctermfg=231 ctermbg=98      gui=bold guifg=#cad3f5 guibg=#494d64
+highlight TopLine         cterm=none ctermfg=245 ctermbg=234     gui=none guifg=#8087a2 guibg=#1e2030
+highlight TopLineSel      cterm=bold ctermfg=253 ctermbg=237     gui=bold guifg=#cad3f5 guibg=#363a4f
+highlight StatusLine      cterm=bold ctermfg=249 ctermbg=234     gui=bold guifg=#a5adcb guibg=#1e2030
+highlight WildMenu        cterm=underline,reverse ctermfg=231 ctermbg=235 gui=underline,reverse guifg=#cad3f5 guibg=#24273a
+highlight CmdLine         cterm=none ctermfg=253 ctermbg=235     gui=none guifg=#cad3f5 guibg=#24273a
+highlight ErrorMsg        cterm=none ctermfg=204 ctermbg=235     gui=none guifg=#ed8796 guibg=#24273a
+highlight Border          cterm=none ctermfg=237 ctermbg=235     gui=none guifg=#363a4f guibg=#24273a
+highlight JobLine         cterm=bold,reverse ctermfg=249 ctermbg=234 gui=bold,reverse guifg=#a5adcb guibg=#181926
