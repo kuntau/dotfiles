@@ -63,6 +63,7 @@ CONFIG_DIRS=(
   nu
   nvim
   tmux
+  vifm
   wezterm
   yazi
 )
@@ -303,8 +304,6 @@ main() {
       return 1
     fi
   done
-
-  if ! ask "$ICON_ASK Continue installation?"; then exit; fi
 
   # Link config files
   if ask "$ICON_ASK Link config files?"; then
