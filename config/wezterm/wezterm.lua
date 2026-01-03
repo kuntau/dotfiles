@@ -250,7 +250,7 @@ return {
 
   -- Advanced options
   enable_kitty_graphics = true,
-  enable_kitty_keyboard = true,
+  enable_kitty_keyboard = false,
   send_composed_key_when_left_alt_is_pressed = false,
   send_composed_key_when_right_alt_is_pressed = false,
 
@@ -337,7 +337,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,
   tab_max_width = 50,
-  window_background_opacity = 1.0,
+  window_background_opacity = 0.95,
   window_decorations = 'INTEGRATED_BUTTONS|RESIZE', -- 'INTEGRATED_BUTTONS', 'TITLE', 'RESIZE', 'NONE'
   integrated_title_button_style = 'Windows',
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
