@@ -149,8 +149,8 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 # NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
-export ZVM_INIT_MODE=sourcing
-export ZVM_CURSOR_STYLE_ENABLED=true
+ZVM_INIT_MODE=sourcing # Enabling this will messed up TMUX
+ZVM_CURSOR_STYLE_ENABLED=true
 
 # nnn
 export NNN_BMS='D:~/dotfiles;C:~/.config;L:~/.local'
