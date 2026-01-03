@@ -21,6 +21,7 @@ vim.api.nvim_create_autocmd("User", {
     Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>os")
     Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>ow")
     Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>oL")
+    Snacks.toggle.option("cursorcolumn", { name = "Cursor Column" }):map("<leader>or")
     Snacks.toggle.diagnostics():map("<leader>od")
     Snacks.toggle.line_number():map("<leader>ol")
     Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>oc")
