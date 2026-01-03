@@ -221,6 +221,23 @@ exists uv       && PATH=$HOME/.local/bin:$PATH            # pip app binary path
 exists znap     && PATH=$ZHOME/BigH/git-fuzzy/bin:$PATH   # git fuzzy binary path
 exists znap     && PATH=$ZHOME/junegunn/fzf/bin:$PATH     # fzf binary path
 export PATH=$DOTFILES/bin:$PATH                           # dotfiles binary path
+
+# Completions - Znap way
+exists atuin && znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
+exists cargo && znap function _cargo cargo 'eval "$(rustup completions zsh cargo)"'
+exists deno && znap function _deno deno 'eval "$(deno completions zsh)"'
+exists gh && znap function _gh gh 'eval "$(gh completion --shell zsh)"'
+exists git-lfs && znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
+exists glow && znap function _glow glow 'eval "$(glow completion zsh)"'
+exists jj && znap function _jj jj 'eval "$(jj util completion zsh)"'
+exists maestral && znap function _maestral maestral 'eval "$(maestral completion zsh)"'
+exists rg && znap function _rg rg 'eval "$(rg --generate=complete-zsh)"'
+exists rustup && znap function _rustup rustup 'eval "$(rustup completions zsh)"'
+exists syncthing && znap function _synthing synthing 'eval "$(synthing install-completions)"'
+exists tree-sitter && znap function _tree-sitter tree-sitter 'eval "$(tree-sitter complete --shell zsh)"'
+exists uv && znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
+fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
+
 # }}}
 
 # Extra sources {{{
@@ -244,22 +261,6 @@ function zvm_after_init() {
   bindkey -M viins '^R' atuin-search
   bindkey -M vicmd '' up-line-or-history
   bindkey -M vicmd '' down-line-or-history
-
-  # Completions - Znap way
-  exists atuin && znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
-  exists cargo && znap function _cargo cargo 'eval "$(rustup completions zsh cargo)"'
-  exists deno && znap function _deno deno 'eval "$(deno completions zsh)"'
-  exists gh && znap function _gh gh 'eval "$(gh completion --shell zsh)"'
-  exists git-lfs && znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
-  exists glow && znap function _glow glow 'eval "$(glow completion zsh)"'
-  exists jj && znap function _jj jj 'eval "$(jj util completion zsh)"'
-  exists maestral && znap function _maestral maestral 'eval "$(maestral completion zsh)"'
-  exists rg && znap function _rg rg 'eval "$(rg --generate=complete-zsh)"'
-  exists rustup && znap function _rustup rustup 'eval "$(rustup completions zsh)"'
-  exists syncthing && znap function _synthing synthing 'eval "$(synthing install-completions)"'
-  exists tree-sitter && znap function _tree-sitter tree-sitter 'eval "$(tree-sitter complete --shell zsh)"'
-  exists uv && znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
-  fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
 
   source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases

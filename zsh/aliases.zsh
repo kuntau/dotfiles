@@ -4,9 +4,14 @@ alias dus='du -hd 1'
 # Kitty's kitten
 alias kssh='kitten ssh'
 
-# TOOD: Rewrite this!
-# files listing with optional exa -- colorized  everything
-# `eza` is `exa` successor, it have the same syntax, so the following is not DRY
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # OS X `ls`
+  colorflag="-G"
+fi
+
+# files listing with optional exa/eza -- colorized  everything
 LS=$(exists eza && echo 'eza' || echo 'exa')
 if exists eza || exists exa; then
   alias   l="$LS --icons=auto"
@@ -23,13 +28,6 @@ else
   alias l="ls ${colorflag}"        # List all files colorized in long format
   alias la="ls -laGh ${colorflag}" # List all files colorized in long format, including dot files
   alias lsd='ls -l | grep "^d"'    # List only directories
-fi
-
-# FZF aliases
-if exists fzf; then
-  alias f='fzf-tmux'
-  alias ft='fzf-tmux --preview "bat --style=numbers --color=always {}"'
-  alias fp='fzf --preview "bat --style=numbers --color=always {}"'
 fi
 
 # docker aliases
@@ -105,29 +103,6 @@ else
   alias json='python -mjson.tool'
 fi
 
-OMZ_PATH="$ZHOME/ohmyzsh/ohmyzsh"
-PREZTO_PATH="$ZHOME/sorin-ionescu/prezto"
-
-omz-plugin() {
-  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
-  $PAGER -p "$OMZ_PATH/plugins/$cmd/$cmd.plugin.zsh"
-}
-
-omz-readme() {
-  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
-  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$cmd/README.md"
-}
-
-prezto-readme() {
-  cmd=${1:-"$(command ls $PREZTO_PATH/modules | fzf)"}
-  $MARKDOWN_VIEWER -p "$PREZTO_PATH/modules/$cmd/README.md"
-}
-
-# create directory and immedietly cd into it
-mkd() {
-  mkdir -p "$1" && builtin cd "$1"
-}
-
 # wget make mirror
 alias wget_mirror="wget \
   --mirror \
@@ -138,7 +113,7 @@ alias wget_mirror="wget \
   --no-clobber \
   $1"
 
-# wget throttle
+# wget make mirror with throttle
 alias wget_mirror_throttle="wget \
   --header='Accept: text/html' \
   --user-agent='Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/84.0.4147.140 Safari/537.36' \
@@ -161,28 +136,24 @@ alias wget_recursive_dl='wget \
   --no-host-directories \
   --reject "index.html*"'
 
-ffcheck() {
-  ffmpeg -v error -i "$1" -f NULL - 2>error.log
-}
-fffix() {
-  ffmpeg -v error -err_detect ignore_err -i "$1" -c copy -acodec copy fix.mkv
-  mv "$1" "$1.old"
-  mv fix.mkv "$1"
-}
-
 # borrowed from :
 # https://github.com/addyosmani/dotfiles/blob/master/.aliases
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
 #===============================================================
 
 # osx programs
-# alias vlc='open -a "VLC"'
-# alias st='open -a "Sublime Text"'
-# also/or do this:
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+alias mpv='open -a "mpv"'
+alias vlc='open -a "VLC"'
+alias st='open -a "Sublime Text"'
 alias preview="open -a '$PREVIEW'"
-alias xcode="open -a '/Developer/Applications/Xcode.app'"
-alias filemerge="open -a '/Developer/Applications/Utilities/FileMerge.app'"
+alias xcode="open -a '/Applications/Xcode.app'"
+
+# Homebrew. Extend omz/prezto
+alias brewI='brew info --formula'
+alias caskI='brew info --cask'
+alias brewup='brew update && brew outdated'
+alias portI='port info'
+alias portn='port notes'
 
 # navigation
 alias ..='cd ..'
@@ -192,27 +163,17 @@ alias .....='cd ../../../..'
 # be nice
 alias please=sudo
 
+# mediainfo
+alias mi=mediainfo
+
 # Gzip-enabled 'curl'
 alias gurl='curl --compressed'
 
-#get week number
+# get week number
 alias week='date +%V'
 
-#stopwatch
+# stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && data'
-
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-  colorflag="--color"
-else # OS X `ls`
-  colorflag="-G"
-fi
-
-# `cat` with beautiful colors. requires Pygments installed.
-#                  sudo easy_install Pygments
-exists pygmentize && alias c='pygmentize -O style=monokai -f console256 -g'
-
-# GIT STUFF
 
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
@@ -231,12 +192,13 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache"
 
-# npm
+# npm/pnpm
 alias npmp="npm publish"
 alias npma="npm adduser"
 alias npmi="npm install"
 alias npmg="npm install -g"
-alias npmu="npm update"
+alias npmo="npm outdated && pnpm outdated"
+alias npmu="npm update && pnpm update"
 alias npmr="npm uninstall"
 alias npmrg="npm uninstall -g"
 
@@ -273,9 +235,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# ROT13-encode text. Works for decoding, too! ;)
-alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # URL-encode strings
 alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
@@ -323,6 +282,10 @@ alias edgekill="ps ux | rg '[M]icrosoft Edge Helper \(Renderer\) --type=renderer
 # Tmux Helper
 alias takeover="tmux detach -a"
 
+##############################
+#         FUNCTIONS          #
+##############################
+
 # Make CTRL+z do both fg & bg
 function fg-bg {
 if [[ $#BUFFER -eq 0 ]]; then
@@ -335,6 +298,24 @@ fi
 zle -N fg-bg
 bindkey '^z' fg-bg # CTRL+z
 
+# create directory and immedietly cd into it
+mkd() {
+  mkdir -p "$1" && builtin cd "$1"
+}
+
+# Check for mediafile error
+function ffcheck() {
+  ffmpeg -v error -i "$1" -f NULL - 2>error.log
+}
+
+# Fix mediafile error. CAUTION: Might strip some data
+function fffix() {
+  ffmpeg -v error -err_detect ignore_err -i "$1" -c copy -acodec copy fix.mkv
+  mv "$1" "$1.old"
+  mv fix.mkv "$1"
+}
+
+# Yazi quitcd
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -343,7 +324,18 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-vifx() {
+# Vifm quitcd
+function f() {
+  local dst="$(command vifm --choose-dir - "$@")"
+  if [ -z "$dst" ]; then
+    echo 'Directory picking cancelled/failed'
+    return 1
+  fi
+  cd "$dst"
+}
+
+# Vifm quitcd -- not working
+function vifx() {
   # Save current directory to a temp file
   pwd > ~/.vifm/lastdir
   # Run vifm
@@ -355,12 +347,22 @@ vifx() {
   fi
 }
 
-vicd()
-{
-  local dst="$(command vifm --choose-dir - "$@")"
-  if [ -z "$dst" ]; then
-    echo 'Directory picking cancelled/failed'
-    return 1
-  fi
-  cd "$dst"
+# Easy view for omz/prezto plugins doc
+OMZ_PATH="$ZHOME/ohmyzsh/ohmyzsh"
+PREZTO_PATH="$ZHOME/sorin-ionescu/prezto"
+
+omz-plugin() {
+  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
+  $PAGER -p "$OMZ_PATH/plugins/$cmd/$cmd.plugin.zsh"
 }
+
+omz-readme() {
+  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
+  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$cmd/README.md"
+}
+
+prezto-readme() {
+  cmd=${1:-"$(command ls $PREZTO_PATH/modules | fzf)"}
+  $MARKDOWN_VIEWER -p "$PREZTO_PATH/modules/$cmd/README.md"
+}
+
