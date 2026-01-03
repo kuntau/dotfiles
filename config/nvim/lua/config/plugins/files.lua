@@ -19,7 +19,6 @@ return {
     'dmtrKovalenko/fff.nvim',
     build = function() require('fff.download').download_or_build_binary() end,
     keys = { { '<C-p>', function() require('fff').find_files() end, desc = 'Open file picker', }, },
-    lazy = false,
     opts = opts_fff,
   },
   {
