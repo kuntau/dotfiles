@@ -1,0 +1,57 @@
+# Ghostty Theme: PaperColor Light
+# Converted from Vim PaperColor theme
+
+palette = 0=#eeeeee
+palette = 1=#af0000
+palette = 2=#008700
+palette = 3=#5f8700
+palette = 4=#0087af
+palette = 5=#878787
+palette = 6=#005f87
+palette = 7=#444444
+palette = 8=#bcbcbc
+palette = 9=#d70000
+palette = 10=#d70087
+palette = 11=#8700af
+palette = 12=#d75f00
+palette = 13=#d75f00
+palette = 14=#005faf
+palette = 15=#005f87
+
+background = #eeeeee
+foreground = #444444
+
+cursor-color = #005f87
+cursor-text = #eeeeee
+
+selection-background = #0087af
+selection-foreground = #eeeeee
+
+# Ghostty Theme: PaperColor Light (fixed)
+# Based on PaperColor theme https://github.com/NLKNguyen/papercolor-theme
+
+# palette = 0=#eaeaea
+# palette = 1=#d70000
+# palette = 2=#008700
+# palette = 3=#af8700
+# palette = 4=#005f87
+# palette = 5=#af005f
+# palette = 6=#00afaf
+# palette = 7=#444444
+# palette = 8=#bcbcbc
+# palette = 9=#d75f00
+# palette = 10=#5f8700
+# palette = 11=#d7af00
+# palette = 12=#0087af
+# palette = 13=#d75faf
+# palette = 14=#00af87
+# palette = 15=#005f5f
+#
+# background = #f5f5f5
+# foreground = #303030
+#
+# cursor-color = #af005f
+# cursor-text = #f5f5f5
+#
+# selection-background = #bcbcbc
+# selection-foreground = #303030

@@ -15,7 +15,7 @@ font-feature = "Maple Mono:+calt,+liga,+ss01,+ss02,+ss03,+zero"
 font-feature = "Cascadia Code:+ss01,+ss02,+ss03,+calt,+ss19,+ss20,+zero"
 
 adjust-cell-height = +10%
-theme = light:catppuccin-latte,dark:ayu mirage
+theme = light:PaperColor-Light,dark:ayu mirage
 focus-follows-mouse = false
 confirm-close-surface = true
 quit-after-last-window-closed = true
