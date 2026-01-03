@@ -69,7 +69,7 @@
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
-  hunk-header-decoration-style = yellow box  
+  hunk-header-decoration-style = yellow box
 [filter "media"]
   clean = git-media-clean %f
   smudge = git-media-smudge %f
@@ -105,6 +105,11 @@
   email = kuntau17@gmail.com
 	name = Kuntau
   signingkey = DFBA935E336840CA
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
 [credential "https://dev.azure.com"]
   useHttpPath = true
 [gpg]
@@ -130,21 +135,44 @@
 [help]
   autocorrect = prompt
 [diff]
-  colorMoved = plain
-  tool = smerge
+  colorMoved = default
+	tool = vscode-diff
+	guitool = Kaleidoscope
   algorithm = histogram
   submodule = log
   renames = true
   mnemonicPrefix = true
 [difftool]
-  prompt = false
-[difftool "smerge"]
-  cmd = smerge \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+  guiDefault = false
+  hideResolved = true  # https://www.eseth.org/2020/mergetools.html
+	prompt = false
+	trustExitCode = true
 [merge]
   conflictstyle = zdiff3
-  tool = smerge
+	tool = vscode-diff
+	guitool = Kaleidoscope
 [mergetool]
+  guiDefault = false
   keepBackup = false
+	prompt = false
+[difftool "smerge"]
+  cmd = smerge \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 [mergetool "smerge"]
   cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
   trustExitCode = true
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[difftool "meld"]
+    cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+[mergetool "meld"]
+    cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
+[difftool "vscode-diff"]
+	cmd = nvim -c \"CodeDiff file \"$LOCAL\" \"$REMOTE\"\"
+  # cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[mergetool "vscode-diff"]
+	cmd = nvim \"$MERGED\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
+[difftool "nvim_difftool"]
+  cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
