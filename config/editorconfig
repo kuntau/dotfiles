@@ -3,7 +3,7 @@
 # top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file
+# This catch-all block need to be at the top. Newlines ending for every file
 [*]
 charset = utf-8
 end_of_line = lf
@@ -11,8 +11,8 @@ indent_size = 2
 indent_style = space
 insert_final_newline = true
 max_line_length = 120
+trim_trailing_whitespace = true
 
-# Matches multiple files with brace expansion notation
 [*.{js,py}]
 charset = utf-8
 
@@ -22,6 +22,11 @@ quote_style = single
 [*.py]
 indent_style = space
 indent_size = 4
+
+[*.{diff,md,txt,adoc}]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = false
 
 # Tab indentation (no size specified)
 [Makefile]
