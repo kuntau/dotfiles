@@ -125,8 +125,9 @@ vim.opt.fillchars:append {
 vim.opt.diffopt:append   'vertical' -- Diff always open in vsplit
 vim.opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
 
--- Highlight VCS conflict markers
--- vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
+-- Highlight VCS conflict markers with custom highlight groups
+vim.api.nvim_set_hl(0, "ConflictMarker",   { fg = "#000000", bg = "#ffff00", bold = true })
+vim.fn.matchadd("ConflictMarker", [[^\(<\|=\|>\||\)\{7\}\([^=].\+\)\?$]]) -- Add matches for each conflict marker
 
 -- disable some builtin plugins
 vim.g.loaded_2html_plugin   = 1
