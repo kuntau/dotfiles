@@ -7,14 +7,14 @@ local multicursor = function()
   -- Add or skip cursor above/below the main cursor.
   map({"n", "x"}, "<up>", function() mc.lineAddCursor(-1) end)
   map({"n", "x"}, "<down>", function() mc.lineAddCursor(1) end)
-  map({"n", "x"}, "<leader><up>", function() mc.lineSkipCursor(-1) end)
-  map({"n", "x"}, "<leader><down>", function() mc.lineSkipCursor(1) end)
+  map({"n", "x"}, "<localleader><up>", function() mc.lineSkipCursor(-1) end)
+  map({"n", "x"}, "<localleader><down>", function() mc.lineSkipCursor(1) end)
 
   -- Add or skip adding a new cursor by matching word/selection
-  map({"n", "x"}, "<leader>n", function() mc.matchAddCursor(1) end)
-  map({"n", "x"}, "<leader>s", function() mc.matchSkipCursor(1) end)
-  map({"n", "x"}, "<leader>N", function() mc.matchAddCursor(-1) end)
-  map({"n", "x"}, "<leader>S", function() mc.matchSkipCursor(-1) end)
+  map({"n", "x"}, "<localleader>n", function() mc.matchAddCursor(1) end)
+  map({"n", "x"}, "<localleader>s", function() mc.matchSkipCursor(1) end)
+  map({"n", "x"}, "<localleader>N", function() mc.matchAddCursor(-1) end)
+  map({"n", "x"}, "<localleader>S", function() mc.matchSkipCursor(-1) end)
 
   -- Add and remove cursors with control + left click.
   map("n", "<c-leftmouse>", mc.handleMouse)
@@ -29,10 +29,10 @@ local multicursor = function()
   map({"n", "x"}, "ga", mc.addCursorOperator)
 
   -- Clone every cursor and disable the originals.
-  map({"n", "x"}, "<leader><c-q>", mc.duplicateCursors)
+  map({"n", "x"}, "<localleader><c-q>", mc.duplicateCursors)
 
   -- Align cursor columns.
-  map("n", "<leader>a", mc.alignCursors)
+  map("n", "<localleader>a", mc.alignCursors)
 
   -- Split visual selections by regex.
   map("x", "S", mc.splitCursors)
@@ -41,14 +41,14 @@ local multicursor = function()
   map("x", "M", mc.matchCursors)
 
   -- bring back cursors if you accidentally clear them
-  map("n", "<leader>gv", mc.restoreCursors)
+  map("n", "<localleader>gv", mc.restoreCursors)
 
   -- Add a cursor for all matches of cursor word/selection in the document.
-  map({"n", "x"}, "<leader>A", mc.matchAllAddCursors)
+  map({"n", "x"}, "<localleader>A", mc.matchAllAddCursors)
 
   -- Rotate the text contained in each visual selection between cursors.
-  map("x", "<leader>t", function() mc.transposeCursors(1) end)
-  map("x", "<leader>T", function() mc.transposeCursors(-1) end)
+  map("x", "<localleader>t", function() mc.transposeCursors(1) end)
+  map("x", "<localleader>T", function() mc.transposeCursors(-1) end)
 
   -- Append/insert for each line of visual selections.
   -- Similar to block selection insertion.
@@ -56,20 +56,20 @@ local multicursor = function()
   map("x", "A", mc.appendVisual)
 
   -- Add a cursor and jump to the next/previous search result.
-  map("n", "<leader>/n", function() mc.searchAddCursor(1) end)
-  map("n", "<leader>/N", function() mc.searchAddCursor(-1) end)
+  map("n", "<localleader>/n", function() mc.searchAddCursor(1) end)
+  map("n", "<localleader>/N", function() mc.searchAddCursor(-1) end)
 
   -- Jump to the next/previous search result without adding a cursor.
-  map("n", "<leader>/s", function() mc.searchSkipCursor(1) end)
-  map("n", "<leader>/S", function() mc.searchSkipCursor(-1) end)
+  map("n", "<localleader>/s", function() mc.searchSkipCursor(1) end)
+  map("n", "<localleader>/S", function() mc.searchSkipCursor(-1) end)
 
   -- Add a cursor to every search result in the buffer.
-  map("n", "<leader>/A", mc.searchAllAddCursors)
+  map("n", "<localleader>/A", mc.searchAllAddCursors)
 
-  -- Pressing `<leader>miwap` will create a cursor in every match of the
+  -- Pressing `<localleader>miwap` will create a cursor in every match of the
   -- string captured by `iw` inside range `ap`.
   -- This action is highly customizable, see `:h multicursor-operator`.
-  map({"n", "x"}, "<leader>m", mc.operator)
+  map({"n", "x"}, "<localleader>m", mc.operator)
 
   -- Add or skip adding a new cursor by matching diagnostics.
   map({"n", "x"}, "]d", function() mc.diagnosticAddCursor(1) end)
@@ -91,7 +91,7 @@ local multicursor = function()
     layerSet({"n", "x"}, "<right>", mc.nextCursor)
 
     -- Delete the main cursor.
-    layerSet({"n", "x"}, "<leader>x", mc.deleteCursor)
+    layerSet({"n", "x"}, "<localleader>x", mc.deleteCursor)
 
     -- Enable and clear cursors using escape.
     layerSet("n", "<esc>", function()
