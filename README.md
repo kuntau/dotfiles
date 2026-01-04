@@ -146,7 +146,7 @@ git commit -m "Remove submodule $submodule"
 
 ### Nice to have TUI
 
-- `gitui`
+- `gitui`/`lazygit`
 - `glow`/`mdcat`
 - `fdupes`
 

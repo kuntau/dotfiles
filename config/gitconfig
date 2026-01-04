@@ -40,36 +40,13 @@
   excludesfile = ~/.gitignore
   editor = nvim
   pager = delta
-[credential]
-  # helper = osxkeychain
-  credentialStore = gpg
-  helper = "/opt/homebrew/bin/gh auth git-credential"
+[include]
+  path = "~/.gitconfig.extra"
 [credential "https://github.com"]
   helper = cache --timeout=3600
   username = kuntau
-[delta]
-  diff-highlight = false
-  diff-so-fancy = true
-  features = unobtrusive-line-numbers decorations
-  # features = calochortus-lyallii
-  navigate = true
-  side-by-side = false
-  true-color = always
-  whitespace-error-style = 22 reverse
-[delta "unobtrusive-line-numbers"]
-  line-numbers = true
-  line-numbers-minus-style = "#444444"
-  line-numbers-zero-style = "#444444"
-  line-numbers-plus-style = "#444444"
-  line-numbers-left-format = "{nm:>4}┊"
-  line-numbers-right-format = "{np:>4}│"
-  line-numbers-left-style = blue
-  line-numbers-right-style = blue
-[delta "decorations"]
-  commit-decoration-style = bold yellow box ul
-  file-style = bold yellow ul
-  file-decoration-style = none
-  hunk-header-decoration-style = yellow box
+[include]
+  path = "~/dotfiles/config/git/gitconfig.delta"
 [filter "media"]
   clean = git-media-clean %f
   smudge = git-media-smudge %f
@@ -83,8 +60,6 @@
   autocorrect = 1
 [hub]
   protocol = https
-[include]
-  path = ~/dotfiles/config/delta/themes.gitconfig
 [interactive]
   diffFilter = delta --color-only
 [rerere]
