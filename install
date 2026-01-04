@@ -190,6 +190,25 @@ link_config() {
   done
 }
 
+# Machine specific gitconfig
+link_gitconfig() {
+  if [[ "$OS" = "Linux" ]]; then
+    if [[ "$(uname -o)" = "GNU/Linux" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.linux ~/.gitconfig.extra
+    elif [[ "$(uname -o)" = "Android" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.termux ~/.gitconfig.extra
+    fi
+  elif [[ "$OS" = "Darwin" ]]; then
+    if [[ "$HOSTNAME" = "HQ" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.hq ~/.gitconfig.extra
+    elif [[ "$HOSTNAME" = "MBA" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.mba ~/.gitconfig.extra
+    elif [[ "$HOSTNAME" = "rMBP" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.rmbp ~/.gitconfig.extra
+    fi
+  fi
+}
+
 
 # $1=BINARY $2=TEXT_OK $3=TEXT_ERR
 exist() {
@@ -212,7 +231,7 @@ install_packages() {
   local cmd_prefix=${DEBUG:+"echo"}
   local verbosity=${VERBOSE:+":"}
   local packages=$*
-  
+
   if [[ ${#packages} -gt 0 ]]; then
     $verbosity echo -e "\n$ICON_INFO INFO. Missing packages: ${BOLD}${BLUE}$packages${NC}"
     if ask "$ICON_ASK Install ${BOLD}${YELLOW}$packages${NC} with package manager?"; then
@@ -288,9 +307,9 @@ clone_repo() {
   local dir=$3
 
   if [[ -d $dir ]]; then
-    echo -e "$ICON_WARN CAUTION. You already have ${BOLD}${YELLOW}$name${NC} installed, skipping..."
+    echo -e "$ICON_OK OK. You already have ${BOLD}${GREEN}$name${NC} installed, skipping..."
   else
-    echo -e "$ICON_GITHUB GITHUB. Cloning ${BOLD}${GREEN}$name${NC}..."
+    echo -e "$ICON_GITHUB GITHUB. Cloning ${BOLD}${YELLOW}$name${NC}..."
     $cmd_prefix "$(which git)" clone --filter=blob:none "$url" "$dir"
   fi
 }
@@ -312,8 +331,12 @@ main() {
     for file in "${CONFIG_FILES[@]}"; do
       make_link "$DOTFILES/config/$file" "$HOME/.$file"
     done
+
     # Link ssh config
     make_link "$DOTFILES/config/ssh-config" "$HOME/.ssh/config"
+
+    # Link gitconfig extras
+    link_gitconfig
   fi
 
   # Link config directories
