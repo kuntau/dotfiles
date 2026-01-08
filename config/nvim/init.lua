@@ -8,6 +8,8 @@ require('config.options')
 require('config.lazy')
 require('config.ui')
 
+_G._DEBUG = false
+
 local group = vim.api.nvim_create_augroup("LazyVim", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = group,

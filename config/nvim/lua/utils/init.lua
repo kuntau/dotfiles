@@ -28,7 +28,7 @@ if vim.fn.has("nvim-0.11") == 1 then
     dd(...)
   end
 else
-  vim.print = _G.dd 
+  vim.print = _G.dd
 end
 -- end global helpers
 
@@ -149,7 +149,7 @@ local autocmd = function(group, autocmds, desc, clear)
         opts.callback = cmd
       end
 
-      cmd_opts = vim.tbl_deep_extend('force', opts, cmd_opts) -- force any extra options
+      cmd_opts = vim.tbl_deep_extend('force', opts, cmd_opts or {}) -- force any extra options
       vim.api.nvim_create_autocmd(event, cmd_opts)
       -- opts = {}
     end
@@ -157,8 +157,8 @@ local autocmd = function(group, autocmds, desc, clear)
 
   -- check if we have only single table
   autocmds = is_tbl_only(autocmds) and autocmds or { autocmds }
-  for _, autocmdx in pairs(autocmds) do
-    process_cmds(unpack(autocmdx))
+  for _, au in ipairs(autocmds) do
+    process_cmds(au[1], au[2], au[3], au[4])
   end
 
 end

@@ -1,7 +1,7 @@
 -- LSP, linter & formatter configs
 
-local ensure_installed = {
-  -- 'lua_ls',
+local _ensure_installed = {
+  'emmylua_ls',
   'ts_ls',
   'intelephense',
   'vue_ls',
@@ -57,9 +57,7 @@ local config_null = function()
       -- }),
 
       -- Linter
-      -- nuls.builtins.diagnostics.eslint, -- JS/TS NOTE: Use LSP
       nuls.builtins.diagnostics.phpstan, -- PHP
-      -- nuls.builtins.diagnostics.bashls, -- Bash/sh NOTE: Use LSP
       nuls.builtins.diagnostics.zsh, -- zsh
       -- nuls.builtins.diagnostics.pylint, -- Python
       -- nuls.builtins.diagnostics.mypy, -- Python
@@ -71,9 +69,7 @@ local config_null = function()
 
       -- Code actions
       -- nuls.builtins.code_actions.gitsigns,
-      -- nuls.builtins.code_actions.eslint, -- NOTE: Use LSP
       nuls.builtins.code_actions.refactoring,
-      -- nuls.builtins.code_actions.basls, -- Bash NOTE: Use LSP
 
       -- Hover
       -- nuls.builtins.hover.dictionary
@@ -94,6 +90,7 @@ end
 return {
   {
     'neovim/nvim-lspconfig',
+    enabled = (vim.env.TERMUX_VERSION and false or true),
     version = '*',
     event = 'BufReadPre',
     config = function() require('lsp') end,
@@ -113,10 +110,8 @@ return {
         'mason-org/mason-lspconfig.nvim',
         opts = {
           automatic_installation = true,
-          -- ensure_installed = ensure_installed,
-          -- automatic_enable = {
-          --   'emmylua_ls',
-          -- },
+          automatic_enable = true,
+          -- ensure_installed = _ensure_installed,
         },
       },  -- Bridge for mason-LSP config
       { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },

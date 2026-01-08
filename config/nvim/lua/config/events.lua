@@ -19,13 +19,13 @@ autocmd('remember_folds', {
 autocmd('insert_enter', {
   { 'InsertEnter', '*.*', function()
     vim.cmd('setl list nornu')
-    Snacks.indent.enable()
     vim.diagnostic.hide()
+    Snacks.indent.enable()
   end },
   { 'InsertLeave', '*.*', function()
     vim.cmd('setl nolist rnu')
-    Snacks.indent.disable()
     vim.diagnostic.show()
+    Snacks.indent.disable()
   end }
 })
 
