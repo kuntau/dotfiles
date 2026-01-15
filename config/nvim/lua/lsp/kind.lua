@@ -1,34 +1,36 @@
 -- LSP & cmp kind
 
 local DONE_SETUP = false
+local _dbgi = require('utils.logger').dbgi
 
 -- completion symbols
 local icons = {
-  Class         = { icon = '', text = 'class' },
-  Color         = { icon = '', text = 'color' },
-  Constant      = { icon = '', text = 'const' },
-  Constructor   = { icon = '', text = 'constr' },
-  Folder        = { icon = '', text = 'dir' },
-  Enum          = { icon = '', text = 'enum' },
-  EnumMember    = { icon = '', text = 'enmbr' },
-  Event         = { icon = '', text = 'event' },
-  Field         = { icon = '⎵', text = 'field' },
-  File          = { icon = '', text = 'file' },
-  Function      = { icon = '', text = 'func' },
-  Interface     = { icon = '', text = 'iface' },
-  Keyword       = { icon = '', text = 'keyword' },
-  Method        = { icon = '', text = 'method' },
-  Module        = { icon = '', text = 'module' },
-  Operator      = { icon = '', text = 'oper' },
-  Property      = { icon = '', text = 'prop' },
-  Reference     = { icon = '', text = 'ref' },
-  Snippet       = { icon = '', text = 'snip' },
-  Struct        = { icon = '', text = 'struct' },
-  Text          = { icon = '', text = 'text' },
-  TypeParameter = { icon = '', text = 'tparam' },
-  Unit          = { icon = '', text = 'unit' },
-  Value         = { icon = '', text = 'value' },
-  Variable      = { icon = '', text = 'var' },
+  Class         = { icon = '', icon_alt = '󰠱', text = 'class'   },
+  Color         = { icon = '', icon_alt = '󰏘', text = 'color'   },
+  Constant      = { icon = '', icon_alt = '󰏿', text = 'const'   },
+  Constructor   = { icon = '', icon_alt = '', text = 'constr'  },
+  Folder        = { icon = '', icon_alt = '', text = 'dir'     },
+  Enum          = { icon = '', icon_alt = '', text = 'enum'    },
+  EnumMember    = { icon = '', icon_alt = '', text = 'enmbr'   },
+  Event         = { icon = '', icon_alt = '󰜢', text = 'event'   },
+  Field         = { icon = '⎵', icon_alt = '󰈙', text = 'field'   },
+  File          = { icon = '', icon_alt = '󰉋', text = 'file'    },
+  Function      = { icon = '', icon_alt = '󰊕', text = 'func'    },
+  Interface     = { icon = '', icon_alt = '', text = 'iface'   },
+  Keyword       = { icon = '', icon_alt = '󰌋', text = 'keyword' },
+  Method        = { icon = '', icon_alt = '󰆧', text = 'method'  },
+  Module        = { icon = '', icon_alt = '', text = 'module'  },
+  Operator      = { icon = '', icon_alt = '󰆕', text = 'oper'    },
+  Property      = { icon = '', icon_alt = '󰜢', text = 'prop'    },
+  Reference     = { icon = '', icon_alt = '󰈇', text = 'ref'     },
+  Snippet       = { icon = '', icon_alt = '', text = 'snip'    },
+  Struct        = { icon = '', icon_alt = '󰙅', text = 'struct'  },
+  Text          = { icon = '', icon_alt = '󰉿', text = 'text'    },
+  TypeParameter = { icon = '', icon_alt = ' ', text = 'tparam'  },
+  Unit          = { icon = '', icon_alt = '󰑭', text = 'unit'    },
+  Value         = { icon = '', icon_alt = '󰎠', text = 'value'   },
+  Variable      = { icon = '', icon_alt = '󰀫', text = 'var'     },
+  Yank          = { icon = '󰅍', icon_alt = '󰅍', text = 'yank'    }, -- Extra for Yanky - Blink source
 }
 
 local bracket = {
@@ -53,6 +55,11 @@ local cmp_format = function(opts)
   end
 end
 
+local get_icons = function(kind)
+  kind = kind or '❎'
+  if icons[kind] then return bracket.left .. icons[kind].icon_alt .. ' ' .. bracket.right end
+end
+
 local setup = function(opts)
   if DONE_SETUP then return end
   opts = opts or {}
@@ -66,4 +73,5 @@ end
 return {
   cmp_format = cmp_format,
   setup = setup,
+  get = get_icons,
 }
