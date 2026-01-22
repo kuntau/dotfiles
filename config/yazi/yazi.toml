@@ -1,5 +1,5 @@
 [mgr]
-ratio          = [ 1, 5, 5 ]
+ratio          = [ 1, 3, 5 ]
 sort_by        = "natural"
 sort_sensitive = false
 sort_reverse   = false
@@ -34,9 +34,37 @@ rules = [
 ]
 
 [[plugin.prepend_previewers]]
-url = "*"
-run = 'piper -- echo "$1"'
+url = "*.md"
+run = 'faster-piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
 
 [[plugin.prepend_previewers]]
-url = "*.md"
-run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
+mime = "video/*"
+run = 'faster-piper -- mediainfo "$1"'
+
+[[plugin.prepend_previewers]]
+url = "*/"
+run = 'piper -- eza -TL=1 --color=always --icons=always --group-directories-first --no-quotes "$1"'
+
+[[plugin.prepend_previewers]]
+mime = "application/pdf"
+run = 'faster-piper -- mediainfo "$1"'
+
+[[plugin.prepend_previewers]]
+mime = "application/sqlite3"
+run  = 'faster-piper -- sqlite3 "$1" ".schema --indent"'
+
+[[plugin.prepend_previewers]]
+mime = "application/x-tar"
+run  = 'faster-piper -- tar -tf "$1"'
+
+[[plugin.prepend_previewers]]
+mime = "application/x-zip"
+run  = 'faster-piper -- 7zz l "$1"'
+
+[[plugin.prepend_previewers]]
+mime = "text/*"
+run = 'faster-piper -- $PAGER "$1"'
+
+# [[plugin.prepend_previewers]]
+# url = "*"
+# run = 'faster-piper -- file "$1"'

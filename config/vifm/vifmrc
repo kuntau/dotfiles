@@ -55,9 +55,8 @@ endif
 " Add -s to the default value to suppress "Permission denied" errors
 set grepprg="grep -n -H -I -r -s %i %a %s"
 
-" --- Dynamic Theme Selection ---
-let $CURRENT_HOUR = system('date +%H')
-if $CURRENT_HOUR >= 6 && $CURRENT_HOUR < 18
+" Dynamic Theme Selection - Single source of truth
+if $IS_DAY == 1
     colorscheme papercolor-light
 else
     colorscheme kanagawa-wave
@@ -361,6 +360,7 @@ filetype * open
 nnoremap <C-w>q :wq<cr>
 nnoremap <C-w>Q :q!<cr>
 nnoremap \q :wq<cr>
+nnoremap qq :wq<cr>
 nnoremap \1 :only<cr>
 
 " Show hidden/dot files
@@ -368,6 +368,7 @@ nnoremap . za
 
 " Make file executable
 nnoremap * :!chmod +x %f<cr>
+nnoremap gm :chmod<cr>
 
 " Start shell in current directory
 nnoremap s :shell<cr>
@@ -403,9 +404,11 @@ nnoremap <space> :!qlmanage -p %f > /dev/null 2>&1<cr>
 nnoremap I cW<c-a>
 nnoremap cc cW<c-u>
 nnoremap A cW
+nnoremap R :rename<cr>
 
 " Open editor to edit vifmrc and apply settings after returning to vifm
 nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
+
 " Open neovide to edit vifmrc
 nnoremap ,C :!neovide $MYVIFMRC<cr>
 
@@ -434,9 +437,22 @@ nnoremap <c-u> <c-w>x
 
 " Customize view columns a bit (enable ellipsis for truncated file names)
 " set viewcolumns=-{name}..,6{}.
+" set viewcolumns=-{name}..,8{size}..,18{mtime}
 
-" Show vertical border
- set fillchars=vborder:│
+" Set initial state
+let $VIEW_MODE = 'simple'
+set viewcolumns=-{name}..
+
+" Toggle mapping: Press 'cc' to switch views
+nnoremap gd :if $VIEW_MODE == 'detail' |
+            \ set viewcolumns=-{name}.. |
+            \ let $VIEW_MODE = 'simple' |
+            \ else |
+            \ set viewcolumns=-{name}..,10{size}..,18{mtime} |
+            \ let $VIEW_MODE = 'detail' |
+            \ endif<cr>
+
+ set fillchars=vborder:┃,hborder:━
 
 " Filter-out build artifacts and temporary files
  "filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
