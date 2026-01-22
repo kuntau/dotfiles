@@ -151,9 +151,12 @@ alias xcode="open -a '/Applications/Xcode.app'"
 # Homebrew. Extend omz/prezto
 alias brewI='brew info --formula'
 alias caskI='brew info --cask'
-alias brewup='brew update && brew outdated'
+alias brewU='brew update'
+alias brewuo='brew update && brew outdated'
 alias portI='port info'
 alias portn='port notes'
+alias porto='port outdated'
+alias portuo='sudo port sync && port outdated'
 
 # navigation
 alias ..='cd ..'
