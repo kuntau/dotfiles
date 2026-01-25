@@ -32,7 +32,7 @@ else
 end
 -- end global helpers
 
-local is_day = function() return tonumber(vim.fn.strftime('%H')) >= 8 and tonumber(vim.fn.strftime('%H')) < 19 end
+local is_day = function() return vim.env.IS_DAY end
 
 ---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
 local get_os = function()
@@ -115,7 +115,7 @@ end
 local autocmd = function(group, autocmds, desc, clear)
   local opts, group_opts = {}, {}
 
-  if type(clear) == 'boolean' then
+  if type(clear) == 'boolean' or clear == nil then
     group_opts.clear = clear
   end
 
