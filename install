@@ -19,7 +19,6 @@ THEME_DIR=$DOTFILES/zsh/themes
 XDG_CONFIG_HOME=$HOME/.config
 CHOME=$XDG_CONFIG_HOME
 ZHOME=$HOME/.znap
-FZF_HOME=$HOME/.fzf
 
 BOLD='\033[1m'
 UNDERLINE='\033[4m'
@@ -333,6 +332,7 @@ main() {
     done
 
     # Link ssh config
+    builtin mkdir -p "$HOME/.ssh/s"
     make_link "$DOTFILES/config/ssh-config" "$HOME/.ssh/config"
 
     # Link gitconfig extras
