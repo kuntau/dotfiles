@@ -332,7 +332,7 @@ main() {
     done
 
     # Link ssh config
-    builtin mkdir -p "$HOME/.ssh/s"
+    mkdir -p "$HOME/.ssh/s"
     make_link "$DOTFILES/config/ssh-config" "$HOME/.ssh/config"
 
     # Link gitconfig extras
