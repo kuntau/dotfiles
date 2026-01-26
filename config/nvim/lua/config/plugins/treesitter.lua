@@ -1,7 +1,7 @@
 -- treesitter.lua
 
 local config = function()
-  require('nvim-treesitter.configs').setup({
+  require('nvim-treesitter').setup({
     ensure_installed = { 'comment', 'css', 'html', 'javascript', 'json', 'php', 'tsx', 'typescript', 'vue' },
     sync_install = true,
     auto_install = true, -- auto install on first filetype load
@@ -22,30 +22,6 @@ local config = function()
     indent = {
       enable = true,
       disable = { 'python' },
-    },
-    refactor = {
-      highlight_current_scope = {
-        enable = false,
-      },
-      highlight_definition = {
-        enable = true,
-      },
-      smart_rename = {
-        enable = true,
-        keymaps = {
-          smart_rename = 'grr',
-        },
-      },
-      navigation = {
-        enable = false,
-        keymaps = {
-          goto_definition = 'grd',
-          list_definition = 'grD',
-          list_definition_toc = 'gO',
-          goto_next_usage = '<a-*>',
-          goto_previos_usgae = '<a-#>',
-        },
-      },
     },
     textobjects = {
       select = {
@@ -101,15 +77,15 @@ local config = function()
         },
       },
     },
-    textsubjects = {
-      enable = true,
-      prev_selection = ',',
-      keymaps = {
-        ['.'] = 'textsubjects-smart', -- this keymaps only work in visual mode
-        [';'] = 'textsubjects-container-outer',
-        ['i;'] = 'textsubjects-container-inner',
-      },
-    },
+    -- textsubjects = {
+    --   enable = true,
+    --   prev_selection = ',',
+    --   keymaps = {
+    --     ['.'] = 'textsubjects-smart', -- this keymaps only work in visual mode
+    --     [';'] = 'textsubjects-container-outer',
+    --     ['i;'] = 'textsubjects-container-inner',
+    --   },
+    -- },
     autotag = {
       enable = true,
     },
@@ -129,22 +105,28 @@ end
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-refactor', -- Refactor module for treesitter
-      'nvim-treesitter/nvim-treesitter-textobjects', -- Syntax aware text-objects, select, move, swap
-      'RRethy/nvim-treesitter-textsubjects', -- Location and syntax aware text objects
-      { 'nvim-treesitter/nvim-treesitter-context', config = true }, -- Show code context
-    },
-    event = 'BufReadPost',
+    branch = 'main',
+    event = 'VeryLazy',
     config = config,
     build = ':TSUpdate', -- We recommend updating the parsers cmd update
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' }, -- Syntax aware text-objects, select, move, swap
+      { 'nvim-treesitter/nvim-treesitter-context', config = true }, -- Show code context
+      -- 'nvim-treesitter/nvim-treesitter-locals', -- nvim-treesitter/nvim-treesitter-refactor successor
+      -- 'RRethy/nvim-treesitter-textsubjects', -- Location and syntax aware text objects
+      {
+        'chrisgrieser/nvim-various-textobjs',
+        name = 'various-textobjs',
+        event = 'ModeChanged',
+        opts = { keymaps = { useDefaults = true, disabledDefaults = { 'r' } } },
+      },
+      {
+        'abecodes/tabout.nvim',
+        event = 'InsertEnter *.*',
+        config = true,
+      }, -- TS - easy exit in params
+      { 'windwp/nvim-ts-autotag', ft = { 'markdown', 'vue', 'html', 'jsx', 'tsx' } }, -- auto complete HTML tags
+      { 'https://gitlab.com/HiPhish/nvim-ts-rainbow2.git' }, -- TS powered rainbow brackets
+    },
   },
-  { 'chrisgrieser/nvim-various-textobjs',
-    name = 'various-textobjs',
-    opts = { keymaps = { useDefaults = true, disabledDefaults = { 'r' } } },
-    event = 'ModeChanged',
-  },
-  { 'windwp/nvim-ts-autotag', ft = { 'markdown', 'vue', 'html', 'jsx', 'tsx' } }, -- auto complete HTML tags
-  { 'abecodes/tabout.nvim', config = true, event = 'InsertEnter *.*' }, -- TS - easy exit in params
-  { 'https://gitlab.com/HiPhish/nvim-ts-rainbow2.git' }, -- TS powered rainbow brackets
 }
