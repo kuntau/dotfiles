@@ -156,6 +156,7 @@ alias brewuo='brew update && brew outdated'
 alias portI='port info'
 alias portn='port notes'
 alias porto='port outdated'
+alias portU='sudo port sync'
 alias portuo='sudo port sync && port outdated'
 
 # navigation

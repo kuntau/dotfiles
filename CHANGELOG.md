@@ -13,6 +13,87 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+v7.0.0 / 2026-01-30
+===================
+
+  * ref(nvim): update homepage
+  * ref(nvim): improve termux detection
+  * fix(nvim): fix treesitter configs
+  * ref(nvim): configure ts textobjects
+  * ref(nvim): treesitter restore modules
+  * ref(nvim): migrate treesitter to `main` branch
+  * fix(ui): use single source of truth
+  * fix(ssh): move temp socket file to $HOME
+  * feat(nvim): migrate to `blink.cmp` from `nvim.cmp`
+  * chore(dot): update file manager configs vifm/yazi
+  * perf(zsh): use built-in `commands` to check binary existance
+  * fix(nvim): update `leap` configs
+  * fix(nvim): fix lsp mess for latest neovim
+  * feat(nvim): add .emmyrc file
+  * chore(nvim): update .luarc file
+  * feat(nvim): add vscode-diff plugin
+  * ref(nvim): update LSP configs (wip)
+  * chore(nvim): remove custom opener from util open
+  * feat(git): use include for for machine specific configs
+  * chore(vifm): tweak configs
+  * feat(git): add a couple diff/merge tui/gui tools
+  * chore(zsh): add/clean aliases & rearrange
+  * fix(zsh): export this make tmux broken
+  * fix(wezterm): kitty keyboard make us can't escape with karabiner
+  * fix(dot): fix editorconfig
+  * chore(nvim): update lazy lock file
+  * chore(nvim): change multicursor to use <localleader>
+  * chore(nvim): lazy load fff
+  * feat(nvim): add cursorcolumn toggle
+  * feat(nvim): add custom highlight for VCS conflict marker
+  * chore(kitty): add PaperColor theme and set it as default light theme
+  * chore(ghostty): add PaperColor theme and set it as default light theme
+  * chore(nvim): update lazy.lock file
+  * chore(ui): enable opacity in ghostty & kitty
+  * feat(vifm): add quitcd & tweak configs
+  * feat(vifm): add devicons for files
+  * feat(vifm): add initial configs
+  * feat(vifm): add colorschemes
+  * fix(nnn): use trash in macOS
+  * fix(ghostty): fix font configs
+  * chore(lazygit): change theme
+  * chore(yazi): refine configs
+  * feat(yazi): add initial yazi configs
+  * fix(zsh): fix fzf & git fuzzy path. reformat config
+  * chore(nvim): update lazy-lock file
+  * chore(npm): fix config
+  * chore(ghostty): organize config
+  * fix(nvim): remove obsolete plugins replaced by Snaacks
+  * fix(nvim): fix duplicate mappings
+  * feat(nvim): add more advance mapping for multicursor
+  * feat(nvim): replace vim-visual-multi with multicursor.nvim
+  * chore(nvim): update lazy.lock file
+  * feat(nvim): add .luarc file
+  * fix(nvim): fix neogit modules to use floating window
+  * chore(nvim): move Snacks global helper to utils
+  * feat(nvim): make nvim MANPAGER act like `less`
+  * fix(dot): create dir only if it's missing
+  * chore(lazygit): update configs
+  * chore(git): add/modify aliases
+  * feat(git): extract fzf git to standalone bin
+  * feat(lazygit): add config file & auto-switch light/dark theme
+  * feat(lazygit): add cattpuccin & tokyonight themes
+  * fix(zsh): fix is_day & add more completions
+  * fixup! feat(neovide): add font configs and other tweak, just perfect
+  * feat(wezterm): add font configs & tweak settings
+  * feat(neovide): add font configs and other tweak, just perfect
+  * feat(kitty): add symbol_map & font_features
+  * feat(dot): more robust check to avoid unnecessary link
+  * fix(dot): fix symlinkception
+  * docs(dot): update `install` script version
+  * fix(dot): fix wrong modify ori file if dir is symlink
+  * chore(dot): modify packages
+  * ref(dot): rearrange flow
+  * ref(dot): combine package manager installer
+  * chore(dot): change `fzf` to be managed by `znap`
+  * fix(dot): improve install on older bash version
+  * feat(nvim): add fff.nvim & remove nvim-tree
+
 v6.0.0 / 2025-12-16
 ===================
 
