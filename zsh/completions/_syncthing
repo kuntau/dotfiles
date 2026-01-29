@@ -1,0 +1,8 @@
+#compdef syncthing
+
+_syncthing() {
+  if command -v syncthing > /dev/null 2>&1; then
+    complete -C /opt/local/bin/syncthing syncthing
+  fi
+}
+compdef _syncthing syncthing

@@ -3,34 +3,35 @@
 export PATH=/usr/local/bin:$PATH
 
 # abort if we're already inside a TMUX session
-[ "$TMUX" == "" ] || exit 0
+[ "$TMUX" == "" ] || exit 1
 
 # Set default session name
 DEFAULT_NAME=$(uname)
 
 # startup a "default" session if non currently exists
-tmux has-session -t $DEFAULT_NAME 2> /dev/null \
-  || tmux new-session -s $DEFAULT_NAME -d
+tmux has-session -t "$DEFAULT_NAME" 2> /dev/null \
+  || tmux new-session -s "$DEFAULT_NAME" -d
 
 # present menu for user to choose which workspace to open
+OLD_IFS=$IFS
 IFS=$'\n'
 PS3="Please choose your session: "
-pattern='^[^0-9][-!$%^&*()_+|~=`{}\[\]:";<>?,.\/A-Za-z0-9]+$'
+
+PATTERN='^[^0-9][-!$%^&*()_+|~=`{}\[\]:";<>?,.\/A-Za-z0-9]+$'
+
 options=("New Session")
 options+=($(tmux list-sessions -F '#S' 2> /dev/null))
-options+=($(ls ~/dotfiles/config/tmux/workspace.*.tmux | sed -En 's/.*workspace\.(.+)\.tmux$/\1/p'))
-options+=("Zsh" \
-  "Nu" \
-  "Bash" \
-  "Cancel")
+# options+=($(for file in "$HOME/dotfiles/config/tmux/workspaces"/*.conf; do basename -s .conf "$file"; done))
+options+=("Zsh" "Nu" "Bash" "Cancel")
+
+echo ""
 echo "Available sessions"
 echo "------------------"
-echo " "
 select opt in "${options[@]}"
 do
   case $opt in
     "New Session")
-      read -p "Enter new session name: " SESSION_NAME
+      read -r -p "Enter new session name: " SESSION_NAME
       tmux new -s "$SESSION_NAME"
       break;;
     "Zsh")
@@ -44,14 +45,15 @@ do
       break;;
     "Cancel")
       exit;;
-    $([[ $opt =~ $pattern && ${#opt} -ne 0 ]]) ) # TODO: How the fuck this can happen?
+    "$([[ $opt =~ $PATTERN && ${#opt} -ne 0 ]])")
       echo "Invalid selection!"
       exit;;
     *)
       echo "Match selection: ${opt}"
-      tmux attach-session -t $opt
+      tmux attach-session -t "$opt"
       break;;
   esac
 done
 
+IFS=$OLD_IFS
 # vim:set ft=bash:

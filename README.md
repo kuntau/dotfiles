@@ -21,32 +21,38 @@
 
 ## Stacks
 
-| Category        | Software                 |
-| :-------        | :---------:              |
-| shell           | zsh, nu                  |
-| tui editor      | vim, neovim              |
-| gui editor      | sublime, vscode          |
-| player          | mpv, iina, vlc           |
-| terminal        | wezterm, kitty, iTerm2   |
-| multiplexer     | tmux                     |
-| finder          | fd                       |
-| fuzzy finder    | fzf, skim                |
-| file manager    | nnn                      |
-| disk usage      | ncdu                     |
-| prompt          | powerlevel10k, starship  |
-| jumper          | zsh-z, zoxide            |
-| package manager | homebrew, pip, pnpm      |
-| grep            | ripgrep                  |
-| previewer       | bat                      |
-| git helper      | delta                    |
-| ssh             | mosh                     |
-| fonts           | operator mono, nerd font |
-| theme           | ayu, tokyonight          |
+| Category        |         Software          |
+| --------------- | :-----------------------: |
+| Shell           |          zsh, nu          |
+| TUI editor      |       neovim, helix       |
+| GUI editor      |   sublime, vscode, zed    |
+| Player          |      mpv, iina, vlc       |
+| Terminal        |  wezterm, kitty, ghostty  |
+| Multiplexer     |      tmux, ~zellij~       |
+| Finder          |          fd, bfs          |
+| Fuzzy finder    |          fzf, tv          |
+| File manager    |            nnn            |
+| Note taking     |    obsidian, ia writer    |
+| Disk usage      |      ncdu, dua, dust      |
+| Prompt          |         p10k, omp         |
+| Jumper          |       zsh-z, zoxide       |
+| Package manager |   brew, port, pnpm, uv    |
+| Grep            |          ripgrep          |
+| Previewer       |         bat, glow         |
+| Git helper      |        delta, diff        |
+| Git gui         |      gitui, lazygit       |
+| VCS             |       git, jujutsu        |
+| Sync            |       rsync, rclone       |
+| Downloader      | yt-dlp, gallery-dl, aria  |
+| Fonts           | operator mono, nerd font  |
+| SSH             |           mosh            |
+| LSCOLORS        |           vivid           |
+| Theme           | ayu, tokyonight, kanagawa |
 
 
 ## Installation
 
-`git clone git://github.com/kuntau/dotfiles.git ~/dotfiles`
+`git clone --filter=blob:none git://github.com/kuntau/dotfiles.git ~/dotfiles`
 
 ### Make the install script executable
 
@@ -109,7 +115,49 @@ git config -f ".git/config" --remove-section "submodule.$submodule" 2> /dev/null
 git commit -m "Remove submodule $submodule"
 ```
 
-#### Test terminal formatting
+## Post Installation
+
+### Essential TUI apps
+
+- `zsh`
+- `git`
+- `node`
+- `homebrew` or `MacPorts`
+- `nnn`
+- `ripgrep`
+- `fd`
+- `fzf`
+- `bat`
+- `eza`
+- `mosh`
+- `rclone`
+- `rsync`*
+- `curl`*
+
+### Essential GUI apps
+
+- `Ghostty`/`Kitty`/`WezTerm`
+- `Karabiner-Elements`
+- `Sublime Text`
+- `aText`
+- `Dash`
+- `Obsidian`
+- `IINA`/`mpv`/`vlc`
+
+### Nice to have TUI
+
+- `gitui`/`lazygit`
+- `glow`/`mdcat`
+- `fdupes`
+
+### Nice to have GUI
+
+- `VSCode`/`VSCodium`
+- `Kaleidoscope`
+- `Bitwarden`
+- `BetterZip`
+
+### Test terminal formatting
 
 ```bash
 echo -e "\e[1mbold\e[0m"
@@ -121,8 +169,8 @@ echo -e "\e[31mHello World\e[0m"
 echo -e "\x1B[31mHello World\e[0m"
 ```
 
-### Wake on LAN: https://www.techrepublic.com/article/how-to-enable-wake-on-lan-in-ubuntu-server-18-04/
+### [Wake on LAN](https://www.techrepublic.com/article/how-to-enable-wake-on-lan-in-ubuntu-server-18-04)
 
 `sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target`
 
-### P/S. It is hard & PITA to maintain the same dotfiles accross `OS X`, `Linux` & `Windows (Cygwin)`
+### P/S. It is hard & PITA to maintain the same dotfiles across `OS X`, `Linux` & `Windows (~Cygwin~WSL)`

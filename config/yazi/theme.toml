@@ -1,0 +1,5 @@
+# Yazi theme configs
+
+[flavor]
+dark = "catppuccin-frappe"
+light = "catppuccin-latte"

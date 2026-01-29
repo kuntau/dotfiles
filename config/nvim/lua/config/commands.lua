@@ -18,4 +18,11 @@ add_cmd('TSRainbowEnable', function() require('ts-rainbow') end, { nargs = 0 })
 -- FTerm
 add_cmd('G', function() require('FTerm').scratch({ cmd = 'gitui' }) end, { nargs = 0, desc = 'Open `gitui` in floating terminal' })
 add_cmd('Top', function() require('FTerm').scratch({ cmd = 'btop' }) end, { nargs = 0, desc = 'Open `top` in floating terminal' })
-add_cmd('TM', function() require('FTerm').scratch({ cmd = 'tm' }) end, { nargs = 0, desc = 'Open `tm` in floating terminal' })
+add_cmd('LG', function() require('FTerm').scratch({ cmd = 'lazygit --debug --screen-mode=half' }) end, { nargs = 0, desc = 'Open `LazyGit` in floating terminal' })
+add_cmd('Lazygit', function() Snacks.terminal.toggle('lazygit') end, { nargs = 0, desc = 'Open `lazygit` in floating terminal' })
+
+-- UndoTree
+add_cmd('UndoTreeToggle', function() require('undotree').toggle() end, { nargs = 0, desc = 'Toggle UndoTree' })
+
+-- Scratch
+add_cmd('Scratch', function() Snacks.scratch() end, { nargs = 0, desc = 'Toggle Scratch Buffer' })

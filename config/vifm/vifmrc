@@ -1,0 +1,489 @@
+" vim: filetype=vim :
+
+" ------------------------------------------------------------------------------
+" Main settings
+" ------------------------------------------------------------------------------
+
+if executable('nvim')
+    set vicmd=nvim
+elseif executable('vim')
+    set vicmd=vim
+elseif $EDITOR != ''
+    echo 'Note: using `'.$EDITOR.'` as an editor'
+    let &vicmd = $EDITOR
+endif
+
+set confirm        " AI suggestion
+set history=100
+set ignorecase
+set incsearch
+set nofollowlinks
+set nohlsearch
+set norunexec
+set quickview      " AI suggestion
+set sort=type,name " AI suggestion
+set scrolloff=4
+set smartcase
+set sortnumbers
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+set syscalls
+set timefmt='%d/%m/%Y %H:%M'
+set trash
+set undolevels=100
+set vimhelp
+set wildmenu
+set wildstyle=popup
+set wrapscan       " AI suggestion
+
+" Don't do too many requests to slow file systems
+set slowfs=curlftpfs
+
+" Set custom status line look
+set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
+
+" What should be saved automatically on restarting vifm.  Drop "savedirs"
+" value if you don't want vifm to remember last visited directories for you.
+set vifminfo=dhistory,chistory,state,tui,tabs,shistory,ehistory,
+            \phistory,fhistory,dirstack,registers,bookmarks,bmarks,mchistory
+
+" Suppress "Permission denied" errors using syntax specific to GNU find
+if system("find --version | grep -c 'GNU findutils'") != 0
+    set findprg='find %s %a -print , -type d \( ! -readable -o ! -executable \) -prune'
+endif
+
+" TODO: Setup `rg` for grep
+" Add -s to the default value to suppress "Permission denied" errors
+set grepprg="grep -n -H -I -r -s %i %a %s"
+
+" Dynamic Theme Selection - Single source of truth
+if $IS_DAY == 1
+    colorscheme papercolor-light
+else
+    colorscheme kanagawa-wave
+endif
+
+" ==============================
+" UI / Columns
+" ==============================
+
+set relativenumber
+set dotfiles
+
+" ------------------------------------------------------------------------------
+" Bookmarks
+" ------------------------------------------------------------------------------
+
+" :mark mark /full/directory/path [filename]
+
+mark D ~/dotfiles
+mark d ~/Downloads
+mark c ~/Coding
+mark C ~/.config
+mark n ~/notes
+
+" ------------------------------------------------------------------------------
+" Commands
+" ------------------------------------------------------------------------------
+
+" :com[mand][!] command_name action
+"
+" These are some of the macros that can be used in the action part:
+"  %a for user arguments
+"  %c for current file under the cursor
+"  %C for current file under the cursor of inactive pane
+"  %f for selected file(s)
+"  %F for selected file(s) of inactive pane
+"  %b is the same as %f %F
+"  %d for current directory name
+"  %D for current directory name of inactive pane
+"  %r{x} for list of files in register {x}
+"  %m runs the command in a menu window
+"  %u uses command's output to build a file list
+"  see `:help vifm-macros` and `:help vifm-filename-modifiers` for more
+
+command! df df -h %m 2> /dev/null
+command! diff nvim -d %f %F
+command! zip zip -r %c.zip %f
+command! run !! ./%f
+command! make !!make %a
+command! mkcd :mkdir %a | cd %a
+command! reload :write | restart full
+
+" ------------------------------------------------------------------------------
+" File handlers and previewers
+" ------------------------------------------------------------------------------
+
+" Setting up handlers that are considered in all environments:
+"   filetype {pattern1,pattern2} program1,{Optional description}program2
+"
+" Setting up handlers that are considered only in a graphical environment:
+"   filextype {pattern} graphical-program %c
+"
+" Setting up previewers:
+"   fileviewer {pattern1,pattern2} console-viewer1,console-viewer2
+"
+" ORDER MATTERS!  Both handlers and previewers are considered in the order of
+" their definition, therefore they should be defined from most to least
+" specific.  In particular, catch-all patterns like `*`, `*/`, `.*`, `*.*`
+" should be defined after all others.
+"
+" All entries matching a particular file are considered in order until an
+" existing command is found.  Other entries are accessible via :file command
+" for handlers or via `a` and `A` keys for previewers in view mode.
+"
+" The ordering can be checked at run-time by running
+" :filetype/:filextype/:fileviewer with a file name as the only argument.
+" This displays a menu of defined entries annotated with availability of
+" commands.
+"
+" More on syntax and usage:
+"  - macros like %c, %f, %d, etc. may be used in the commands
+"  - the %a macro is ignored
+"  - to insert a literal % use %%
+"  - spaces in an app name must be escaped, for example:
+"    + QuickTime\ Player.app
+"    + "c:/Program Files (x86)/app/app.exe"
+
+" For automated FUSE mounts, you must register an extension with :file[x]type
+" in one of the following formats:
+"
+" :filetype patterns FUSE_MOUNT|mount_cmd %SOURCE_FILE %DESTINATION_DIR
+"
+" %SOURCE_FILE and %DESTINATION_DIR are filled in at runtime.
+"
+" Example:
+"   :filetype *.zip,*.[jwe]ar FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR
+"
+" :filetype patterns FUSE_MOUNT2|mount_cmd %PARAM %DESTINATION_DIR
+"
+" %PARAM and %DESTINATION_DIR are filled in at runtime.
+"
+" Example:
+"   :filetype *.ssh FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR
+"
+" %PARAM value is the first line of the matched file, example: root@127.0.0.1:/
+"
+" You can also add %CLEAR if you want to clear screen before running FUSE
+" program.  There is also %FOREGROUND, which is useful for entering passwords.
+
+" Pdf
+filetype {*.pdf},<application/pdf>
+       \ {Open in Preview}
+       \ open -a Preview.app,
+       \ {Open in Skim}
+       \ open -a Skim.app,
+fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
+
+" PostScript
+filetype {*.ps,*.eps,*.ps.gz},<application/postscript> open -a Preview.app
+
+" Djvu
+filetype {*.djvu},<image/vnd.djvu> open -a MacDjView.app
+
+" Audio
+filetype {*.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,
+         \*.aac,*.mpga},
+         \<audio/*>
+         \ {Open in mpv}
+         \ open -a mpv.app,
+         \ {Open in IINA}
+         \ open -a IINA.app,
+fileviewer {*.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,
+           \*.aac,*.mpga},
+           \<audio/*>
+           \ mediainfo %c 2>&1
+
+" Video
+filetype {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+         \*.fl[icv],*.m2v,*.mov,*.webm,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+         \*.as[fx],*.unknown_video},
+         \<video/*>
+         \ {Open in mpv}
+         \ open -a mpv.app,
+         \ {Open in IINA}
+         \ open -a IINA.app,
+         \ {Open in VLC}
+         \ open -a VLC.app,
+fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+           \*.fl[icv],*.m2v,*.mov,*.webm,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+           \*.as[fx],*.unknown_video},
+           \<video/*>
+           \ mediainfo %c 2>&1
+           "\ ffprobe -hide_banner -pretty %c 2>&1
+
+" Web
+filetype {*.xhtml,*.html,*.htm},<text/html>
+       \ {Open in Safari}
+       \ open -a Safari.app,
+       \ {Open in Firefox}
+       \ open -a Firefox.app,
+       \ {Open in Chrome}
+       \ open -a Google\ Chrome.app,
+       \ {Open in neovim}
+       \ nvim,
+fileviewer {*.xhtml,*.html,*.htm},<text/html> w3m -dump -T text/html
+
+" Object
+filetype {*.o},<application/x-object> nm %f | less
+
+" Man page
+filetype {*.[1-8]},<text/troff> man ./%c
+fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
+
+" Image
+filetype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+       \ open -a Preview.app,
+fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+         \ chafa %c
+
+" MD5
+filetype *.md5
+       \ {Check MD5 hash sum}
+       \ md5sum -c %f %S,
+
+" SHA1
+filetype *.sha1
+       \ {Check SHA1 hash sum}
+       \ shasum -c %f %S,
+
+" SHA256
+filetype *.sha256
+       \ {Check SHA256 hash sum}
+       \ shasum -a 256 -c %f %S,
+
+" SHA512
+filetype *.sha512
+       \ {Check SHA512 hash sum}
+       \ shasum -a 512 -c %f %S,
+
+" Torrent
+filetype {*.torrent},<application/x-bittorrent> open -a Transmission.app
+fileviewer {*.torrent},<application/x-bittorrent>
+         \ dumptorrent -v %c,
+         \ transmission-show %c
+
+" Extract zip files
+filetype {*.zip},<application/zip,application/java-archive>
+       \ mkdir %f:r && tar -vxf %f --directory %f:r
+fileviewer {*.zip,*.jar,*.war,*.ear},
+          \<application/zip,application/java-archive>
+          \ tar -tf %f
+
+" Extract tar archives
+filetype {*.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz,*.tar.zst,
+         \*.tzst},
+        \<application/x-tar>
+       \ tar -vxf %f
+fileviewer {*.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz,*.tar.xz,*.txz,*.tar.zst,
+           \*.tzst},
+          \<application/x-tar>
+         \ tar -tf %f
+
+" Extract .bz2 archives
+filetype *.bz2 bzip2 -d %f
+
+" Extract .gz files
+filetype *.gz gunzip %f
+
+" Extract rar files
+filetype *.rar unrar x -y -c- -ad %f %s
+fileviewer *.rar unrar lb %c
+
+" Mount .dmg archives
+filetype *.dmg open
+
+" Mount disk .img
+filetype *.img open
+
+" Open .pkg binaries
+filetype *.pkg open
+
+" Office files
+filetype {*.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ppt},
+         \<application/vnd.openxmlformats-officedocument.*,
+         \application/msword,
+         \application/vnd.ms-excel>
+         \ open -a LibreOffice.app
+fileviewer {*.doc},<application/msword> antiword -
+fileviewer {*.docx},
+           \<application/
+           \vnd.openxmlformats-officedocument.wordprocessingml.document>
+           \ docx2txt.pl %f -
+
+" Syntax highlighting in preview
+"
+" Explicitly set highlight type for some extensions
+"
+" 256-color terminal
+" fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s dante --syntax c %c
+" fileviewer Makefile,Makefile.* highlight -O xterm256 -s dante --syntax make %c
+"
+" 16-color terminal
+" fileviewer *.c,*.h highlight -O ansi -s dante %c
+"
+" Markdown
+fileviewer *.md glow %c
+
+" Displaying pictures in terminal
+" fileviewer *.jpg,*.png chafa %c
+fileviewer *.png, *.jpg, *.gif
+      \ kitty +icat --silent --transfer-mode=stream --place=%pwx%ph@%pxx%py %c %N
+      \ %pc
+      \ kitty icat --clear --silent %pd
+
+" Or leave it for automatic detection
+" fileviewer *[^/] pygmentize -O style=monokai -f console256 -g
+fileviewer *[^/] bat %c
+
+" Text based file
+filetype <text/*> nvim %c
+filetype <application/json> nvim %c
+
+" Open all other files with default system programs (you can also remove all
+" :file[x]type commands above to ensure they don't interfere with system-wide
+" settings).  Use of the line below results in ignoring 'vi[x]cmd' option for
+" unknown file types on l/Enter keys.
+filetype * open
+
+" ==============================
+" Preview
+" ==============================
+
+" set previewprg=~/.config/vifm/scripts/preview.sh
+" set previewoptions+=graphics
+
+" ------------------------------------------------------------------------------
+" Sample keyboard mappings
+" ------------------------------------------------------------------------------
+
+" Quit vifm
+nnoremap <C-w>q :wq<cr>
+nnoremap <C-w>Q :q!<cr>
+nnoremap \q :wq<cr>
+nnoremap qq :wq<cr>
+nnoremap \1 :only<cr>
+
+" Show hidden/dot files
+nnoremap . za
+
+" Make file executable
+nnoremap * :!chmod +x %f<cr>
+nnoremap gm :chmod<cr>
+
+" Start shell in current directory
+nnoremap s :shell<cr>
+
+" Display sorting dialog
+nnoremap S :sort<cr>
+
+" Toggle visibility of preview window
+nnoremap w :view<cr>
+vnoremap w :view<cr>gv
+
+" Open file in new neovide window
+nnoremap O :!neovide %f<cr>
+
+" Open file in the background using its default program
+nnoremap gb :!open -g %f<cr>
+
+" Yank current directory path into the clipboard
+nnoremap yd :!printf %d | pbcopy<cr>
+
+" Yank current file path into the clipboard (escape spaces)
+nnoremap yf :!printf %f:p:gs? ?\\ ? | pbcopy<cr>
+
+" View preview in Quick Look
+nnoremap <space> :!qlmanage -p %f > /dev/null 2>&1<cr>
+
+" Mappings for faster renaming
+" nnoremap I cw<c-a>
+" nnoremap cc cw<c-u>
+" nnoremap A cw
+
+" As above, but without the file extension
+nnoremap I cW<c-a>
+nnoremap cc cW<c-u>
+nnoremap A cW
+nnoremap R :rename<cr>
+
+" Open editor to edit vifmrc and apply settings after returning to vifm
+nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
+
+" Open neovide to edit vifmrc
+nnoremap ,C :!neovide $MYVIFMRC<cr>
+
+" Toggle wrap setting on ,w key
+nnoremap ,w :set wrap!<cr>
+
+" Example of standard two-panel file managers mappings
+nnoremap <f3> :!less %f<cr>
+nnoremap <f4> :edit<cr>
+nnoremap <f5> :copy<cr>
+nnoremap <f6> :move<cr>
+nnoremap <f7> :mkdir<space>
+nnoremap <f8> :delete<cr>
+
+" Midnight commander alike mappings
+" Open current directory in the other pane
+nnoremap <a-i> :sync<cr>
+" Open directory under cursor in the other pane
+nnoremap <a-o> :sync %c<cr>
+" Swap panes (uncomment if you don't need builtin behaviour of Ctrl-U)
+nnoremap <c-u> <c-w>x
+
+" ------------------------------------------------------------------------------
+" Panel configuration examples
+" ------------------------------------------------------------------------------
+
+" Customize view columns a bit (enable ellipsis for truncated file names)
+" set viewcolumns=-{name}..,6{}.
+" set viewcolumns=-{name}..,8{size}..,18{mtime}
+
+" Set initial state
+let $VIEW_MODE = 'simple'
+set viewcolumns=-{name}..
+
+" Toggle mapping: Press 'cc' to switch views
+nnoremap gd :if $VIEW_MODE == 'detail' |
+            \ set viewcolumns=-{name}.. |
+            \ let $VIEW_MODE = 'simple' |
+            \ else |
+            \ set viewcolumns=-{name}..,10{size}..,18{mtime} |
+            \ let $VIEW_MODE = 'detail' |
+            \ endif<cr>
+
+ set fillchars=vborder:┃,hborder:━
+
+" Filter-out build artifacts and temporary files
+ "filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
+
+" ------------------------------------------------------------------------------
+" Various customization examples
+" ------------------------------------------------------------------------------
+
+" Use ag (the silver searcher) instead of grep
+" set grepprg='ag --line-numbers %i %a %s'
+
+" Add additional place to look for executables
+" let $PATH = $HOME.'/bin/fuse:'.$PATH
+
+" Disable particular shortcut
+" nnoremap <left> <nop>
+
+" Export IPC name of current instance as environment variable and use it to
+" communicate with the instance later.
+"
+" It can be used in some shell script that gets run from inside vifm, for
+" example, like this:
+"     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
+"
+" let $VIFM_SERVER_NAME = v:servername
+
+" Activate screen/tmux support
+" screen!
+
+" ------------------------------------------------------------------------------
+" Icon decorations example
+" ------------------------------------------------------------------------------
+
+source $VIFM/scripts/favicons.vifm

@@ -65,10 +65,10 @@ Plug 'LunarWatcher/auto-pairs', { 'tag': '*' }
 " let g:AutoPairsMapCR=0
 let g:AutoPairsMapBS=1
 let g:AutoPairsMultilineClose = 1
-Plug 'liuchengxu/vista.vim'
-Plug 'honza/vim-snippets'
-Plug 'wellle/tmux-complete.vim'
-" "---- we're using coc-snippets now
+" Plug 'liuchengxu/vista.vim'
+" Plug 'honza/vim-snippets'
+" Plug 'wellle/tmux-complete.vim'
+" " "---- we're using coc-snippets now
 " Plug 'SirVer/ultisnips'
 " Plug 'bingeboy/snipmate-nodejs'
 
@@ -787,7 +787,7 @@ if has('nvim') || (v:version >= 800)
   endfunction
 
   " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd CursorHold * silent call CocActionAsync('highlight')
 
   " Symbol renaming
   nmap <leader>rn <Plug>(coc-rename)
@@ -887,25 +887,25 @@ let g:markdown_fenced_languages = [ 'vim', 'help' ] " coc-vimlsp config
 " CoC Extensions list: {{{
 let g:coc_global_extensions = [
     \'coc-explorer',
-    \'coc-snippets',
-    \'coc-lists',
-    \'coc-highlight',
-    \'coc-emmet',
-    \'coc-yank',
-    \'coc-git',
     \'coc-pairs',
-    \'coc-prettier',
-    \'coc-eslint',
-    \'coc-tsserver',
-    \'coc-denoland',
-    \'coc-json',
-    \'coc-html',
-    \'coc-tailwindcss',
-    \'coc-python',
-    \'coc-yaml',
     \'coc-vimlsp'
     \]
     " DISABLED
+    " \'coc-snippets',
+    " \'coc-lists',
+    " \'coc-highlight',
+    " \'coc-emmet',
+    " \'coc-yank',
+    " \'coc-git',
+    " \'coc-prettier',
+    " \'coc-eslint',
+    " \'coc-tsserver',
+    " \'coc-denoland',
+    " \'coc-json',
+    " \'coc-html',
+    " \'coc-tailwindcss',
+    " \'coc-python',
+    " \'coc-yaml',
     " \'coc-volar',
     " \'coc-rls',
     " \'coc-sh',

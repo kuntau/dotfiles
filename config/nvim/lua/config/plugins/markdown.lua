@@ -1,34 +1,28 @@
--- mkdx configs
+-- markdown configs
 
-local config = function()
+-- markdown-plus keymaps - https://github.com/yousefhadder/markdown-plus.nvim/wiki/5.Keymaps
 
-  vim.g.mkdx = {
-    settings = {
-      enter = {
-        enable = 1,
-        o = 1,
-        shift = 0,
-        shifto = 1,
-        malformed = 1,
-      },
-      fold = { enable = 1 },
-      highlight = { enable = 1 },
-      links = {
-        conceal = 1,
-        external = { enable = 1 },
-        fragment = { complete = 1 },
-      },
-      map = {
-        enable = 1,
-        prefix = '<localleader>'
-      },
-      gf_on_steroid = 1
-    }
-  }
-end
+obsidian = {
+  legacy_commands = false, -- this will be removed in the next major release
+  frontmatter = {
+    enabled = false,
+  },
+  log_level = vim.log.levels.ERROR,
+  daily_notes = {
+    folder = 'Diary',
+  },
+  workspaces = {
+    {
+      name = 'Notes',
+      path = "~/notes",
+    },
+  },
+}
 
 return {
-  'SidOfc/mkdx',
-  ft = 'markdown',
-  config = config,
+  { 'yousefhadder/markdown-plus.nvim', config = true, ft = 'markdown' },
+  { 'toppair/peek.nvim', config = true, build = 'deno task --quiet build:fast', ft = 'markdown' }, -- Markdown preview
+  { 'obsidian-nvim/obsidian.nvim', enabled = true, version = '*', opts = obsidian, ft = 'markdown' },
+  { 'OXY2DEV/markview.nvim', ft = 'markdown' }, -- TODO: Torned between this or `markdown.nvim`
+  -- { 'MeanderingProgrammer/render-markdown.nvim', config = true, ft = 'markdown' },
 }

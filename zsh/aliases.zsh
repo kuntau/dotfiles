@@ -1,34 +1,33 @@
 # alias 'dus=du -sckx * | sort -nr'
 alias dus='du -hd 1'
 
-# files listing with optional exa -- colorized  everything
-if exists eza; then
-  alias l='eza'
-  alias ll='eza --long --group-directories-first'
-  alias la='eza -alg --git --group-directories-first'
-  alias laa='eza -alg -a --group-directories-first'
-  alias lsd='eza --long --only-dirs' # List only directories
-  alias lst='eza --long --tree --level=2 --group-directories-first' # Tree view
-  alias lsr='eza --long --recurse --level=2 --group-directories-first' # Recurse directories
-elif exists exa; then
-  alias l='exa'
-  alias ll='exa --long --group-directories-first'
-  alias la='exa -alg --git --group-directories-first'
-  alias laa='exa -alg -a --group-directories-first'
-  alias lsd='exa --long --only-dirs' # List only directories
-  alias lst='exa --long --tree --level=2 --group-directories-first' # Tree view
-  alias lsr='exa --long --recurse --level=2 --group-directories-first' # Recurse directories
-else
-  alias l="ls ${colorflag}" # List all files colorized in long format
-  alias la="ls -laGh ${colorflag}" # List all files colorized in long format, including dot files
-  alias lsd='ls -l | grep "^d"' # List only directories
+# Kitty's kitten
+alias kssh='kitten ssh'
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # OS X `ls`
+  colorflag="-G"
 fi
 
-# FZF aliases
-if exists fzf; then
-  alias f='fzf-tmux'
-  alias ft='fzf-tmux --preview "bat --style=numbers --color=always {}"'
-  alias fp='fzf --preview "bat --style=numbers --color=always {}"'
+# files listing with optional exa/eza -- colorized  everything
+LS=$(exists eza && echo 'eza' || echo 'exa')
+if exists eza || exists exa; then
+  alias   l="$LS --icons=auto"
+  alias  ll="$LS --icons=auto --long --group-directories-first"
+  alias  la="$LS --icons=auto -alg --git --group-directories-first"
+  alias  lA="$LS --icons=auto -alg -a --group-directories-first"
+  alias lsd="$LS --icons=auto --only-dirs"                                          # List only directories
+  alias lsD="$LS --icons=auto --long --only-dirs"                                   # List only directories
+  alias lst="$LS --icons=auto --tree --level=2 --group-directories-first"           # Tree view
+  alias lsT="$LS --icons=auto --long --tree --level=2 --group-directories-first"    # Tree view
+  alias lsr="$LS --icons=auto --recurse --level=2 --group-directories-first"        # Recurse directories
+  alias lsR="$LS --icons=auto --long --recurse --level=2 --group-directories-first" # Recurse directories
+else
+  alias l="ls ${colorflag}"        # List all files colorized in long format
+  alias la="ls -laGh ${colorflag}" # List all files colorized in long format, including dot files
+  alias lsd='ls -l | grep "^d"'    # List only directories
 fi
 
 # docker aliases
@@ -36,7 +35,9 @@ if exists docker; then
   alias d='docker'
   alias ds='docker start'
   alias dst='docker stop'
-  alias dps='docker ps'
+  alias dps='docker ps --format "table {{.ID}}\t{{.Names}}"'
+  alias dpsf='docker ps --no-trunc'
+  alias dpsa='docker ps --no-trunc --all'
   alias drm='docker rm'
   alias dc='docker compose'
 fi
@@ -102,22 +103,6 @@ else
   alias json='python -mjson.tool'
 fi
 
-OMZ_PATH='~/.zplug/repos/robbyrussell/oh-my-zsh'
-omz-plugin() {
-  less -S "~/.oh-my-zsh/plugins/$1/$1.plugin.zsh"
-}
-omz-plug() {
-  less -S "~/.oh-my-zsh/plugins/$1/README.md"
-}
-omz-readme() {
-  $PAGER "~/.oh-my-zsh/plugins/$1/README.md"
-}
-
-# create directory and immedietly cd into it
-mkd() {
-  mkdir -p "$1" && cd "$1"
-}
-
 # wget make mirror
 alias wget_mirror="wget \
   --mirror \
@@ -128,7 +113,7 @@ alias wget_mirror="wget \
   --no-clobber \
   $1"
 
-# wget throttle
+# wget make mirror with throttle
 alias wget_mirror_throttle="wget \
   --header='Accept: text/html' \
   --user-agent='Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/84.0.4147.140 Safari/537.36' \
@@ -157,13 +142,22 @@ alias wget_recursive_dl='wget \
 #===============================================================
 
 # osx programs
-# alias vlc='open -a "VLC"'
-# alias st='open -a "Sublime Text"'
-# also/or do this:
-# ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" ~/bin/subl
+alias mpv='open -a "mpv"'
+alias vlc='open -a "VLC"'
+alias st='open -a "Sublime Text"'
 alias preview="open -a '$PREVIEW'"
-alias xcode="open -a '/Developer/Applications/Xcode.app'"
-alias filemerge="open -a '/Developer/Applications/Utilities/FileMerge.app'"
+alias xcode="open -a '/Applications/Xcode.app'"
+
+# Homebrew. Extend omz/prezto
+alias brewI='brew info --formula'
+alias caskI='brew info --cask'
+alias brewU='brew update'
+alias brewuo='brew update && brew outdated'
+alias portI='port info'
+alias portn='port notes'
+alias porto='port outdated'
+alias portU='sudo port sync'
+alias portuo='sudo port sync && port outdated'
 
 # navigation
 alias ..='cd ..'
@@ -173,27 +167,17 @@ alias .....='cd ../../../..'
 # be nice
 alias please=sudo
 
+# mediainfo
+alias mi=mediainfo
+
 # Gzip-enabled 'curl'
 alias gurl='curl --compressed'
 
-#get week number
+# get week number
 alias week='date +%V'
 
-#stopwatch
+# stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && data'
-
-# Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-  colorflag="--color"
-else # OS X `ls`
-  colorflag="-G"
-fi
-
-# `cat` with beautiful colors. requires Pygments installed.
-#                  sudo easy_install Pygments
-exists pygmentize && alias c='pygmentize -O style=monokai -f console256 -g'
-
-# GIT STUFF
 
 # Undo a `git push`
 alias undopush="git push -f origin HEAD^:master"
@@ -212,12 +196,13 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache"
 
-# npm
+# npm/pnpm
 alias npmp="npm publish"
 alias npma="npm adduser"
 alias npmi="npm install"
 alias npmg="npm install -g"
-alias npmu="npm update"
+alias npmo="npm outdated && pnpm outdated"
+alias npmu="npm update && pnpm update"
 alias npmr="npm uninstall"
 alias npmrg="npm uninstall -g"
 
@@ -254,9 +239,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
-# ROT13-encode text. Works for decoding, too! ;)
-alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # URL-encode strings
 alias urlencode="python -c 'import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);'"
@@ -298,7 +280,93 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias chromekill="ps ux | rg '[C]hrome Helper --type=renderer' | rg -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias edgekill="ps ux | rg '[M]icrosoft Edge Helper \(Renderer\) --type=renderer' | rg -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Tmux Helper
 alias takeover="tmux detach -a"
+
+##############################
+#         FUNCTIONS          #
+##############################
+
+# Make CTRL+z do both fg & bg
+function fg-bg {
+if [[ $#BUFFER -eq 0 ]]; then
+  BUFFER=fg
+  zle accept-line
+else
+  zle push-input
+fi
+}
+zle -N fg-bg
+bindkey '^z' fg-bg # CTRL+z
+
+# create directory and immedietly cd into it
+mkd() {
+  mkdir -p "$1" && builtin cd "$1"
+}
+
+# Check for mediafile error
+function ffcheck() {
+  ffmpeg -v error -i "$1" -f NULL - 2>error.log
+}
+
+# Fix mediafile error. CAUTION: Might strip some data
+function fffix() {
+  ffmpeg -v error -err_detect ignore_err -i "$1" -c copy -acodec copy fix.mkv
+  mv "$1" "$1.old"
+  mv fix.mkv "$1"
+}
+
+# Yazi quitcd
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+# Vifm quitcd
+function f() {
+  local dst="$(command vifm --choose-dir - "$@")"
+  if [ -z "$dst" ]; then
+    echo 'Directory picking cancelled/failed'
+    return 1
+  fi
+  cd "$dst"
+}
+
+# Vifm quitcd -- not working
+function vifx() {
+  # Save current directory to a temp file
+  pwd > ~/.vifm/lastdir
+  # Run vifm
+  command vifm "$@"
+  # After vifm quits, cd to the saved directory if the file exists
+  if [ -f ~/.vifm/lastdir ]; then
+    cd "$(cat ~/.vifm/lastdir)"
+    rm ~/.vifm/lastdir # Clean up the temp file
+  fi
+}
+
+# Easy view for omz/prezto plugins doc
+OMZ_PATH="$ZHOME/ohmyzsh/ohmyzsh"
+PREZTO_PATH="$ZHOME/sorin-ionescu/prezto"
+
+omz-plugin() {
+  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
+  $PAGER -p "$OMZ_PATH/plugins/$cmd/$cmd.plugin.zsh"
+}
+
+omz-readme() {
+  cmd=${1:-"$(command ls $OMZ_PATH/plugins | fzf)"}
+  $MARKDOWN_VIEWER -p "$OMZ_PATH/plugins/$cmd/README.md"
+}
+
+prezto-readme() {
+  cmd=${1:-"$(command ls $PREZTO_PATH/modules | fzf)"}
+  $MARKDOWN_VIEWER -p "$PREZTO_PATH/modules/$cmd/README.md"
+}
+

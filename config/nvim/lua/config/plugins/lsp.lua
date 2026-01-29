@@ -1,10 +1,10 @@
 -- LSP, linter & formatter configs
 
-local ensure_installed = {
-  'lua_ls',
-  'tsserver',
+local _ensure_installed = {
+  'emmylua_ls',
+  'ts_ls',
   'intelephense',
-  'volar',
+  'vue_ls',
 }
 
 -- This is here to format on save
@@ -12,7 +12,7 @@ local ensure_installed = {
 local enable_format_on_save = false
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local format_on_save = function(client, bufnr)
-  if client.supports_method('textDocument/formatting') and enable_format_on_save then
+  if client:supports_method('textDocument/formatting') and enable_format_on_save then
     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
@@ -57,9 +57,7 @@ local config_null = function()
       -- }),
 
       -- Linter
-      -- nuls.builtins.diagnostics.eslint, -- JS/TS NOTE: Use LSP
       nuls.builtins.diagnostics.phpstan, -- PHP
-      -- nuls.builtins.diagnostics.bashls, -- Bash/sh NOTE: Use LSP
       nuls.builtins.diagnostics.zsh, -- zsh
       -- nuls.builtins.diagnostics.pylint, -- Python
       -- nuls.builtins.diagnostics.mypy, -- Python
@@ -71,9 +69,7 @@ local config_null = function()
 
       -- Code actions
       -- nuls.builtins.code_actions.gitsigns,
-      -- nuls.builtins.code_actions.eslint, -- NOTE: Use LSP
       nuls.builtins.code_actions.refactoring,
-      -- nuls.builtins.code_actions.basls, -- Bash NOTE: Use LSP
 
       -- Hover
       -- nuls.builtins.hover.dictionary
@@ -94,20 +90,28 @@ end
 return {
   {
     'neovim/nvim-lspconfig',
+    enabled = (not vim.g.is_termux),
+    version = '*',
     event = 'BufReadPre',
     config = function() require('lsp') end,
     dependencies = {
       {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         cmd = 'Mason',
         config = true,
-        -- dependencies = ,
+        opts = {
+          providers = {
+            "mason.providers.client",
+            "mason.providers.registry-api",
+          },
+        },
       }, -- Auto/manage LSP
       {
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason-lspconfig.nvim',
         opts = {
           automatic_installation = true,
-          ensure_installed = ensure_installed,
+          automatic_enable = true,
+          -- ensure_installed = _ensure_installed,
         },
       },  -- Bridge for mason-LSP config
       { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },

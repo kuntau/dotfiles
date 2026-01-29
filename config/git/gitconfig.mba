@@ -1,0 +1,6 @@
+# vim:ft=gitconfig
+
+[credential]
+  credentialStore = gpg
+  helper = "/opt/homebrew/bin/gh auth git-credential"
+  helper = osxkeychain

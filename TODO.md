@@ -7,50 +7,84 @@
     ░░░╚═╝░░░░╚════╝░╚═════╝░░╚════╝░
 
 ## Rust overlord takeover
-- [x] `bottom` over `top`, `htop`, `btop` or `ctop`
-- [x] `ripgrep` over `grep`
-- [x] `fd` over `find`
-- [x] `exa` or `lsd` over `ls`
-- [x] `dust` over `du`
-- [x] `nu` over `zsh`
-- [ ] `zoxide` over `zsh-z`
-- [ ] `Zellij` over `TMUX`
+- [x] `zoxide` over `zsh-z`
+- [x] ~~`Zellij` over `TMUX`~~
 
-## INSTALL SCRIPT
-- [x] Borrow code from `ohmyzsh` installer
-- [x] OS detection in install script for BSD/Linux difference
+## Install script
+- [-] Detection for Android
 
-### AVAILABILITY FEATURE CHECKLIST
-- [x] ZSH
-- [x] Git & version
-- [x] NodeJS
-- [x] TMUX
-- [x] Neovim
-- [x] Vim & version
-- [x] FZF
-- [x] Go
-- [ ] PHP
+### Dependencies check on install
+- [x] Core
+  - [x] `git`
+  - [x] `node`
+  - [x] `tmux`
+  - [x] `bat`
+  - [x] `fzf`
+  - [x] `fd`
+  - [x] `rg`
+- [x] `pnpm`
+- [x] `bfs`
+- [x] `gitui`
+- [x] `atuin`
+- [x] `vivid`
 
 ### Symlinks on install
-- [x] Symlink zshrc
-- [x] Symlink vimrc
-- [x] Symlink .gitignore
-- [x] .vimrc -> init.vim
+- [x] Neovim -> init.lua
+- [x] Configs
+  - [x] `ripgreprc`
+  - [x] `atuin`
+  - [x] `gitui`
+  - [x] `rclone`
+  - [x] `luarc`
+  - [x] `bat` 
+  - [x] ~~`starship`~~
+  - [x] `nu`
+  - [x] `fast-syntax-highlighting` 
+
+## Shell
+- [x] Function to return *day* or *night*
+- [x] Change terminal *theme* based on *time*
+- [-] Change prompt *theme* based on *time* (`p10k`)
+  - [x] Maybe it's the right time to switch to `starship`?
+  - [x] Nah... `starship` sucks
+- [x] Change `gitui` *theme* based on *time*
+
+## Terminal apps to have auto dark/light switch
+
+> [!NOTE]
+> Unless we want to convert any theme for each app, our best bet is to use **catppuccin** which is ubiquitous. It even has theme for `fast-syntax-highlighting`
+
+- [x] [Kitty](https://sw.kovidgoyal.net/kitty)
+- [x] [Wezterm](https://wezfurlong.org/wezterm)
+- [x] [Ghostty](https://ghostty.org)
+- [x] [bat](https://github.com/sharkdp/bat)
+- [x] [fzf](https://github.com/junegunn/fzf)
+    - [x] [fzf in gitconfig](https://github.com/junegunn/fzf)
+    - [x] [fzf in git fuzzy](https://github.com/junegunn/fzf)
+    - [x] [fzf in enhancd](https://github.com/junegunn/fzf)
+- [x] [vivid](https://github.com/sharkdp/vivid)
+- [x] [nnn](https://github.com/jarun/nnn) ℹ `LS_COLORS`?
+- [ ] [powerlevel10k](https://github.com/romkatv/powerlevel10k) ℹ Hard, scattered in **1.6k** lines file
+- [x] ~~[starship](https://starship.rs) ℹ `starship` is not any easier than `p10k` to do dynamic theme!~~ ℹ Too slow!
+- [ ] [F-Sy-H](https://github.com/z-shell/F-Sy-H) use `fast-theme`
+- [x] [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+- [ ] [gitui](https://github.com/extrawurst/gitui) ℹ Oh I hate to dynamically theme `toml` file...
+  - [ ] `gitui` theme [references](https://github.com/gitui-org/gitui/blob/master/THEMES.md)
+  - [ ] pass `-t <theme name>` argument to load theme file
+  - [ ] There's `catppuccin` theme for `gitui` now
+  - [ ] Figure out how to customize theme from `git` `g` alias
+- [ ] [tmux](https://github.com/tmux/tmux)
+- [ ] [delta](https://github.com/dandavison/delta) ℹ Config is in `gitconfig`
+- [x] [eza?](https://github.com/eza-community/eza) ℹ Maybe is using `LS_COLORS`
 
 ## (Neo)ViM
-- [x] Use `ale` as `coc.nvim` replacement when `nodejs` not avaiable
-  - [x] Irrelevant since now we use `lazy`
-- [x] Install `mason.nvim` to automate installing LSP servers
-- [x] Rewrite regular mappings/use lua API
-- [x] Rewrite LSP mappings
-- [x] Make mapping have `desc` for `which_key` support
-- [x] Write proper handler for LSP capabilities
+- [ ] 
 
 ## Config file
-- [x] Reorganize config files
-- [x] Make separate config file for each OS
+- [-] Reorganize config files
+- [ ] Make separate config file for each OS
 - [x] Update install script
-- [ ] Make `zplug` manage `fzf` update
+- [x] Make `zplug` manage `fzf` update
 
 ## NNN
 - [x] Make unique bookmarks for each machine

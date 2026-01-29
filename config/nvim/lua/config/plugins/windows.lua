@@ -1,6 +1,6 @@
 -- Windows management plugins
 
-local animation = false
+local animation = true
 
 local config_windows = function()
   local min_width = 5
@@ -22,6 +22,7 @@ local config_windows = function()
         'aerial',
         'Outline',
         'gitcommit',
+        'snacks_picker_list',
       },
     },
     animation = {
@@ -34,7 +35,7 @@ end
 
 return {
   {
-    'anuvyklack/windows.nvim',
+    'kuntau/windows.nvim',
     event = 'WinNew',
     keys = {
       { '<C-w>z', '<cmd>WindowsMaximize<cr>', desc = 'Windows Maximize' },

@@ -44,10 +44,6 @@ local config_catpuccin = function()
       enabled   = true,
       enable_ui = true,
     },
-    indent_blankline = {
-      enabled = true,
-      colored_indent_levels = true,
-    },
     native_lsp = {
       enabled = true,
       virtual_text = {
@@ -140,7 +136,6 @@ local config_material = function()
     plugins = {
       'dap',
       'gitsigns',
-      'indent-blankline',
       'mini',
       'neogit',
       'nvim-cmp',
@@ -156,10 +151,19 @@ end
 local config_nordic = {
   theme = 'nordic',
   bold_keywords = true,
-  transparent_bg = false,
+  transparent = { bg = false },
   noice = { style = 'flat' },
   telescope = { style = 'flat' },
-  override = {}
+}
+
+vim.g.PaperColor_Theme_Options = {
+  theme = {
+    default = {
+      allow_italic = 1,
+      allow_bold = 1,
+      transparent_background = 0,
+    },
+  },
 }
 
 return {

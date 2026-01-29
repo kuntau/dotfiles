@@ -115,17 +115,19 @@ vim.opt.fillchars:append {
   vertleft = '┨',
   vertright = '┣',
   verthoriz = '╋',
-  eob = ' ',
-  -- fold = ' ',
-  foldopen = '▼',
-  foldsep = ' ',
-  foldclose = '▶',
+  eob = nil,
+  fold = nil,      -- Alt ·
+  foldopen = '',  -- Alt  ▼
+  foldsep = nil,   -- Alt │
+  foldclose = '', -- Alt  ▶
+  foldinner = nil
 }
 vim.opt.diffopt:append   'vertical' -- Diff always open in vsplit
 vim.opt.shortmess:append 'c'        -- don't give |ins-completion-menu| messages.
 
--- Highlight VCS conflict markers
--- vim.cmd [[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']]
+-- Highlight VCS conflict markers with custom highlight groups
+vim.api.nvim_set_hl(0, "ConflictMarker",   { fg = "#000000", bg = "#ffff00", bold = true })
+vim.fn.matchadd("ConflictMarker", [[^\(<\|=\|>\||\)\{7\}\([^=].\+\)\?$]]) -- Add matches for each conflict marker
 
 -- disable some builtin plugins
 vim.g.loaded_2html_plugin   = 1
@@ -140,8 +142,14 @@ vim.g.loaded_tarPlugin      = 1
 vim.g.loaded_zip            = 1
 vim.g.loaded_zipPlugin      = 1
 
+-- disable unused plugin provider
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
+
 if vim.fn.has('nvim-0.8') == 1 then
-  vim.opt.cmdheight = 0
+  -- vim.opt.cmdheight = 0
   vim.opt.backupdir = vim.fn.stdpath('state') .. '/backup'
 end
 
@@ -155,6 +163,9 @@ end
 if vim.fn.filereadable('/opt/local/bin/sqlite3') == 1 then
   vim.g.sqlite_clib_path = '/opt/local/lib/libsqlite3.dylib'
 end
+
+-- check in termux
+vim.g.is_termux = (vim.env.TERMUX_VERSION and true or false)
 
 -- References: {
 -- https://github.com/tarruda/dot-files

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "diagnostics": {
+    "globals": [ "vim", "Snacks" ],
+    "disable": [ "close-non-object" ],
+  },
+  "telemetry": {
+    "enable": "false"
+  },
+  "format": {
+    "enable": true,
+    "defaultConfig": {
+      "indent_style": "space",
+      "indent_size": "2",
+    }
+  },
+}

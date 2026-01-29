@@ -1,138 +1,67 @@
 # vim: ft=zsh foldmethod=marker foldlevel=1 nomodeline:
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+  zmodload zsh/zprof
 fi
 
-# start zplug {{{
-source ~/.zplug/init.zsh
+() { [[ -r $1 ]] && source $1 } ${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USERNAME}.zsh
 
-# zplug can manage itself
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-# from oh-my-zsh
-zplug 'lib/clipboard',          from:oh-my-zsh
-zplug 'lib/history',            from:oh-my-zsh
-# zplug 'lib/completion',         from:oh-my-zsh
-zplug 'lib/key-bindings',       from:oh-my-zsh
-zplug 'lib/directories',        from:oh-my-zsh
-zplug 'plugins/asdf',           from:oh-my-zsh
-zplug 'plugins/brew',           from:oh-my-zsh
-zplug 'plugins/bun',            from:oh-my-zsh
-zplug 'plugins/copybuffer',     from:oh-my-zsh
-zplug 'plugins/copyfile',       from:oh-my-zsh
-zplug 'plugins/copypath',       from:oh-my-zsh
-zplug 'plugins/cp',             from:oh-my-zsh
-zplug 'plugins/docker',         from:oh-my-zsh
-zplug 'plugins/docker-compose', from:oh-my-zsh
-zplug 'plugins/eza',            from:oh-my-zsh
-zplug 'plugins/git',            from:oh-my-zsh
-zplug 'plugins/git-extras',     from:oh-my-zsh
-zplug 'plugins/git-flow',       from:oh-my-zsh
-zplug 'plugins/macports',       from:oh-my-zsh
-zplug 'plugins/mosh',           from:oh-my-zsh
-zplug 'plugins/safe-paste',     from:oh-my-zsh
-zplug 'plugins/ssh',            from:oh-my-zsh
-zplug 'plugins/sublime',        from:oh-my-zsh
-zplug 'plugins/sublime-merge',  from:oh-my-zsh
-zplug 'plugins/sudo',           from:oh-my-zsh
-zplug 'plugins/taskwarrior',    from:oh-my-zsh
-zplug 'plugins/timer',          from:oh-my-zsh
-zplug 'plugins/tmux',           from:oh-my-zsh
-zplug 'plugins/z',              from:oh-my-zsh
-
-# local/dotfiles
-zplug "~/dotfiles/zsh/completions", from:local
-
-# from github
-zplug "zsh-users/zsh-completions", depth:1
-zplug "bigH/git-fuzzy", depth:1, as:command, use:"bin/git-fuzzy"
-zplug "jeffreytse/zsh-vi-mode", depth:1
-zplug "zsh-users/zsh-autosuggestions", depth:1
-zplug "b4b4r07/enhancd", depth:1, use:init.sh
-zplug "agkozak/zsh-z", depth:1
-zplug "le0me55i/zsh-extract", depth:1
-zplug "marlonrichert/zsh-edit", depth:1
-zplug "zsh-users/zsh-history-substring-search", as:plugin, depth:1, defer:1
-zplug "marlonrichert/zsh-autocomplete", depth:1, defer:2
-zplug "z-shell/F-Sy-H", depth:1, defer:3
-
-# theme
-zplug "romkatv/powerlevel10k", depth:1, use:powerlevel10k.zsh-theme
-
-if ! zplug check; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-
-zplug load
-# }}}
-
-# Set ENV VARIABLE {{{
 OS_NAME=$(uname)
 HOST_NAME=$(hostname)
 DOTFILES=$HOME/dotfiles
+ZHOME=$HOME/.znap
 
-exists() { type "$1" >/dev/null 2>&1; }
+exists() { [[ ${+commands[$1]} ]] }
+is_day() { [[ "$(date +%H)" -ge 8 && "$(date +%H)" -lt 19 ]]; }
 
-# OS specific ENVIRONMENT VARIABLE
-if [[ $OS_NAME == Linux ]]; then
-  # export PATH=~/npm/bin:/usr/local/go/bin:$PATH
-  # export PATH=~/.local/bin:$PATH
-  # rust
-  # golang
-  export PATH=$PATH:/usr/local/go/bin
-  export DENO_INSTALL='/home/kuntau/.deno'
+# start znap {{{
+zstyle ':znap:*' repos-dir $HOME/.znap
 
-  # nnn
-  export NNN_OPENER='nuke'
+[[ ! -f ~/.znap/zsh-snap/znap.zsh ]] && git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
 
-  # machine specific ENVIRONMENT VARIABLE
-  if [[ $HOST_NAME == 'hqsvr' ]]; then
-    export COMPOSER_HOME=$HOME/.composer
+source ~/.znap/zsh-snap/znap.zsh
 
-    # atuin - https://atuin.sh
-    source $HOME/.atuin/bin/env
+znap source romkatv/powerlevel10k powerlevel10k.zsh-theme
+znap source ohmyzsh/ohmyzsh \
+  lib/{clipboard,functions,misc,key-bindings,grep,git} \
+  plugins/{git,git-extras,safe-paste,ssh,sudo,command-not-found}
 
-    export NNN_BMS='d:~/dotfiles;D:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;L:~/.local;f:/HQPOOL/Coding/forks'
-  fi
-elif [[ $OS_NAME == Darwin ]]; then
+znap source sorin-ionescu/prezto init.zsh \
+  modules/{macports,homebrew,node,osx,tmux}
 
-  # python: https://docs.python.org/3/using/cmdline.html#environment-variables
-  export PYTHONUSERBASE=~/.local
-  export PATH=$PATH:$HOME/Library/Python/3.9/bin
+znap source z-shell/f-sy-h
+znap source marlonrichert/zsh-autocomplete
+znap source marlonrichert/zsh-edit
+znap source zsh-users/zsh-completions
+znap source zsh-users/zsh-autosuggestions
+znap source michaelaquilina/zsh-you-should-use
 
-  # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
-  GPG_TTY=$(tty)
-  export GPG_TTY
+# znap source bigh/git-fuzzy # can't load this here, znap can only manage it, add bin to path
+znap source junegunn/fzf shell/{completion,key-bindings}.zsh
+znap source le0me55i/zsh-extract # extract
+znap source babarot/enhancd 'init.sh'  # alias to cd for trigger
+exists zoxide || znap source agkozak/zsh-z
 
-  # Homebrew
-  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
-  export HOMEBREW_NO_AUTO_UPDATE=0
-  export HOMEBREW_NO_INSTALL_CLEANUP=0
-  export HOMEBREW_AUTO_UPDATE_SECS=86400
+# Extra helper for debugging `zbrowse`
+znap source MichaelAquilina/zsh-autoswitch-virtualenv
+znap source zdharma-continuum/zui
+znap source zdharma-continuum/zbrowse
 
-  # nnn
-  export NNN_OPENER='open'
+# For some unknown reason this have to be load last or zsh will crash
+znap source jeffreytse/zsh-vi-mode
 
-  # LSP
-  export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
+# }}}
 
-  # machine specific ENVIRONMENT VARIABLE
-  if [[ $HOST_NAME == 'HQ' ]]; then
-    export ANDROID_HOME=/Volumes/HOME/Android/SDK
-    export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
-    export NNN_BMS='D:~/dotfiles;d:/Volumes/HOME/Downloads;E:/Volumes/Entertainment;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local'
-  elif [[ $HOST_NAME == 'rMBP' ]]; then
-    export ANDROID_HOME=~/Library/Android/sdk
-    export NNN_BMS='D:~/dotfiles;d:~/downloads;f:~/coding/forks;c:~/coding;C:~/.config;L:~/.local;V:/Volumes'
-  fi
-elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
-  export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
-  source ~/dotfiles/mintty/sol.dark
-fi
+# Set ENV VARIABLE {{{
+setopt interactive_comments
+
+# Neovim LSP/Mason
+export PATH=~/.local/share/nvim/mason/bin:$PATH # Mason LSP bin dir
+
+# Homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 # Fix locale
 export LANG="en_US.UTF-8"
@@ -141,33 +70,50 @@ export LC_ALL="en_US.UTF-8"
 # }}}
 
 # Plugins config & ENV {{{
-# zsh-completions. https://github.com/zsh-users/zsh-completions/
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240"   # fg=#707a8c,bg=cyan,bold,underline"
 
+# export this mainly for usage with TMUX
+export IS_DAY=$(is_day && echo 1)
+
+# Theme - Auto dark/light based on time
+light_theme='catppuccin-latte'
+dark_theme='catppuccin-mocha'
+
+# vivid - LS_COLORS generator
+exists vivid && LS_COLORS=$(vivid generate $(is_day && echo $light_theme || echo $dark_theme))
+export LS_COLORS
+
+# zsh-autosuggestions. https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file#configuration
+autosuggest_light_theme="#808080"
+autosuggest_dark_theme="#585858"
+autosuggest_theme=$(is_day && echo $autosuggest_light_theme || echo $autosuggest_dark_theme)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${autosuggest_theme},italic"
+ZSH_AUTOSUGGEST_STRATEGY=(history)
+# ZSH_AUTOSUGGEST_CLEAR_WIDGETS # TODO: Add widgets like atuin & autocomplete
+
+# TODO: This shit is mess, so many things didn't work. Figure it out
 # zsh-autcomplete configs https://github.com/marlonrichert/zsh-autocomplete/blob/main/.zshrc
 # Some snippets from https://github.com/tshu-w/dotfiles/blob/f06c7c7f7084e615c82d4d56efb008b39bdb24cd/config/zsh/.zshrc#L33-L48
 # zstyle '*:compinit' arguments -D -i -u -C -w # might cause `compinit` not generating `zcompdump`
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # not using
-# zstyle ':completion:*' file-sort date
-# zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
-# zstyle ':completion:*:paths' path-completion yes
-# zstyle ':autocomplete:*' ignored-input '..##'
-# zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # use with `vivid`
+zstyle ':completion:*' file-sort date
+zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+zstyle ':completion:*:paths' path-completion yes
+zstyle ':autocomplete:*' ignored-input '..##'
+zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
 zstyle ':autocomplete:*' min-delay 0.3  # seconds (float)
 zstyle ':autocomplete:*' min-input 2  # characters (int)
-# zstyle ':autocomplete:*' insert-unambiguous yes
-zstyle ':autocomplete:*' fzf-completion yes
+zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:tab:*' fzf-completion yes
 # zstyle ':autocomplete:*' default-context history-incremental-search-backward
 bindkey -M menuselect "^[m" accept-and-hold
 bindkey -M menuselect "^M" .accept-line
-
 
 # nnn - https://github.com/jarun/nnn
 NNN_PLUG_FZF='c:fzcd;o:fzopen;j:autojump;h:fzhist;p:fzplug;g:gitroot'
 NNN_PLUG_REST='3:mp3conv;4:ipinfo;v:preview-tui;s:chksum;x:!chmod +x "$nnn";m:-!|mediainfo "$nnn";k:pskill;i:imgview;l:launch'
 NNN_PLUG="$NNN_PLUG_FZF;$NNN_PLUG_REST"
 export NNN_PLUG
-export NNN_OPTS='acEFrxQU'
+export NNN_OPTS='acEFxQU'
 BLK="04" CHR="04" DIR="04" EXE="00" REG="00" HARDLINK="00" SYMLINK="06" MISSING="00" ORPHAN="01" FIFO="0F" SOCK="0F" OTHER="02"
 export NNN_COLORS='a321e2be;1234'
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
@@ -175,79 +121,157 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 export NNN_TRASH=0
 
 # bat - https://github.com/sharkdp/bat
-export BAT_THEME="gruvbox-dark"
+BAT_LIGHT_THEME="Monokai Extended Light"
+BAT_DARK_THEME="Monokai Extended"
+export BAT_OPTS="--color=always"
+export BAT_THEME="$(is_day && echo $BAT_LIGHT_THEME || echo $BAT_DARK_THEME)"
 export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
-# enhancd - https://github.com/b4b4r07/enhancd
+# lazygit - https://github.com/jesseduffield/lazygit
+LG_LIGHT_THEME="$XDG_CONFIG_HOME/lazygit/themes/latte/sapphire.yml"
+LG_DARK_THEME="$XDG_CONFIG_HOME/lazygit/themes/frappe/sapphire.yml"
+LG_MAIN_CONFIG="$XDG_CONFIG_HOME/lazygit/config.yml"
+export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_day && echo $LG_LIGHT_THEME || echo $LG_DARK_THEME)"
+
+# enhancd - https://github.com/babarot/enhancd
 export ENHANCD_FILTER=fzf
 export ENHANCD_DISABLE_DOT=0
 export ENHANCD_DISABLE_HYPHEN=0
-export ENHANCD_HYPHEN_ARG=';'
-export ENHANCD_DOT_ARG='.'
+
+# autoswitch-virtualenv - https://github.conm/MichaelAquilina/zsh-autoswitch-virtualenv
+export AUTOSWITCH_SILENT=1
+export AUTOSWITCH_DEFAULT_PYTHON="python3"
+# export AUTOSWITCH_DEFAULTENV="kuntau"
 
 # ripgrep - https://github.com/BurntSushi/ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+# NOTE: Need more research
 # zsh-vi-mode - https://github.com/jeffreytse/zsh-vi-mode
-export ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_INIT_MODE=sourcing # Enabling this will messed up TMUX
+ZVM_CURSOR_STYLE_ENABLED=true
 
-# FIX the blinding green on green directory listing on external drive.
-# Read more https://unix.stackexchange.com/questions/94498/what-causes-this-green-background-in-ls-output
-if [[ -f ~/.dircolors ]]; then
-  eval $(dircolors -b ~/.dircolors)
-elif [[ -f /etc/DIR_COLORS ]]; then
-  eval $(dircolors -b /etc/DIR_COLORS)
+# nnn
+export NNN_BMS='D:~/dotfiles;C:~/.config;L:~/.local'
+
+# OS specific ENVIRONMENT VARIABLE
+if [[ $OS_NAME == Linux ]]; then
+  export DENO_INSTALL='/home/kuntau/.deno'
+
+  # nnn
+  export NNN_OPENER='nuke'
+
+  # linuxbrew
+  [[ -d /home/linuxbrew ]] && znap eval brew "/home/linuxbrew/.linuxbrew/bin/brew shellenv"
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'hqsvr' ]]; then
+    export COMPOSER_HOME=$HOME/.composer
+
+    export NNN_BMS="$NNN_BMS;d:/DL/Downloads;v:/HQPOOL/Videos;c:/HQPOOL/Coding;T:/HQPOOL/DATA;P:/HQPOOL;C:~/.config/;f:/HQPOOL/Coding/forks"
+  fi
+elif [[ $OS_NAME == Darwin ]]; then
+  # python: https://docs.python.org/3/using/cmdline.html#environment-variables
+  export PYTHONUSERBASE=~/.local
+
+  # GPG. Read https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
+  GPG_TTY=$(tty)
+  export GPG_TTY
+
+  # Homebrew
+  export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+  export PATH=/usr/local/sbin:$PATH
+
+  # nnn
+  export NNN_OPENER='open' # set MacOS nnn opener
+  export NNN_BMS="$NNN_BMS;c:~/coding;f:~/coding/forks;T:~/Dropbox/transporter;V:/Volumes"
+  export NNN_TRASH=trash
+
+  # machine specific ENVIRONMENT VARIABLE
+  if [[ $HOST_NAME == 'HQ' ]]; then
+    export MANPATH=$MANPATH:/opt/local/man                # Add MacPorts MAN path
+    export HOMEBREW_GIT_PATH=/opt/local/bin/git
+    export ANDROID_HOME=/Volumes/HOME/Android/SDK
+    export PATH=$PATH:/Volumes/HOME/Android/flutter/bin
+    export NNN_BMS="$NNN_BMS;d:/Volumes/HOME/Downloads;E:/Volumes/Entertainment"
+  elif [[ $HOST_NAME == 'rMBP' ]]; then
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+    export NNN_BMS="$NNN_BMS;d:~/Downloads"
+  elif [[ $HOST_NAME == 'MBA' ]]; then
+    export NNN_BMS="$NNN_BMS;d:~/Downloads"
+    exists brew && export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH  # brew app binary path
+    fpath+=( /opt/homebrew/share/zsh/site-functions )  # this path might have been added automatically
+  fi
+elif [[ $OS_NAME == CYGWIN_NT-6.1 ]]; then
+  export PATH=/usr/local/bin:/usr/bin:/cygdrive/c/"Program Files (x86)/NVIDIA Corporation"/PhysX/Common:/cygdrive/c/Windows/system32:/cygdrive/c/Windows:/cygdrive/c/Windows/System32/Wbem:/cygdrive/c/Windows/System32/WindowsPowerShell/v1.0:/cygdrive/c/"Program Files/Intel/DMIX":$PATH
+  source ~/dotfiles/mintty/sol.dark
 fi
-# }}}
 
 # Update $PATH (platform *nix)) {{{
-exists npm      && export NPM_CONFIG_PREFIX=$HOME/.npm-global   # npm -g install location
-exists npm      && export PATH=$HOME/.npm-global/bin:$PATH      # npm global binary path
-exists pnpm     && export PNPM_HOME=$HOME/.npm-global/bin       # pnpm global binary path
-exists pip      && export PATH=$HOME/.local/bin:$PATH           # pip app binary path
-exists cargo    && export PATH=$HOME/.cargo/bin:$PATH           # rust cargo binary path
-exists composer && export PATH=$HOME/.composer/vendor/bin:$PATH # composer global binary path
-exists snap     && export PATH=/snap/bin:$PATH                  # snap binary path
-exists atuin    && eval "$(atuin init zsh)"                     # atuin https://atuin.sh
-export PATH=$PATH:$DENO_INSTALL/bin                             # deno binary path
-export PATH=$PATH:/usr/local/sbin                               # some brew installed in `sbin`
-export PATH=$DOTFILES/bin:$PATH
+exists cargo    && PATH=$HOME/.cargo/bin:$PATH            # rust cargo binary path
+exists composer && PATH=$HOME/.composer/vendor/bin:$PATH  # composer global binary path
+exists deno     && PATH=$PATH:$DENO_INSTALL/bin           # deno binary path
+exists go       && PATH=$HOME/go/bin:$PATH                # go binary path
+exists npm      && NPM_CONFIG_PREFIX=$HOME/.npm-global    # npm -g install location
+exists npm      && PATH=$HOME/.npm-global/bin:$PATH       # npm global binary path
+exists pnpm     && PNPM_HOME=$HOME/.npm-global/bin        # pnpm global binary path
+exists snap     && PATH=/snap/bin:$PATH                   # snap binary path
+exists uv       && PATH=$HOME/.local/bin:$PATH            # pip app binary path
+exists znap     && PATH=$ZHOME/BigH/git-fuzzy/bin:$PATH   # git fuzzy binary path
+exists znap     && PATH=$ZHOME/junegunn/fzf/bin:$PATH     # fzf binary path
+export PATH=$DOTFILES/bin:$PATH                           # dotfiles binary path
+
+# Completions - Znap way
+exists atuin       && znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
+exists cargo       && znap function _cargo cargo 'eval "$(rustup completions zsh cargo)"'
+exists deno        && znap function _deno deno 'eval "$(deno completions zsh)"'
+exists gh          && znap function _gh gh 'eval "$(gh completion --shell zsh)"'
+exists git-lfs     && znap function _git-lfs git-lfs 'eval "$(git-lfs completion zsh)"'
+exists glow        && znap function _glow glow 'eval "$(glow completion zsh)"'
+exists jj          && znap function _jj jj 'eval "$(jj util completion zsh)"'
+exists maestral    && znap function _maestral maestral 'eval "$(maestral completion zsh)"'
+exists rg          && znap function _rg rg 'eval "$(rg --generate=complete-zsh)"'
+exists rustup      && znap function _rustup rustup 'eval "$(rustup completions zsh)"'
+exists syncthing   && znap function _synthing synthing 'eval "$(synthing install-completions)"'
+exists tree-sitter && znap function _tree-sitter tree-sitter 'eval "$(tree-sitter complete --shell zsh)"'
+exists uv          && znap function _uv uv 'eval "$(uv generate-shell-completion zsh)"'
+fpath+=( $DOTFILES/zsh/completions ) # Add out custom completions
+
 # }}}
 
 # Extra sources {{{
 # zsh-vi-mode messed with key-bindings. So need to set ours after `zvm` init
 function zvm_after_init() {
-  [[ -x rustup ]] && source $HOME/.cargo/env
-  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-  exists fzf && source $DOTFILES/zsh/fzf.zsh
-  exists nnn && source $DOTFILES/nnn/quitcd.zsh
-  exists atuin && eval "$(atuin init zsh)"
-
   bindkey              '^I' menu-complete
   bindkey "$terminfo[kcbt]" reverse-menu-complete
   bindkey              '^I' menu-select
   bindkey "$terminfo[kcbt]" menu-select
   bindkey -M menuselect              '^I'         menu-complete
   bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
-  # bindkey '^S' history-incremental-search-forward
-  # bindkey '^I' menu-select 
-  # bindkey "$terminfo[kcbt]" menu-select
-  # bindkey -M menuselect '^I' menu-complete
-  # bindkey "$terminfo[kcbt]" reverse-menu-complete
 
+  exists fzf    && source $DOTFILES/zsh/fzf.zsh
+  exists nnn    && source $DOTFILES/nnn/quitcd.zsh
+  exists rustup && source $HOME/.cargo/env
+  exists atuin  && znap eval atuin "atuin init zsh"     # atuin - sync, search & backup shell history
+  exists zoxide && znap eval z "zoxide init zsh"        # zoxide - modern z
+
+  # Customs
   bindkey -M viins '^Xa' _expand_alias
-
-  # zsh-history-substring-search configuration
-  bindkey '^[[A' history-substring-search-up # or '\eOA'
-  bindkey '^[[B' history-substring-search-down # or '\eOB'
-  HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+  bindkey -M viins '^R' atuin-search
+  bindkey -M vicmd '' up-line-or-history
+  bindkey -M vicmd '' down-line-or-history
 
   source $DOTFILES/zsh/default.zsh # my defaults
   source $DOTFILES/zsh/aliases.zsh # my aliases
   source $HOME/.secret             # don't commit this file
   typeset -U PATH                  # remove dups from $PATH
+  typeset -U MANPATH               # remove dups from $MANPATH
 }
 
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+if [[ -n "$ZSH_DEBUGRC" ]]; then
+  zprof
+fi
 # }}}

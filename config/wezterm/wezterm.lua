@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local Utils = require('utils')
+local _utils = require('utils')
 local action = wezterm.action
 local on = wezterm.on
 local emit = action.EmitEvent
@@ -269,21 +269,37 @@ wezterm.on('window-config-reloaded', function(window, _)
   window:toast_notification('wezterm', 'configuration reloaded!', nil, 4000)
 end)
 
+on('ActivatePaneDirectionRight', function(win, pane) switch_pane(win, pane, 'l') end)
+on('ActivatePaneDirectionLeft',  function(win, pane) switch_pane(win, pane, 'h') end)
+on('ActivatePaneDirectionUp',    function(win, pane) switch_pane(win, pane, 'k') end)
+on('ActivatePaneDirectionDown',  function(win, pane) switch_pane(win, pane, 'j') end)
+
+-- Set auto switch dark/light themes
+local is_day = function ()
+  local time = tonumber(wezterm.strftime('%H'))
+  return (time >= 8 and time < 19) and true or false
+end
+
+local light_theme = 'Papercolor Light (Gogh)'
+local dark_theme = 'nordic'
+local theme = is_day() and light_theme or dark_theme
+
 return {
-  default_prog = { '/opt/local/bin/zsh', '-li' },
+  default_prog = { 'zsh', '-li' },
 
   font = wezterm.font_with_fallback({
-    {
-      family = 'LigaOperatorMono Nerd Font Mono',
-      weight = 'Book',
-    },
-    'BlexMono Nerd Font Mono',
+    { family = "Operator Mono", weight = 'Book', harfbuzz_features = { "+ss01", "+ss07", "+ss11" } },
+    { family = "MonoLisa", harfbuzz_features = { "+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14" } },
+    { family = "Cascadia Code", harfbuzz_features = { "+ss01", "+ss02", "+ss03", "+calt", "+ss19", "+ss20" } },
+    { family = "Maple Mono", harfbuzz_features = { "+calt", "+liga", "+ss01", "+ss02", "+ss03" } },
+    { family = "Symbols Nerd Font" }, -- fallback for icons
+    { family = "Noto Sans CJK SC" },  -- fallback for CJK
   }),
 
-  font_size = 13.0,
-  -- font_antialias  = 'Subpixel',
-  freetype_load_target = 'Light',
+  font_size = 12.5,
+  freetype_load_target = 'Light', -- Normal, Light, Mono, HorizontalLcd
   freetype_render_target = 'HorizontalLcd',
+  use_cap_height_to_scale_fallback_fonts = true,
 
   -- Basics
   scrollback_lines = 1000,
@@ -292,7 +308,7 @@ return {
 
   -- Advanced options
   enable_kitty_graphics = true,
-  enable_kitty_keyboard = true,
+  enable_kitty_keyboard = false,
   send_composed_key_when_left_alt_is_pressed = false,
   send_composed_key_when_right_alt_is_pressed = false,
 
@@ -304,70 +320,70 @@ return {
   cursor_blink_ease_out = 'Constant',
 
   -- Colors
-  color_scheme = 'nordic', -- full list @ https://wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = theme, -- full list @ https://wezfurlong.org/wezterm/colorschemes/index.html
   colors = {
-		split = COLORS.surface0,
-		foreground = COLORS.text,
-		background = COLORS.base,
-		cursor_bg = COLORS.rosewater,
-		cursor_border = COLORS.rosewater,
-		cursor_fg = COLORS.base,
-		selection_bg = COLORS.surface2,
-		selection_fg = COLORS.text,
-		visual_bell = COLORS.surface0,
+		-- split = COLORS.surface0,
+		-- foreground = COLORS.text,
+		-- background = COLORS.base,
+		-- cursor_bg = COLORS.rosewater,
+		-- cursor_border = COLORS.rosewater,
+		-- cursor_fg = COLORS.base,
+		-- selection_bg = COLORS.surface2,
+		-- selection_fg = COLORS.text,
+		-- visual_bell = COLORS.surface0,
 		indexed = {
 			[16] = COLORS.peach,
 			[17] = COLORS.rosewater,
 		},
 		scrollbar_thumb = COLORS.surface2,
 		compose_cursor = COLORS.flamingo,
-		ansi = {
-			COLORS.surface1,
-			COLORS.red,
-			COLORS.green,
-			COLORS.yellow,
-			COLORS.blue,
-			COLORS.pink,
-			COLORS.teal,
-			COLORS.subtext0,
-		},
-		brights = {
-			COLORS.subtext0,
-			COLORS.red,
-			COLORS.green,
-			COLORS.yellow,
-			COLORS.blue,
-			COLORS.pink,
-			COLORS.teal,
-			COLORS.surface1,
-		},
-		tab_bar = {
-			background = COLORS.crust,
-			active_tab = {
-				bg_color = "none",
-				fg_color = COLORS.subtext1,
-				intensity = "Bold",
-				underline = "None",
-				italic = false,
-				strikethrough = false,
-			},
-			inactive_tab = {
-				bg_color = COLORS.crust,
-				fg_color = COLORS.surface2,
-			},
-			inactive_tab_hover = {
-				bg_color = COLORS.mantle,
-				fg_color = COLORS.subtext0,
-			},
-			new_tab = {
-				bg_color = COLORS.crust,
-				fg_color = COLORS.subtext0,
-			},
-			new_tab_hover = {
-				bg_color = COLORS.crust,
-				fg_color = COLORS.subtext0,
-			},
-		},
+		-- ansi = {
+			-- COLORS.surface1,
+			-- COLORS.red,
+			-- COLORS.green,
+			-- COLORS.yellow,
+			-- COLORS.blue,
+			-- COLORS.pink,
+			-- COLORS.teal,
+			-- COLORS.subtext0,
+		-- },
+		-- brights = {
+		-- 	COLORS.subtext0,
+		-- 	COLORS.red,
+		-- 	COLORS.green,
+		-- 	COLORS.yellow,
+		-- 	COLORS.blue,
+		-- 	COLORS.pink,
+		-- 	COLORS.teal,
+		-- 	COLORS.surface1,
+		-- },
+		-- tab_bar = {
+		-- 	background = COLORS.crust,
+		-- 	active_tab = {
+		-- 		bg_color = "none",
+		-- 		fg_color = COLORS.subtext1,
+		-- 		intensity = "Bold",
+		-- 		underline = "None",
+		-- 		italic = false,
+		-- 		strikethrough = false,
+		-- 	},
+		-- 	inactive_tab = {
+		-- 		bg_color = COLORS.crust,
+		-- 		fg_color = COLORS.surface2,
+		-- 	},
+		-- 	inactive_tab_hover = {
+		-- 		bg_color = COLORS.mantle,
+		-- 		fg_color = COLORS.subtext0,
+		-- 	},
+		-- 	new_tab = {
+		-- 		bg_color = COLORS.crust,
+		-- 		fg_color = COLORS.subtext0,
+		-- 	},
+		-- 	new_tab_hover = {
+		-- 		bg_color = COLORS.crust,
+		-- 		fg_color = COLORS.subtext0,
+		-- 	},
+		-- },
   },
 
   -- Appearance
@@ -379,8 +395,9 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,
   tab_max_width = 50,
-  window_background_opacity = 1.0,
-  window_decorations = 'RESIZE', -- 'TITLE', 'RESIZE', 'NONE'
+  window_background_opacity = 0.95,
+  window_decorations = 'INTEGRATED_BUTTONS|RESIZE', -- 'INTEGRATED_BUTTONS', 'TITLE', 'RESIZE', 'NONE'
+  integrated_title_button_style = 'Windows',
   window_padding = { left = 0, right = 0, top = 0, bottom = 0 },
   inactive_pane_hsb = { saturation = 1.0, brightness = 0.85 },
 
@@ -394,9 +411,8 @@ return {
   window_close_confirmation = 'NeverPrompt',
 
   -- define leader key, same as tmux
-  leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 },
   disable_default_key_bindings = false,
-
+  leader = { key = 's', mods = 'CMD|CTRL', timeout_milliseconds = 1000 },
   -- mappings
   keys = {
     { key = 't', mods = hyper_key, action = action({ SpawnTab = 'CurrentPaneDomain' }) },
@@ -406,9 +422,9 @@ return {
 
     -- { key = 'a', mods = 'LEADER|CTRL', action = action { SendString = '\x01' } }, -- can be used with tmux
     { key = 's', mods = 'LEADER|CTRL', action = { SendKey = { key = 's', mods = 'CTRL' } } }, -- more friendly way to send
-    { key = 'v', mods = 'LEADER', action = action({ SplitHorizontal = { domain = 'CurrentPaneDomain' } }) },
-    { key = 's', mods = 'LEADER', action = action({ SplitVertical = { domain = 'CurrentPaneDomain' } }) },
-    { key = 'x', mods = 'LEADER', action = action({ CloseCurrentPane = { confirm = true } }) },
+    { key = 'v', mods = 'LEADER', action = action.SplitPane({ direction = 'Right' }) },
+    { key = 's', mods = 'LEADER', action = action.SplitPane({ direction = 'Down' }) },
+    { key = 'x', mods = 'LEADER', action = action.CloseCurrentPane({ confirm = false }) },
 
     { key = 'h', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Left' }) },
     { key = 'l', mods = 'LEADER', action = action({ ActivatePaneDirection = 'Right' }) },

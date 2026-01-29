@@ -1,6 +1,7 @@
 -- █▀▀ █ ▀█▀
 -- █▄█ █ ░█░
 
+local fn = vim.fn
 local is_repo = function() return (string.find(fn.system('git rev-parse --is-inside-work-tree'), 'true') == 1) end
 
 -- Git utils function

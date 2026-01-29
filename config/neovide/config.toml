@@ -1,0 +1,55 @@
+# Neovide configs reference: https://neovide.dev/config-file.html
+# Not sure which take priority, config file or inside neovim configs
+
+fork = true
+frame = "transparent"
+idle = true
+maximized = false
+no-multigrid = false
+srgb = true
+tabs = false
+theme = "auto"
+title-hidden = true
+vsync = true
+wsl = false
+
+[font]
+size = 12.0
+hinting = "full"
+edging = "antialias"
+
+[[font.normal]]
+family = "Maple Mono"
+style = "Regular"
+
+[[font.normal]]
+family = "Symbols Nerd Font"
+style = "Regular"
+
+[[font.italic]]
+family = "MonoLisa"
+style = "Italic"
+
+[[font.italic]]
+family = "Symbols Nerd Font"
+style = "Regular"
+
+[[font.bold]]
+family = "Operator Mono"
+style = "Bold"
+
+[[font.bold]]
+family = "Symbols Nerd Font"
+style = "Regular"
+
+[font.features]
+"MonoLisa" = ["+ss01", "+ss07", "+ss11", "-calt", "+ss09", "+ss02", "+ss14", "+zero"]
+"Operator Mono" = ["+ss01", "+ss07", "+ss11", "+zero"]
+"Cascadia Code" = ["+ss01", "+ss02", "+ss03", "+calt", "+ss19", "+ss20", "+zero"]
+"Maple Mono" = ["+calt", "+liga", "+ss01", "+ss02", "+ss03", "+zero"]
+
+[box-drawing]
+mode = "font-glyph" # "font-glyph", "native" or "selected-native"
+
+[box-drawing.sizes]
+default = [2, 4]  # Thin and thick values respectively, for all sizes

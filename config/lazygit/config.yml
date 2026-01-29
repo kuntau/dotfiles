@@ -1,0 +1,43 @@
+gui:
+  # borrowed from https://github.com/YousefHadder/dotfiles/blob/main/lazygit/.config/lazygit/config.yml
+  authorColors: {}
+  branchColors: {}
+  scrollHeight: 2
+  scrollPastBottom: true
+  mouseEvents: true
+  nerdFontsVersion: "3"
+  skipDiscardChangeWarning: false
+  skipStashWarning: false
+  expandFocusedSidePanel: false
+  timeFormat: 02 Jan 06 15:04 MST
+  commitLength:
+      show: true
+  skipNoStagedFilesWarning: false
+  showListFooter: true
+  showFileTree: true
+  showRandomTip: true
+  showCommandLog: true
+  showBottomLine: true
+  commandLogSize: 8
+
+  # UI Improvements
+  showIcons: true
+  sidePanelWidth: 0.33
+  mainPanelSplitMode: 'flexible'
+  language: 'auto'
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
+  parseEmoji: true
+os:
+  editCommand: 'nvim'
+  editCommandTemplate: '{{editor}} {{filename}}'
+
+# customCommands:
+#   - key: 'C'
+#     command: "git cz" # Adds support for Commitizen if you use it
+#     context: 'files'
+#     loadingText: 'opening commitizen'
+#     description: 'commit with commitizen'
+#     subprocess: true

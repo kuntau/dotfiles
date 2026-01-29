@@ -1,24 +1,27 @@
 -- LSP handler
 
 local autocmd = require('utils').autocmd
-local lsp = vim.lsp
 local dbgi = require('utils.logger').dbgi
+local lsp = vim.lsp
+local fn = vim.fn
 local debug = false
 
 -- Set default sign
-local setup = function(bufnr, server_capabilities)
-  if vim.tbl_isempty(vim.fn.sign_getdefined('CodeActionSign')) then
-    vim.fn.sign_define('CodeActionSign', { text = "💡", texthl = "LspDiagnosticsDefaultInformation" })
+---@param bufnr number Buffer number
+---@param sc table Server capabilities
+local setup = function(bufnr, sc)
+  if vim.tbl_isempty(fn.sign_getdefined('CodeActionSign')) then
+    fn.sign_define('CodeActionSign', { text = "💡", texthl = "LspDiagnosticsDefaultInformation" })
   end
 
-  if server_capabilities.documentHighlightProvider then
+  if sc.documentHighlightProvider then
     autocmd('lsp_highlight', {
       { { 'CursorHold','CursorHoldI' }, bufnr, function() vim.lsp.buf.document_highlight() end },
       { 'CursorMoved', bufnr, function() vim.lsp.buf.clear_references() end }
     })
   end
 
-  if server_capabilities.codeActionProvider then
+  if sc.codeActionProvider then
     return
     -- autocmd('lsp_coda', [[CursorHold,CursorHoldI <buffer> lua require('lsp.handler').code_action_listener(bufnr)]], true)
   end

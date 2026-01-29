@@ -1,0 +1,63 @@
+#compdef vivid
+
+# This is based on _ip
+
+local -a help
+help=({-h,--help}':Prints help information')
+
+local -a subcmd_files
+subcmd_files=(/$'[^\0]##\0'/ ':file:file name:_files')
+
+local -a subcmd_themes
+subcmd_themes=(/$'[^\0]##\0'/ ":file:file name:($(command vivid themes))")
+
+local -a subcmd_color_mode
+subcmd_color_mode=(/$'[^\0]##\0'/ ':bit:(8 or 24):(8-bit 24-bit)')
+
+local -a subcmds
+subcmds=(
+  'generate:Generate a LS_COLORS expression:$generate_cmds'
+  'preview:Preview a given theme:$preview_cmds'
+  'themes:Prints list of available themes:$themes_cmds'
+  'help:Prints this message or the help of the given subcommand(s):$help_cmds'
+)
+
+# TODO: -h/-V disable all completions
+local -a args
+args=(
+    # Command word.  Don't care what that is.
+    /$'[^\0]#\0'/
+)
+_regex_words options "global options" \
+  {-m,--color-mode}':Type of ANSI colors to be used (default, 24-bit):$subcmd_color_mode' \
+  {-d,--database}':Path to filetypes database (filetypes.yml):$subcmd_files' \
+  {-h,--help}':Prints help information' \
+  {-V,--version}':Prints version information' \
+  "$help[@]"
+args+=("$reply[@]" "#")
+
+local -a help_cmds
+_regex_words \
+  help-commands "help command" \
+  ${subcmds%%:\$*}
+help_cmds=("$reply[@]")
+
+local -a themes_cmds
+_regex_words \
+  themes-commands "themes command" \
+  "$help[@]"
+themes_cmds=("$reply[@]")
+
+local -a generate_cmds
+generate_cmds=("(" $subcmd_themes "|" "$themes_cmds[@]" ")")
+
+local -a preview_cmds
+preview_cmds=("$generate_cmds[@]")
+
+_regex_words commands "vivid command" \
+  "$subcmds[@]"
+args+=("$reply[@]")
+
+_regex_arguments _vivid "${args[@]}"
+
+_vivid "$@"

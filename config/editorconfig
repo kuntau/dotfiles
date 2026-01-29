@@ -1,0 +1,43 @@
+# vim: ft=editorconfig nomodeline:
+
+# top-most EditorConfig file
+root = true
+
+# This catch-all block need to be at the top. Newlines ending for every file
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+trim_trailing_whitespace = true
+
+[*.{js,py}]
+charset = utf-8
+
+[*.lua]
+quote_style = single
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[*.{diff,md,txt,adoc}]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = false
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+# Indentation override for all JS under lib directory
+[lib/**.js]
+indent_style = space
+indent_size = 2
+
+# Matches the exact files either package.json or .travis.yml
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2

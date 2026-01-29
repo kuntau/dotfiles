@@ -1,0 +1,8 @@
+# vim:ft=gitconfig
+
+[credential]
+  credentialStore = gpg
+  helper = "/data/data/com.termux/files/usr/bin/gh auth git-credential"
+[safe]
+  directory = /data/data/com.termux/files/home/storage/shared/Documents/notes
+  directory = /storage/emulated/0/Documents/notes

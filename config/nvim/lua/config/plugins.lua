@@ -5,20 +5,17 @@ return {
 
   -- Essentials/Library
   { 'kuntau/vim-osc52', keys = { { '<c-c>', '<Plug>(YankOSC52)', mode='v', desc='Yank (OSC52)' } } }, -- Copy & paste across tmux & screen over mosh
-  { 'stevearc/dressing.nvim', config = true, event = 'VeryLazy' }, -- Input library
-  { 'rcarriga/nvim-notify', opts = { background_colour = '#000000' } }, -- Notifications library
   'MunifTanjim/nui.nvim', -- UI library
   'nvim-tree/nvim-web-devicons', -- for file icons
+  'echasnovski/mini.icons', -- for file icons
   'nvim-lua/plenary.nvim', -- Utils/async library
   'tami5/sqlite.lua', -- SQLite library
 
   -- Movements
-  { 'tpope/vim-unimpaired', keys = { 'yo', '[', ']' } },
+  { 'tummetott/unimpaired.nvim', event = 'VeryLazy', config = true, enabled = false },
   { 'tpope/vim-rsi', event = { 'InsertEnter *', 'CmdlineEnter' } }, -- TODO: Replace with linty-org/readline.nvim
-  { 'mg979/vim-visual-multi', keys = { { '<c-n>', mode = {'n','v'}, desc = 'Start multi-cursor' } } },
 
   -- Syntaxes and such
-  'ThePrimeagen/refactoring.nvim', -- Refactoring library
   { 'm-demare/hlargs.nvim', opts = {} }, -- Highlight arguments async
   { 'kylechui/nvim-surround', config = true, keys = { { 'S', mode = 'v' }, 'ys', 'cs', 'ds' } }, -- Better surround
   { 'tpope/vim-repeat', keys = { { '.', desc = 'REPEAT' } } },
@@ -35,81 +32,62 @@ return {
   { 'kevinhwang91/nvim-bqf', ft = 'qf' },
   { 'simrat39/symbols-outline.nvim', config = true, cmd = 'SymbolsOutline' },
   { 'folke/trouble.nvim', config = true, cmd = 'Trouble' },
-  { 'folke/neodev.nvim', ft = 'lua' },
+  { 'folke/lazydev.nvim', ft = 'lua', opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } } },
 
   -- VCS
   { 'rhysd/git-messenger.vim', cmd = 'GitMessenger' },
 
   -- Snippets
-  { 'L3MON4D3/LuaSnip', run = 'make install_jsregexp', dependencies = 'rafamadriz/friendly-snippets' },
+  { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp', dependencies = 'rafamadriz/friendly-snippets' },
 
   -- Utilities
   'numToStr/FTerm.nvim',
+  { 'jiaoshijie/undotree', opts = {} },
   { 'sedm0784/vim-resize-mode', event = 'WinNew' },
   { 'junegunn/vim-easy-align', keys = { { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'Easy align' }, { 'ga', '<Plug>(EasyAlign)', desc = 'Easy align' } } },
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' }, -- startup time benachmarking
-  { 'mattn/vim-gist', cmd = { 'Gist' }, config = function() vim.g.gist_clip_command = 'pbcopy' vim.g.gist_detect_filetype = 1 end },
-  { 'mtth/scratch.vim',
-    keys = {
-      { 'gos', '<cmd>Scratch<cr>', desc = 'Open Scratch' },
-      { 'gos', '<cmd>ScratchSelection<cr>', mode = 'v', desc = 'Open Scratch with selections' }, -- BUG: didn't work
-    },
-    init = function()
-      vim.g.scratch_persistence_file = '.scratch'
-      vim.g.scratch_filetype = 'markdown'
-      vim.g.scratch_height = 0.4
-      vim.g.scratch_no_mappings = 1
-    end,
-  },
+  { "Rawnly/gist.nvim", cmd = { "GistCreate", "GistCreateFromFile", "GistsList" }, config = true }, -- Required `gh` cli installed
 
   -- UI & UX
   { 'mvllow/modes.nvim', opts = {}, event = 'BufReadPost' },
   { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async', event = 'VeryLazy', config = true },
-  { 'luukvbaal/statuscol.nvim',
-    branch = '0.10',
-    config = function()
-      local builtin = require('statuscol.builtin')
-      require('statuscol').setup({
-        setopt = true,
-        relculright = true,
-        segments = {
-          { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-          {
-            text = { builtin.lnumfunc, ' ' },
-            condition = { true, builtin.not_empty },
-            click = 'v:lua.ScLa',
-          },
-          { text = { '%s' }, click = 'v:lua.ScSa' },
-        },
-      })
-    end,
-    event = 'VeryLazy',
-    enabled = (vim.fn.has('nvim-0.9') == 1),
-  },
   { 'folke/which-key.nvim',
     event = 'VeryLazy',
-    opts = { show_help = false, show_keys = true, triggers_blacklist = { n = { 'd', 'y' } } },
+    opts = { preset = 'helix', show_help = false, show_keys = true },
+    keys = { {
+      "<Leader>?",
+      function()
+        require('which-key').show({ global = false })
+      end,
+      desc = "Buffer local mappings (which-key)"
+    } },
     config = function(_, opts)
       local wk = require('which-key')
       wk.setup(opts)
-      wk.register({
-        mode = { 'n', 'v' },
-        ['g'] = { name = 'Go' },
-        ['z'] = { name = 'Folds' },
-        ['='] = { name = 'Yanky' },
-        [']'] = { name = 'Next' },
-        ['['] = { name = 'Previous' },
-        ['go'] = { name = 'Plugins' },
-        ['gr'] = { name = 'Treesitter' },
-        ['\\'] = { name = 'Local leader' },
-        ['grr'] = 'Smart rename',
-        ['<Leader>'] = { name = 'Leader' },
-        ['<Leader>f'] = { name = 'Telescope' },
-        ['<Leader>d'] = { name = 'Debug' },
-        ['<Leader>l'] = { name = 'LSP' },
-        ['<Leader>s'] = { name = 'Diagnostics' },
-        ['<Leader>r'] = { name = 'Reload' },
-        ['<Leader>lw'] = { name = 'LSP' },
+      wk.add({
+        mode = { "n", "v" },
+        { "=", group = "Yanky" },
+        { "[", group = "Previous" },
+        { "\\", group = "Local leader" },
+        { "]", group = "Next" },
+        { "g", group = "Go" },
+        { "go", group = "Plugins" },
+        { "gr", group = "Treesitter" },
+        { "grr", desc = "Smart rename" },
+        { "yo", group = "Unimpaired" },
+        { "[o", group = "Unimpaired" },
+        { "]o", group = "Unimpaired" },
+        { "z", group = "Folds" },
+        { "<Leader>", group = "Leader" },
+        { "<Leader>d", group = "Debug" },
+        { "<Leader>f", group = "Find" },
+        { "<Leader>g", group = "Git" },
+        { "<Leader>o", group = "Toggle" },
+        { "<Leader>l", group = "LSP" },
+        { "<Leader>lw", group = "LSP" },
+        { "<Leader>r", group = "Reload" },
+        { "<Leader>s", group = "Diagnostics" },
+        { "<Leader>z", group = "Folds" },
       })
     end,
   }, -- Give key hint
@@ -120,21 +98,20 @@ return {
   { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = true }, -- Zen mode
 
   -- Language specifics
-  { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost' }, -- Show hex color & More
-  { 'norcalli/nvim-terminal.lua', event = 'TermOpen', enabled = false },
-  { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
+  { 'RRethy/vim-hexokinase', build = 'make', event = 'BufReadPost', enabled = (not vim.g.is_termux) }, -- Show hex color & More
+  -- NOTE: Make terminal wonky on latest neovim, something todo with auto insert mode
+  -- { 'boltlessengineer/bufterm.nvim', opts = { enable_ctrl_w = false }, event = 'TermOpen', enabled = true },
   { 'LhKipp/nvim-nu', name = 'nu', ft = 'nu', config = true, build = ':TSInstall nu' }, -- nu shell systax, TSInstall nu
-  { 'lukas-reineke/headlines.nvim', ft = { 'markdown', 'norg' }, config = true, opts = { markdown = { fat_headlines = false } } },
-  { 'fladson/vim-kitty', ft = 'kitty' }, -- nu shell systax, TSInstall nu
+  { 'fladson/vim-kitty', ft = 'kitty' }, -- kitty config syntax file
 
   -- TODO: Configure the following plugins
 
   -- Refactor
-  'cshuaimin/ssr.nvim', -- Structural Search and replace
-  'nvim-pack/nvim-spectre', -- Search and replace workflow
+  -- 'cshuaimin/ssr.nvim', -- Structural Search and replace
+  -- 'nvim-pack/nvim-spectre', -- Search and replace workflow
+  -- 'ThePrimeagen/refactoring.nvim', -- Refactoring library
 
   -- Misc
-  'toppair/peek.nvim', -- Markdown preview
   -- gen740/SmoothCursor.nvim
   -- rktjmp/paperplanes.nvim
   -- ThePrimeagen/harpoon

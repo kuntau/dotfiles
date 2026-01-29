@@ -10,6 +10,7 @@ local M = {}
 ---@param part? boolean
 ---@param lt? boolean
 ---@param special? boolean
+---@return function
 M.replace_termcodes = function(key, part, lt, special)
   part = part or true
   lt = lt or true
@@ -20,20 +21,21 @@ end
 ---@param key string Key to convert
 ---@param mode string Behaviour flags, see feedkeys
 ---@param escape? boolean
+---@return function
 M.feedkey = function(key, mode, escape)
   escape = escape or false
   return vim.api.nvim_feedkeys(M.replace_termcodes(key), mode, escape)
 end
 
 ---@param mode string enum of ""|n|v|i|o|x
+---@param lhs string
+---@param rhs string
 ---@param opts table Mapping options.
 local function mapper(mode, lhs, rhs, opts)
-  vim.validate({
-    mode = { mode, { 's', 't' } },
-    lhs = { lhs, 's' },
-    rhs = { rhs, { 's', 'f' } },
-    opts = { opts, 't', true },
-  })
+  vim.validate('mode', mode, {'string', 'table'})
+  vim.validate('lhs', lhs, 'string')
+  vim.validate('rhs', rhs, {'string', 'function'})
+  vim.validate('opts', opts, 'table')
 
   local default_opts = { noremap = true, silent = true }
   opts = vim.tbl_deep_extend('force', default_opts, opts or {})
@@ -54,6 +56,7 @@ end
 
 ---@param desc_or_opts string|table if string it will be description
 ---@param ext_opts? table if desc_or_opts is string, we can pass another opts table
+---@return table
 local make_opts = function(desc_or_opts, ext_opts)
   local opts = {}
 

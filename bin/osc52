@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+data=$(base64 | tr -d '\r\n')
+if [[ -n "$TMUX" ]]; then
+  printf '\033Ptmux;\033\e]52;c;%s\a\033\\' "$data"
+else
+  printf '\e]52;c;%s\a' "$data"
+fi

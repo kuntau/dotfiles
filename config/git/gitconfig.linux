@@ -1,0 +1,5 @@
+# vim:ft=gitconfig
+
+[credential]
+  credentialStore = gpg
+  helper = "/home/linuxbrew/.linuxbrew/bin/gh auth git-credential"

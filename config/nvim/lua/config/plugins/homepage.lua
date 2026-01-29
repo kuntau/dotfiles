@@ -95,6 +95,23 @@ end
 
 local homepage = 'dashboard'
 
+local picker = function(path)
+  if not vim.g.is_termux then
+    if path ~= nil then
+      Snacks.picker.files({ cwd = path })
+    else
+      Snacks.picker.smart()
+    end
+  else
+    fff = require('fff')
+    if path ~= nil then
+      fff.find_files_in_dir(path)
+    else
+      fff.find_files()
+    end
+  end
+end
+
 return {
   {
     'mhinz/vim-startify',
@@ -105,65 +122,30 @@ return {
   },
   {
     'glepnir/dashboard-nvim',
-    event = 'VimEnter',
+    lazy = false,
     opts = {
       theme = 'hyper',
+      shortcut_type = 'letter',
+      shuffle_letter = false,
       config = {
-        disable_move = true,
+        disable_move = false,
         header = custom_header,
-        packages = { enable = false },
+        packages = { enable = true },
         week_header = {
           enable = false,
         },
         shortcut = {
-          {
-            icon = ' ',
-            icon_hl = '@variable',
-            desc = 'Files',
-            group = 'Label',
-            action = function() require('telescope').extensions.smart_open.smart_open({ cwd_only = true }) end,
-            key = 'f',
-          },
-          {
-            icon = ' ',
-            icon_hl = '@variable',
-            desc = 'Status',
-            group = 'String',
-            action = 'Telescope git_status',
-            key = 's',
-          },
-          { desc = ' Lazy', group = '@property', action = 'Lazy', key = 'l' },
-          {
-            desc = ' Time',
-            group = 'DiagnosticHint',
-            action = 'StartupTime',
-            key = 't',
-          },
-          {
-            desc = ' Health',
-            group = 'Number',
-            action = 'checkhealth',
-            key = 'h',
-          },
-          {
-            desc = ' Mason',
-            group = 'DiagnosticInfo',
-            action = 'Mason',
-            key = 'm',
-          },
-          {
-            desc = ' Exit',
-            group = 'DiagnosticError',
-            action = 'quit',
-            key = 'q',
-          },
+          { icon = ' ', key = 'f', group = '@variable', desc = 'Files',   icon_hl = 'Label',           action = function() picker() end },
+          { icon = ' ', key = 'g', group = '@variable', desc = 'Neogit',  icon_hl = 'String',          action = 'Neogit'      },
+          { icon = ' ', key = 't', group = '@variable', desc = 'Lazygit', icon_hl = 'diff.delta',      action = 'Lazygit'     },
+          { icon = ' ', key = 'l', group = '@variable', desc = 'Lazy',    icon_hl = '@property',       action = 'Lazy'        },
+          { icon = ' ', key = 'h', group = '@variable', desc = 'Health',  icon_hl = 'Number',          action = 'checkhealth' },
+          { icon = '󱌣 ', key = 'm', group = '@variable', desc = 'Mason',   icon_hl = 'DiagnosticInfo',  action = 'Mason'       },
+          { icon = '󰩈 ', key = 'q', group = '@variable', desc = 'Exit',    icon_hl = 'DiagnosticError', action = 'quit'        },
         },
         project = {
           limit = 5,
-          action = function(path)
-            vim.fn.chdir(path)
-            require('telescope').extensions.smart_open.smart_open({ cwd_only = true })
-          end,
+          action = function(path) picker(path) end,
         },
         -- mru = { limit = 10, label = 'MRU' },
         footer = {}, -- footer

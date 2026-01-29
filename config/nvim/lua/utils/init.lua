@@ -13,9 +13,26 @@ _G.PP = function(...)
   end
   return ...
 end
+
+-- Setup some globals for debugging (lazy-loaded)
+_G.dd = function(...)
+  Snacks.debug.inspect(...)
+end
+_G.bt = function()
+  Snacks.debug.backtrace()
+end
+
+-- Override print to use snacks for `:=` command
+if vim.fn.has("nvim-0.11") == 1 then
+  vim._print = function(_, ...)
+    dd(...)
+  end
+else
+  vim.print = _G.dd
+end
 -- end global helpers
 
-local is_day = function() return tonumber(vim.fn.strftime('%H')) > 8 and tonumber(vim.fn.strftime('%H')) < 19 end
+local is_day = function() return vim.env.IS_DAY end
 
 ---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
 local get_os = function()
@@ -98,7 +115,7 @@ end
 local autocmd = function(group, autocmds, desc, clear)
   local opts, group_opts = {}, {}
 
-  if type(clear) == 'boolean' then
+  if type(clear) == 'boolean' or clear == nil then
     group_opts.clear = clear
   end
 
@@ -132,7 +149,7 @@ local autocmd = function(group, autocmds, desc, clear)
         opts.callback = cmd
       end
 
-      cmd_opts = vim.tbl_deep_extend('force', opts, cmd_opts) -- force any extra options
+      cmd_opts = vim.tbl_deep_extend('force', opts, cmd_opts or {}) -- force any extra options
       vim.api.nvim_create_autocmd(event, cmd_opts)
       -- opts = {}
     end
@@ -140,23 +157,15 @@ local autocmd = function(group, autocmds, desc, clear)
 
   -- check if we have only single table
   autocmds = is_tbl_only(autocmds) and autocmds or { autocmds }
-  for _, autocmdx in pairs(autocmds) do
-    process_cmds(unpack(autocmdx))
+  for _, au in ipairs(autocmds) do
+    process_cmds(au[1], au[2], au[3], au[4])
   end
 
 end
 
 ---@param url string URL
 local open_url = function(url)
-  local opener
-  if vim.fn.has("macunix") == 1 then
-    opener = "open"
-  elseif vim.fn.has("linux") == 1 then
-    opener = "xdg-open"
-  elseif vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 then
-    opener = "start"
-  end
-  os.execute(opener .. " '" .. url .. "'")
+  vim.ui.open(url)
 end
 
 ---@class Utils
@@ -173,10 +182,11 @@ return {
   open_url = open_url,
   mapper = mapper,
   map  = mapper['map'],
-  tmap = mapper['tmap'],
-  nmap = mapper['nmap'],
-  vmap = mapper['vmap'],
+  cmap = mapper['cmap'],
   imap = mapper['imap'],
-  xmap = mapper['xmap'],
+  nmap = mapper['nmap'],
   omap = mapper['omap'],
+  tmap = mapper['tmap'],
+  vmap = mapper['vmap'],
+  xmap = mapper['xmap'],
 }

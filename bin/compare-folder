@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Compare two folders and show missing files/folders (by path only, not content)
+
+usage() {
+  echo "Usage: $0 [--summary|--dirs-only|--files-only] <folder1> <folder2>"
+  exit 1
+}
+
+# --- Parse arguments ---
+mode="all"
+summary=false
+
+while [[ "$1" == --* ]]; do
+  case "$1" in
+    --summary) summary=true ;;
+    --dirs-only) mode="dirs" ;;
+    --files-only) mode="files" ;;
+    --help) usage ;;
+    *) echo "Unknown option: $1" && usage ;;
+  esac
+  shift
+done
+
+# --- Get folder arguments ---
+f1="$1"
+f2="$2"
+[[ -z "$f1" || -z "$f2" ]] && usage
+[[ ! -d "$f1" || ! -d "$f2" ]] && { echo "Error: Both arguments must be directories."; exit 1; }
+
+# --- Build find command depending on mode ---
+if [[ "$mode" == "dirs" ]]; then
+  find_args=(-type d)
+elif [[ "$mode" == "files" ]]; then
+  find_args=(-type f)
+else
+  find_args=()
+fi
+
+# --- Compare using comm ---
+diff_output=$(comm -3 \
+  <(cd "$f1" && find . "${find_args[@]}" | sort) \
+  <(cd "$f2" && find . "${find_args[@]}" | sort))
+
+if $summary; then
+  count1=$(echo "$diff_output" | grep -v '^\t' | wc -l)
+  count2=$(echo "$diff_output" | grep '^\t' | wc -l)
+  echo "Summary:"
+  echo "  Missing in $f2: $count1"
+  echo "  Missing in $f1: $count2"
+  exit 0
+fi
+
+# --- Colorized output ---
+echo "$diff_output" | awk -v F1="$f1" -v F2="$f2" '
+  BEGIN {
+    red = "\033[31m"
+    green = "\033[32m"
+    reset = "\033[0m"
+  }
+  /^[^\t]/ { print red "Only in " F1 ": " $0 reset; next }
+  /^\t/    { sub(/^\t/, ""); print green "Only in " F2 ": " $0 reset; next }
+'
+

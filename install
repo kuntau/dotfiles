@@ -1,0 +1,494 @@
+#!/usr/bin/env bash
+# Name: dotfiles installer
+# Author: Kuntau
+# Last edit: 20/12/2025
+
+set -eu
+
+# --- Configuration ---
+SCRIPT_NAME="$(basename "$0")"
+VERSION="1.5.1"
+DEBUG=
+VERBOSE=
+FULL=
+MAKE_BACKUP=true
+OS=$(uname)
+HOSTNAME=$(hostname)
+DOTFILES=$HOME/dotfiles
+THEME_DIR=$DOTFILES/zsh/themes
+XDG_CONFIG_HOME=$HOME/.config
+CHOME=$XDG_CONFIG_HOME
+ZHOME=$HOME/.znap
+
+BOLD='\033[1m'
+UNDERLINE='\033[4m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+ICON_WAIT='⏳'
+ICON_OK='✅'
+ICON_ERR='❌'
+ICON_WARN='⚠️'
+ICON_ASK='❔'
+ICON_INFO='ℹ️'
+ICON_GITHUB=' '
+
+# Config files to install
+CONFIG_FILES=(
+  editorconfig
+  gitconfig
+  gitignore
+  npmrc
+  ripgreprc
+  tmux.conf
+  vimrc
+  zshrc
+)
+
+CONFIG_DIRS=(
+  atuin
+  bat
+  delta
+  ghostty
+  gitui
+  helix
+  kitty
+  lazygit
+  mpv
+  neovide
+  nu
+  nvim
+  tmux
+  vifm
+  wezterm
+  yazi
+)
+
+REQUIRED_BIN=(
+  zsh
+  git
+  curl
+)
+
+CORE_BIN=(
+  rg
+  fd
+  uv
+  fzf
+  nnn
+  bat
+  nvim
+  mosh
+  tmux
+  rsync
+  atuin
+  delta
+  vivid
+  zoxide
+)
+
+EXTRA_BIN=(
+  sd
+  nu
+  hx
+  jj
+  vim
+  bfs
+  dua
+  dust
+  glow
+  ncdu
+  node
+  gitui
+  aria2c
+  rclone
+  rdfind
+  fclones
+  lazygit
+)
+
+
+# prompt with default to *yes* borrowed from *fzf*
+ask() {
+  echo ""
+  if [[ $FULL = true ]]; then return 0; fi
+  while true; do
+    read -p "$(echo -e "$1" '([y]/n) ')" -r
+    REPLY=${REPLY:-"y"}
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      return 0
+    elif [[ $REPLY =~ ^[Nn]$ ]]; then
+      return 1
+    fi
+  done
+}
+
+
+# Check bash version, returns 0 (true) if Bash is 4.3 or higher
+check_bash() {
+  (( BASH_VERSINFO[0] > 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] >= 3) ))
+}
+
+
+# Symlink file/folder: $1=SOURCE/ORIGIN $2=TARGET/NEW
+make_link() {
+  local cmd_prefix=${DEBUG:+"echo"}
+  local verbosity=${VERBOSE:+":"}
+  local source_path=$1
+  local sym_path=$2
+  local base_file_name
+  base_file_name=$(basename "$sym_path")
+
+  # check if link exist, make backup & make symbolic link
+  if [[ -e $sym_path ]]; then
+    if [[ -L $sym_path ]]; then
+      local dest=$(realpath $sym_path)
+
+      if [[ $dest == $source_path ]]; then
+        $verbosity echo -e "$ICON_OK OK. ${BOLD}${GREEN}${base_file_name}${NC} link is good to go."
+        return 0
+      fi
+    elif [[ $MAKE_BACKUP = true ]]; then
+      $verbosity echo -e "$ICON_WARN CAUTION. ${BOLD}${YELLOW}${base_file_name}${NC} exists. It will be backed up to ${BOLD}${YELLOW}${base_file_name}.bak${NC}"
+      $cmd_prefix mv "$sym_path" "${sym_path}.bak"
+    fi
+  fi
+  $verbosity echo -e "$ICON_OK OK. ${BOLD}${GREEN}${base_file_name}${NC} linked to ${BOLD}${GREEN}${source_path/#$HOME/\~}${NC}"
+  $cmd_prefix ln -sf "$source_path" "$sym_path"
+}
+
+
+# setup configs in $XDG_CONFIG_HOME: $1=DIR
+link_config() {
+  local cmd_prefix=${DEBUG:+"echo"}
+  local verbosity=${VERBOSE:+":"}
+  local dir=$1
+  local dir_path=$CHOME/$dir
+
+  echo ""
+  $verbosity echo -e "$ICON_WAIT WAIT. Checking ${BOLD}${BLUE}${dir}${NC} link."
+  if [[ -d $dir_path && $MAKE_BACKUP = true ]] || [[ -L $dir_path ]]; then
+    $verbosity echo -e "$ICON_WARN CAUTION. ${BOLD}${YELLOW}${dir_path/#$HOME/\~}${NC} exists. It will be backed up to ${BOLD}${YELLOW}$(basename $dir_path).bak${NC}"
+    $cmd_prefix mv "$dir_path" "${dir_path}.bak"
+  fi
+
+  # Recreate the directory if it didn't exist
+  if [[ ! -d $dir_path ]]; then
+    $verbosity echo -e "$ICON_WAIT WAIT. Creating directory ${BOLD}${GREEN}${dir_path/#$HOME/\~}${NC}..."
+    $cmd_prefix mkdir -p "$dir_path"
+  fi
+
+  # Process subfolders/files
+  for file in "$DOTFILES/config/$dir"/*; do
+    local base_file
+    base_file=$(basename "$file")
+    make_link "$file" "$CHOME/$dir/$base_file"
+  done
+}
+
+# Machine specific gitconfig
+link_gitconfig() {
+  if [[ "$OS" = "Linux" ]]; then
+    if [[ "$(uname -o)" = "GNU/Linux" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.linux ~/.gitconfig.extra
+    elif [[ "$(uname -o)" = "Android" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.termux ~/.gitconfig.extra
+    fi
+  elif [[ "$OS" = "Darwin" ]]; then
+    if [[ "$HOSTNAME" = "HQ" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.hq ~/.gitconfig.extra
+    elif [[ "$HOSTNAME" = "MBA" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.mba ~/.gitconfig.extra
+    elif [[ "$HOSTNAME" = "rMBP" ]]; then
+      make_link $DOTFILES/config/git/gitconfig.rmbp ~/.gitconfig.extra
+    fi
+  fi
+}
+
+
+# $1=BINARY $2=TEXT_OK $3=TEXT_ERR
+exist() {
+  local bin=$1
+  local success=${2:-"$ICON_OK OK. ${BOLD}${GREEN}$bin${NC} available."}
+  local error=${3:-"$ICON_ERR ERR. ${BOLD}${RED}$bin${NC} can't be found in \$PATH."}
+
+  if command -v "$bin" >/dev/null 2>&1; then
+    echo -e "$success"
+    return 0
+  else
+    echo -e "$error"
+    return 1
+  fi
+}
+
+
+# Install packages
+install_packages() {
+  local cmd_prefix=${DEBUG:+"echo"}
+  local verbosity=${VERBOSE:+":"}
+  local packages=$*
+
+  if [[ ${#packages} -gt 0 ]]; then
+    $verbosity echo -e "\n$ICON_INFO INFO. Missing packages: ${BOLD}${BLUE}$packages${NC}"
+    if ask "$ICON_ASK Install ${BOLD}${YELLOW}$packages${NC} with package manager?"; then
+      if exist brew; then
+        $cmd_prefix brew update && $cmd_prefix brew install $packages
+      elif exist port; then
+        $cmd_prefix sudo port sync && $cmd_prefix sudo port install $packages
+      fi
+    fi
+  fi
+
+}
+
+# Install package manager
+install_pacman() {
+  local pacman=$1
+
+  if [[ $pacman == "homebrew" ]] && ! exist "brew"; then
+    if ask "$ICON_ASK Do you want to install homebrew?"; then
+      $(which bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+  fi
+
+  # TODO: Make automatic install without using the installer
+  if [[ $pacman == "macports" ]] && ! exist "port"; then
+    if ask "$ICON_ASK Do you want to install MacPorts?"; then
+      xcode-select --install
+      xcodebuild -license
+      echo -e "It's complicated. For now install MacPorts from ${BOLD}https://guide.macports.org/chunked/installing.macports.html${NC}"
+    fi
+  fi
+}
+
+
+# Check package manager
+check_pacman() {
+  echo ""
+  echo "$ICON_WAIT WAIT. Checking package manager..."
+  if [[ $OS = Linux ]]; then
+    install_pacman "homebrew"
+  elif [[ $OS = Darwin ]]; then
+    install_pacman "homebrew"
+    # install_pacman "macports"
+  fi
+  return 0
+}
+
+
+# check array of binary. $1=NAME_OF_MISSES_ARRAY $2=ARRAY_OF_BIN
+check_binary() {
+  local misses_name=$1
+  shift
+  local bins=("$@")
+
+  for bin in "${bins[@]}"; do
+    if ! exist "$bin"; then
+      if check_bash; then
+        local -n _ref=$misses_name
+        _ref+=("$bin")
+      else
+        eval "${misses_name}=(\"\${${misses_name}[@]:-}\" \"\$bin\")"
+      fi
+    fi
+  done
+}
+
+
+# Clone repo: $1=NAME $2=URL $3=DIR
+clone_repo() {
+  local cmd_prefix=${DEBUG:+"echo"}
+  local name=$1
+  local url=$2
+  local dir=$3
+
+  if [[ -d $dir ]]; then
+    echo -e "$ICON_OK OK. You already have ${BOLD}${GREEN}$name${NC} installed, skipping..."
+  else
+    echo -e "$ICON_GITHUB GITHUB. Cloning ${BOLD}${YELLOW}$name${NC}..."
+    $cmd_prefix "$(which git)" clone --filter=blob:none "$url" "$dir"
+  fi
+}
+
+
+# START INSTALL #
+main() {
+  echo "$ICON_WAIT WAIT. Checking requirements..."
+  for tool in "${REQUIRED_BIN[@]}"; do
+    if ! exist "$tool"; then
+      return 1
+    fi
+  done
+
+  # Link config files
+  if ask "$ICON_ASK Link config files?"; then
+    echo "$ICON_WAIT WAIT. Linking config files..."
+    echo ""
+    for file in "${CONFIG_FILES[@]}"; do
+      make_link "$DOTFILES/config/$file" "$HOME/.$file"
+    done
+
+    # Link ssh config
+    mkdir -p "$HOME/.ssh/s"
+    make_link "$DOTFILES/config/ssh-config" "$HOME/.ssh/config"
+
+    # Link gitconfig extras
+    link_gitconfig
+  fi
+
+  # Link config directories
+  if ask "$ICON_ASK Link config directories?"; then
+    echo "$ICON_WAIT WAIT. Linking config directories..."
+    for dir in "${CONFIG_DIRS[@]}"; do
+      link_config "$dir"
+    done
+  fi
+
+  # Install znap
+  if ask "$ICON_ASK Install znap?"; then
+    clone_repo "znap" "https://github.com/merlonrichert/zsh-snap.git" "$ZHOME/zsh-snap"
+  fi
+
+  # Install tmux plugins manager
+  if ask "$ICON_ASK Install TMUX Plugin Manager (TPM)?"; then
+    clone_repo "tpm" "https://github.com/tmux-plugins/tpm.git " "$HOME/.tmux/plugins/tpm"
+  fi
+
+  check_pacman
+
+  # check core tools
+  if ask "$ICON_ASK Check core tool availability?"; then
+    local missing_cores=()
+    echo "$ICON_WAIT WAIT. Checking core tool availability..."
+    echo ""
+    check_binary missing_cores "${CORE_BIN[@]}"
+    install_packages "${missing_cores[@]:-}"
+  fi
+
+  # check extra tools
+  if ask "$ICON_ASK Check extra tool availability?"; then
+    local missing_extras=()
+    echo "$ICON_WAIT WAIT. Checking extra tool availability..."
+    echo ""
+    check_binary missing_extras "${EXTRA_BIN[@]}"
+    install_packages "${missing_extras[@]:-}"
+  fi
+
+  if ! ask "$ICON_ASK Continue installation?"; then exit; fi
+
+  # check .secret file availability
+  echo ""
+  echo -e "$ICON_WAIT WAIT. Checking $BOLD.secret$NC file..."
+  if [[ -f $HOME/.secret ]]; then
+    echo -e "$ICON_WARN CAUTION. $BOLD.secret$NC file exist. Skipping..."
+  else
+    touch "$HOME/.secret"
+  fi
+
+  # append path.. possible duplicate..
+  if ask "$ICON_ASK Append \$PATH to the end of $BOLD~/.zshrc$NC?"; then
+    export PATH=\$PATH:$PATH >> "$HOME/.zshrc"
+  fi
+
+  if ask "$ICON_ASK Change default shell to zsh?"; then
+    chsh -s "$(which zsh)"
+  fi
+
+  echo ""
+  echo "$ICON_ASK Select powerlevel10k theme"
+  select opt in basic powerline nerdfont skip; do
+    case $opt in
+      basic)
+        make_link "$THEME_DIR/p10k.basic.zsh" "$HOME/.p10k.zsh"
+        break;;
+      powerline)
+        make_link "$THEME_DIR/p10k.powerline.zsh" "$HOME/.p10k.zsh"
+        break;;
+      nerdfont)
+        make_link "$THEME_DIR/p10k.nerdfont.zsh" "$HOME/.p10k.zsh"
+        break;;
+      skip)
+        echo "Skip linking p10k theme"
+        break;;
+      *)
+        echo "Invalid option $opt"
+        ;;
+    esac
+  done
+  echo ""
+
+  echo "$ICON_OK OK. Dotfiles install completed."
+
+  # source "$HOME/.zshrc"
+  exec zsh
+}
+
+
+show_help() {
+    cat <<EOF
+Usage: $SCRIPT_NAME [OPTIONS] [ARGS...]
+
+Options:
+      --full      Install all configs without prompt
+      --debug     Enabe debug mode (no op)
+      --no-backup Do not make backup file we overwrite
+
+  -q, --quiet     Keep output minimal
+  -h, --help      Show this help message and exit
+  -v, --version   Show version number and exit
+
+EOF
+    exit 0
+}
+
+
+show_version() {
+    echo "$SCRIPT_NAME v$VERSION"
+    exit 0
+}
+
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            show_help
+            ;;
+        -v|--version)
+            show_version
+            ;;
+        --no-backup)
+            MAKE_BACKUP=false
+            ;;
+        --full)
+            FULL=true
+            ;;
+        -q|--quiet)
+            VERBOSE=false
+            ;;
+        --verbose)
+            VERBOSE=
+            ;;
+        --debug)
+            DEBUG=true
+            ;;
+        --)  # End of options
+            shift
+            break
+            ;;
+        -*|*)
+            echo "Error: Unknown option: $1" >&2
+            echo "Try '$SCRIPT_NAME --help' for usage." >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+
+# Call main with arguments "$@"
+main "$@"
+
+# vim: set ft=bash foldlevel=1
