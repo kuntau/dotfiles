@@ -95,6 +95,23 @@ end
 
 local homepage = 'dashboard'
 
+local picker = function(path)
+  if not vim.g.is_termux then
+    if path ~= nil then
+      Snacks.picker.files({ cwd = path })
+    else
+      Snacks.picker.smart()
+    end
+  else
+    fff = require('fff')
+    if path ~= nil then
+      fff.find_files_in_dir(path)
+    else
+      fff.find_files()
+    end
+  end
+end
+
 return {
   {
     'mhinz/vim-startify',
@@ -118,19 +135,17 @@ return {
           enable = false,
         },
         shortcut = {
-          { icon = ' ', icon_hl = '@variable', desc = 'Files', group = 'Label', action = function() require('fff').find_files()  end, key = 'f' },
-          { icon = ' ', icon_hl = '@variable', desc = 'Neogit', group = 'String', action = 'Neogit', key = 'g' },
-          { icon = ' ', desc = 'Lazy', group = '@property', action = 'Lazy', key = 'l' },
-          { icon = '󱎫 ', desc = 'Time', group = 'DiagnosticHint', action = 'StartupTime', key = 't' },
-          { icon = ' ', desc = 'Health', group = 'Number', action = 'checkhealth', key = 'h' },
-          { icon = '󱌣 ', desc = 'Mason', group = 'DiagnosticInfo', action = 'Mason', key = 'm' },
-          { icon = '󰩈 ', desc = 'Exit', group = 'DiagnosticError', action = 'quit', key = 'q' },
+          { icon = ' ', key = 'f', group = '@variable', desc = 'Files',   icon_hl = 'Label',           action = function() picker() end },
+          { icon = ' ', key = 'g', group = '@variable', desc = 'Neogit',  icon_hl = 'String',          action = 'Neogit'      },
+          { icon = ' ', key = 't', group = '@variable', desc = 'Lazygit', icon_hl = 'diff.delta',      action = 'Lazygit'     },
+          { icon = ' ', key = 'l', group = '@variable', desc = 'Lazy',    icon_hl = '@property',       action = 'Lazy'        },
+          { icon = ' ', key = 'h', group = '@variable', desc = 'Health',  icon_hl = 'Number',          action = 'checkhealth' },
+          { icon = '󱌣 ', key = 'm', group = '@variable', desc = 'Mason',   icon_hl = 'DiagnosticInfo',  action = 'Mason'       },
+          { icon = '󰩈 ', key = 'q', group = '@variable', desc = 'Exit',    icon_hl = 'DiagnosticError', action = 'quit'        },
         },
         project = {
           limit = 5,
-          action = function(path)
-            require('fff').find_files_in_dir(path) 
-          end,
+          action = function(path) picker(path) end,
         },
         -- mru = { limit = 10, label = 'MRU' },
         footer = {}, -- footer
