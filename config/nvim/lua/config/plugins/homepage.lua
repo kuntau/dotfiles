@@ -96,7 +96,7 @@ end
 local homepage = 'dashboard'
 
 local picker = function(path)
-  if not vim.g.is_termux then
+  if vim.g.is_termux then
     if path ~= nil then
       Snacks.picker.files({ cwd = path })
     else
