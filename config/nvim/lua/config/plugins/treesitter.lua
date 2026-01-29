@@ -2,7 +2,7 @@
 
 local option_modules = {
   ensure_installed = { 'comment', 'regex', 'javascript', 'json', 'php', 'typescript', },
-  sync_install = true,
+  sync_install = false,
   auto_install = true, -- auto install on first filetype load
   highlight = {
     enable = true,
@@ -78,8 +78,8 @@ local config_textobjects = function()
 
   -- TS: Swap
   local ts_tow = require('nvim-treesitter-textobjects.swap')
-  vim.keymap.set('n', '<leader>a', function() ts_tom.swap_next '@parameter.inner' end)
-  vim.keymap.set('n', '<leader>A', function() ts_tom.swap_previous '@parameter.outer' end)
+  vim.keymap.set('n', '<leader>a', function() ts_tow.swap_next '@parameter.inner' end)
+  vim.keymap.set('n', '<leader>A', function() ts_tow.swap_previous '@parameter.outer' end)
 
   -- TS Repeatable
   local ts_tor = require('nvim-treesitter-textobjects.repeatable_move')
@@ -111,12 +111,11 @@ return {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
     event = 'VeryLazy',
-    -- config = config_modules,
     build = ':TSUpdate', -- We recommend updating the parsers cmd update
     dependencies = {
       { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main', opts = option_textobjects, config = config_textobjects }, -- Syntax aware text-objects, select, move, swap
-      { 'nvim-treesitter/nvim-treesitter-context', config = true }, -- Show code context
-      { 'https://github.com/MeanderingProgrammer/treesitter-modules.nvim', opts = option_modules }, -- Replace the original modules in *master*
+      { 'nvim-treesitter/nvim-treesitter-context', opts = {} }, -- Show code context
+      { 'MeanderingProgrammer/treesitter-modules.nvim', opts = option_modules }, -- Replace the original modules in *master*
       -- 'nvim-treesitter/nvim-treesitter-locals', -- nvim-treesitter-refactor successor
       -- 'RRethy/nvim-treesitter-textsubjects', -- Location and syntax aware text objects
       {
