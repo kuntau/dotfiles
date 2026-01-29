@@ -164,6 +164,9 @@ if vim.fn.filereadable('/opt/local/bin/sqlite3') == 1 then
   vim.g.sqlite_clib_path = '/opt/local/lib/libsqlite3.dylib'
 end
 
+-- check in termux
+vim.g.is_termux = (vim.env.TERMUX_VERSION and true or false)
+
 -- References: {
 -- https://github.com/tarruda/dot-files
 -- https://github.com/junegunn/dotfiles

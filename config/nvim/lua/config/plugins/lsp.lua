@@ -90,7 +90,7 @@ end
 return {
   {
     'neovim/nvim-lspconfig',
-    enabled = (vim.env.TERMUX_VERSION and false or true),
+    enabled = (not vim.g.is_termux),
     version = '*',
     event = 'BufReadPre',
     config = function() require('lsp') end,

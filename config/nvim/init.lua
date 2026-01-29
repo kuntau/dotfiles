@@ -10,7 +10,7 @@ require('config.ui')
 
 _G._DEBUG = false
 
-local group = vim.api.nvim_create_augroup("LazyVim", { clear = true })
+local group = vim.api.nvim_create_augroup("LazyLoading", { clear = true })
 vim.api.nvim_create_autocmd("User", {
   group = group,
   pattern = "VeryLazy",
