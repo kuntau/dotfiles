@@ -103,7 +103,7 @@ local picker = function(path)
       Snacks.picker.smart()
     end
   else
-    fff = require('fff')
+    local fff = require('fff')
     if path ~= nil then
       fff.find_files_in_dir(path)
     else
