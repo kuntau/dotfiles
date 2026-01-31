@@ -6,7 +6,7 @@ local auto_switch = true -- should theme switch between day and night
 local same_theme = false -- should GUI & TUI have the same theme? GUI use TUI
 local background = (Utils.is_day() and auto_switch) and 'light' or 'dark'
 local gui_light_theme = 'dayfox'
-local gui_dark_theme = 'nightfox'
+local gui_dark_theme = 'nordic'
 local tui_light_theme = 'PaperColor'
 local tui_dark_theme = 'kanagawa'
 
