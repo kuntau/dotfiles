@@ -33,6 +33,7 @@ end
 -- end global helpers
 
 local is_day = function() return vim.env.IS_DAY end
+local is_dark = function() return vim.env.IS_DARK end
 
 ---@return string enum of 'macos' | 'wsl' | 'linux' | 'windows'
 local get_os = function()
@@ -171,6 +172,7 @@ end
 ---@class Utils
 return {
   is_day = is_day,
+  is_dark = is_dark,
   is_gui = is_gui,
   get_os = get_os,
   get_win_orientation = get_win_orientation,

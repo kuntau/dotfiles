@@ -56,10 +56,10 @@ endif
 set grepprg="grep -n -H -I -r -s %i %a %s"
 
 " Dynamic Theme Selection - Single source of truth
-if $IS_DAY == 1
-    colorscheme papercolor-light
+if $IS_DARK == 1
+    colorscheme catppuccin-macchiato
 else
-    colorscheme kanagawa-wave
+    colorscheme papercolor-light
 endif
 
 " ==============================
