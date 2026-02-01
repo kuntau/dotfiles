@@ -11,8 +11,19 @@ HOST_NAME=$(hostname)
 DOTFILES=$HOME/dotfiles
 ZHOME=$HOME/.znap
 
-exists() { [[ ${+commands[$1]} ]] }
+exists() { [[ ${+commands[$1]} ]]; }
 is_day() { [[ "$(date +%H)" -ge 8 && "$(date +%H)" -lt 19 ]]; }
+macos_dark() { [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]] }
+android_dark() { [[ "$(/system/bin/am get-config 2>/dev/null | grep -oE "night|notnight")" == "night" ]] }
+is_dark() {
+  if [[ "$OSTYPE" == darwin* ]]; then
+    macos_dark
+  elif [[ "$OSTYPE" == linux-android ]]; then
+    android_dark
+  else
+    ! is_day
+  fi
+}
 
 # start znap {{{
 zstyle ':znap:*' repos-dir $HOME/.znap
@@ -72,20 +83,20 @@ export LC_ALL="en_US.UTF-8"
 # Plugins config & ENV {{{
 
 # export this mainly for usage with TMUX
-export IS_DAY=$(is_day && echo 1)
+export IS_DAY=$(is_dark && echo 1)
 
 # Theme - Auto dark/light based on time
 light_theme='catppuccin-latte'
 dark_theme='catppuccin-mocha'
 
 # vivid - LS_COLORS generator
-exists vivid && LS_COLORS=$(vivid generate $(is_day && echo $light_theme || echo $dark_theme))
+exists vivid && LS_COLORS=$(vivid generate $(is_dark && echo $light_theme || echo $dark_theme))
 export LS_COLORS
 
 # zsh-autosuggestions. https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file#configuration
 autosuggest_light_theme="#808080"
 autosuggest_dark_theme="#585858"
-autosuggest_theme=$(is_day && echo $autosuggest_light_theme || echo $autosuggest_dark_theme)
+autosuggest_theme=$(is_dark && echo $autosuggest_light_theme || echo $autosuggest_dark_theme)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${autosuggest_theme},italic"
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 # ZSH_AUTOSUGGEST_CLEAR_WIDGETS # TODO: Add widgets like atuin & autocomplete
@@ -121,10 +132,10 @@ export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SO
 export NNN_TRASH=0
 
 # bat - https://github.com/sharkdp/bat
-BAT_LIGHT_THEME="Monokai Extended Light"
-BAT_DARK_THEME="Monokai Extended"
+BAT_LIGHT_THEME="Catppuccin Latte"
+BAT_DARK_THEME="Catppuccin Mocha"
 export BAT_OPTS="--color=always"
-export BAT_THEME="$(is_day && echo $BAT_LIGHT_THEME || echo $BAT_DARK_THEME)"
+export BAT_THEME="$(is_dark && echo $BAT_LIGHT_THEME || echo $BAT_DARK_THEME)"
 export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
@@ -132,7 +143,7 @@ export BAT_PAGER="less -RS"
 LG_LIGHT_THEME="$XDG_CONFIG_HOME/lazygit/themes/latte/sapphire.yml"
 LG_DARK_THEME="$XDG_CONFIG_HOME/lazygit/themes/frappe/sapphire.yml"
 LG_MAIN_CONFIG="$XDG_CONFIG_HOME/lazygit/config.yml"
-export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_day && echo $LG_LIGHT_THEME || echo $LG_DARK_THEME)"
+export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_dark && echo $LG_LIGHT_THEME || echo $LG_DARK_THEME)"
 
 # enhancd - https://github.com/babarot/enhancd
 export ENHANCD_FILTER=fzf
@@ -164,6 +175,18 @@ if [[ $OS_NAME == Linux ]]; then
 
   # linuxbrew
   [[ -d /home/linuxbrew ]] && znap eval brew "/home/linuxbrew/.linuxbrew/bin/brew shellenv"
+
+  if [[ $OSTYPE == linux-android ]]; then
+    if [[ $IS_DARK && $TERMUX_DARK -ne 1 ]]; then
+      export TERMUX_DARK=1
+      cp ~/.termux/catppuccin.macchiato.colors ~/.termux/colors.properties
+      termux-reload-settings
+    elif [[ ! $IS_DARK && $TERMUX_DARK -ne 0 ]]; then
+      export TERMUX_DARK=0
+      cp ~/.termux/catppuccin.latte.colors ~/.termux/colors.properties
+      termux-reload-settings
+    fi
+  fi
 
   # machine specific ENVIRONMENT VARIABLE
   if [[ $HOST_NAME == 'hqsvr' ]]; then
