@@ -82,21 +82,22 @@ export LC_ALL="en_US.UTF-8"
 
 # Plugins config & ENV {{{
 
-# export this mainly for usage with TMUX
-export IS_DAY=$(is_dark && echo 1)
+# export this mainly for usage with TMUX, (n)vim & vifm
+export IS_DARK=$(is_dark && echo 1)
+export IS_DAY=$(is_day && echo 1)
 
 # Theme - Auto dark/light based on time
 light_theme='catppuccin-latte'
 dark_theme='catppuccin-mocha'
 
 # vivid - LS_COLORS generator
-exists vivid && LS_COLORS=$(vivid generate $(is_dark && echo $light_theme || echo $dark_theme))
+exists vivid && LS_COLORS=$(vivid generate $(is_dark && echo $dark_theme || echo $light_theme))
 export LS_COLORS
 
 # zsh-autosuggestions. https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file#configuration
 autosuggest_light_theme="#808080"
 autosuggest_dark_theme="#585858"
-autosuggest_theme=$(is_dark && echo $autosuggest_light_theme || echo $autosuggest_dark_theme)
+autosuggest_theme=$(is_dark && echo $autosuggest_dark_theme || echo $autosuggest_light_theme)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=${autosuggest_theme},italic"
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 # ZSH_AUTOSUGGEST_CLEAR_WIDGETS # TODO: Add widgets like atuin & autocomplete
@@ -135,7 +136,7 @@ export NNN_TRASH=0
 BAT_LIGHT_THEME="Catppuccin Latte"
 BAT_DARK_THEME="Catppuccin Mocha"
 export BAT_OPTS="--color=always"
-export BAT_THEME="$(is_dark && echo $BAT_LIGHT_THEME || echo $BAT_DARK_THEME)"
+export BAT_THEME="$(is_dark && echo $BAT_DARK_THEME || echo $BAT_LIGHT_THEME)"
 export BAT_STYLE="plain"
 export BAT_PAGER="less -RS"
 
@@ -143,7 +144,7 @@ export BAT_PAGER="less -RS"
 LG_LIGHT_THEME="$XDG_CONFIG_HOME/lazygit/themes/latte/sapphire.yml"
 LG_DARK_THEME="$XDG_CONFIG_HOME/lazygit/themes/frappe/sapphire.yml"
 LG_MAIN_CONFIG="$XDG_CONFIG_HOME/lazygit/config.yml"
-export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_dark && echo $LG_LIGHT_THEME || echo $LG_DARK_THEME)"
+export LG_CONFIG_FILE="${LG_MAIN_CONFIG},$(is_dark && echo $LG_DARK_THEME || echo $LG_LIGHT_THEME)"
 
 # enhancd - https://github.com/babarot/enhancd
 export ENHANCD_FILTER=fzf

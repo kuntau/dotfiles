@@ -23,7 +23,7 @@ FZF_COLOR_FRAPPE=" \
   --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
   --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
   --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
-export FZF_THEME="$(is_day && echo $FZF_COLOR_LATTE || echo $FZF_COLOR_FRAPPE)"
+export FZF_THEME="$(is_dark && echo $FZF_COLOR_FRAPPE || echo $FZF_COLOR_LATTE)"
 
 export FZF_PREVIEW_OPTS="(bat --style plain --wrap never --color always {} || cat {} || tree -C {}) 2> /dev/null | head -200"
 export FZF_PREVIEW_WINDOW_RIGHT="--preview-window wrap --bind '?:toggle-preview'"
