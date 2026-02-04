@@ -77,15 +77,12 @@ local config_null = function()
   })
 end
 
-local function config_aerial()
-  require('aerial').setup({
-    on_attach = function(bufnr)
-      local nmap = require('utils').nmap
-      nmap('}', '<cmd>AerialNext<cr>', { buffer = bufnr, desc = 'Aerial Next' })
-      nmap('{', '<cmd>AerialPrev<cr>', { buffer = bufnr, desc = 'Aerial Prev' })
-    end,
-  })
-end
+local option_aerial = {
+  on_attach = function(bufnr)
+    vim.keymap.set('n', '}', '<cmd>AerialNext<cr>', { buffer = bufnr, desc = 'Aerial Next' })
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<cr>', { buffer = bufnr, desc = 'Aerial Prev' })
+  end,
+}
 
 return {
   {
@@ -101,8 +98,8 @@ return {
         config = true,
         opts = {
           providers = {
-            "mason.providers.client",
-            "mason.providers.registry-api",
+            'mason.providers.client',
+            'mason.providers.registry-api',
           },
         },
       }, -- Auto/manage LSP
@@ -113,9 +110,9 @@ return {
           automatic_enable = true,
           -- ensure_installed = _ensure_installed,
         },
-      },  -- Bridge for mason-LSP config
-      { 'stevearc/aerial.nvim', cmd = 'AerialToggle', config = config_aerial },
-      { 'nvimtools/none-ls.nvim', dependencies = { "nvimtools/none-ls-extras.nvim" }, config = config_null }, -- Bridge LSP
+      }, -- Bridge for mason-LSP config
+      { 'stevearc/aerial.nvim', cmd = 'AerialToggle', opts = option_aerial },
+      { 'nvimtools/none-ls.nvim', dependencies = { 'nvimtools/none-ls-extras.nvim' }, config = config_null }, -- Bridge LSP
     },
   },
 }
