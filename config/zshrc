@@ -11,8 +11,8 @@ HOST_NAME=$(hostname)
 DOTFILES=$HOME/dotfiles
 ZHOME=$HOME/.znap
 
-exists() { [[ ${+commands[$1]} ]]; }
-is_day() { [[ "$(date +%H)" -ge 8 && "$(date +%H)" -lt 19 ]]; }
+exists() { whence -p "$1" > /dev/null 2>&1 }
+is_day() { [[ "$(date +%H)" -ge 8 && "$(date +%H)" -lt 19 ]] }
 macos_dark() { [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]] }
 android_dark() { [[ "$(/system/bin/am get-config 2>/dev/null | grep -oE "night|notnight")" == "night" ]] }
 is_dark() {
