@@ -1,50 +1,39 @@
 -- All about the YANK. So far Yanky is the best
 
-local config = function()
-  local wk = require('which-key')
-
-  wk.add({
-    -- Show yank history with Snacks.picker
-    { '""',  function() Snacks.picker.yanky() end, desc = "Open yanky history" },
-    -- Yank-ring
-    { "<A-n>", "<Plug>(YankyCycleForward)", desc = "YankRing cycle forward" },
-    { "<A-p>", "<Plug>(YankyCycleBackward)", desc = "YankRing cycle backward" },
-    -- unimpaired like, don't need this if we have vim-unimpaired
-    { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Yanky PutIndent before Linewise" },
-    { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Yanky PutIndent before Linewise" },
-    { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Yanky PutIndent after Linewise" },
-    { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Yanky PutIndent after Linewise" },
-    -- paste with indent
-    { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Yanky PutIndent before shift left" },
-    { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Yanky PutIndent after shift left" },
-    { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Yanky PutIndent before shift right" },
-    { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Yanky PutIndent after shift right" },
-    {
-      mode = { "n", "x" },
-      -- restore cursor after yank
-      { "y", "<Plug>(YankyYank)", desc = "Yank & restore cursor" },
-      -- Standard pasting
-      { "p", "<Plug>(YankyPutAfter)", desc = "Yanky Put After" },
-      { "P", "<Plug>(YankyPutBefore)", desc = "Yanky Put Before" },
-      { "gp", "<Plug>(YankyGPutAfter)", desc = "Yanky GPut After" },
-      { "gP", "<Plug>(YankyGPutBefore)", desc = "Yanky GPut Before" },
-      -- Special
-      { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Yanky Put After" },
-      { "=gP", "<Plug>(YankyGPutBeforeFilter)", desc = "Yanky Put After" },
-      { "=gp", "<Plug>(YankyGPutAfterFilter)", desc = "Yanky Put After" },
-      { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Yanky Put After" },
-    },
-  })
-
-  require('yanky').setup({
-    ring = { storage = 'sqlite' },
-  })
-end
-
 return {
   {
     'gbprod/yanky.nvim',
     event = 'VeryLazy',
-    config = config,
+    opts = {
+      ring = { storage = 'sqlite' },
+      system_clipboard = {
+        sync_with_ring = not vim.env.SSH_CONNECTION,
+      },
+      highlight = { timer = 150 },
+    },
+    keys = {
+      { '<leader>p', function() Snacks.picker.yanky() end, mode = { 'n', 'x' }, desc = 'Open Yank History' },
+      { '<A-n>', '<Plug>(YankyCycleForward)', desc = 'YankRing cycle forward' },
+      { '<A-p>', '<Plug>(YankyCycleBackward)', desc = 'YankRing cycle backward' },
+      { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank Text' },
+      { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, desc = 'Put Text After Cursor' },
+      { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, desc = 'Put Text Before Cursor' },
+      { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, desc = 'Put Text After Selection' },
+      { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'Put Text Before Selection' },
+      { '[y', '<Plug>(YankyCycleForward)', desc = 'Cycle Forward Through Yank History' },
+      { ']y', '<Plug>(YankyCycleBackward)', desc = 'Cycle Backward Through Yank History' },
+      { ']p', '<Plug>(YankyPutIndentAfterLinewise)', desc = 'Put Indented After Cursor (Linewise)' },
+      { '[p', '<Plug>(YankyPutIndentBeforeLinewise)', desc = 'Put Indented Before Cursor (Linewise)' },
+      { ']P', '<Plug>(YankyPutIndentAfterLinewise)', desc = 'Put Indented After Cursor (Linewise)' },
+      { '[P', '<Plug>(YankyPutIndentBeforeLinewise)', desc = 'Put Indented Before Cursor (Linewise)' },
+      { '>p', '<Plug>(YankyPutIndentAfterShiftRight)', desc = 'Put and Indent Right' },
+      { '<p', '<Plug>(YankyPutIndentAfterShiftLeft)', desc = 'Put and Indent Left' },
+      { '>P', '<Plug>(YankyPutIndentBeforeShiftRight)', desc = 'Put Before and Indent Right' },
+      { '<P', '<Plug>(YankyPutIndentBeforeShiftLeft)', desc = 'Put Before and Indent Left' },
+      { '=p', '<Plug>(YankyPutAfterFilter)', desc = 'Put After Applying a Filter' },
+      { '=P', '<Plug>(YankyPutBeforeFilter)', desc = 'Put Before Applying a Filter' },
+      { '=gp', '<Plug>(YankyGPutAfterFilter)', desc = 'Put After Applying a Filter' },
+      { '=gP', '<Plug>(YankyGPutBeforeFilter)', desc = 'Put Before Applying a Filter' },
+    },
   },
 }
