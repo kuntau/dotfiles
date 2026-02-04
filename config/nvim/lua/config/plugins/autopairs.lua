@@ -104,6 +104,6 @@ end
 
 return {
   'windwp/nvim-autopairs',
-  event = 'InsertEnter *.*',
-  config = config,
+  event = 'InsertEnter',
+  config = true,
 }
