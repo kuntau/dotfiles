@@ -2,36 +2,29 @@
 
 local animation = true
 
-local config_windows = function()
-  local min_width = 5
-  vim.o.winwidth = min_width
-  vim.o.winminwidth = min_width
-  vim.o.equalalways = false
-
-  require('windows').setup({
-    autowidth = {
-      enable = true,
-      winwidth = 0.4,
+local option_windows = {
+  autowidth = {
+    enable = true,
+    winwidth = 0.4,
+  },
+  ignore = {
+    -- buftype = { 'quickfix', 'nofile', 'terminal' },
+    filetype = {
+      'NvimTree',
+      'DiffviewFiles',
+      'undotree',
+      'aerial',
+      'Outline',
+      'gitcommit',
+      'snacks_picker_list',
     },
-    ignore = {
-      -- buftype = { 'quickfix', 'nofile', 'terminal' },
-      filetype = {
-        'NvimTree',
-        'DiffviewFiles',
-        'undotree',
-        'aerial',
-        'Outline',
-        'gitcommit',
-        'snacks_picker_list',
-      },
-    },
-    animation = {
-      enable = animation, -- BROKEN: broke term, neogit
-      duration = 150,
-      easing = 'line',
-    },
-  })
-end
+  },
+  animation = {
+    enable = animation, -- BROKEN: broke term, neogit
+    duration = 150,
+    easing = 'line',
+  },
+}
 
 return {
   {
@@ -43,7 +36,13 @@ return {
       { '<C-w>|', '<cmd>WindowsMaximizeHorizontally<cr>', desc = 'Windows Maximize Horizontally' },
       { '<C-w>=', '<cmd>WindowsEqualize<cr>', desc = 'Windows Equalize' },
     },
-    config = config_windows,
+    init = function()
+      local min_width = 5
+      vim.o.winwidth = min_width
+      vim.o.winminwidth = min_width
+      vim.o.equalalways = false
+    end,
+    opts = option_windows,
     dependencies = {
       'anuvyklack/middleclass',
       { 'anuvyklack/animation.nvim', enabled = animation },
