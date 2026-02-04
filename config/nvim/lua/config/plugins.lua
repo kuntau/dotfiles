@@ -82,6 +82,8 @@ return {
         { "<Leader>d", group = "Debug" },
         { "<Leader>f", group = "Find" },
         { "<Leader>g", group = "Git" },
+        { "<Leader>h", group = "GitSigns" },
+        { "<Leader>ht", group = "GitSigns Toggle" },
         { "<Leader>o", group = "Toggle" },
         { "<Leader>l", group = "LSP" },
         { "<Leader>lw", group = "LSP" },
