@@ -86,7 +86,7 @@ return {
         { "<Leader>l", group = "LSP" },
         { "<Leader>lw", group = "LSP" },
         { "<Leader>r", group = "Reload" },
-        { "<Leader>s", group = "Diagnostics" },
+        { "<Leader>s", group = "Snacks" },
         { "<Leader>z", group = "Folds" },
       })
     end,
