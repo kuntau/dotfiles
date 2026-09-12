@@ -11,7 +11,7 @@ gui:
   expandFocusedSidePanel: false
   timeFormat: 02 Jan 06 15:04 MST
   commitLength:
-      show: true
+    show: true
   skipNoStagedFilesWarning: false
   showListFooter: true
   showFileTree: true
@@ -19,16 +19,15 @@ gui:
   showCommandLog: true
   showBottomLine: true
   commandLogSize: 8
-
   # UI Improvements
   showIcons: true
   sidePanelWidth: 0.33
   mainPanelSplitMode: 'flexible'
   language: 'auto'
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --paging=never
+      command: delta --paging=never
   parseEmoji: true
 os:
   editCommand: 'nvim'
