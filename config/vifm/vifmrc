@@ -108,6 +108,9 @@ command! run !! ./%f
 command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! reload :write | restart full
+command! z :execute 'cd' fnameescape(system('zoxide query %a'))
+command! zi :execute 'cd' fnameescape(system('zoxide query -l | fzf 2>/dev/tty'))
+command! fzf :execute system('file=$(fd --type f --hidden --exclude .git | fzf 2>/dev/tty); [ -n "$file" ] && printf "goto \"%s\"" "$file"')
 
 " ------------------------------------------------------------------------------
 " File handlers and previewers
