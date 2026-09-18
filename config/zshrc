@@ -240,11 +240,17 @@ exists go       && PATH=$HOME/go/bin:$PATH                # go binary path
 exists npm      && NPM_CONFIG_PREFIX=$HOME/.npm-global    # npm -g install location
 exists npm      && PATH=$HOME/.npm-global/bin:$PATH       # npm global binary path
 exists pnpm     && PNPM_HOME=$HOME/.npm-global/bin        # pnpm global binary path
-exists snap     && PATH=/snap/bin:$PATH                   # snap binary path
+exists snap     && PATH=$HOME/snap/bin:$PATH              # snap binary path
 exists python3  && PATH=$HOME/.local/bin:$PATH            # pip app binary path
 exists znap     && PATH=$ZHOME/BigH/git-fuzzy/bin:$PATH   # git fuzzy binary path
 exists znap     && PATH=$ZHOME/junegunn/fzf/bin:$PATH     # fzf binary path
 export PATH=$DOTFILES/bin:$PATH                           # dotfiles binary path
+
+export PNPM_HOME="/home/kuntau/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # Completions - Znap way
 exists atuin       && znap function _atuin atuin 'eval "$(atuin gen-completions --shell zsh)"'
